@@ -1,0 +1,218 @@
+[
+  {
+    "id": "D-001",
+    "type": "feature",
+    "description": "Scaffold dos dois projetos: Vite + React 19 + TS + Tailwind 4 + shadcn (radix-nova) + Phosphor Icons. Um projeto em mocks/keep-biz/ e outro em mocks/keep-solo/. Estrutura de pastas src/, data/, public/.",
+    "score": 10,
+    "justification": "Pré-requisito absoluto — nenhuma outra feature pode existir sem o scaffold. Inclui configuração do shadcn via preset b43fNjKT2 e estrutura base dos projetos.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-002",
+    "type": "feature",
+    "description": "Dados mock realistas em data/ para cada app: workflows (5 itens com departamento/status), agentes (4 com role/status/heartbeat), conectores (6 variados), conteúdo (3+ itens com status), leads (8-10) e menções (5-8 para KeepBiz).",
+    "score": 10,
+    "justification": "Pré-condição para todas as telas renderizarem com conteúdo convincente. Sem dados coerentes o demo parece placeholder. Deve usar nomes e contextos próximos dos clientes piloto reais (Processa Sistemas, Cia Cuidadores).",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-003",
+    "type": "feature",
+    "description": "i18n setup com 3 idiomas (en, es, pt). Arquivos de tradução por locale. Seletor de idioma no header e/ou configurações. Default: Português. Todas as strings de UI via sistema de i18n desde o scaffold.",
+    "score": 9,
+    "justification": "Deve ser configurado junto com o scaffold. Migrar strings hardcoded depois é retrabalho garantido. i18n é requisito transversal que afeta todos os componentes.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-004",
+    "type": "feature",
+    "description": "KeepBiz — shell completo: sidebar no desktop (3 zonas: Social Monitor, Content Forge, Agent Core), bottom nav no mobile, Orchestrator Bar persistente com Team Status (green/yellow/red), sub-rotas dentro de cada zona. Tom corporativo, cores frias, linhas retas.",
+    "score": 9,
+    "justification": "Estrutura de navegação base do KeepBiz. Define a arquitetura de rotas e o padrão visual corporativo. A Orchestrator Bar é diferencial único e deve estar presente desde o início.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-005",
+    "type": "feature",
+    "description": "KeepSolo — shell completo: bottom nav com 3 ícones (Eye/Monitor, Pen/Create, Robot/Agents), sub-rotas dentro de cada room. Tom pessoal, cores quentes, cantos arredondados.",
+    "score": 9,
+    "justification": "Estrutura de navegação base do KeepSolo. Difere do KeepBiz intencionalmente em visual e complexidade. Mobile-first é requisito funcional para o solopreneur.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-006",
+    "type": "feature",
+    "description": "Pipeline de deploy funcional no detail panel do workflow: stepper horizontal com estados mapeado → app em criação → app pronto → implantado → agente treinando → agente ativo. Botões com delays simulados por estado.",
+    "score": 10,
+    "justification": "Coração da narrativa do produto. É o clímax do pitch que demonstra a hipótese central: mapear → construir → implantar → treinar → ativar. Sem isso o demo não conta a história.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-007",
+    "type": "feature",
+    "description": "Lista de workflows com dados mock (nome, departamento, status no pipeline, agente associado, data). Wizard de mapeamento: KeepBiz 4 etapas (descrever + mic decorativo, departamento, ferramentas, confirmar), KeepSolo 3 etapas. Ao finalizar: novo workflow com status 'mapeado'.",
+    "score": 9,
+    "justification": "Ponto de entrada da jornada principal. Demonstra o início do loop e a experiência de onboarding do cliente. O wizard com ícone de mic reforça o conceito voice-first.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-008",
+    "type": "feature",
+    "description": "Lista e detail panel de agentes. KeepBiz: nome, role, departamento, status (Idle/Working/Waiting), heartbeat visual. Detail: Play/Pause com confirmação, Atividades (timeline), Treinamento (barra), 'Conversar'. KeepSolo: card 'Meu Agente' com controles diretos e hints autônomos.",
+    "score": 9,
+    "justification": "Demonstra o estado pós-pipeline: agentes ativos com identidade própria (Invoice Hunter, Lead Nurturer etc). É onde o cliente vê a 'equipe' de agentes funcionando.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-009",
+    "type": "feature",
+    "description": "Animação especial de ativação do heartbeat: ao clicar 'Ativar Heartbeat' no pipeline, animação de pulse expandido (3 rings) + confetti. Transição para status 'agente ativo'. Agente aparece automaticamente na lista de agentes com heartbeat pulsante.",
+    "score": 9,
+    "justification": "Momento mais memorável do demo. É o clímax emocional da hipótese — o momento em que o agente 'assume'. Uma animação polida aqui define se o cliente vai lembrar do produto.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-010",
+    "type": "feature",
+    "description": "Memória do agente: itens agrupados por categoria (operações, preferências, regras). Remover item (X) com confirmação. 'Ensinar algo novo' → textarea + confirmar → item aparece imediatamente.",
+    "score": 8,
+    "justification": "Demonstra o controle humano sobre o agente — que o cliente pode ensinar e corrigir. Reforça confiança: o agente não é uma caixa preta.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-011",
+    "type": "feature",
+    "description": "Chat funcional com agentes. KeepBiz: seletor de agente + painel de contexto no desktop (memória, status). KeepSolo: chat direto. Pool de 5-8 respostas contextuais por agente. Indicador 'digitando...' 1-2s, scroll automático, input limpo após envio.",
+    "score": 8,
+    "justification": "Demonstra interação direta com o agente e personalidade individual por role. É onde o cliente experimenta que os agentes 'conhecem' o contexto do negócio.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-012",
+    "type": "feature",
+    "description": "Conectores. KeepBiz: grid com ícone/nome/status, filtros por categoria (pills funcionais), catálogo de adição, painel de config mock, desconectar com confirmação. KeepSolo: lista simplificada 'Minhas Ferramentas' com adicionar e desconectar.",
+    "score": 7,
+    "justification": "Prova que os agentes operam ferramentas reais do cliente (Google Workspace, WhatsApp, ERP via MCP). Essencial para mostrar que não é uma ilha — o produto se integra ao que o cliente já usa.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-013",
+    "type": "feature",
+    "description": "Orchestrator Bar persistente no KeepBiz: barra horizontal fixa com Team Status indicator (green = todos ativos, yellow = gargalo, red = problema), contagem de agentes ativos, animação suave de transição de estado.",
+    "score": 8,
+    "justification": "Diferencial visual único do KeepBiz — não existe em nenhum SaaS convencional. Reforça a ideia de 'equipe de agentes' gerenciada. Um detalhe bem executado que fica na memória.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-014",
+    "type": "feature",
+    "description": "Social Monitor KeepBiz: feed de menções (texto, fonte, sentimento, data), score de reputação com trend, alertas clicáveis, gráfico de trends, filtro por fonte. Seletor de período (7d/30d/90d) funcional.",
+    "score": 7,
+    "justification": "Zona 1 do KeepBiz — demonstra o valor de monitoramento de marca. Importante para PMEs que se preocupam com reputação online. Dados mock com sentimento variado tornam convincente.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-015",
+    "type": "feature",
+    "description": "Monitor KeepSolo: KPIs (leads novos, conversões, receita, performance), lista de leads com Sheet de detalhes, funil visual com filtragem por etapa, performance de conteúdo. Seletor de período funcional.",
+    "score": 7,
+    "justification": "Zona 1 do KeepSolo — o painel de controle do solopreneur. Mostra que o produto não é só automação, mas também visibilidade do negócio. Click em funil + leads é a interação chave.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-016",
+    "type": "feature",
+    "description": "Content Forge KeepBiz: lista/grid com status badges, filtro por status, dialog de nova campanha (título/tipo/plataforma/autor/briefing/data), preview panel com aprovação/revisão/agendamento, swarm indicator, calendário mensal/semanal.",
+    "score": 6,
+    "justification": "Zona 2 do KeepBiz. Demonstra o output de conteúdo gerado pelos agentes. O swarm indicator é visualmente interessante mas é zona secundária ao loop principal de agentes.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-017",
+    "type": "feature",
+    "description": "Create KeepSolo: grid de cards com thumbnail/título/status, dialog simplificado de criação, aprovação e publicação com badge update em tempo real, calendário simples mensal.",
+    "score": 6,
+    "justification": "Zona 2 do KeepSolo. Versão simplificada do Content Forge. Menos crítica que a zona de agentes mas necessária para completar os 3 rooms.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-018",
+    "type": "feature",
+    "description": "Integração OpenAI para gerar criativos mock: usar DALL-E para gerar thumbnails de conteúdo, imagens de campanha e assets visuais que populam o Content Forge e Monitor. Usar OPENAI_API_KEY disponível no TASK.md.",
+    "score": 7,
+    "justification": "Assets visuais gerados por IA elevam significativamente a credibilidade do demo. Um mock com imagens reais parece produto; um mock com placeholder 'img' parece wireframe. Diferença de impacto no pitch.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-019",
+    "type": "feature",
+    "description": "Audit log KeepBiz: tabela de ações recentes (quem triggered, que dado tocou, timestamp, resultado). Acessível via Agent Core e via Configurações.",
+    "score": 6,
+    "justification": "Demonstra transparência e controle para o gestor da PME. Importante para empresas que vão fazer deploy on-premise e precisam de rastreabilidade — especialmente para ações high-stakes.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-020",
+    "type": "feature",
+    "description": "KeepBiz Configurações: perfil da empresa (edit/save/toast), equipe (lista + convidar com email e role), notificações (toggles por categoria), plano (card + upgrade mock), seletor de idioma.",
+    "score": 5,
+    "justification": "Admin necessário para completude do produto. Não é o pitch, mas um cliente que navega o demo vai chegar aqui. Deve parecer funcional mesmo que não seja crítico.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-021",
+    "type": "feature",
+    "description": "KeepSolo Config: perfil pessoal (edit/save/toast), notificações simplificadas (toggles), plano (card + upgrade mock), seletor de idioma.",
+    "score": 5,
+    "justification": "Admin simplificado do KeepSolo. Equivalente ao D-020 mas com menos seções. Necessário para completude dos 3 rooms.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-022",
+    "type": "feature",
+    "description": "RBAC lite KeepBiz: presets Admin/Operador/Viewer visíveis no perfil de membro de equipe. Human-in-loop: dialog de confirmação quando agente executa ação high-stakes (dinheiro, contrato). Auto-prompt ao criar agente: 'Standalone bot or wrap in app?'",
+    "score": 6,
+    "justification": "Diferencial para PME com equipe — mostra que há controle de quem faz o quê. O human-in-loop é chave para construir confiança: o cliente sabe que tem veto sobre o agente.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-023",
+    "type": "feature",
+    "description": "Identidade visual e responsividade: KeepBiz com cores frias (blues/grays, density alta), KeepSolo com cores quentes (ambers/oranges, cantos arredondados). Mobile-first real: bottom nav acessível, thumb zones respeitadas, cards não apertados em tela pequena.",
+    "score": 7,
+    "justification": "Mobile-first não é detalhe — é requisito funcional. O bottom nav em ambos os apps é arquitetura de navegação, não estilo. As identidades visuais distintas são o que diferencia os dois produtos visualmente.",
+    "sprint": 2,
+    "implemented": false
+  },
+  {
+    "id": "D-024",
+    "type": "feature",
+    "description": "Estados e transições: empty states educativos para listas vazias (com CTA para criar primeiro item), loading skeletons para ações com delay (gerar app, treinar), transições suaves entre estados, heartbeat pulsante com 3 rings animados, dark mode funcional, ícones Phosphor duotone consistentes.",
+    "score": 6,
+    "justification": "Polimento que separa um demo 'funcional' de um demo 'polido'. Os skeletons durante o pipeline de deploy são especialmente importantes — sem eles o delay simulado parece bug.",
+    "sprint": 2,
+    "implemented": false
+  }
+]
