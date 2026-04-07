@@ -597,7 +597,7 @@
     "id": "F-025",
     "name": "KeepBiz Settings — profile + team + RBAC",
     "description": "Implementar configurações do KeepBiz em /settings (parte 1). Perfil da empresa: form com campos (nome, CNPJ, endereço, logo placeholder), botão Edit habilita campos, Save salva + toast de confirmação. Equipe: lista de membros (nome, email, role badge), botão 'Convidar' abre Dialog (email + role select: Admin/Operador/Viewer), ao submeter membro aparece na lista. RBAC lite: permissões visíveis no perfil do membro (Admin = acesso total, Operador = operar agentes + aprovar conteúdo, Viewer = somente leitura).",
-    "status": "pending",
+    "status": "passing",
     "priority": 13,
     "agent": "coder",
     "task": "vibe-code",
@@ -615,7 +615,8 @@
       "Roles Admin/Operador/Viewer visíveis como badges",
       "Permissões visíveis ao clicar no perfil do membro"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-013-admin-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-013-admin-config.md",
+    "completed_at": "2026-04-07T14:00:00Z"
   },
   {
     "id": "F-026",
