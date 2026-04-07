@@ -547,7 +547,7 @@
     "id": "F-023",
     "name": "KeepBiz Content Forge — calendar",
     "description": "Completar Content Forge do KeepBiz (parte 2). Calendário em /content/calendar: view mensal (grid CSS com dias, dots/items nos dias com conteúdo) e view semanal (7 colunas com mais detalhe). Toggle Mensal/Semanal no desktop. Click em item no calendário abre detail panel. Click em dia vazio abre Dialog de criação com data pre-preenchida. Itens do calendário refletem dados de conteúdo do state (incluindo novos criados).",
-    "status": "blocked",
+    "status": "pending",
     "priority": 12,
     "agent": "coder",
     "task": "vibe-code",
@@ -570,7 +570,7 @@
     "id": "F-024",
     "name": "KeepSolo Create",
     "description": "Implementar seção Create do KeepSolo em /create. Grid de cards: thumbnail (placeholder colorido), título, status badge (Rascunho cinza / Pronto blue / Publicado green), canal. Botão 'Criar post' abre Dialog simplificado: título, tipo, canal, briefing, data. Ao submeter: card aparece no grid com status 'rascunho'. Ações diretas nos cards: 'Aprovar' (→ pronto), 'Publicar' (→ publicado) — badges atualizam. Calendário simples mensal em /create/calendar: grid com dots nos dias com conteúdo, click em item abre detalhe.",
-    "status": "pending",
+    "status": "passing",
     "priority": 11,
     "agent": "coder",
     "task": "vibe-code",
@@ -589,7 +589,8 @@
       "Click em item do calendário abre detalhe",
       "Design KeepSolo aplicado"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-012-create-keepsolo.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-012-create-keepsolo.md",
+    "completed_at": "2026-04-07T23:30:00Z"
   },
   {
     "id": "F-025",

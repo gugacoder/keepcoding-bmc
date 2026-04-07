@@ -78,6 +78,7 @@ export interface Connector {
 export type ContentStatus =
   | 'rascunho'
   | 'em_revisao'
+  | 'pronto'
   | 'aprovado'
   | 'agendado'
   | 'publicado';
