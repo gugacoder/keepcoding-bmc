@@ -41,6 +41,7 @@ export interface Agent {
   trainingProgress: number;
   activities: AgentActivity[];
   memory: MemoryItem[];
+  avatar?: string;
 }
 
 export interface AgentActivity {
@@ -97,6 +98,7 @@ export interface ContentItem {
   targetDate: string;
   createdAt: string;
   statusHistory: StatusHistoryEntry[];
+  thumbnail?: string;
 }
 
 export interface StatusHistoryEntry {

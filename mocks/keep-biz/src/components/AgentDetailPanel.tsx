@@ -17,6 +17,7 @@ import {
 } from '@phosphor-icons/react'
 import type { Agent, AgentStatus, MemoryItem } from '@/data/types'
 import { useAgents } from '@/contexts/AgentsContext'
+import { AgentAvatar } from '@/components/AgentAvatar'
 
 const STATUS_COLOR: Record<AgentStatus, string> = {
   Working: 'bg-emerald-100 text-emerald-700',
@@ -237,9 +238,12 @@ export function AgentDetailPanel({ agent, onClose }: Props) {
       <div className="flex flex-col h-full bg-white border-l border-slate-200">
         {/* Header */}
         <div className="px-5 py-4 border-b border-slate-200 flex items-start justify-between flex-shrink-0">
-          <div>
-            <h2 className="text-sm font-semibold text-slate-900">{liveAgent.name}</h2>
-            <p className="text-xs text-slate-500 mt-0.5">{liveAgent.role}</p>
+          <div className="flex items-center gap-3">
+            <AgentAvatar agent={liveAgent} size="md" />
+            <div>
+              <h2 className="text-sm font-semibold text-slate-900">{liveAgent.name}</h2>
+              <p className="text-xs text-slate-500 mt-0.5">{liveAgent.role}</p>
+            </div>
           </div>
           <button
             onClick={onClose}

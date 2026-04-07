@@ -36,9 +36,24 @@ const CHANNEL_THUMB: Record<string, { gradient: string; Icon: React.ElementType 
   Blog:      { gradient: 'from-emerald-400 to-teal-600', Icon: Article },
 }
 
-function Thumbnail({ channel }: { channel: string }) {
+function Thumbnail({ channel, thumbnail }: { channel: string; thumbnail?: string }) {
   const cfg = CHANNEL_THUMB[channel] ?? { gradient: 'from-amber-400 to-orange-500', Icon: Globe }
   const { gradient, Icon } = cfg
+  const [imgError, setImgError] = useState(false)
+
+  if (thumbnail && !imgError) {
+    return (
+      <div className="w-full h-28 rounded-xl overflow-hidden mb-4">
+        <img
+          src={thumbnail}
+          alt=""
+          className="w-full h-full object-cover"
+          onError={() => setImgError(true)}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className={`w-full h-28 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4`}>
       <Icon size={36} weight="duotone" className="text-white/80" />
@@ -59,7 +74,7 @@ function ContentCard({ item, onApprove, onPublish }: {
   return (
     <div className="bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
       <div className="p-4 pb-0">
-        <Thumbnail channel={item.channel} />
+        <Thumbnail channel={item.channel} thumbnail={item.thumbnail} />
       </div>
       <div className="p-4 pt-0 space-y-3">
         {/* Status + channel row */}

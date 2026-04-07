@@ -17,6 +17,7 @@ import { EmptyState } from '@/components/EmptyState'
 import { SkeletonCard } from '@/components/Skeleton'
 import { useEffect } from 'react'
 import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
+import { ContentThumbnail } from '@/components/ContentThumbnail'
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
@@ -432,21 +433,27 @@ function ContentCard({ item, onClick }: { item: ContentItem; onClick: () => void
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-md border border-slate-200 p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+      className="bg-white rounded-md border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
     >
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="text-sm font-medium text-slate-800 leading-snug line-clamp-2 flex-1">{item.title}</h3>
-        <StatusBadge status={item.status} />
+      {/* Thumbnail */}
+      <div className="h-32 overflow-hidden">
+        <ContentThumbnail thumbnail={item.thumbnail} type={item.type} title={item.title} />
       </div>
-      <div className="flex items-center gap-2 text-xs text-slate-500 mt-2 flex-wrap">
-        <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{TYPE_LABEL[item.type]}</span>
-        <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{item.platform}</span>
-        <span>{item.author}</span>
-      </div>
-      <p className="text-xs text-slate-400 mt-2 line-clamp-2">{item.briefing}</p>
-      <div className="flex items-center gap-1 mt-3 text-xs text-slate-400">
-        <CalendarBlank size={12} />
-        {new Date(item.targetDate).toLocaleDateString('pt-BR')}
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="text-sm font-medium text-slate-800 leading-snug line-clamp-2 flex-1">{item.title}</h3>
+          <StatusBadge status={item.status} />
+        </div>
+        <div className="flex items-center gap-2 text-xs text-slate-500 mt-2 flex-wrap">
+          <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{TYPE_LABEL[item.type]}</span>
+          <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{item.platform}</span>
+          <span>{item.author}</span>
+        </div>
+        <p className="text-xs text-slate-400 mt-2 line-clamp-2">{item.briefing}</p>
+        <div className="flex items-center gap-1 mt-3 text-xs text-slate-400">
+          <CalendarBlank size={12} />
+          {new Date(item.targetDate).toLocaleDateString('pt-BR')}
+        </div>
       </div>
     </div>
   )

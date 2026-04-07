@@ -5,6 +5,7 @@ export const agents: Agent[] = [
     id: 'agent-s-001',
     name: 'Meu Agente',
     role: 'Assistente Pessoal de Negócios',
+    avatar: '/assets/avatar-generic.png',
     status: 'Working',
     heartbeat: true,
     lastActive: '2026-04-07T11:55:00Z',

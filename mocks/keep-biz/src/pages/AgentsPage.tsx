@@ -4,6 +4,7 @@ import { useAgents } from '@/contexts/AgentsContext'
 import { AgentDetailPanel } from '@/components/AgentDetailPanel'
 import { EmptyState } from '@/components/EmptyState'
 import { SkeletonAgentCard } from '@/components/Skeleton'
+import { AgentAvatar } from '@/components/AgentAvatar'
 import type { Agent, AgentStatus, Department } from '@/data/types'
 
 const STATUS_COLOR: Record<AgentStatus, string> = {
@@ -131,8 +132,13 @@ export function AgentsPage() {
                     }`}
                   >
                     <td className="px-4 py-3">
-                      <div className="font-medium text-slate-900">{agent.name}</div>
-                      <div className="text-xs text-slate-500">{agent.role}</div>
+                      <div className="flex items-center gap-3">
+                        <AgentAvatar agent={agent} size="sm" />
+                        <div>
+                          <div className="font-medium text-slate-900">{agent.name}</div>
+                          <div className="text-xs text-slate-500">{agent.role}</div>
+                        </div>
+                      </div>
                     </td>
                     <td className="px-4 py-3">
                       <span className="px-2 py-0.5 text-xs bg-blue-50 text-blue-700 rounded font-medium">
@@ -193,9 +199,12 @@ export function AgentsPage() {
                 className="bg-white rounded-md border border-slate-200 p-4 shadow-sm active:shadow-md cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-900">{agent.name}</h3>
-                    <p className="text-xs text-slate-500 mt-0.5">{agent.role}</p>
+                  <div className="flex items-center gap-2">
+                    <AgentAvatar agent={agent} size="sm" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-900">{agent.name}</h3>
+                      <p className="text-xs text-slate-500 mt-0.5">{agent.role}</p>
+                    </div>
                   </div>
                   <span
                     className={`flex items-center gap-1.5 px-2 py-0.5 text-xs rounded-full font-medium ${STATUS_COLOR[agent.status]}`}

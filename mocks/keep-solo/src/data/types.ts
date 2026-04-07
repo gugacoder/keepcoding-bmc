@@ -33,6 +33,7 @@ export interface Agent {
   activities: AgentActivity[];
   memory: MemoryItem[];
   hints: AgentHint[];
+  avatar?: string;
 }
 
 export interface AgentActivity {
@@ -98,6 +99,7 @@ export interface ContentItem {
   views?: number;
   clicks?: number;
   engagement?: number;
+  thumbnail?: string;
 }
 
 export type LeadStatus = 'visitante' | 'lead' | 'contato' | 'proposta' | 'cliente' | 'perdido';

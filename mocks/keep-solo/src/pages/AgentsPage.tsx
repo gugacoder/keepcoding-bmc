@@ -141,8 +141,12 @@ export function AgentsPage() {
           <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-6 pb-8">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                  <Robot size={28} weight="duotone" className="text-white" />
+                <div className="w-14 h-14 rounded-2xl overflow-hidden bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                  {agent.avatar ? (
+                    <img src={agent.avatar} alt={agent.name} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+                  ) : (
+                    <Robot size={28} weight="duotone" className="text-white" />
+                  )}
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-white">{agent.name}</h2>
