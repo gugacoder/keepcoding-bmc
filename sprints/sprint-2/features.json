@@ -374,7 +374,7 @@
     "id": "F-016",
     "name": "KeepSolo agent chat",
     "description": "Implementar chat com agente no KeepSolo em /agents/chat. Layout full-width (sem seletor — é sempre 'meu agente'). Bolhas diferenciadas, input por Enter ou click, indicador 'digitando...' 1-2s, pool de 5-8 respostas contextuais que variam conforme palavras-chave do input do usuário. Scroll automático, input limpa após envio. Design pessoal KeepSolo (cantos arredondados, cores quentes).",
-    "status": "pending",
+    "status": "passing",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -392,7 +392,8 @@
       "Scroll automático para última mensagem",
       "Design KeepSolo aplicado (cantos arredondados, cores quentes)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-007-agent-chat.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-007-agent-chat.md",
+    "completed_at": "2026-04-07T18:00:00Z"
   },
   {
     "id": "F-017",
