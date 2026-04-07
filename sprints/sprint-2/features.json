@@ -224,7 +224,7 @@
     "id": "F-010",
     "name": "KeepBiz agent list + detail panel",
     "description": "Implementar lista de agentes do KeepBiz em /agents: tabela com nome, role, departamento, status (Idle/Working/Waiting on data), heartbeat visual (dot pulsante para ativos). Roles nos mock data: Invoice Hunter (Financeiro, Working), Lead Nurturer (Marketing, Idle), Schedule Keeper (RH, Working), Content Drafter (Marketing, Waiting). Detail panel ao clicar: tabs Status (Play/Pause com Dialog de confirmação), Atividades (timeline de ações recentes), Treinamento (barra de progresso + botão 'Refinar via chat'). Botão 'Conversar' navega para /agents/chat com agente pre-selecionado.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -243,7 +243,8 @@
       "Botão 'Conversar' navega para /agents/chat",
       "Filtro por departamento funciona (se implementado)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-006-agents-memory.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-006-agents-memory.md",
+    "completed_at": "2026-04-07T12:00:00Z"
   },
   {
     "id": "F-011",
