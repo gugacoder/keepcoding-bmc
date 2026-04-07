@@ -1,0 +1,5 @@
+Para Apps Mobile:
+- npx shadcn@latest init --preset b43fNjKT2 --template vite --monorepo
+
+Para Websites:
+- npx shadcn@latest init --preset b3kK8TxnU --template next --monorepo
