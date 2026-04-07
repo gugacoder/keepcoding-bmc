@@ -519,7 +519,7 @@
     "id": "F-022",
     "name": "KeepBiz Content Forge — list + creation + preview",
     "description": "Implementar Content Forge do KeepBiz em /content (parte 1). Lista/grid de conteúdo com toggle vista: cada item com título, tipo (post/short/campanha), plataforma, autor, status badge (Rascunho cinza / Em revisão amber / Aprovado blue / Agendado purple / Publicado green). Pills de filtro por status funcionais. Botão 'Nova campanha' abre Dialog: título, tipo select, plataforma select, autor select (da equipe), briefing textarea, data alvo date picker. Ao submeter: item aparece na lista com status 'rascunho'. Preview panel ao clicar item: visualização com botões 'Aprovar' (→ aprovado), 'Solicitar revisão' (→ em revisão), 'Agendar' (date picker mock → agendado). Timeline de status no detail (criado → em revisão → aprovado → publicado). Swarm indicator: barra mostrando fase atual (research/draft/schedule) com nome do agente associado.",
-    "status": "pending",
+    "status": "passing",
     "priority": 11,
     "agent": "coder",
     "task": "vibe-code",
@@ -540,7 +540,8 @@
       "Timeline de status renderiza no detail panel",
       "Swarm indicator mostra fase e agente"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-011-content-forge-keepbiz.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-011-content-forge-keepbiz.md",
+    "completed_at": "2026-04-07T15:21:08Z"
   },
   {
     "id": "F-023",
