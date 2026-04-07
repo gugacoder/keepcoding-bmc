@@ -113,7 +113,7 @@ function SchedulePicker({ onConfirm, onCancel }: { onConfirm: (d: string) => voi
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onCancel} />
-      <div className="relative bg-white rounded-lg shadow-xl p-5 w-72">
+      <div className="relative bg-white rounded-md shadow-xl p-5 w-72">
         <h3 className="text-sm font-semibold text-slate-900 mb-3">Agendar publicação</h3>
         <input
           type="date"
@@ -201,8 +201,8 @@ function DetailPanel({ item, onClose, onUpdateStatus }: DetailPanelProps) {
       <div className="fixed inset-0 z-30 bg-black/20 lg:hidden" onClick={onClose} />
 
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 rounded-t-xl shadow-xl max-h-[85vh] overflow-y-auto
-                      lg:static lg:border lg:rounded-lg lg:shadow-sm lg:max-h-none lg:overflow-visible lg:z-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white rounded-t-xl lg:rounded-t-lg">
+                      lg:static lg:border lg:rounded-md lg:shadow-sm lg:max-h-none lg:overflow-visible lg:z-auto">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white rounded-t-xl lg:rounded-t-md">
           <div className="flex items-center gap-2">
             <StatusBadge status={item.status} />
           </div>
@@ -315,7 +315,7 @@ function NewContentDialog({ prefillDate, onClose, onSubmit }: NewContentDialogPr
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+      <div className="relative bg-white rounded-md shadow-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-base font-semibold text-slate-900">Nova Campanha</h2>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X size={18} /></button>

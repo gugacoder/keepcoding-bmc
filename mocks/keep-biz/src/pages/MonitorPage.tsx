@@ -144,7 +144,7 @@ function MentionModal({ mention, onClose }: { mention: Mention; onClose: () => v
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/40" onClick={onClose}>
       <div
-        className="bg-white rounded-lg border border-slate-200 shadow-xl w-full max-w-md"
+        className="bg-white rounded-md border border-slate-200 shadow-xl w-full max-w-md"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -175,7 +175,7 @@ function MentionModal({ mention, onClose }: { mention: Mention; onClose: () => v
         <div className="px-5 py-3 border-t border-slate-100 flex justify-end">
           <button
             onClick={onClose}
-            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
           >
             Fechar
           </button>
@@ -193,7 +193,7 @@ function AlertModal({ alert, onClose }: { alert: Alert; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/40" onClick={onClose}>
       <div
-        className="bg-white rounded-lg border border-slate-200 shadow-xl w-full max-w-md"
+        className="bg-white rounded-md border border-slate-200 shadow-xl w-full max-w-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
@@ -218,7 +218,7 @@ function AlertModal({ alert, onClose }: { alert: Alert; onClose: () => void }) {
         <div className="px-5 py-3 border-t border-slate-100 flex justify-end">
           <button
             onClick={onClose}
-            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded transition-colors"
+            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
           >
             Fechar
           </button>

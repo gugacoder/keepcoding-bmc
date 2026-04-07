@@ -76,7 +76,7 @@ interface ConfirmDialogProps {
 function ConfirmDialog({ action, agentName, onConfirm, onCancel }: ConfirmDialogProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-80 mx-4">
+      <div className="bg-white rounded-md shadow-xl p-6 w-80 mx-4">
         <div className="flex items-center gap-3 mb-4">
           {action === 'play' ? (
             <Play weight="duotone" size={24} className="text-emerald-500" />
@@ -124,7 +124,7 @@ interface RemoveMemoryDialogProps {
 function RemoveMemoryDialog({ item, onConfirm, onCancel }: RemoveMemoryDialogProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-80 mx-4">
+      <div className="bg-white rounded-md shadow-xl p-6 w-80 mx-4">
         <div className="flex items-center gap-3 mb-4">
           <Trash weight="duotone" size={22} className="text-rose-500" />
           <h3 className="font-semibold text-slate-900">Remover memória</h3>
@@ -454,7 +454,7 @@ export function AgentDetailPanel({ agent, onClose }: Props) {
 
               {/* "Ensinar algo novo" form */}
               {teachOpen && (
-                <div className="bg-slate-50 rounded-lg p-4 space-y-3 border border-slate-200">
+                <div className="bg-slate-50 rounded-md p-4 space-y-3 border border-slate-200">
                   <p className="text-xs font-medium text-slate-700">Novo item de memória</p>
                   <div>
                     <label className="text-xs text-slate-500 block mb-1">Categoria</label>

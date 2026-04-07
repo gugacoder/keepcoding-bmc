@@ -334,7 +334,7 @@ export function AgentsPage() {
                               <p className="flex-1 text-sm text-stone-600 leading-relaxed">{item.content}</p>
                               <button
                                 onClick={() => setRemoveTarget(item)}
-                                className="flex-shrink-0 p-1 text-stone-300 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                className="flex-shrink-0 p-1 text-stone-300 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-colors opacity-0 group-hover:opacity-100"
                                 title="Remover"
                               >
                                 <X size={12} weight="bold" />

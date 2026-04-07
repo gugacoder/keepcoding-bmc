@@ -34,7 +34,7 @@ import {
 
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-xl animate-in slide-in-from-bottom-4">
+    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-md shadow-xl animate-in slide-in-from-bottom-4">
       <CheckCircle size={18} weight="fill" className="text-emerald-400 shrink-0" />
       <span className="text-sm">{message}</span>
       <button onClick={onClose} className="ml-1 text-slate-400 hover:text-white">
@@ -107,7 +107,7 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-lg shadow-2xl w-full max-w-sm"
+        className="bg-white rounded-md shadow-2xl w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-4 border-b border-slate-100">
@@ -181,7 +181,7 @@ function InviteDialog({ onClose, onInvite }: {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-lg shadow-2xl w-full max-w-sm"
+        className="bg-white rounded-md shadow-2xl w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-4 border-b border-slate-100">
@@ -341,7 +341,7 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-md shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -360,7 +360,7 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
           {PLANS.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-lg border p-5 flex flex-col gap-4 ${
+              className={`rounded-md border p-5 flex flex-col gap-4 ${
                 plan.highlight
                   ? 'border-blue-400 bg-blue-50 ring-2 ring-blue-300 ring-offset-1'
                   : 'border-slate-200 bg-white'
@@ -921,7 +921,7 @@ export function SettingsPage() {
             </div>
 
             {/* Current plan card */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-5 text-white mb-4 shadow-lg">
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-md p-5 text-white mb-4 shadow-lg">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="text-xs text-blue-200 font-medium uppercase tracking-wider mb-0.5">Plano atual</p>
@@ -952,7 +952,7 @@ export function SettingsPage() {
 
             <button
               onClick={() => setShowUpgradeDialog(true)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-blue-300 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-sm"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-blue-300 text-blue-700 text-sm font-medium rounded-md hover:bg-blue-50 transition-colors shadow-sm"
             >
               <ArrowUp size={16} weight="bold" />
               Fazer upgrade

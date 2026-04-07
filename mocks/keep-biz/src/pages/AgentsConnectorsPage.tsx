@@ -159,13 +159,13 @@ function ConfigPanel({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
       <div
-        className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 overflow-hidden"
+        className="bg-white rounded-md shadow-xl w-full max-w-md mx-4 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
+            <div className="w-9 h-9 rounded-md bg-slate-100 flex items-center justify-center text-slate-600">
               <ConnectorIcon name={connector.icon} size={20} />
             </div>
             <div>
@@ -257,14 +257,14 @@ function ConfigPanel({
         <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex justify-between">
           <button
             onClick={() => onDisconnect(connector)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 border border-red-200 rounded hover:bg-red-50 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 border border-red-200 rounded-md hover:bg-red-50 transition-colors"
           >
             <Plugs size={14} />
             Desconectar
           </button>
           <button
             onClick={onClose}
-            className="px-3 py-1.5 text-xs font-medium text-slate-600 border border-slate-200 rounded hover:bg-slate-100 transition-colors"
+            className="px-3 py-1.5 text-xs font-medium text-slate-600 border border-slate-200 rounded-md hover:bg-slate-100 transition-colors"
           >
             Fechar
           </button>
@@ -289,7 +289,7 @@ function DisconnectDialog({
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50" onClick={onCancel}>
       <div
-        className="bg-white rounded-lg shadow-xl w-full max-w-sm mx-4 p-6"
+        className="bg-white rounded-md shadow-xl w-full max-w-sm mx-4 p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start gap-3 mb-4">
@@ -307,13 +307,13 @@ function DisconnectDialog({
         <div className="flex gap-2 justify-end">
           <button
             onClick={onCancel}
-            className="px-3 py-1.5 text-sm text-slate-600 border border-slate-200 rounded hover:bg-slate-50 transition-colors"
+            className="px-3 py-1.5 text-sm text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={onConfirm}
-            className="px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700 transition-colors"
+            className="px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors"
           >
             Desconectar
           </button>
@@ -348,7 +348,7 @@ function CatalogDialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
       <div
-        className="bg-white rounded-lg shadow-xl w-full max-w-xl mx-4 overflow-hidden"
+        className="bg-white rounded-md shadow-xl w-full max-w-xl mx-4 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -375,9 +375,9 @@ function CatalogDialog({
             catalog.map((c) => (
               <div
                 key={c.id}
-                className="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:border-blue-200 hover:bg-blue-50/30 transition-colors"
+                className="flex items-start gap-3 p-3 rounded-md border border-slate-200 hover:border-blue-200 hover:bg-blue-50/30 transition-colors"
               >
-                <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
+                <div className="w-9 h-9 rounded-md bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-600">
                   <ConnectorIcon name={c.icon} size={18} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -387,7 +387,7 @@ function CatalogDialog({
                 <button
                   onClick={() => handleAdd(c)}
                   disabled={adding === c.id}
-                  className="flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60 transition-colors"
+                  className="flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-60 transition-colors"
                 >
                   {adding === c.id ? (
                     <ArrowsClockwise size={12} className="animate-spin" />
@@ -404,7 +404,7 @@ function CatalogDialog({
         <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex justify-end">
           <button
             onClick={onClose}
-            className="px-3 py-1.5 text-sm text-slate-600 border border-slate-200 rounded hover:bg-slate-100 transition-colors"
+            className="px-3 py-1.5 text-sm text-slate-600 border border-slate-200 rounded-md hover:bg-slate-100 transition-colors"
           >
             Fechar
           </button>
@@ -531,7 +531,7 @@ export function AgentsConnectorsPage() {
               {/* Card header */}
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                  <div className="w-9 h-9 rounded-md bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
                     <ConnectorIcon name={connector.icon} size={20} />
                   </div>
                   <div>

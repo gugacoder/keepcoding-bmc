@@ -359,7 +359,7 @@ export function MonitorPage() {
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition-all ${
                 period === p
                   ? 'bg-amber-500 text-white shadow-sm'
                   : 'text-amber-600 hover:bg-amber-100'

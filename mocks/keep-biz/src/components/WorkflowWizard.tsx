@@ -95,7 +95,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-lg shadow-xl overflow-hidden">
+      <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-md shadow-xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
           <h2 className="text-base font-semibold text-slate-900">Novo Workflow</h2>

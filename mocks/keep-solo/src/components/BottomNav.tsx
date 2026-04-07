@@ -19,7 +19,7 @@ export function BottomNav() {
             end={item.href === '/'}
             className={({ isActive }) =>
               [
-                'flex flex-col items-center gap-1 px-6 py-2 rounded-xl text-xs font-medium transition-all min-w-[64px]',
+                'flex flex-col items-center gap-1 px-6 py-3 rounded-xl text-xs font-medium transition-all min-w-[64px] min-h-[48px] justify-center',
                 isActive
                   ? 'text-amber-600 bg-amber-50'
                   : 'text-stone-400 hover:text-amber-500',

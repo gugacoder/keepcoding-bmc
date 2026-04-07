@@ -318,7 +318,7 @@ export function AgentsToolsPage() {
                 {tool.status === 'connected' ? (
                   <button
                     onClick={() => setDisconnectTarget(tool)}
-                    className="flex-shrink-0 text-xs text-red-400 hover:text-red-600 hover:bg-red-50 px-2.5 py-1.5 rounded-lg transition-colors font-medium"
+                    className="flex-shrink-0 text-xs text-red-400 hover:text-red-600 hover:bg-red-50 px-2.5 py-1.5 rounded-xl transition-colors font-medium"
                   >
                     Desconectar
                   </button>
@@ -333,7 +333,7 @@ export function AgentsToolsPage() {
                         )
                       )
                     }
-                    className="flex-shrink-0 text-xs text-amber-600 hover:text-amber-800 hover:bg-amber-50 px-2.5 py-1.5 rounded-lg transition-colors font-medium"
+                    className="flex-shrink-0 text-xs text-amber-600 hover:text-amber-800 hover:bg-amber-50 px-2.5 py-1.5 rounded-xl transition-colors font-medium"
                   >
                     Conectar
                   </button>

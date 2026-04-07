@@ -119,7 +119,7 @@ function ContextPanel({ agent }: { agent: Agent }) {
   return (
     <div className="flex flex-col gap-4 h-full overflow-y-auto">
       {/* Status */}
-      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-sm">
+      <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <Robot size={16} weight="duotone" className="text-blue-500" />
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
@@ -144,7 +144,7 @@ function ContextPanel({ agent }: { agent: Agent }) {
       </div>
 
       {/* Training */}
-      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-sm">
+      <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <ChartBar size={16} weight="duotone" className="text-indigo-500" />
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
@@ -302,7 +302,7 @@ export function AgentsChatPage() {
         <select
           value={selectedAgentId}
           onChange={(e) => handleSelectAgent(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-700"
+          className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-700"
         >
           {agents.map((agent) => (
             <option key={agent.id} value={agent.id}>
@@ -315,7 +315,7 @@ export function AgentsChatPage() {
       {/* Main 3-column layout (desktop) / single column (mobile) */}
       <div className="flex flex-1 overflow-hidden px-6 pb-6 gap-4">
         {/* Column 1: Agent list (desktop only) */}
-        <div className="hidden lg:flex flex-col w-56 shrink-0 bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+        <div className="hidden lg:flex flex-col w-56 shrink-0 bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
           <div className="px-3 py-2.5 border-b border-slate-100">
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
               Agentes
@@ -359,7 +359,7 @@ export function AgentsChatPage() {
         </div>
 
         {/* Column 2: Chat area */}
-        <div className="flex flex-col flex-1 min-w-0 bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+        <div className="flex flex-col flex-1 min-w-0 bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
           {/* Chat header */}
           <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 shrink-0">
             <div className="relative shrink-0">
@@ -431,12 +431,12 @@ export function AgentsChatPage() {
               onKeyDown={handleKeyDown}
               placeholder={`Mensagem para ${selectedAgent.name}...`}
               disabled={isTyping}
-              className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               onClick={sendMessage}
               disabled={!input.trim() || isTyping}
-              className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+              className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
             >
               <PaperPlaneRight size={16} weight="fill" />
               <span className="text-sm hidden sm:inline">Enviar</span>

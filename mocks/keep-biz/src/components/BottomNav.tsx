@@ -19,7 +19,7 @@ export function BottomNav() {
             to={item.href}
             className={({ isActive }) =>
               [
-                'flex flex-col items-center gap-0.5 px-4 py-2 rounded-md text-xs font-medium transition-colors min-w-[56px]',
+                'flex flex-col items-center gap-0.5 px-4 py-3 rounded-md text-xs font-medium transition-colors min-w-[56px] min-h-[48px] justify-center',
                 isActive
                   ? 'text-blue-400'
                   : 'text-slate-500 hover:text-slate-200',
