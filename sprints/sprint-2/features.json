@@ -424,7 +424,7 @@
     "id": "F-018",
     "name": "KeepSolo tools",
     "description": "Implementar gestão de ferramentas do KeepSolo em /agents/tools. Lista vertical simplificada 'Minhas Ferramentas' com ícone, nome, status. Botão 'Adicionar ferramenta' abre lista de opções disponíveis. Botão 'Desconectar' com confirmação. Design KeepSolo (pessoal, cantos arredondados).",
-    "status": "pending",
+    "status": "passing",
     "priority": 9,
     "agent": "coder",
     "task": "vibe-code",
@@ -440,7 +440,8 @@
       "Confirmar desconexão altera status",
       "Design KeepSolo aplicado"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-008-connectors.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-008-connectors.md",
+    "completed_at": "2026-04-07T19:00:00Z"
   },
   {
     "id": "F-019",
