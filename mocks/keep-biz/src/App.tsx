@@ -12,11 +12,13 @@ import { AgentsConnectorsPage } from '@/pages/AgentsConnectorsPage'
 import { SettingsPage } from '@/pages/SettingsPage'
 import { WorkflowProvider } from '@/contexts/WorkflowContext'
 import { AgentsProvider } from '@/contexts/AgentsContext'
+import { ContentProvider } from '@/contexts/ContentContext'
 
 function App() {
   return (
     <Suspense fallback={null}>
       <AgentsProvider>
+      <ContentProvider>
       <WorkflowProvider>
         <BrowserRouter>
           <Routes>
@@ -34,6 +36,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </WorkflowProvider>
+      </ContentProvider>
       </AgentsProvider>
     </Suspense>
   )

@@ -547,7 +547,7 @@
     "id": "F-023",
     "name": "KeepBiz Content Forge — calendar",
     "description": "Completar Content Forge do KeepBiz (parte 2). Calendário em /content/calendar: view mensal (grid CSS com dias, dots/items nos dias com conteúdo) e view semanal (7 colunas com mais detalhe). Toggle Mensal/Semanal no desktop. Click em item no calendário abre detail panel. Click em dia vazio abre Dialog de criação com data pre-preenchida. Itens do calendário refletem dados de conteúdo do state (incluindo novos criados).",
-    "status": "pending",
+    "status": "passing",
     "priority": 12,
     "agent": "coder",
     "task": "vibe-code",
@@ -564,7 +564,8 @@
       "Conteúdo criado via Dialog aparece no calendário",
       "Navegação entre meses funciona"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-011-content-forge-keepbiz.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-011-content-forge-keepbiz.md",
+    "completed_at": "2026-04-07T23:59:00Z"
   },
   {
     "id": "F-024",
@@ -711,7 +712,7 @@
     "id": "F-030",
     "name": "OpenAI DALL-E assets + integration",
     "description": "Criar script de geração de assets visuais via OpenAI DALL-E API (OPENAI_API_KEY do TASK.md). Gerar em build-time: 4 thumbnails de conteúdo (1024x1024) para Content Forge e Create (ex: post de verão, behind the scenes, black friday, produto), 5 avatares de agentes (512x512) — um por role (Invoice Hunter, Lead Nurturer, Schedule Keeper, Content Drafter, agente genérico). Salvar em public/assets/ de cada app. Integrar nos mock data: content items referenciam thumbnails, agents referenciam avatares. Fallback: se imagem não disponível, renderizar div colorida com iniciais/ícone.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 16,
     "agent": "coder",
     "task": "vibe-code",

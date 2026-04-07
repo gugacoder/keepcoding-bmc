@@ -11,8 +11,8 @@ import {
   MagnifyingGlass,
   Robot,
 } from '@phosphor-icons/react'
-import { contentItems as initialItems } from '@/data'
 import { teamMembers } from '@/data'
+import { useContent } from '@/contexts/ContentContext'
 import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
 
 // ── Status config ──────────────────────────────────────────────────────────────
@@ -487,29 +487,25 @@ const FILTER_OPTIONS: { value: FilterStatus; label: string }[] = [
 ]
 
 export function ContentPage() {
-  const [items, setItems] = useState<ContentItem[]>(initialItems)
+  const { items, addItem, updateStatus } = useContent()
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('todos')
   const [showNewDialog, setShowNewDialog] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null)
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
 
   const filtered = filterStatus === 'todos' ? items : items.filter(i => i.status === filterStatus)
 
   function handleCreate(newItem: ContentItem) {
-    setItems(prev => [newItem, ...prev])
+    addItem(newItem)
     setShowNewDialog(false)
   }
 
   function handleUpdateStatus(id: string, status: ContentStatus, extra?: Partial<ContentItem>) {
-    setItems(prev => prev.map(i =>
-      i.id === id ? { ...i, status, ...extra } : i
-    ))
-    // Keep selectedItem in sync
-    setSelectedItem(prev => prev?.id === id ? { ...prev, status, ...extra } : prev)
+    updateStatus(id, status, extra)
   }
 
-  // Selected item may have been updated; find current version
-  const currentSelected = selectedItem ? items.find(i => i.id === selectedItem.id) ?? null : null
+  // Always derive from shared state to stay in sync
+  const currentSelected = selectedItemId ? items.find(i => i.id === selectedItemId) ?? null : null
 
   return (
     <div className="flex h-full min-h-0">
@@ -596,7 +592,7 @@ export function ContentPage() {
           ) : viewMode === 'grid' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {filtered.map(item => (
-                <ContentCard key={item.id} item={item} onClick={() => setSelectedItem(item)} />
+                <ContentCard key={item.id} item={item} onClick={() => setSelectedItemId(item.id)} />
               ))}
             </div>
           ) : (
@@ -614,7 +610,7 @@ export function ContentPage() {
                 </thead>
                 <tbody>
                   {filtered.map(item => (
-                    <ContentRow key={item.id} item={item} onClick={() => setSelectedItem(item)} />
+                    <ContentRow key={item.id} item={item} onClick={() => setSelectedItemId(item.id)} />
                   ))}
                 </tbody>
               </table>
@@ -628,7 +624,7 @@ export function ContentPage() {
         <div className="hidden lg:block w-96 border-l border-slate-200 overflow-y-auto">
           <PreviewPanel
             item={currentSelected}
-            onClose={() => setSelectedItem(null)}
+            onClose={() => setSelectedItemId(null)}
             onUpdateStatus={handleUpdateStatus}
           />
         </div>
@@ -639,7 +635,7 @@ export function ContentPage() {
         <div className="lg:hidden">
           <PreviewPanel
             item={currentSelected}
-            onClose={() => setSelectedItem(null)}
+            onClose={() => setSelectedItemId(null)}
             onUpdateStatus={handleUpdateStatus}
           />
         </div>
