@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 960" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <style>
+      .bg { fill: #0d0d0d; }
+      .card { fill: #1a1a1a; stroke: #2a2a2a; stroke-width: 1.5; }
+      .title-bar { fill: #e67e22; }
+      .title { font-size: 13px; font-weight: bold; fill: #fff; }
+      .label { font-size: 11.5px; font-weight: bold; fill: #e67e22; }
+      .body { font-size: 11.5px; fill: #b0b0b0; }
+      .bold { font-size: 11.5px; fill: #fff; font-weight: bold; }
+      .callout-bg { fill: #2a2a2a; }
+      .callout { font-size: 10.5px; fill: #f39c12; }
+      .accent { font-size: 13px; font-weight: bold; fill: #e67e22; }
+      .pill-bg { fill: #2a2a2a; stroke: #e67e22; stroke-width: 1; }
+      .pill-text { font-size: 12px; font-weight: bold; fill: #e67e22; text-anchor: middle; }
+      .pill-sub { font-size: 10.5px; fill: #b0b0b0; text-anchor: middle; }
+      .pivot-bg { fill: #2a2a2a; stroke: #2ecc71; stroke-width: 1; }
+      .pivot { font-size: 10.5px; fill: #2ecc71; }
+      .header-title { font-size: 26px; font-weight: bold; fill: #e67e22; }
+      .header-sub { font-size: 13px; fill: #b0b0b0; }
+      .header-quote { font-size: 14px; fill: #f39c12; font-style: italic; }
+      .footer { font-size: 10px; fill: #4a4a4a; text-anchor: middle; }
+      .small { font-size: 11px; fill: #b0b0b0; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="960" rx="8" class="bg"/>
+
+  <!-- Header -->
+  <rect x="10" y="10" width="1380" height="65" rx="6" fill="#0d0d0d" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="30" y="42" class="header-title">Business Model Canvas</text>
+  <text x="30" y="62" class="header-sub">Keep Coding  |  KeepBiz (PMEs) + Keep Solo (Solopreneurs)  |  Empresa irma: CODR Studio  |  Abril 2026</text>
+  <text x="1370" y="50" text-anchor="end" class="header-quote">"Fazer mais trabalho sem contratar mais gente."</text>
+
+  <!-- ========================================== -->
+  <!-- COL 1: PARCEIROS-CHAVE (full height)       -->
+  <!-- ========================================== -->
+  <rect x="10" y="85" width="270" height="625" rx="5" class="card"/>
+  <rect x="10" y="85" width="270" height="30" rx="5" class="title-bar"/>
+  <text x="145" y="105" text-anchor="middle" class="title">8. PARCEIROS-CHAVE</text>
+
+  <text x="25" y="140" class="label">Provedores de APIs / Ferramentas</text>
+  <text x="33" y="158" class="body">Integracoes com ERPs, CRMs e</text>
+  <text x="33" y="173" class="body">ferramentas existentes</text>
+  <text x="33" y="188" class="body">(sem builds customizados)</text>
+
+  <text x="25" y="218" class="label">Desenvolvedor UI Freelancer</text>
+  <text x="33" y="236" class="body">Acelerar desenvolvimento</text>
+  <text x="33" y="251" class="body">do dashboard</text>
+
+  <!-- ========================================== -->
+  <!-- COL 2 TOP: ATIVIDADES-CHAVE               -->
+  <!-- ========================================== -->
+  <rect x="290" y="85" width="270" height="308" rx="5" class="card"/>
+  <rect x="290" y="85" width="270" height="30" rx="5" class="title-bar"/>
+  <text x="425" y="105" text-anchor="middle" class="title">7. ATIVIDADES-CHAVE</text>
+
+  <text x="305" y="140" class="body">&#x2022; Mapear workflows e construir</text>
+  <text x="317" y="155" class="body">wrapper apps (fase piloto)</text>
+  <text x="305" y="175" class="body">&#x2022; Desenvolver o dashboard de</text>
+  <text x="317" y="190" class="body">auto-mapeamento (produto core)</text>
+  <text x="305" y="210" class="body">&#x2022; Treinar agentes via observacao</text>
+  <text x="305" y="230" class="body">&#x2022; Handover e saida do modo servico</text>
+
+  <!-- Callout: Loop de Aprendizado -->
+  <rect x="305" y="248" width="240" height="55" rx="4" class="callout-bg"/>
+  <line x1="305" y1="248" x2="305" y2="303" stroke="#e67e22" stroke-width="3"/>
+  <text x="315" y="265" class="callout" font-weight="bold">Loop de Aprendizado do Agente:</text>
+  <text x="315" y="280" class="callout">Mapear &#x2192; Construir &#x2192; Implantar</text>
+  <text x="315" y="295" class="callout">&#x2192; Observar &#x2192; Aprender &#x2192; Ativar</text>
+
+  <!-- ========================================== -->
+  <!-- COL 2 BOTTOM: RECURSOS-CHAVE              -->
+  <!-- ========================================== -->
+  <rect x="290" y="402" width="270" height="308" rx="5" class="card"/>
+  <rect x="290" y="402" width="270" height="30" rx="5" class="title-bar"/>
+  <text x="425" y="422" text-anchor="middle" class="title">6. RECURSOS-CHAVE</text>
+
+  <text x="305" y="457" class="body">&#x2022; <tspan class="bold">Workflow Factory</tspan></text>
+  <text x="317" y="472" class="body">Motor que constroi apps</text>
+  <text x="317" y="487" class="body">automaticamente</text>
+
+  <text x="305" y="507" class="body">&#x2022; <tspan class="bold">Interface Interna</tspan></text>
+  <text x="317" y="522" class="body">Ferramentas proprias para</text>
+  <text x="317" y="537" class="body">o trabalho diario</text>
+
+  <text x="305" y="557" class="body">&#x2022; <tspan class="bold">Logs de Observacao</tspan></text>
+  <text x="317" y="572" class="body">Dados de aprendizado dos agentes</text>
+
+  <text x="305" y="597" class="body">&#x2022; <tspan class="bold">Prototipo do Dashboard</tspan></text>
+  <text x="317" y="612" class="body">O builder self-serve (produto real)</text>
+
+  <!-- ========================================== -->
+  <!-- COL 3: PROPOSTAS DE VALOR (full height)    -->
+  <!-- ========================================== -->
+  <rect x="570" y="85" width="270" height="625" rx="5" class="card"/>
+  <rect x="570" y="85" width="270" height="30" rx="5" class="title-bar"/>
+  <text x="705" y="105" text-anchor="middle" class="title">2. PROPOSTAS DE VALOR</text>
+
+  <!-- Pill central -->
+  <rect x="585" y="125" width="240" height="40" rx="6" class="pill-bg"/>
+  <text x="705" y="143" class="pill-text">"Escalar operacoes sem</text>
+  <text x="705" y="158" class="pill-text">aumentar o headcount"</text>
+
+  <text x="585" y="185" class="body">Agentes de IA automatizam</text>
+  <text x="585" y="200" class="body">workflows de back-office: a empresa</text>
+  <text x="585" y="215" class="body">faz mais com o mesmo time.</text>
+
+  <text x="585" y="245" class="label">Tres Pilares:</text>
+
+  <!-- Pilar 1 -->
+  <rect x="585" y="255" width="240" height="35" rx="4" class="callout-bg"/>
+  <text x="595" y="272" class="bold">Agency</text>
+  <text x="595" y="285" class="body">Agentes operam via MCP, REST, APIs</text>
+
+  <!-- Pilar 2 -->
+  <rect x="585" y="296" width="240" height="35" rx="4" class="callout-bg"/>
+  <text x="595" y="313" class="bold">GRZ</text>
+  <text x="595" y="326" class="body">Monitoramento: Ads, Meta, leads, funil</text>
+
+  <!-- Pilar 3 -->
+  <rect x="585" y="337" width="240" height="35" rx="4" class="callout-bg"/>
+  <text x="595" y="354" class="bold">Workflows</text>
+  <text x="595" y="367" class="body">Enxame que produz apps e campanhas</text>
+
+  <!-- Insight callout -->
+  <rect x="585" y="385" width="240" height="70" rx="4" class="callout-bg"/>
+  <line x1="585" y1="385" x2="585" y2="455" stroke="#f39c12" stroke-width="3"/>
+  <text x="595" y="401" class="callout" font-weight="bold">Insight-chave:</text>
+  <text x="595" y="416" class="callout">Nao substituimos o ERP. Nosso</text>
+  <text x="595" y="431" class="callout">app e a camada de aprendizado</text>
+  <text x="595" y="446" class="callout">que canaliza trabalho p/ agentes.</text>
+
+  <!-- ========================================== -->
+  <!-- COL 4 TOP: RELACIONAMENTO                  -->
+  <!-- ========================================== -->
+  <rect x="850" y="85" width="270" height="308" rx="5" class="card"/>
+  <rect x="850" y="85" width="270" height="30" rx="5" class="title-bar"/>
+  <text x="985" y="105" text-anchor="middle" class="title">4. RELACIONAMENTO</text>
+
+  <text x="865" y="140" class="label">Piloto</text>
+  <text x="873" y="158" class="body">Onboarding pessoal + check-ins</text>
+  <text x="873" y="173" class="body">semanais (nos fazemos o</text>
+  <text x="873" y="188" class="body">trabalho pesado)</text>
+
+  <text x="865" y="213" class="label">Handover</text>
+  <text x="873" y="231" class="body">Dashboard self-service + suporte</text>
+  <text x="873" y="246" class="body">por chat (eles mapeiam sozinhos)</text>
+
+  <text x="865" y="271" class="label">Longo prazo</text>
+  <text x="873" y="289" class="body">Comunidade/forum +</text>
+  <text x="873" y="304" class="body">atualizacoes automaticas</text>
+
+  <!-- ========================================== -->
+  <!-- COL 4 BOTTOM: CANAIS                       -->
+  <!-- ========================================== -->
+  <rect x="850" y="402" width="270" height="308" rx="5" class="card"/>
+  <rect x="850" y="402" width="270" height="30" rx="5" class="title-bar"/>
+  <text x="985" y="422" text-anchor="middle" class="title">3. CANAIS</text>
+
+  <text x="865" y="457" class="label">Fase Piloto</text>
+  <text x="873" y="475" class="body">Contato direto -- email, demos</text>
+  <text x="873" y="490" class="body">com clientes existentes</text>
+
+  <text x="865" y="520" class="label">Pos-Dashboard</text>
+  <text x="873" y="538" class="body">Auto-cadastro na plataforma</text>
+  <text x="873" y="553" class="body">do dashboard</text>
+
+  <!-- Callout: GTM -->
+  <rect x="865" y="575" width="240" height="42" rx="4" class="callout-bg"/>
+  <line x1="865" y1="575" x2="865" y2="617" stroke="#e67e22" stroke-width="3"/>
+  <text x="875" y="593" class="callout" font-weight="bold">Rota GTM:</text>
+  <text x="875" y="608" class="callout">Portugal &#x2192; Hispanicos &#x2192; Anglofones</text>
+
+  <!-- ========================================== -->
+  <!-- COL 5: SEGMENTOS DE CLIENTES (full height) -->
+  <!-- ========================================== -->
+  <rect x="1130" y="85" width="260" height="625" rx="5" class="card"/>
+  <rect x="1130" y="85" width="260" height="30" rx="5" class="title-bar"/>
+  <text x="1260" y="105" text-anchor="middle" class="title">1. SEGMENTOS DE CLIENTES</text>
+
+  <!-- Pill segmento -->
+  <rect x="1145" y="125" width="230" height="45" rx="6" class="pill-bg"/>
+  <text x="1260" y="146" class="pill-text">PMEs Operacionais</text>
+  <text x="1260" y="162" class="pill-sub">(com retaguarda real)</text>
+
+  <text x="1145" y="192" class="body">Pequenas e medias empresas com</text>
+  <text x="1145" y="207" class="body">operacoes internas reais:</text>
+
+  <text x="1153" y="232" class="body">&#x2022; RH e Recrutamento</text>
+  <text x="1153" y="250" class="body">&#x2022; Financeiro e Pagamentos</text>
+  <text x="1153" y="268" class="body">&#x2022; Agendamento</text>
+  <text x="1153" y="286" class="body">&#x2022; Cadeia de Suprimentos</text>
+
+  <text x="1145" y="316" class="label">Clientes-Piloto:</text>
+
+  <rect x="1145" y="328" width="230" height="36" rx="4" class="callout-bg"/>
+  <text x="1155" y="345" class="bold">Processa Sistemas</text>
+  <text x="1155" y="358" class="small">Software/TI -- Juiz de Fora</text>
+
+  <rect x="1145" y="372" width="230" height="36" rx="4" class="callout-bg"/>
+  <text x="1155" y="389" class="bold">Cia Cuidadores</text>
+  <text x="1155" y="402" class="small">Home care -- Juiz de Fora</text>
+
+  <!-- ========================================== -->
+  <!-- ROW 2: ESTRUTURA DE CUSTOS (left)          -->
+  <!-- ========================================== -->
+  <rect x="10" y="720" width="685" height="200" rx="5" class="card"/>
+  <rect x="10" y="720" width="685" height="30" rx="5" class="title-bar"/>
+  <text x="352" y="740" text-anchor="middle" class="title">9. ESTRUTURA DE CUSTOS</text>
+
+  <text x="25" y="775" class="body">&#x2022; <tspan class="bold">Tempo de desenvolvimento</tspan></text>
+  <text x="37" y="793" class="body">Mapeamento de workflows + construcao do dashboard</text>
+
+  <text x="25" y="818" class="body">&#x2022; <tspan class="bold">Custos de cloud e APIs</tspan></text>
+  <text x="37" y="836" class="body">Motor de observacao + builds automatizados</text>
+
+  <text x="25" y="861" class="body">&#x2022; <tspan class="bold">Operacoes do piloto</tspan></text>
+  <text x="37" y="879" class="body">Horas da equipe (temporario, financiado pela receita do piloto)</text>
+
+  <!-- ========================================== -->
+  <!-- ROW 2: FONTES DE RECEITA (right)           -->
+  <!-- ========================================== -->
+  <rect x="705" y="720" width="685" height="200" rx="5" class="card"/>
+  <rect x="705" y="720" width="685" height="30" rx="5" class="title-bar"/>
+  <text x="1047" y="740" text-anchor="middle" class="title">5. FONTES DE RECEITA</text>
+
+  <text x="720" y="775" class="body">&#x2022; <tspan class="bold">Assinatura Piloto</tspan></text>
+  <text x="732" y="793" class="body">Taxa recorrente enquanto mapeamos e automatizamos</text>
+
+  <text x="720" y="818" class="body">&#x2022; <tspan class="bold">Taxa de Setup</tspan></text>
+  <text x="732" y="836" class="body">Cobranca unica pelo mapeamento inicial + build dos apps</text>
+
+  <text x="720" y="861" class="body">&#x2022; <tspan class="bold">Acesso Recorrente</tspan></text>
+  <text x="732" y="879" class="body">Assinatura da plataforma pos-handover</text>
+
+  <!-- Pivot badge -->
+  <rect x="1205" y="770" width="170" height="35" rx="6" class="pivot-bg"/>
+  <text x="1215" y="789" class="pivot" font-weight="bold">Pivot:</text>
+  <text x="1265" y="789" class="pivot">Servico &#x2192; SaaS</text>
+
+  <!-- Footer -->
+  <text x="700" y="950" class="footer">Keep Coding  |  KeepBiz + Keep Solo  |  Business Model Canvas  |  2026</text>
+</svg>
