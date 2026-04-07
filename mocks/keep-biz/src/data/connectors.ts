@@ -1,0 +1,58 @@
+import type { Connector } from './types';
+
+export const connectors: Connector[] = [
+  {
+    id: 'conn-001',
+    name: 'Google Workspace',
+    icon: 'GoogleLogo',
+    status: 'connected',
+    category: 'Produtividade',
+    description: 'Gmail, Google Drive, Google Calendar e Google Sheets integrados.',
+    connectedAt: '2026-02-10T08:00:00Z',
+  },
+  {
+    id: 'conn-002',
+    name: 'Microsoft 365',
+    icon: 'MicrosoftOutlookLogo',
+    status: 'connected',
+    category: 'Produtividade',
+    description: 'Outlook, OneDrive, Teams e Excel integrados via Graph API.',
+    connectedAt: '2026-02-10T08:30:00Z',
+  },
+  {
+    id: 'conn-003',
+    name: 'WhatsApp Business',
+    icon: 'WhatsappLogo',
+    status: 'connected',
+    category: 'Comunicação',
+    description: 'Envio e recebimento de mensagens via API oficial do WhatsApp Business.',
+    connectedAt: '2026-02-20T10:00:00Z',
+  },
+  {
+    id: 'conn-004',
+    name: 'Slack',
+    icon: 'SlackLogo',
+    status: 'disconnected',
+    category: 'Comunicação',
+    description: 'Notificações e alertas enviados diretamente para canais do Slack.',
+    connectedAt: null,
+  },
+  {
+    id: 'conn-005',
+    name: 'Trello',
+    icon: 'TrelloLogo',
+    status: 'disconnected',
+    category: 'Produtividade',
+    description: 'Sincroniza tarefas e workflows com boards do Trello.',
+    connectedAt: null,
+  },
+  {
+    id: 'conn-006',
+    name: 'ERP Totvs (via MCP)',
+    icon: 'Database',
+    status: 'connected',
+    category: 'ERP',
+    description: 'Acesso ao ERP Totvs via Model Context Protocol para leitura e escrita de dados operacionais.',
+    connectedAt: '2026-03-01T09:00:00Z',
+  },
+];

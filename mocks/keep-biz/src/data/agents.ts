@@ -1,0 +1,196 @@
+import type { Agent } from './types';
+
+export const agents: Agent[] = [
+  {
+    id: 'agent-001',
+    name: 'Invoice Hunter',
+    role: 'Analista Financeiro Autônomo',
+    department: 'Financeiro',
+    status: 'Working',
+    heartbeat: true,
+    lastActive: '2026-04-07T11:58:00Z',
+    workflowId: 'wf-003',
+    trainingProgress: 72,
+    activities: [
+      {
+        id: 'act-001-1',
+        description: 'Cruzou 148 lançamentos com extrato do Bradesco',
+        timestamp: '2026-04-07T11:55:00Z',
+        type: 'action',
+      },
+      {
+        id: 'act-001-2',
+        description: 'Encontrou 3 divergências — aguardando validação',
+        timestamp: '2026-04-07T11:56:30Z',
+        type: 'alert',
+      },
+      {
+        id: 'act-001-3',
+        description: 'Relatório de fechamento gerado: relatorio-2026-04-07.pdf',
+        timestamp: '2026-04-07T11:58:00Z',
+        type: 'completed',
+      },
+    ],
+    memory: [
+      {
+        id: 'mem-001-1',
+        category: 'operações',
+        content: 'Conciliação ocorre toda sexta-feira às 08h00',
+        addedAt: '2026-03-05T09:00:00Z',
+      },
+      {
+        id: 'mem-001-2',
+        category: 'regras',
+        content: 'Divergências acima de R$ 500 requerem aprovação manual do CFO',
+        addedAt: '2026-03-10T10:00:00Z',
+      },
+      {
+        id: 'mem-001-3',
+        category: 'preferências',
+        content: 'Relatórios enviados para financeiro@empresa.com.br e CFO@empresa.com.br',
+        addedAt: '2026-03-10T10:05:00Z',
+      },
+    ],
+  },
+  {
+    id: 'agent-002',
+    name: 'Lead Nurturer',
+    role: 'Especialista em Nutrição de Leads',
+    department: 'Marketing',
+    status: 'Idle',
+    heartbeat: true,
+    lastActive: '2026-04-07T10:30:00Z',
+    workflowId: 'wf-002',
+    trainingProgress: 91,
+    activities: [
+      {
+        id: 'act-002-1',
+        description: 'Disparou sequência de e-mails para 23 leads no estágio "consideração"',
+        timestamp: '2026-04-07T10:28:00Z',
+        type: 'action',
+      },
+      {
+        id: 'act-002-2',
+        description: 'Taxa de abertura: 61% — acima da média histórica de 48%',
+        timestamp: '2026-04-07T10:29:00Z',
+        type: 'decision',
+      },
+      {
+        id: 'act-002-3',
+        description: 'Próxima execução agendada para 14h00',
+        timestamp: '2026-04-07T10:30:00Z',
+        type: 'completed',
+      },
+    ],
+    memory: [
+      {
+        id: 'mem-002-1',
+        category: 'operações',
+        content: 'Follow-up enviado 3 dias após primeiro contato, depois semanal por 4 semanas',
+        addedAt: '2026-02-20T09:00:00Z',
+      },
+      {
+        id: 'mem-002-2',
+        category: 'preferências',
+        content: 'Tom de comunicação: consultivo, nunca agressivo',
+        addedAt: '2026-02-20T09:05:00Z',
+      },
+      {
+        id: 'mem-002-3',
+        category: 'regras',
+        content: 'Leads que não respondem após 5 e-mails são movidos para "dormentes"',
+        addedAt: '2026-02-25T11:00:00Z',
+      },
+    ],
+  },
+  {
+    id: 'agent-003',
+    name: 'Schedule Keeper',
+    role: 'Coordenador de Agenda Corporativa',
+    department: 'RH',
+    status: 'Working',
+    heartbeat: true,
+    lastActive: '2026-04-07T11:59:00Z',
+    workflowId: 'wf-001',
+    trainingProgress: 85,
+    activities: [
+      {
+        id: 'act-003-1',
+        description: 'Confirmou 4 reuniões para amanhã, 08/04',
+        timestamp: '2026-04-07T11:50:00Z',
+        type: 'action',
+      },
+      {
+        id: 'act-003-2',
+        description: 'Detectou conflito de agenda: Carlos Silva × Diretoria às 15h00',
+        timestamp: '2026-04-07T11:55:00Z',
+        type: 'alert',
+      },
+      {
+        id: 'act-003-3',
+        description: 'Reagendou reunião para 16h30 — aprovado por ambas as partes',
+        timestamp: '2026-04-07T11:59:00Z',
+        type: 'decision',
+      },
+    ],
+    memory: [
+      {
+        id: 'mem-003-1',
+        category: 'preferências',
+        content: 'Reuniões internas: mínimo 30 min de antecedência para convites',
+        addedAt: '2026-02-12T08:00:00Z',
+      },
+      {
+        id: 'mem-003-2',
+        category: 'regras',
+        content: 'Diretor Geral não aceita reuniões antes das 09h ou depois das 18h',
+        addedAt: '2026-02-12T08:10:00Z',
+      },
+      {
+        id: 'mem-003-3',
+        category: 'operações',
+        content: 'Sala de reunião A tem capacidade para 8 pessoas; Sala B para 20',
+        addedAt: '2026-02-15T10:00:00Z',
+      },
+    ],
+  },
+  {
+    id: 'agent-004',
+    name: 'Content Drafter',
+    role: 'Redator de Conteúdo Corporativo',
+    department: 'Marketing',
+    status: 'Waiting on data',
+    heartbeat: false,
+    lastActive: '2026-04-07T09:15:00Z',
+    workflowId: null,
+    trainingProgress: 54,
+    activities: [
+      {
+        id: 'act-004-1',
+        description: 'Rascunhou 2 posts para Instagram: campanha Black Friday',
+        timestamp: '2026-04-07T09:10:00Z',
+        type: 'action',
+      },
+      {
+        id: 'act-004-2',
+        description: 'Aguardando briefing aprovado para continuar campanha',
+        timestamp: '2026-04-07T09:15:00Z',
+        type: 'alert',
+      },
+    ],
+    memory: [
+      {
+        id: 'mem-004-1',
+        category: 'preferências',
+        content: 'Voz da marca: profissional mas acessível, sem jargões técnicos',
+        addedAt: '2026-03-20T14:00:00Z',
+      },
+      {
+        id: 'mem-004-2',
+        category: 'operações',
+        content: 'Posts Instagram: máx. 2200 caracteres, 3-5 hashtags relevantes',
+        addedAt: '2026-03-20T14:05:00Z',
+      },
+    ],
+  },
+];
