@@ -95,7 +95,7 @@
     "id": "F-005",
     "name": "KeepBiz shell + Orchestrator Bar",
     "description": "Implementar shell de navegação do KeepBiz: sidebar no desktop (240px expandida / 64px colapsada, 3 zonas: Social Monitor, Content Forge, Agent Core + Settings), bottom nav no mobile (3 ícones + settings). Configurar rotas: /monitor, /content, /content/calendar, /agents, /agents/chat, /agents/connectors, /settings. Orchestrator Bar persistente no topo: indicador Team Status (green/yellow/red com dot animado), contagem de agentes ativos. Design tokens corporativos: paleta slate/blue, border-radius 6px, padding 12-16px, ícones Phosphor duotone. Cada rota renderiza página placeholder com título e dados mock básicos.",
-    "status": "blocked",
+    "status": "passing",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
@@ -114,13 +114,14 @@
       "Páginas placeholder mostram título da seção e dados mock básicos",
       "Layout responsivo: sidebar no desktop, bottom nav no mobile (breakpoint ~1024px)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-002-keepbiz-shell.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-002-keepbiz-shell.md",
+    "completed_at": "2026-04-07T18:00:00Z"
   },
   {
     "id": "F-006",
     "name": "KeepSolo shell",
     "description": "Implementar shell de navegação do KeepSolo: bottom nav persistente com 3 ícones (Eye/Monitor, Pen/Create, Robot/Agents) + labels. No desktop, header com tabs horizontais. Configurar rotas: /monitor, /create, /create/calendar, /agents, /agents/chat, /agents/tools, /config. Design tokens pessoais: paleta amber/orange, border-radius 12-16px, padding 16-24px, generous spacing, ícones Phosphor duotone. Cada rota renderiza página placeholder com título e dados mock básicos. Tom pessoal, direto, acolhedor.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
