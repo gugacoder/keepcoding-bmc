@@ -9,6 +9,7 @@ import {
   PlugsConnected,
   CaretDoubleLeft,
   CaretDoubleRight,
+  GitBranch,
 } from '@phosphor-icons/react'
 
 interface SidebarProps {
@@ -42,6 +43,7 @@ const navItems: NavItem[] = [
     href: '/agents',
     icon: Robot,
     children: [
+      { label: 'Workflows', href: '/agents/workflows', icon: GitBranch },
       { label: 'Chat', href: '/agents/chat', icon: Chat },
       { label: 'Conectores', href: '/agents/connectors', icon: PlugsConnected },
     ],
