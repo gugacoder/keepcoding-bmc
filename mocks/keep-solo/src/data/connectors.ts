@@ -1,0 +1,58 @@
+import type { Connector } from './types';
+
+export const connectors: Connector[] = [
+  {
+    id: 'conn-s-001',
+    name: 'Google Workspace',
+    icon: 'GoogleLogo',
+    status: 'connected',
+    category: 'Produtividade',
+    description: 'Gmail, Google Drive e Google Calendar integrados.',
+    connectedAt: '2026-02-20T08:00:00Z',
+  },
+  {
+    id: 'conn-s-002',
+    name: 'WhatsApp Business',
+    icon: 'WhatsappLogo',
+    status: 'connected',
+    category: 'Comunicação',
+    description: 'Envio e recebimento de mensagens via API oficial do WhatsApp Business.',
+    connectedAt: '2026-02-20T08:30:00Z',
+  },
+  {
+    id: 'conn-s-003',
+    name: 'Instagram',
+    icon: 'InstagramLogo',
+    status: 'connected',
+    category: 'Marketing',
+    description: 'Resposta a DMs, comentários e publicação de posts via Instagram Graph API.',
+    connectedAt: '2026-02-21T10:00:00Z',
+  },
+  {
+    id: 'conn-s-004',
+    name: 'Stripe',
+    icon: 'CreditCard',
+    status: 'disconnected',
+    category: 'Finanças',
+    description: 'Receba pagamentos e acompanhe receita diretamente na plataforma.',
+    connectedAt: null,
+  },
+  {
+    id: 'conn-s-005',
+    name: 'Notion',
+    icon: 'NoteBlank',
+    status: 'disconnected',
+    category: 'Produtividade',
+    description: 'Sincronize anotações, bases de conhecimento e CRM pessoal com o Notion.',
+    connectedAt: null,
+  },
+  {
+    id: 'conn-s-006',
+    name: 'LinkedIn',
+    icon: 'LinkedinLogo',
+    status: 'connected',
+    category: 'Marketing',
+    description: 'Publicação de posts e monitoramento de engajamento no LinkedIn.',
+    connectedAt: '2026-03-05T09:00:00Z',
+  },
+];
