@@ -1,6 +1,7 @@
 import type { Mention } from './types';
 
 export const mentions: Mention[] = [
+  // ── Last 7 days (Apr 1–7) ─────────────────────────────────────────────────
   {
     id: 'mention-001',
     source: 'Google Reviews',
@@ -62,6 +63,91 @@ export const mentions: Mention[] = [
     content: 'Keep Coding acabou de lançar update da plataforma. Ainda acompanhando mas parece promissor para automação de PMEs.',
     sentiment: 'neutro',
     date: '2026-04-01T20:00:00Z',
+    url: null,
+  },
+
+  // ── 8–30 days ago (Mar 8–31) ──────────────────────────────────────────────
+  {
+    id: 'mention-008',
+    source: 'Facebook',
+    author: 'Grupo PMEs Brasil',
+    content: 'Alguém do grupo usa Keep Coding? Estamos avaliando para automatizar o processo de faturamento. Já implementaram com sucesso?',
+    sentiment: 'neutro',
+    date: '2026-03-28T10:00:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-009',
+    source: 'Forum',
+    author: 'devops_club',
+    content: 'Keep Coding lançou integração MCP com ERPs legados. Testei com SAP B1 em sandbox — os agentes conseguem ler e escrever pedidos sem customização. Thread técnica aqui 👇',
+    sentiment: 'positivo',
+    date: '2026-03-25T14:30:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-010',
+    source: 'Instagram',
+    author: '@automacaobiz',
+    content: 'Parceria com a Keep Coding foi um divisor. Nosso time de RH parou de fazer copy-paste entre sistemas. Os agentes fazem isso automaticamente agora. 🤖✅',
+    sentiment: 'positivo',
+    date: '2026-03-22T09:15:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-011',
+    source: 'Twitter/X',
+    author: '@cto_pme',
+    content: 'Keep Coding está bem no hype mas preciso ver entrega real. Alguém tem case concreto com ROI mensurável? Pergunto sério.',
+    sentiment: 'neutro',
+    date: '2026-03-18T11:00:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-012',
+    source: 'Google Reviews',
+    author: 'Renata Souza',
+    content: 'Preço está acima do mercado para o que entrega nessa fase beta. Funcionalidades prometidas ainda incompletas. Esperando amadurecer mais.',
+    sentiment: 'negativo',
+    date: '2026-03-15T08:45:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-013',
+    source: 'Facebook',
+    author: 'Tech Founders SP',
+    content: 'Keep Coding foi destaque no último meetup de IA para negócios. Fundadores apresentaram o roadmap — integração com WhatsApp Business chega em Q2. Parece muito promissor!',
+    sentiment: 'positivo',
+    date: '2026-03-10T19:00:00Z',
+    url: null,
+  },
+
+  // ── 31–90 days ago (Jan 7–Mar 7) ──────────────────────────────────────────
+  {
+    id: 'mention-014',
+    source: 'Forum',
+    author: 'automacao_brasil',
+    content: 'Comparativo: Keep Coding vs Make.com vs Zapier para fluxos complexos com IA. Keep Coding ganhou em personalização e capacidade de agentes autônomos. Perdeu em preço e curva de aprendizado.',
+    sentiment: 'neutro',
+    date: '2026-02-20T16:00:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-015',
+    source: 'LinkedIn',
+    author: 'Ana Beatriz Lima',
+    content: 'Implementamos Keep Coding no setor financeiro há 2 meses. Resultado: 40% de redução no tempo de conciliação bancária e zero erros de transcrição. Muito satisfeita com o ROI.',
+    sentiment: 'positivo',
+    date: '2026-02-10T13:30:00Z',
+    url: null,
+  },
+  {
+    id: 'mention-016',
+    source: 'Reclame Aqui',
+    author: 'Carlos Mendes',
+    content: 'Contrato firmado mas onboarding demorou 3 semanas além do prazo prometido. Suporte não deu retorno em 48h. Espero que o produto entregue o que prometeram.',
+    sentiment: 'negativo',
+    date: '2026-01-28T10:00:00Z',
     url: null,
   },
 ];

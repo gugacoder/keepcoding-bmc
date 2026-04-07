@@ -106,7 +106,7 @@ export interface StatusHistoryEntry {
 }
 
 export type MentionSentiment = 'positivo' | 'neutro' | 'negativo';
-export type MentionSource = 'Twitter/X' | 'Google Reviews' | 'Instagram' | 'LinkedIn' | 'Reclame Aqui';
+export type MentionSource = 'Twitter/X' | 'Google Reviews' | 'Instagram' | 'LinkedIn' | 'Reclame Aqui' | 'Facebook' | 'Forum';
 
 export interface Mention {
   id: string;
