@@ -3,7 +3,7 @@ import { Plus, GitBranch } from '@phosphor-icons/react'
 import { useWorkflows } from '@/contexts/WorkflowContext'
 import { WorkflowWizard } from '@/components/WorkflowWizard'
 import { WorkflowDetailPanel } from '@/components/WorkflowDetailPanel'
-import { agents } from '@/data'
+import { useAgents } from '@/contexts/AgentsContext'
 import type { Workflow, WorkflowStatus } from '@/data/types'
 
 const STATUS_CONFIG: Record<WorkflowStatus, { label: string; className: string }> = {
@@ -27,6 +27,10 @@ const STATUS_CONFIG: Record<WorkflowStatus, { label: string; className: string }
     label: 'Agente treinando',
     className: 'bg-amber-50 text-amber-700 border-amber-200',
   },
+  agente_pronto: {
+    label: 'Agente pronto',
+    className: 'bg-teal-50 text-teal-700 border-teal-200',
+  },
   agente_ativo: {
     label: 'Agente ativo',
     className: 'bg-emerald-50 text-emerald-700 border-emerald-200',
@@ -45,6 +49,9 @@ function StatusBadge({ status }: { status: WorkflowStatus }) {
       {status === 'agente_treinando' && (
         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse mr-1.5" />
       )}
+      {status === 'agente_pronto' && (
+        <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse mr-1.5" />
+      )}
       {config.label}
     </span>
   )
@@ -56,6 +63,7 @@ function formatDate(iso: string) {
 
 export function AgentsWorkflowsPage() {
   const { workflows } = useWorkflows()
+  const { agents } = useAgents()
   const [wizardOpen, setWizardOpen] = useState(false)
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null)
 

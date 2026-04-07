@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { agents } from '@/data'
+import { useAgents } from '@/contexts/AgentsContext'
 import { AgentDetailPanel } from '@/components/AgentDetailPanel'
 import type { Agent, AgentStatus, Department } from '@/data/types'
 
@@ -18,6 +18,7 @@ const STATUS_DOT: Record<AgentStatus, string> = {
 const DEPARTMENTS: Department[] = ['Financeiro', 'Marketing', 'RH', 'Operações', 'Atendimento']
 
 export function AgentsPage() {
+  const { agents } = useAgents()
   const [selected, setSelected] = useState<Agent | null>(null)
   const [deptFilter, setDeptFilter] = useState<Department | 'Todos'>('Todos')
 
