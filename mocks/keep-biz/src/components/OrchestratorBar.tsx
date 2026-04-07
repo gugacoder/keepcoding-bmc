@@ -1,6 +1,7 @@
 import { agents } from '@/data'
 import { LanguageSelector } from '@/components/LanguageSelector'
-import { Buildings } from '@phosphor-icons/react'
+import { Buildings, Moon, Sun } from '@phosphor-icons/react'
+import { useTheme } from '@/contexts/ThemeContext'
 
 function getTeamStatus(agentList: typeof agents): 'green' | 'yellow' | 'red' {
   const active = agentList.filter((a) => a.heartbeat)
@@ -19,6 +20,7 @@ export function OrchestratorBar() {
   const status = getTeamStatus(agents)
   const activeCount = agents.filter((a) => a.heartbeat).length
   const config = statusConfig[status]
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <header className="flex items-center justify-between bg-slate-950 text-slate-100 px-4 py-2.5 border-b border-slate-800 min-h-[48px] shrink-0 z-10">
@@ -39,8 +41,16 @@ export function OrchestratorBar() {
         </span>
       </div>
 
-      {/* Right: Language selector */}
-      <div className="flex items-center">
+      {/* Right: Dark mode + Language selector */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={toggleTheme}
+          className="flex items-center justify-center w-8 h-8 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+          aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+          title={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+        >
+          {theme === 'dark' ? <Sun size={16} weight="duotone" /> : <Moon size={16} weight="duotone" />}
+        </button>
         <LanguageSelector />
       </div>
     </header>

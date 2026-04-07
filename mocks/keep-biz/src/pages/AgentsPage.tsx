@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Robot } from '@phosphor-icons/react'
 import { useAgents } from '@/contexts/AgentsContext'
 import { AgentDetailPanel } from '@/components/AgentDetailPanel'
+import { EmptyState } from '@/components/EmptyState'
+import { SkeletonAgentCard } from '@/components/Skeleton'
 import type { Agent, AgentStatus, Department } from '@/data/types'
 
 const STATUS_COLOR: Record<AgentStatus, string> = {
@@ -21,6 +24,12 @@ export function AgentsPage() {
   const { agents } = useAgents()
   const [selected, setSelected] = useState<Agent | null>(null)
   const [deptFilter, setDeptFilter] = useState<Department | 'Todos'>('Todos')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 500)
+    return () => clearTimeout(t)
+  }, [])
 
   const visible = deptFilter === 'Todos'
     ? agents
@@ -76,7 +85,21 @@ export function AgentsPage() {
             ))}
           </div>
 
+          {/* Agent list */}
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+              {Array.from({ length: 4 }).map((_, i) => <SkeletonAgentCard key={i} />)}
+            </div>
+          ) : visible.length === 0 ? (
+            <EmptyState
+              icon={Robot}
+              title="Nenhum agente neste departamento"
+              description="Ative agentes via workflows para que apareçam aqui."
+            />
+          ) : null}
+
           {/* Agent table — desktop */}
+          {!loading && visible.length > 0 && (
           <div className="hidden md:block bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
             <table className="w-full text-sm">
               <thead>
@@ -157,14 +180,11 @@ export function AgentsPage() {
                 ))}
               </tbody>
             </table>
-            {visible.length === 0 && (
-              <div className="py-12 text-center text-sm text-slate-400">
-                Nenhum agente neste departamento
-              </div>
-            )}
           </div>
+          )} {/* end !loading && visible.length > 0 desktop */}
 
           {/* Agent cards — mobile */}
+          {!loading && visible.length > 0 && (
           <div className="md:hidden grid grid-cols-1 gap-3">
             {visible.map((agent) => (
               <div
@@ -210,6 +230,7 @@ export function AgentsPage() {
               </div>
             ))}
           </div>
+          )} {/* end !loading && visible.length > 0 mobile */}
         </div>
       </div>
 

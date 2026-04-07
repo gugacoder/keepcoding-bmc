@@ -3,9 +3,10 @@ import {
   Gear, User, Bell, CreditCard, Globe,
   PencilSimple, FloppyDisk, X, Check,
   Crown, Lightning, UserCircle,
-  CurrencyCircleDollar, Newspaper, Robot, Tag,
+  CurrencyCircleDollar, Newspaper, Robot, Tag, Moon,
 } from '@phosphor-icons/react'
 import { LanguageSelector } from '../components/LanguageSelector'
+import { useTheme } from '../contexts/ThemeContext'
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 
@@ -16,6 +17,34 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
       <span>{message}</span>
       <button onClick={onClose} className="ml-2 text-stone-400 hover:text-white transition-colors">
         <X size={14} weight="bold" />
+      </button>
+    </div>
+  )
+}
+
+// ─── Dark mode toggle ─────────────────────────────────────────────────────────
+
+function DarkModeToggle() {
+  const { theme, toggleTheme } = useTheme()
+  return (
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-foreground font-medium">Modo escuro</p>
+        <p className="text-xs text-muted-foreground mt-0.5">Preferência salva automaticamente</p>
+      </div>
+      <button
+        onClick={toggleTheme}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+          theme === 'dark' ? 'bg-amber-500' : 'bg-stone-200'
+        }`}
+        role="switch"
+        aria-checked={theme === 'dark'}
+      >
+        <span
+          className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+            theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
+          }`}
+        />
       </button>
     </div>
   )
@@ -393,11 +422,16 @@ export function ConfigPage() {
       <Section icon={<Globe size={16} weight="duotone" />} title="Idioma">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-stone-700 font-medium">Idioma do app</p>
-            <p className="text-xs text-stone-400 mt-0.5">Muda todos os textos da interface</p>
+            <p className="text-sm text-foreground font-medium">Idioma do app</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Muda todos os textos da interface</p>
           </div>
           <LanguageSelector />
         </div>
+      </Section>
+
+      {/* Appearance */}
+      <Section icon={<Moon size={16} weight="duotone" />} title="Aparência">
+        <DarkModeToggle />
       </Section>
 
       {/* Upgrade dialog */}

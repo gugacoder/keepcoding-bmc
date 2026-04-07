@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { Eye, PencilSimple, Robot, Gear } from '@phosphor-icons/react'
+import { Eye, PencilSimple, Robot, Gear, Moon, Sun } from '@phosphor-icons/react'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const navItems = [
   { label: 'Monitor', href: '/monitor', icon: Eye },
@@ -9,14 +10,16 @@ const navItems = [
 ]
 
 export function DesktopHeader() {
+  const { theme, toggleTheme } = useTheme()
+
   return (
-    <header className="hidden lg:flex items-center justify-between bg-white border-b border-amber-100 px-8 py-4">
+    <header className="hidden lg:flex items-center justify-between bg-background border-b border-border px-8 py-4 transition-colors">
       {/* Logo */}
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center">
           <span className="text-white font-bold text-sm">KS</span>
         </div>
-        <span className="font-semibold text-stone-800 text-lg">KeepSolo</span>
+        <span className="font-semibold text-foreground text-lg">KeepSolo</span>
       </div>
 
       {/* Tabs */}
@@ -44,8 +47,16 @@ export function DesktopHeader() {
         })}
       </nav>
 
-      {/* User */}
+      {/* Dark mode + User */}
       <div className="flex items-center gap-3">
+        <button
+          onClick={toggleTheme}
+          className="flex items-center justify-center w-8 h-8 rounded-xl text-muted-foreground hover:text-foreground hover:bg-amber-50 dark:hover:bg-muted transition-colors"
+          aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+          title={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+        >
+          {theme === 'dark' ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
+        </button>
         <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 text-sm font-medium">
           A
         </div>

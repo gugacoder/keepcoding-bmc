@@ -693,7 +693,7 @@
     "id": "F-029",
     "name": "Empty states + skeletons + dark mode",
     "description": "Implementar estados e transições em ambos os apps. Empty states educativos: para cada lista/grid vazia, mostrar ilustração (ícone Phosphor grande), texto explicativo, CTA (ex: 'Crie seu primeiro workflow'). Loading skeletons: componentes skeleton para cards, tabelas, painéis — usados durante delays simulados (gerar app, treinar) e loading inicial. Transições suaves: 150-300ms ease em mudanças de estado (hover, active, status changes). Dark mode: toggle no header e/ou settings, preferência salva em localStorage, CSS variables para ambos os temas. Ícones Phosphor duotone consistentes em ambos os apps.",
-    "status": "blocked",
+    "status": "passing",
     "priority": 15,
     "agent": "coder",
     "task": "vibe-code",
@@ -710,7 +710,8 @@
       "Dark mode aplica paleta escura em todos os componentes",
       "Ícones são Phosphor duotone consistentes em ambos os apps"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-014-visual-polish-openai.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-014-visual-polish-openai.md",
+    "completed_at": "2026-04-07T16:23:43Z"
   },
   {
     "id": "F-030",

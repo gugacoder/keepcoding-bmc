@@ -13,10 +13,12 @@ import { ConfigPage } from '@/pages/ConfigPage'
 import { WorkflowProvider } from '@/contexts/WorkflowContext'
 import { AgentsProvider } from '@/contexts/AgentsContext'
 import { ContentProvider } from '@/contexts/ContentContext'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
 function App() {
   return (
     <Suspense fallback={null}>
+      <ThemeProvider>
       <WorkflowProvider>
         <AgentsProvider>
         <ContentProvider>
@@ -38,6 +40,7 @@ function App() {
         </ContentProvider>
         </AgentsProvider>
       </WorkflowProvider>
+      </ThemeProvider>
     </Suspense>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// React imports moved below
 import {
   Robot,
   Pulse,
@@ -19,6 +19,8 @@ import {
 import { Link } from 'react-router-dom'
 import { useAgents } from '@/contexts/AgentsContext'
 import { useWorkflows } from '@/contexts/WorkflowContext'
+import { SkeletonPanel } from '@/components/Skeleton'
+import { useState, useEffect } from 'react'
 import type { MemoryItem } from '@/data/types'
 
 const CATEGORY_LABELS: Record<MemoryItem['category'], string> = {
@@ -40,6 +42,12 @@ export function AgentsPage() {
   const { workflows } = useWorkflows()
   const [isPaused, setIsPaused] = useState(false)
   const [memoryExpanded, setMemoryExpanded] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 500)
+    return () => clearTimeout(t)
+  }, [])
   const [dismissedHints, setDismissedHints] = useState<Set<string>>(new Set())
   const [acceptedHints, setAcceptedHints] = useState<Set<string>>(new Set())
 
@@ -70,6 +78,15 @@ export function AgentsPage() {
     addMemoryItem({ category: teachCategory, content: text })
     setTeachText('')
     setTeachOpen(false)
+  }
+
+  if (loading) {
+    return (
+      <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+        <SkeletonPanel />
+        <SkeletonPanel />
+      </div>
+    )
   }
 
   return (

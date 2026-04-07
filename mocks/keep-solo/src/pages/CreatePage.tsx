@@ -12,6 +12,9 @@ import {
   Globe,
 } from '@phosphor-icons/react'
 import { useContent } from '@/contexts/ContentContext'
+import { EmptyState } from '@/components/EmptyState'
+import { SkeletonCard } from '@/components/Skeleton'
+import { useEffect } from 'react'
 import type { ContentItem, ContentType, ContentChannel } from '@/data/types'
 
 // ─── Status config ────────────────────────────────────────────────────────────
@@ -239,6 +242,12 @@ function CreateDialog({ onClose, onSubmit }: {
 export function CreatePage() {
   const { items, addItem, updateStatus } = useContent()
   const [showDialog, setShowDialog] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 500)
+    return () => clearTimeout(t)
+  }, [])
 
   return (
     <div className="p-6 space-y-6">
@@ -263,12 +272,18 @@ export function CreatePage() {
       </div>
 
       {/* Content grid */}
-      {items.length === 0 ? (
-        <div className="text-center py-16 text-stone-400">
-          <PencilSimple size={40} weight="duotone" className="mx-auto mb-3 text-amber-200" />
-          <p className="font-medium">Nenhum conteúdo ainda</p>
-          <p className="text-sm mt-1">Clique em "Criar post" para começar</p>
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)}
         </div>
+      ) : items.length === 0 ? (
+        <EmptyState
+          icon={PencilSimple}
+          title="Nenhum conteúdo ainda"
+          description="Crie seu primeiro post e o agente vai aprender seu estilo."
+          ctaLabel="Criar post"
+          onCta={() => setShowDialog(true)}
+        />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {items.map((item) => (

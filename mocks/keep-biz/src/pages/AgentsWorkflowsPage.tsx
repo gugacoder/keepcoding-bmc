@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, GitBranch } from '@phosphor-icons/react'
 import { useWorkflows } from '@/contexts/WorkflowContext'
 import { WorkflowWizard } from '@/components/WorkflowWizard'
 import { WorkflowDetailPanel } from '@/components/WorkflowDetailPanel'
 import { useAgents } from '@/contexts/AgentsContext'
+import { EmptyState } from '@/components/EmptyState'
+import { SkeletonTable } from '@/components/Skeleton'
 import type { Workflow, WorkflowStatus } from '@/data/types'
 
 const STATUS_CONFIG: Record<WorkflowStatus, { label: string; className: string }> = {
@@ -66,6 +68,12 @@ export function AgentsWorkflowsPage() {
   const { agents } = useAgents()
   const [wizardOpen, setWizardOpen] = useState(false)
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 600)
+    return () => clearTimeout(t)
+  }, [])
 
   // Keep selectedWorkflow in sync with live state from context
   const liveSelected = selectedWorkflow
@@ -95,12 +103,16 @@ export function AgentsWorkflowsPage() {
           </div>
 
           {/* Table */}
-          {workflows.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 text-center">
-              <GitBranch size={40} weight="duotone" className="text-slate-300 mb-3" />
-              <p className="text-slate-500 font-medium">Nenhum workflow ainda</p>
-              <p className="text-sm text-slate-400 mt-1">Crie o primeiro workflow para começar.</p>
-            </div>
+          {loading ? (
+            <SkeletonTable rows={4} />
+          ) : workflows.length === 0 ? (
+            <EmptyState
+              icon={GitBranch}
+              title="Nenhum workflow ainda"
+              description="Mapeie o que a equipe faz repetidamente. O agente aprende e assume."
+              ctaLabel="Criar primeiro workflow"
+              onCta={() => setWizardOpen(true)}
+            />
           ) : (
             <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
               {/* Desktop table */}

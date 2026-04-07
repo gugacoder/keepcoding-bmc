@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, GitBranch, Pulse, X } from '@phosphor-icons/react'
 import { useWorkflows } from '@/contexts/WorkflowContext'
 import { WorkflowWizard } from '@/components/WorkflowWizard'
 import { WorkflowDetailPanel } from '@/components/WorkflowDetailPanel'
+import { EmptyState } from '@/components/EmptyState'
+import { SkeletonCard } from '@/components/Skeleton'
 import type { Workflow, WorkflowStatus } from '@/data/types'
 
 const STATUS_CONFIG: Record<WorkflowStatus, { label: string; className: string; pulse?: boolean }> = {
@@ -75,6 +77,12 @@ function formatDate(iso: string) {
 export function AgentsWorkflowsPage() {
   const { workflows } = useWorkflows()
   const [wizardOpen, setWizardOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 600)
+    return () => clearTimeout(t)
+  }, [])
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null)
 
   // sync selected workflow with latest state
@@ -103,23 +111,18 @@ export function AgentsWorkflowsPage() {
       <div className={`flex gap-5 ${liveSelected ? 'items-start' : ''}`}>
         {/* Cards grid */}
         <div className={`${liveSelected ? 'hidden lg:block lg:w-80 shrink-0' : 'flex-1'}`}>
-          {workflows.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 text-center">
-              <div className="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
-                <GitBranch size={32} weight="duotone" className="text-amber-400" />
-              </div>
-              <p className="text-stone-600 font-medium">Nenhum workflow ainda</p>
-              <p className="text-sm text-stone-400 mt-1">
-                Descreva o que você faz repetidamente — seu agente vai aprender.
-              </p>
-              <button
-                onClick={() => setWizardOpen(true)}
-                className="mt-5 flex items-center gap-2 px-4 py-2 text-sm font-semibold text-amber-600 bg-amber-50 border border-amber-200 rounded-xl hover:bg-amber-100 transition-colors"
-              >
-                <Plus size={15} weight="bold" />
-                Criar primeiro workflow
-              </button>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
+          ) : workflows.length === 0 ? (
+            <EmptyState
+              icon={GitBranch}
+              title="Nenhum workflow ainda"
+              description="Descreva o que você faz repetidamente — seu agente vai aprender e assumir."
+              ctaLabel="Criar primeiro workflow"
+              onCta={() => setWizardOpen(true)}
+            />
           ) : (
             <div className={`grid gap-4 items-start ${liveSelected ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3'}`}>
               {workflows.map((wf) => {

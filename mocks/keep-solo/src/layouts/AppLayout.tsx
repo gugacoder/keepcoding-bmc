@@ -4,7 +4,7 @@ import { DesktopHeader } from '@/components/DesktopHeader'
 
 export function AppLayout() {
   return (
-    <div className="flex h-screen flex-col bg-amber-50/30 overflow-hidden">
+    <div className="flex h-screen flex-col bg-background overflow-hidden transition-colors">
       {/* Header: desktop only */}
       <DesktopHeader />
 

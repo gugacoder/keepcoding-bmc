@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { teamMembers as initialTeamMembers, auditLog } from '@/data'
 import { LanguageSelector } from '@/components/LanguageSelector'
+import { useTheme } from '@/contexts/ThemeContext'
 import type { TeamMember, TeamRole, AuditLogEntry, AuditResult } from '@/data/types'
 import {
   PencilSimple,
@@ -613,6 +614,35 @@ interface ProfileFields {
   email: string
 }
 
+function DarkModeCard() {
+  const { theme, toggleTheme } = useTheme()
+  return (
+    <div className="bg-card rounded-md border border-border p-5 shadow-sm">
+      <h2 className="text-sm font-semibold text-foreground mb-3">Aparência</h2>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm text-foreground">Modo escuro</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Preferência salva automaticamente</p>
+        </div>
+        <button
+          onClick={toggleTheme}
+          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+            theme === 'dark' ? 'bg-blue-600' : 'bg-slate-200'
+          }`}
+          role="switch"
+          aria-checked={theme === 'dark'}
+        >
+          <span
+            className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+              theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
+            }`}
+          />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 type SettingsTab = 'perfil' | 'equipe' | 'notificacoes' | 'plano' | 'audit' | 'idioma'
 
 const TABS: { id: SettingsTab; label: string }[] = [
@@ -975,9 +1005,12 @@ export function SettingsPage() {
 
         {/* ── Idioma ─────────────────────────────────────────────────── */}
         {activeTab === 'idioma' && (
-          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm max-w-xs">
-            <h2 className="text-sm font-semibold text-slate-800 mb-3">Idioma</h2>
-            <LanguageSelector />
+          <div className="space-y-4 max-w-xs">
+            <div className="bg-card rounded-md border border-border p-5 shadow-sm">
+              <h2 className="text-sm font-semibold text-foreground mb-3">Idioma</h2>
+              <LanguageSelector />
+            </div>
+            <DarkModeCard />
           </div>
         )}
       </div>

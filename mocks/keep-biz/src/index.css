@@ -114,3 +114,29 @@
 body {
   @apply bg-background text-foreground;
 }
+
+/* Smooth theme transitions */
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+/* Transitions suaves para mudanças de estado (150-300ms) */
+button,
+a,
+[role="button"] {
+  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+  transition-timing-function: ease;
+  transition-duration: 150ms;
+}
+
+/* Cards e painéis com transição suave */
+.card-hover {
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  transform: translateY(-1px);
+}

@@ -8,7 +8,7 @@ export function AppLayout() {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="flex h-screen flex-col bg-slate-50 overflow-hidden">
+    <div className="flex h-screen flex-col bg-background overflow-hidden transition-colors">
       {/* Orchestrator Bar — always visible at top */}
       <OrchestratorBar />
 

@@ -13,6 +13,9 @@ import {
 } from '@phosphor-icons/react'
 import { teamMembers } from '@/data'
 import { useContent } from '@/contexts/ContentContext'
+import { EmptyState } from '@/components/EmptyState'
+import { SkeletonCard } from '@/components/Skeleton'
+import { useEffect } from 'react'
 import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
 
 // ── Status config ──────────────────────────────────────────────────────────────
@@ -492,6 +495,12 @@ export function ContentPage() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('todos')
   const [showNewDialog, setShowNewDialog] = useState(false)
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 500)
+    return () => clearTimeout(t)
+  }, [])
 
   const filtered = filterStatus === 'todos' ? items : items.filter(i => i.status === filterStatus)
 
@@ -583,12 +592,18 @@ export function ContentPage() {
           </div>
 
           {/* Content */}
-          {filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 text-center">
-              <MagnifyingGlass size={36} className="text-slate-300 mb-3" />
-              <p className="text-sm font-medium text-slate-500">Nenhum item encontrado</p>
-              <p className="text-xs text-slate-400 mt-1">Tente outro filtro ou crie novo conteúdo.</p>
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
+          ) : filtered.length === 0 ? (
+            <EmptyState
+              icon={MagnifyingGlass}
+              title="Nenhum item encontrado"
+              description="Tente outro filtro ou crie novo conteúdo para sua campanha."
+              ctaLabel="Nova campanha"
+              onCta={() => setShowNewDialog(true)}
+            />
           ) : viewMode === 'grid' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {filtered.map(item => (
