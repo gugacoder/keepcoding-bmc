@@ -1,6 +1,30 @@
 import type { AuditLogEntry } from './types';
 
 export const auditLog: AuditLogEntry[] = [
+  // ── Human-in-loop: agent requested confirmation before high-stakes action ───
+  {
+    id: 'audit-013',
+    action: 'human_in_loop_requested',
+    triggeredBy: 'Invoice Hunter (agente)',
+    entity: 'Pagamento Fornecedor #8823 — R$ 47.200,00',
+    entityType: 'financial',
+    timestamp: '2026-04-07T10:45:00Z',
+    details: 'Agente identificou fatura vencida e solicitou autorização humana antes de efetuar pagamento automático via ERP Totvs. Valor acima do limite de autonomia (R$ 5.000).',
+    result: 'awaiting_confirmation',
+    humanInLoop: true,
+  },
+  {
+    id: 'audit-014',
+    action: 'human_in_loop_approved',
+    triggeredBy: 'Carlos Mendes',
+    entity: 'Contrato de Renovação — Fornecedor ABC',
+    entityType: 'contract',
+    timestamp: '2026-04-06T15:20:00Z',
+    details: 'Agente Schedule Keeper detectou vencimento de contrato e redigiu proposta de renovação. Solicitou revisão humana antes de enviar ao fornecedor. Carlos Mendes aprovou o envio.',
+    result: 'success',
+    humanInLoop: true,
+  },
+  // ── Regular audit entries ─────────────────────────────────────────────────
   {
     id: 'audit-001',
     action: 'agent_activated',
@@ -9,6 +33,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'agent',
     timestamp: '2026-04-07T11:00:00Z',
     details: 'Heartbeat ativado para workflow "Conciliação Bancária Semanal"',
+    result: 'success',
   },
   {
     id: 'audit-002',
@@ -18,6 +43,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'content',
     timestamp: '2026-04-05T11:30:00Z',
     details: 'Conteúdo aprovado para publicação no Instagram em 10/04/2026',
+    result: 'success',
   },
   {
     id: 'audit-003',
@@ -27,6 +53,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'workflow',
     timestamp: '2026-04-06T11:00:00Z',
     details: 'Novo workflow mapeado para o departamento de Operações',
+    result: 'success',
   },
   {
     id: 'audit-004',
@@ -36,6 +63,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'connector',
     timestamp: '2026-03-01T09:00:00Z',
     details: 'Conector adicionado e autenticado via Model Context Protocol',
+    result: 'success',
   },
   {
     id: 'audit-005',
@@ -45,6 +73,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'agent',
     timestamp: '2026-04-07T09:15:00Z',
     details: 'Agente pausado — aguardando briefing aprovado para campanha Black Friday',
+    result: 'success',
   },
   {
     id: 'audit-006',
@@ -54,6 +83,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'team_member',
     timestamp: '2026-03-01T08:00:00Z',
     details: 'Convite enviado com role Viewer para o departamento de RH',
+    result: 'pending',
   },
   {
     id: 'audit-007',
@@ -63,6 +93,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'workflow',
     timestamp: '2026-03-28T14:22:00Z',
     details: 'Workflow implantado em produção — agente ativo com heartbeat',
+    result: 'success',
   },
   {
     id: 'audit-008',
@@ -72,6 +103,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'content',
     timestamp: '2026-04-01T18:00:00Z',
     details: 'Publicação automática via agente conforme agendamento',
+    result: 'success',
   },
   {
     id: 'audit-009',
@@ -81,6 +113,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'settings',
     timestamp: '2026-04-03T10:00:00Z',
     details: 'Endereço e telefone corporativo atualizados',
+    result: 'success',
   },
   {
     id: 'audit-010',
@@ -90,6 +123,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'connector',
     timestamp: '2026-03-15T16:30:00Z',
     details: 'Conector desconectado por expiração de token OAuth — reconexão pendente',
+    result: 'pending',
   },
   {
     id: 'audit-011',
@@ -99,6 +133,7 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'workflow',
     timestamp: '2026-02-15T10:30:00Z',
     details: 'Workflow de nutrição de leads criado para o departamento de Marketing',
+    result: 'success',
   },
   {
     id: 'audit-012',
@@ -108,5 +143,17 @@ export const auditLog: AuditLogEntry[] = [
     entityType: 'agent',
     timestamp: '2026-04-01T11:00:00Z',
     details: 'Heartbeat ativado após treinamento concluído — 91% de confiança',
+    result: 'success',
+  },
+  {
+    id: 'audit-015',
+    action: 'human_in_loop_denied',
+    triggeredBy: 'Mariana Costa',
+    entity: 'Desconto Especial 40% — Cliente Vip #312',
+    entityType: 'commercial',
+    timestamp: '2026-04-04T14:05:00Z',
+    details: 'Lead Nurturer sugeriu oferecer desconto de 40% para fechar negociação. Mariana Costa revisou e negou — política interna limita desconto a 20% sem aprovação da diretoria.',
+    result: 'denied',
+    humanInLoop: true,
   },
 ];

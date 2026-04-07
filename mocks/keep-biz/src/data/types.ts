@@ -152,7 +152,12 @@ export type AuditAction =
   | 'connector_added'
   | 'connector_removed'
   | 'member_invited'
-  | 'settings_updated';
+  | 'settings_updated'
+  | 'human_in_loop_requested'
+  | 'human_in_loop_approved'
+  | 'human_in_loop_denied';
+
+export type AuditResult = 'success' | 'pending' | 'denied' | 'awaiting_confirmation';
 
 export interface AuditLogEntry {
   id: string;
@@ -162,4 +167,6 @@ export interface AuditLogEntry {
   entityType: string;
   timestamp: string;
   details: string;
+  result: AuditResult;
+  humanInLoop?: boolean;
 }

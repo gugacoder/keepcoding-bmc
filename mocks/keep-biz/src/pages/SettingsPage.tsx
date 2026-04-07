@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { teamMembers as initialTeamMembers } from '@/data'
+import { teamMembers as initialTeamMembers, auditLog } from '@/data'
 import { LanguageSelector } from '@/components/LanguageSelector'
-import type { TeamMember, TeamRole } from '@/data/types'
+import type { TeamMember, TeamRole, AuditLogEntry, AuditResult } from '@/data/types'
 import {
   PencilSimple,
   FloppyDisk,
@@ -15,6 +15,19 @@ import {
   XCircle,
   User,
   Crown,
+  Bell,
+  Robot,
+  Megaphone,
+  Monitor,
+  Wrench,
+  Lightning,
+  ArrowUp,
+  ClipboardText,
+  Clock,
+  WarningCircle,
+  Check,
+  Prohibit,
+  Question,
 } from '@phosphor-icons/react'
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
@@ -97,7 +110,6 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
         className="bg-white rounded-lg shadow-2xl w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-sm font-semibold text-slate-700">
@@ -113,7 +125,6 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
           </button>
         </div>
 
-        {/* Role badge + description */}
         <div className="p-4 border-b border-slate-100">
           <div className="flex items-center gap-2 mb-2">
             <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full ${roleColor[member.role]}`}>
@@ -125,7 +136,6 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
           <p className="text-xs text-slate-600 leading-relaxed">{perms.description}</p>
         </div>
 
-        {/* Permissions list */}
         <div className="p-4">
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Permissões</p>
           <ul className="space-y-2">
@@ -254,6 +264,345 @@ function InviteDialog({ onClose, onInvite }: {
   )
 }
 
+// ─── Plan upgrade comparison dialog ───────────────────────────────────────────
+
+interface PlanDef {
+  name: string
+  price: string
+  period: string
+  highlight: boolean
+  tag?: string
+  features: string[]
+  limits: { agents: string; connectors: string; users: string }
+  ctaLabel: string
+  ctaStyle: string
+}
+
+const PLANS: PlanDef[] = [
+  {
+    name: 'Starter',
+    price: 'R$ 299',
+    period: '/mês',
+    highlight: false,
+    features: [
+      '2 agentes ativos',
+      '5 conectores',
+      '3 usuários',
+      'Social Monitor básico',
+      'Content Forge (50 posts/mês)',
+      'Suporte via e-mail',
+    ],
+    limits: { agents: '2', connectors: '5', users: '3' },
+    ctaLabel: 'Fazer downgrade',
+    ctaStyle: 'border border-slate-200 text-slate-600 hover:bg-slate-50',
+  },
+  {
+    name: 'Business',
+    price: 'R$ 799',
+    period: '/mês',
+    highlight: true,
+    tag: 'Plano atual',
+    features: [
+      '5 agentes ativos',
+      '10 conectores',
+      '5 usuários',
+      'Social Monitor completo',
+      'Content Forge ilimitado',
+      'Audit log 90 dias',
+      'Suporte prioritário',
+    ],
+    limits: { agents: '5', connectors: '10', users: '5' },
+    ctaLabel: 'Plano atual',
+    ctaStyle: 'bg-blue-100 text-blue-700 cursor-default',
+  },
+  {
+    name: 'Enterprise',
+    price: 'R$ 1.999',
+    period: '/mês',
+    highlight: false,
+    tag: 'Mais popular',
+    features: [
+      'Agentes ilimitados',
+      'Conectores ilimitados',
+      'Usuários ilimitados',
+      'Deploy on-premise',
+      'Audit log 1 ano',
+      'RBAC avançado',
+      'SLA 99.9% + suporte 24/7',
+      'Onboarding dedicado',
+    ],
+    limits: { agents: '∞', connectors: '∞', users: '∞' },
+    ctaLabel: 'Falar com vendas',
+    ctaStyle: 'bg-blue-600 text-white hover:bg-blue-700',
+  },
+]
+
+function UpgradeDialog({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
+      <div
+        className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-slate-100">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-900">Comparar planos</h2>
+            <p className="text-sm text-slate-500 mt-0.5">Escolha o plano ideal para o seu negócio</p>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1">
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Plans grid */}
+        <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {PLANS.map((plan) => (
+            <div
+              key={plan.name}
+              className={`rounded-lg border p-5 flex flex-col gap-4 ${
+                plan.highlight
+                  ? 'border-blue-400 bg-blue-50 ring-2 ring-blue-300 ring-offset-1'
+                  : 'border-slate-200 bg-white'
+              }`}
+            >
+              {/* Plan name + tag */}
+              <div>
+                {plan.tag && (
+                  <span className={`inline-block mb-2 px-2 py-0.5 text-xs font-medium rounded-full ${
+                    plan.highlight
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {plan.tag}
+                  </span>
+                )}
+                <h3 className="text-base font-semibold text-slate-900">{plan.name}</h3>
+                <div className="flex items-baseline gap-0.5 mt-1">
+                  <span className="text-2xl font-bold text-slate-900">{plan.price}</span>
+                  <span className="text-sm text-slate-500">{plan.period}</span>
+                </div>
+              </div>
+
+              {/* Limits pills */}
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  { label: plan.limits.agents + ' agentes', icon: <Robot size={11} /> },
+                  { label: plan.limits.connectors + ' conectores', icon: <Wrench size={11} /> },
+                  { label: plan.limits.users + ' usuários', icon: <User size={11} /> },
+                ].map(({ label, icon }) => (
+                  <span key={label} className="inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-white border border-slate-200 rounded-full text-slate-600">
+                    {icon}
+                    {label}
+                  </span>
+                ))}
+              </div>
+
+              {/* Features */}
+              <ul className="space-y-1.5 flex-1">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-xs text-slate-700">
+                    <CheckCircle size={14} weight="fill" className="text-emerald-500 mt-0.5 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <button
+                className={`w-full px-4 py-2 text-sm rounded-md font-medium transition-colors ${plan.ctaStyle}`}
+              >
+                {plan.ctaLabel}
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="px-6 pb-5 text-center">
+          <p className="text-xs text-slate-400">Todos os planos incluem 14 dias de trial gratuito. Cancele a qualquer momento.</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Audit log helpers ────────────────────────────────────────────────────────
+
+const ACTION_LABELS: Record<string, string> = {
+  workflow_created: 'Workflow criado',
+  workflow_deployed: 'Workflow implantado',
+  agent_activated: 'Agente ativado',
+  agent_paused: 'Agente pausado',
+  content_approved: 'Conteúdo aprovado',
+  content_published: 'Conteúdo publicado',
+  connector_added: 'Conector adicionado',
+  connector_removed: 'Conector removido',
+  member_invited: 'Membro convidado',
+  settings_updated: 'Configurações atualizadas',
+  human_in_loop_requested: 'Confirmação solicitada',
+  human_in_loop_approved: 'Ação aprovada pelo humano',
+  human_in_loop_denied: 'Ação negada pelo humano',
+}
+
+const RESULT_CONFIG: Record<AuditResult, { label: string; className: string; icon: React.ReactNode }> = {
+  success: {
+    label: 'Sucesso',
+    className: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    icon: <Check size={11} weight="bold" />,
+  },
+  pending: {
+    label: 'Pendente',
+    className: 'bg-amber-50 text-amber-700 border border-amber-200',
+    icon: <Clock size={11} />,
+  },
+  denied: {
+    label: 'Negado',
+    className: 'bg-red-50 text-red-600 border border-red-200',
+    icon: <Prohibit size={11} />,
+  },
+  awaiting_confirmation: {
+    label: 'Aguardando',
+    className: 'bg-blue-50 text-blue-700 border border-blue-200',
+    icon: <Question size={11} />,
+  },
+}
+
+function AuditTable({ entries }: { entries: AuditLogEntry[] }) {
+  const sorted = [...entries].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+  )
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-xs">
+        <thead>
+          <tr className="border-b border-slate-100">
+            <th className="pb-2 text-left font-medium text-slate-500 pr-3">Ação</th>
+            <th className="pb-2 text-left font-medium text-slate-500 pr-3">Entidade</th>
+            <th className="pb-2 text-left font-medium text-slate-500 pr-3 hidden sm:table-cell">Quem</th>
+            <th className="pb-2 text-left font-medium text-slate-500 pr-3 hidden md:table-cell">Quando</th>
+            <th className="pb-2 text-left font-medium text-slate-500">Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sorted.map((entry) => {
+            const result = RESULT_CONFIG[entry.result]
+            return (
+              <tr key={entry.id} className="border-b border-slate-50 hover:bg-slate-50 group" title={entry.details}>
+                <td className="py-2 pr-3">
+                  <div className="flex items-center gap-1.5">
+                    {entry.humanInLoop && (
+                      <span title="Human-in-loop">
+                        <WarningCircle size={13} weight="fill" className="text-amber-500 shrink-0" />
+                      </span>
+                    )}
+                    <span className="text-slate-700 leading-snug">
+                      {ACTION_LABELS[entry.action] ?? entry.action}
+                    </span>
+                  </div>
+                </td>
+                <td className="py-2 pr-3 max-w-[160px]">
+                  <span className="truncate block text-slate-600">{entry.entity}</span>
+                </td>
+                <td className="py-2 pr-3 text-slate-500 whitespace-nowrap hidden sm:table-cell">
+                  {entry.triggeredBy}
+                </td>
+                <td className="py-2 pr-3 text-slate-400 whitespace-nowrap hidden md:table-cell">
+                  {new Date(entry.timestamp).toLocaleString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </td>
+                <td className="py-2">
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full font-medium ${result.className}`}>
+                    {result.icon}
+                    {result.label}
+                  </span>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      <p className="mt-2 text-xs text-slate-400 flex items-center gap-1">
+        <WarningCircle size={11} weight="fill" className="text-amber-500" />
+        Entradas com ícone laranja são ações com revisão humana (human-in-loop)
+      </p>
+    </div>
+  )
+}
+
+// ─── Notification categories ──────────────────────────────────────────────────
+
+interface NotifToggle {
+  key: string
+  label: string
+  defaultOn: boolean
+}
+
+interface NotifCategory {
+  id: string
+  label: string
+  icon: React.ReactNode
+  toggles: NotifToggle[]
+}
+
+const NOTIF_CATEGORIES: NotifCategory[] = [
+  {
+    id: 'agentes',
+    label: 'Agentes',
+    icon: <Robot size={14} weight="duotone" className="text-blue-600" />,
+    toggles: [
+      { key: 'agentes.erro', label: 'Agente parou inesperadamente', defaultOn: true },
+      { key: 'agentes.heartbeat', label: 'Heartbeat ativado', defaultOn: true },
+      { key: 'agentes.confirmacao', label: 'Agente aguarda confirmação (human-in-loop)', defaultOn: true },
+      { key: 'agentes.treinamento', label: 'Treinamento concluído', defaultOn: false },
+    ],
+  },
+  {
+    id: 'conteudo',
+    label: 'Conteúdo',
+    icon: <Megaphone size={14} weight="duotone" className="text-indigo-600" />,
+    toggles: [
+      { key: 'conteudo.revisao', label: 'Conteúdo pronto para revisão', defaultOn: true },
+      { key: 'conteudo.agendado', label: 'Publicação agendada confirmada', defaultOn: false },
+      { key: 'conteudo.publicado', label: 'Conteúdo publicado pelo agente', defaultOn: true },
+    ],
+  },
+  {
+    id: 'monitor',
+    label: 'Monitor',
+    icon: <Monitor size={14} weight="duotone" className="text-emerald-600" />,
+    toggles: [
+      { key: 'monitor.mencao_negativa', label: 'Menção negativa detectada', defaultOn: true },
+      { key: 'monitor.score_caiu', label: 'Score de reputação caiu', defaultOn: true },
+      { key: 'monitor.resumo_semanal', label: 'Resumo semanal de menções', defaultOn: false },
+    ],
+  },
+  {
+    id: 'sistema',
+    label: 'Sistema',
+    icon: <Wrench size={14} weight="duotone" className="text-slate-500" />,
+    toggles: [
+      { key: 'sistema.novo_membro', label: 'Novo membro na equipe', defaultOn: false },
+      { key: 'sistema.plano', label: 'Renovação do plano se aproxima', defaultOn: true },
+      { key: 'sistema.conector', label: 'Conector desconectado', defaultOn: true },
+    ],
+  },
+]
+
+function buildDefaultNotifs(): Record<string, boolean> {
+  const out: Record<string, boolean> = {}
+  for (const cat of NOTIF_CATEGORIES) {
+    for (const t of cat.toggles) {
+      out[t.key] = t.defaultOn
+    }
+  }
+  return out
+}
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 interface ProfileFields {
@@ -264,7 +613,20 @@ interface ProfileFields {
   email: string
 }
 
+type SettingsTab = 'perfil' | 'equipe' | 'notificacoes' | 'plano' | 'audit' | 'idioma'
+
+const TABS: { id: SettingsTab; label: string }[] = [
+  { id: 'perfil', label: 'Perfil' },
+  { id: 'equipe', label: 'Equipe' },
+  { id: 'notificacoes', label: 'Notificações' },
+  { id: 'plano', label: 'Plano' },
+  { id: 'audit', label: 'Audit Log' },
+  { id: 'idioma', label: 'Idioma' },
+]
+
 export function SettingsPage() {
+  const [activeTab, setActiveTab] = useState<SettingsTab>('perfil')
+
   // Toast
   const [toast, setToast] = useState<string | null>(null)
 
@@ -322,18 +684,15 @@ export function SettingsPage() {
     showToast(`Convite enviado para ${email}.`)
   }
 
-  // Notifications
-  const [notifications, setNotifications] = useState({
-    'Alertas de reputação': true,
-    'Resumo semanal': true,
-    'Agentes com erro': true,
-    'Novos leads': false,
-    'Relatórios prontos': true,
-  })
+  // Notifications — grouped by category, persisted in session state
+  const [notifications, setNotifications] = useState<Record<string, boolean>>(buildDefaultNotifs)
 
   function toggleNotification(key: string) {
-    setNotifications((prev) => ({ ...prev, [key]: !prev[key as keyof typeof prev] }))
+    setNotifications((prev) => ({ ...prev, [key]: !prev[key] }))
   }
+
+  // Plan upgrade dialog
+  const [showUpgradeDialog, setShowUpgradeDialog] = useState(false)
 
   const profileFields: { key: keyof ProfileFields; label: string; type?: string }[] = [
     { key: 'nome', label: 'Nome da empresa' },
@@ -355,187 +714,272 @@ export function SettingsPage() {
       {selectedMember && (
         <MemberModal member={selectedMember} onClose={() => setSelectedMember(null)} />
       )}
+      {showUpgradeDialog && (
+        <UpgradeDialog onClose={() => setShowUpgradeDialog(false)} />
+      )}
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+      <div className="p-6 max-w-5xl">
         {/* Header */}
-        <div className="col-span-full">
+        <div className="mb-5">
           <h1 className="text-xl font-semibold text-slate-900">Configurações</h1>
           <p className="text-sm text-slate-500 mt-0.5">Empresa, equipe, notificações e plano</p>
         </div>
 
-        {/* ── Company Profile ─────────────────────────────────────────── */}
-        <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Buildings size={16} weight="duotone" className="text-blue-600" />
-              <h2 className="text-sm font-semibold text-slate-800">Perfil da Empresa</h2>
-            </div>
-            {!isEditingProfile ? (
-              <button
-                onClick={handleEditProfile}
-                className="flex items-center gap-1.5 px-2.5 py-1 text-xs border border-slate-200 text-slate-600 rounded hover:bg-slate-50 transition-colors"
-              >
-                <PencilSimple size={13} />
-                Editar
-              </button>
-            ) : (
-              <div className="flex gap-1.5">
-                <button
-                  onClick={handleCancelProfile}
-                  className="px-2.5 py-1 text-xs border border-slate-200 text-slate-500 rounded hover:bg-slate-50 transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSaveProfile}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                >
-                  <FloppyDisk size={13} />
-                  Salvar
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Logo placeholder */}
-          <div className="mb-4 flex items-center gap-3">
-            <div className="w-14 h-14 rounded-md bg-slate-100 border border-slate-200 border-dashed flex items-center justify-center text-slate-400">
-              <Buildings size={24} weight="duotone" />
-            </div>
-            <div>
-              <p className="text-xs font-medium text-slate-600">Logo da empresa</p>
-              <button
-                disabled={!isEditingProfile}
-                className="mt-1 text-xs text-blue-600 hover:text-blue-700 disabled:text-slate-400 disabled:cursor-not-allowed"
-              >
-                {isEditingProfile ? 'Trocar imagem' : 'Sem logo configurado'}
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {profileFields.map(({ key, label, type }) => (
-              <div key={key}>
-                <label className="block text-xs text-slate-500 mb-0.5">{label}</label>
-                <input
-                  type={type ?? 'text'}
-                  value={isEditingProfile ? draftProfile[key] : savedProfile[key]}
-                  onChange={(e) =>
-                    isEditingProfile &&
-                    setDraftProfile((prev) => ({ ...prev, [key]: e.target.value }))
-                  }
-                  disabled={!isEditingProfile}
-                  className={`w-full px-2.5 py-1.5 text-sm border rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-blue-400 ${
-                    isEditingProfile
-                      ? 'border-blue-300 bg-white'
-                      : 'border-slate-200 bg-slate-50 text-slate-600'
-                  }`}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Team ───────────────────────────────────────────────────── */}
-        <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <User size={16} weight="duotone" className="text-blue-600" />
-              <h2 className="text-sm font-semibold text-slate-800">Equipe</h2>
-              <span className="text-xs text-slate-400">({members.length})</span>
-            </div>
+        {/* Tabs */}
+        <div className="flex gap-1 border-b border-slate-200 mb-6 overflow-x-auto">
+          {TABS.map((tab) => (
             <button
-              onClick={() => setShowInviteDialog(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 text-sm whitespace-nowrap border-b-2 transition-colors ${
+                activeTab === tab.id
+                  ? 'border-blue-600 text-blue-700 font-medium'
+                  : 'border-transparent text-slate-500 hover:text-slate-700'
+              }`}
             >
-              <UserPlus size={13} />
-              Convidar
+              {tab.label}
             </button>
-          </div>
-
-          <div className="space-y-1">
-            {members.map((member) => (
-              <button
-                key={member.id}
-                onClick={() => setSelectedMember(member)}
-                className="w-full flex items-center gap-2.5 p-2 rounded-md hover:bg-slate-50 transition-colors text-left group"
-                title="Ver permissões"
-              >
-                {/* Avatar */}
-                <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600 shrink-0">
-                  {member.avatarInitials}
-                </div>
-
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <p className="text-xs font-medium text-slate-800 truncate">{member.name}</p>
-                    {!member.active && (
-                      <span className="text-xs text-amber-500 shrink-0">(pendente)</span>
-                    )}
-                  </div>
-                  <p className="text-xs text-slate-400 truncate">{member.email}</p>
-                </div>
-
-                {/* Role badge */}
-                <span
-                  className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full shrink-0 ${roleColor[member.role]}`}
-                >
-                  {roleIcon[member.role]}
-                  {member.role}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <p className="mt-3 text-xs text-slate-400 flex items-center gap-1">
-            <ShieldCheck size={12} />
-            Clique em um membro para ver permissões
-          </p>
+          ))}
         </div>
 
-        {/* ── Notifications ──────────────────────────────────────────── */}
-        <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
-          <h2 className="text-sm font-semibold text-slate-800 mb-3">Notificações</h2>
-          <div className="space-y-3">
-            {(Object.entries(notifications) as [string, boolean][]).map(([label, on]) => (
-              <div key={label} className="flex items-center justify-between">
-                <span className="text-sm text-slate-700">{label}</span>
+        {/* ── Perfil ─────────────────────────────────────────────────── */}
+        {activeTab === 'perfil' && (
+          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Buildings size={16} weight="duotone" className="text-blue-600" />
+                <h2 className="text-sm font-semibold text-slate-800">Perfil da Empresa</h2>
+              </div>
+              {!isEditingProfile ? (
                 <button
-                  onClick={() => toggleNotification(label)}
-                  className={`w-9 h-5 rounded-full flex items-center px-0.5 transition-colors ${
-                    on ? 'bg-blue-600' : 'bg-slate-200'
-                  }`}
+                  onClick={handleEditProfile}
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-xs border border-slate-200 text-slate-600 rounded hover:bg-slate-50 transition-colors"
                 >
-                  <div
-                    className={`w-4 h-4 rounded-full bg-white shadow transition-transform ${
-                      on ? 'translate-x-4' : ''
+                  <PencilSimple size={13} />
+                  Editar
+                </button>
+              ) : (
+                <div className="flex gap-1.5">
+                  <button
+                    onClick={handleCancelProfile}
+                    className="px-2.5 py-1 text-xs border border-slate-200 text-slate-500 rounded hover:bg-slate-50 transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleSaveProfile}
+                    className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                  >
+                    <FloppyDisk size={13} />
+                    Salvar
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="mb-4 flex items-center gap-3">
+              <div className="w-14 h-14 rounded-md bg-slate-100 border border-slate-200 border-dashed flex items-center justify-center text-slate-400">
+                <Buildings size={24} weight="duotone" />
+              </div>
+              <div>
+                <p className="text-xs font-medium text-slate-600">Logo da empresa</p>
+                <button
+                  disabled={!isEditingProfile}
+                  className="mt-1 text-xs text-blue-600 hover:text-blue-700 disabled:text-slate-400 disabled:cursor-not-allowed"
+                >
+                  {isEditingProfile ? 'Trocar imagem' : 'Sem logo configurado'}
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {profileFields.map(({ key, label, type }) => (
+                <div key={key}>
+                  <label className="block text-xs text-slate-500 mb-0.5">{label}</label>
+                  <input
+                    type={type ?? 'text'}
+                    value={isEditingProfile ? draftProfile[key] : savedProfile[key]}
+                    onChange={(e) =>
+                      isEditingProfile &&
+                      setDraftProfile((prev) => ({ ...prev, [key]: e.target.value }))
+                    }
+                    disabled={!isEditingProfile}
+                    className={`w-full px-2.5 py-1.5 text-sm border rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-blue-400 ${
+                      isEditingProfile
+                        ? 'border-blue-300 bg-white'
+                        : 'border-slate-200 bg-slate-50 text-slate-600'
                     }`}
                   />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Equipe ─────────────────────────────────────────────────── */}
+        {activeTab === 'equipe' && (
+          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm max-w-lg">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <User size={16} weight="duotone" className="text-blue-600" />
+                <h2 className="text-sm font-semibold text-slate-800">Equipe</h2>
+                <span className="text-xs text-slate-400">({members.length})</span>
+              </div>
+              <button
+                onClick={() => setShowInviteDialog(true)}
+                className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+              >
+                <UserPlus size={13} />
+                Convidar
+              </button>
+            </div>
+
+            <div className="space-y-1">
+              {members.map((member) => (
+                <button
+                  key={member.id}
+                  onClick={() => setSelectedMember(member)}
+                  className="w-full flex items-center gap-2.5 p-2 rounded-md hover:bg-slate-50 transition-colors text-left group"
+                  title="Ver permissões"
+                >
+                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600 shrink-0">
+                    {member.avatarInitials}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-xs font-medium text-slate-800 truncate">{member.name}</p>
+                      {!member.active && (
+                        <span className="text-xs text-amber-500 shrink-0">(pendente)</span>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-400 truncate">{member.email}</p>
+                  </div>
+                  <span
+                    className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full shrink-0 ${roleColor[member.role]}`}
+                  >
+                    {roleIcon[member.role]}
+                    {member.role}
+                  </span>
                 </button>
+              ))}
+            </div>
+
+            <p className="mt-3 text-xs text-slate-400 flex items-center gap-1">
+              <ShieldCheck size={12} />
+              Clique em um membro para ver permissões
+            </p>
+          </div>
+        )}
+
+        {/* ── Notificações ───────────────────────────────────────────── */}
+        {activeTab === 'notificacoes' && (
+          <div className="max-w-lg space-y-4">
+            <div className="flex items-center gap-2 mb-1">
+              <Bell size={16} weight="duotone" className="text-blue-600" />
+              <h2 className="text-sm font-semibold text-slate-800">Notificações</h2>
+            </div>
+            <p className="text-xs text-slate-500 -mt-2">As preferências abaixo são salvas na sessão.</p>
+
+            {NOTIF_CATEGORIES.map((cat) => (
+              <div key={cat.id} className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  {cat.icon}
+                  <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wide">{cat.label}</h3>
+                </div>
+                <div className="space-y-2.5">
+                  {cat.toggles.map((toggle) => (
+                    <div key={toggle.key} className="flex items-center justify-between gap-4">
+                      <span className="text-sm text-slate-700 leading-snug">{toggle.label}</span>
+                      <button
+                        onClick={() => toggleNotification(toggle.key)}
+                        className={`w-9 h-5 rounded-full flex items-center px-0.5 transition-colors shrink-0 ${
+                          notifications[toggle.key] ? 'bg-blue-600' : 'bg-slate-200'
+                        }`}
+                        role="switch"
+                        aria-checked={notifications[toggle.key]}
+                      >
+                        <div
+                          className={`w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                            notifications[toggle.key] ? 'translate-x-4' : ''
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
-        </div>
+        )}
 
-        {/* ── Plan ───────────────────────────────────────────────────── */}
-        <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
-          <h2 className="text-sm font-semibold text-slate-800 mb-3">Plano</h2>
-          <div className="rounded-md bg-blue-50 border border-blue-200 p-3 mb-3">
-            <p className="text-sm font-semibold text-blue-900">Plano Business</p>
-            <p className="text-xs text-blue-700 mt-0.5">5 agentes · 10 conectores · 5 usuários</p>
-            <p className="text-xs text-blue-600 mt-1">Renova em 01/05/2026</p>
+        {/* ── Plano ──────────────────────────────────────────────────── */}
+        {activeTab === 'plano' && (
+          <div className="max-w-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <Lightning size={16} weight="duotone" className="text-blue-600" />
+              <h2 className="text-sm font-semibold text-slate-800">Seu Plano</h2>
+            </div>
+
+            {/* Current plan card */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-5 text-white mb-4 shadow-lg">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-xs text-blue-200 font-medium uppercase tracking-wider mb-0.5">Plano atual</p>
+                  <h3 className="text-xl font-bold">Business</h3>
+                </div>
+                <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-medium">Ativo</span>
+              </div>
+
+              <div className="text-3xl font-bold mb-1">R$ 799<span className="text-lg text-blue-200 font-normal">/mês</span></div>
+
+              <div className="mt-3 pt-3 border-t border-blue-500 space-y-1">
+                {[
+                  '5 agentes ativos',
+                  '10 conectores',
+                  '5 usuários',
+                  'Audit log 90 dias',
+                  'Suporte prioritário',
+                ].map((f) => (
+                  <div key={f} className="flex items-center gap-2 text-xs text-blue-100">
+                    <CheckCircle size={13} weight="fill" className="text-blue-300 shrink-0" />
+                    {f}
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-3 text-xs text-blue-200">Renovação em 01/05/2026</p>
+            </div>
+
+            <button
+              onClick={() => setShowUpgradeDialog(true)}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-blue-300 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-sm"
+            >
+              <ArrowUp size={16} weight="bold" />
+              Fazer upgrade
+            </button>
+            <p className="mt-2 text-xs text-slate-400 text-center">Compare todos os planos disponíveis</p>
           </div>
-          <button className="w-full px-3 py-1.5 border border-blue-300 text-blue-700 text-sm rounded-md hover:bg-blue-50 transition-colors">
-            Ver opções de upgrade
-          </button>
-        </div>
+        )}
 
-        {/* ── Language ───────────────────────────────────────────────── */}
-        <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
-          <h2 className="text-sm font-semibold text-slate-800 mb-3">Idioma</h2>
-          <LanguageSelector />
-        </div>
+        {/* ── Audit Log ──────────────────────────────────────────────── */}
+        {activeTab === 'audit' && (
+          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <ClipboardText size={16} weight="duotone" className="text-blue-600" />
+              <h2 className="text-sm font-semibold text-slate-800">Audit Log</h2>
+              <span className="text-xs text-slate-400">({auditLog.length} entradas)</span>
+            </div>
+            <AuditTable entries={auditLog} />
+          </div>
+        )}
+
+        {/* ── Idioma ─────────────────────────────────────────────────── */}
+        {activeTab === 'idioma' && (
+          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm max-w-xs">
+            <h2 className="text-sm font-semibold text-slate-800 mb-3">Idioma</h2>
+            <LanguageSelector />
+          </div>
+        )}
       </div>
     </>
   )

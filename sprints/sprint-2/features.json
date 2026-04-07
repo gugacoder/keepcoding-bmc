@@ -622,7 +622,7 @@
     "id": "F-026",
     "name": "KeepBiz Settings — notifications + plan + audit",
     "description": "Completar configurações do KeepBiz (parte 2). Notificações: toggles agrupados por categoria (Agentes, Conteúdo, Monitor, Sistema) — state persiste na sessão. Plano: card do plano atual (nome, preço, features) + botão 'Fazer upgrade' abre comparação de 3 planos mock lado a lado. Audit log: tabela de ações recentes (quem triggered, que dado tocou, timestamp, resultado) — 10-15 entries mock incluindo exemplos de human-in-loop (agente pediu confirmação para ação high-stakes).",
-    "status": "blocked",
+    "status": "passing",
     "priority": 13,
     "agent": "coder",
     "task": "vibe-code",
@@ -638,7 +638,8 @@
       "Entries mostram quem, ação, dado, timestamp, resultado",
       "Pelo menos 2 entries mostram human-in-loop (agente pediu confirmação)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-013-admin-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-013-admin-config.md",
+    "completed_at": "2026-04-07T15:00:00Z"
   },
   {
     "id": "F-027",
