@@ -645,7 +645,7 @@
     "id": "F-027",
     "name": "KeepSolo Config",
     "description": "Implementar configurações do KeepSolo em /config. Perfil pessoal: form com nome, email, foto (placeholder), edit/save + toast. Notificações: 5 toggles simplificados (Leads, Conteúdo, Agente, Pagamentos, Dicas). Plano: card do plano atual + botão 'Upgrade' mostra 3 tiers (Solo R$97, Pro R$197, Business R$397). Seletor de idioma (pt/en/es) usa i18n configurado no F-003.",
-    "status": "pending",
+    "status": "passing",
     "priority": 13,
     "agent": "coder",
     "task": "vibe-code",
@@ -661,7 +661,8 @@
       "Seletor de idioma funciona e troca idioma do app",
       "Design KeepSolo aplicado"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-013-admin-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-013-admin-config.md",
+    "completed_at": "2026-04-07T15:48:45Z"
   },
   {
     "id": "F-028",
