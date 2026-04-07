@@ -1,0 +1,288 @@
+{
+  "wave": 1,
+  "sprint": 1,
+  "decision": "go",
+  "decision_rationale": "Wave 1 é primeira iteração com valor intrínseco. Análise valida GO: 8 discoveries com score 8-9 não implementadas (D-001, D-003, D-010, D-011, D-012 em dores; G-001, G-007, G-008 em ganhos). Maioria de descobertas acima de 7. Alto potencial de impacto em PME Operacional (KeepBiz) e Solopreneur (KeepSolo).",
+  "discoveries": [
+    {
+      "id": "D-001",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Custo e encargo de pessoal inviabiliza crescimento — TSU 34,75% (PT), encargos até 70% (BR). Crescimento operacional = custo não-linear.",
+      "score": 9,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-002",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Escassez de mão de obra qualificada — 84% empregadores Portugal com dificuldades; 62% PMEs Brasil. Competição com grandes empresas.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-003",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Tarefas repetitivas consomem 16h/semana por colaborador — entrada dados, transferência sistemas, follow-up, relatórios, agendamentos.",
+      "score": 9,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-004",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Erros operacionais por processos manuais — inconsistências em planilhas, retrabalho. Crítico em conciliação, AP/AR, estoque, ponto.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-005",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Resistência à adoção de novas ferramentas — apenas 40% PMEs europeias digitalmente preparadas. Fricção de mudança é risco de produto.",
+      "score": 5,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-006",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Ferramentas desconectadas (silos) — ERP, CRM, planilhas, WhatsApp operam isolados. Rework manual de copiar dados, inconsistências.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-007",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Dono sobrecarregado com operações — 66% fazem RH solo, 70% sentem que estão sempre atrasados, 79% lutam com overhead.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-008",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "ERPs caros e complexos — PMEs pagam por funcionalidades não-utilizadas, interfaces pesadas, complexidade tributária, dependência de consultor.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-009",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Falta de visibilidade sobre operações internas — sem dados centralizados, gestor não sabe gargalos. Decisões baseadas em achismo.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-010",
+      "type": "pain",
+      "segment": "PME / KeepBiz",
+      "description": "Impossibilidade de escalar sem contratar — cada novo cliente = mais trabalho = mais funcionário. Modelo não escala, margens caem.",
+      "score": 8,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-011",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Acúmulo de funções paralisa crescimento — solopreneur é CEO, marketing, vendas, entrega, financeiro, suporte simultaneamente. 40% mais estresse.",
+      "score": 8,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-012",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Geração de leads consome 10-15h/semana — prospecção manual, mensagens personalizadas, follow-up. Dependência de referrals imprevisíveis.",
+      "score": 8,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-013",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Pipeline de receita imprevisível — ciclos fome/fartura. Impossível prever receita, compromissos fixos arriscados. Stress permanente.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-014",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Burnout e isolamento — 54% founders com burnout, 75% com ansiedade, 13% solidão. Peso de tomar todas decisões sozinho.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-015",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Criação de conteúdo irregular — solopreneur sabe que precisa postar, mas quando trabalho aperta, conteúdo é cortado primeiro. Ciclo vicioso.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-016",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Gestão financeira manual e atrasada — emissão NFe, cobrança inadimplentes, conciliação bancária manuais. Erros, atrasos, cashflow não-monitorado.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "D-017",
+      "type": "pain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Teto de crescimento por capacidade individual — solo founders levam 3.6x mais para escalar, 23% mais propensos falhar. Teto $50-100k/ano.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-001",
+      "type": "gain",
+      "segment": "PME / KeepBiz",
+      "description": "Escalar operações sem aumentar headcount — fazer mais com mesma equipe. 25-55% produtividade com IA, ROI $3.50-4.00/dólar investido.",
+      "score": 9,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-002",
+      "type": "gain",
+      "segment": "PME / KeepBiz",
+      "description": "Reduzir erros e retrabalho — processos automatizados eliminam erros digitação, inconsistências. Qualidade superior com menos esforço.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-003",
+      "type": "gain",
+      "segment": "PME / KeepBiz",
+      "description": "Liberar equipe para trabalho estratégico — colaboradores migram tarefas mecânicas para criação, relacionamento. Retenção de talentos como consequência.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-004",
+      "type": "gain",
+      "segment": "PME / KeepBiz",
+      "description": "Visibilidade em tempo real — Social Monitor (menções, reputação, alertas), dashboard de status operações sem precisar perguntar.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-005",
+      "type": "gain",
+      "segment": "PME / KeepBiz",
+      "description": "Integração sem trocar de sistema — app-wrapper integra com ERP/CRM via MCP. Pessoal usa nosso app, replica no ERP. Zero fricção.",
+      "score": 5,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-006",
+      "type": "gain",
+      "segment": "PME / KeepBiz",
+      "description": "Controle financeiro e cashflow previsível — cobranças, conciliação, AP/AR automatizados. Decisões caixa com dados atualizados.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-007",
+      "type": "gain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Operar como equipe de 5 sendo 1 pessoa — agentes especialistas por função: leads, conteúdo, financeiro. 72% PMEs com redução custos IA.",
+      "score": 8,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-008",
+      "type": "gain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Pipeline de leads previsível e automatizado — geração leads cai de 10-15h para 2-3h/semana. Agente prospecta background, qualifica, prioriza.",
+      "score": 8,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-009",
+      "type": "gain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Conteúdo gerado consistentemente — Workflows produzem posts, criativos, textos sem solopreneur disponível. Inbound rodando em semanas alta demanda.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-010",
+      "type": "gain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Foco no que gera mais valor — admin automatizado libera horas para entrega, relacionamento. Qualidade de vida + crescimento receita simultâneos.",
+      "score": 7,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    },
+    {
+      "id": "G-011",
+      "type": "gain",
+      "segment": "Solopreneur / KeepSolo",
+      "description": "Competir com agências sendo solo — solopreneur com stack agentes entrega velocidade e volume agência. Margem 70-85% em serviços automação.",
+      "score": 6,
+      "discovered_at": 1,
+      "last_reclassified_at": 1,
+      "implemented_at": null
+    }
+  ]
+}
