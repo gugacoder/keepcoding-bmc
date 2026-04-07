@@ -1,11 +1,13 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import { agents as initialAgents } from '@/data/agents'
-import type { Agent, AgentStatus, Workflow } from '@/data/types'
+import type { Agent, AgentStatus, MemoryItem, Workflow } from '@/data/types'
 
 interface AgentsContextValue {
   agents: Agent[]
   addAgentFromWorkflow: (workflow: Workflow) => Agent
   updateAgentStatus: (id: string, status: AgentStatus) => void
+  addMemoryItem: (agentId: string, item: Omit<MemoryItem, 'id' | 'addedAt'>) => void
+  removeMemoryItem: (agentId: string, itemId: string) => void
 }
 
 const AgentsContext = createContext<AgentsContextValue | null>(null)
@@ -52,8 +54,31 @@ export function AgentsProvider({ children }: { children: ReactNode }) {
     )
   }
 
+  const addMemoryItem = (agentId: string, item: Omit<MemoryItem, 'id' | 'addedAt'>) => {
+    const newItem: MemoryItem = {
+      ...item,
+      id: `mem-${Date.now()}`,
+      addedAt: new Date().toISOString(),
+    }
+    setAgents((prev) =>
+      prev.map((a) =>
+        a.id === agentId ? { ...a, memory: [...a.memory, newItem] } : a
+      )
+    )
+  }
+
+  const removeMemoryItem = (agentId: string, itemId: string) => {
+    setAgents((prev) =>
+      prev.map((a) =>
+        a.id === agentId
+          ? { ...a, memory: a.memory.filter((m) => m.id !== itemId) }
+          : a
+      )
+    )
+  }
+
   return (
-    <AgentsContext.Provider value={{ agents, addAgentFromWorkflow, updateAgentStatus }}>
+    <AgentsContext.Provider value={{ agents, addAgentFromWorkflow, updateAgentStatus, addMemoryItem, removeMemoryItem }}>
       {children}
     </AgentsContext.Provider>
   )

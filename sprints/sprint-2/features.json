@@ -322,7 +322,7 @@
     "id": "F-014",
     "name": "Agent memory system",
     "description": "Implementar sistema de memória de agente em ambos os apps. Itens de memória agrupados por categoria (Operações, Preferências, Regras). Cada item mostra texto + botão X para remover (com dialog de confirmação). Botão 'Ensinar algo novo' abre textarea + botão confirmar → novo item aparece imediatamente na categoria selecionada. KeepBiz: memória dentro do detail panel do agente (tab Memória). KeepSolo: memória dentro da seção expansível do card 'Meu Agente'. Mock data: 3-5 itens por categoria pré-populados.",
-    "status": "pending",
+    "status": "passing",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
@@ -340,7 +340,8 @@
       "Novo item aparece na categoria correta imediatamente após confirmar",
       "Mock data pré-populado com 3-5 itens por categoria"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-006-agents-memory.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-006-agents-memory.md",
+    "completed_at": "2026-04-07T16:00:00Z"
   },
   {
     "id": "F-015",

@@ -13,30 +13,41 @@ import {
   PauseCircle,
   PlayCircle,
   Tag,
+  Plus,
+  Trash,
 } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
 import { useAgents } from '@/contexts/AgentsContext'
 import { useWorkflows } from '@/contexts/WorkflowContext'
+import type { MemoryItem } from '@/data/types'
 
-const CATEGORY_LABELS: Record<string, string> = {
+const CATEGORY_LABELS: Record<MemoryItem['category'], string> = {
   operações: 'Operações',
   preferências: 'Preferências',
   regras: 'Regras',
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
+const CATEGORY_COLORS: Record<MemoryItem['category'], string> = {
   operações: 'bg-amber-100 text-amber-700',
   preferências: 'bg-orange-100 text-orange-700',
   regras: 'bg-rose-100 text-rose-700',
 }
 
+const CATEGORIES: MemoryItem['category'][] = ['operações', 'preferências', 'regras']
+
 export function AgentsPage() {
-  const { agent: agentSource } = useAgents()
+  const { agent: agentSource, addMemoryItem, removeMemoryItem } = useAgents()
   const { workflows } = useWorkflows()
   const [isPaused, setIsPaused] = useState(false)
   const [memoryExpanded, setMemoryExpanded] = useState(false)
   const [dismissedHints, setDismissedHints] = useState<Set<string>>(new Set())
   const [acceptedHints, setAcceptedHints] = useState<Set<string>>(new Set())
+
+  // Memory management state
+  const [removeTarget, setRemoveTarget] = useState<MemoryItem | null>(null)
+  const [teachOpen, setTeachOpen] = useState(false)
+  const [teachCategory, setTeachCategory] = useState<MemoryItem['category']>('operações')
+  const [teachText, setTeachText] = useState('')
 
   const agent = { ...agentSource, status: isPaused ? ('Idle' as const) : agentSource.status }
   const activeHints = agentSource.hints.filter(
@@ -44,7 +55,7 @@ export function AgentsPage() {
   )
 
   // Group memory by category
-  const memoriesByCategory = agent.memory.reduce<Record<string, typeof agent.memory>>(
+  const memoriesByCategory = agentSource.memory.reduce<Record<string, typeof agentSource.memory>>(
     (acc, item) => {
       if (!acc[item.category]) acc[item.category] = []
       acc[item.category]!.push(item)
@@ -53,8 +64,47 @@ export function AgentsPage() {
     {}
   )
 
+  function handleTeachSubmit() {
+    const text = teachText.trim()
+    if (!text) return
+    addMemoryItem({ category: teachCategory, content: text })
+    setTeachText('')
+    setTeachOpen(false)
+  }
+
   return (
     <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+      {/* Remove memory confirm dialog */}
+      {removeTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-3xl shadow-xl p-6 w-full max-w-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-9 h-9 rounded-2xl bg-rose-100 flex items-center justify-center">
+                <Trash weight="duotone" size={18} className="text-rose-500" />
+              </div>
+              <h3 className="font-bold text-stone-800">Remover memória</h3>
+            </div>
+            <p className="text-sm text-stone-500 mb-2">Tem certeza que deseja remover este item?</p>
+            <p className="text-sm text-stone-700 bg-amber-50 rounded-2xl p-3 mb-6 leading-relaxed">
+              "{removeTarget.content}"
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setRemoveTarget(null)}
+                className="px-4 py-2 text-sm text-stone-500 hover:bg-stone-100 rounded-2xl transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => { removeMemoryItem(removeTarget.id); setRemoveTarget(null) }}
+                className="px-4 py-2 text-sm text-white bg-rose-500 hover:bg-rose-600 rounded-2xl transition-colors font-semibold"
+              >
+                Remover
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* LEFT COLUMN — Agent card + Memory + Activities */}
       <div className="col-span-1 space-y-5">
         {/* Header */}
@@ -185,7 +235,7 @@ export function AgentsPage() {
               </div>
               <div className="text-left">
                 <h3 className="text-sm font-semibold text-stone-800">Memória</h3>
-                <p className="text-xs text-stone-400">{agent.memory.length} itens armazenados</p>
+                <p className="text-xs text-stone-400">{agentSource.memory.length} itens armazenados</p>
               </div>
             </div>
             {memoryExpanded ? (
@@ -196,29 +246,107 @@ export function AgentsPage() {
           </button>
 
           {memoryExpanded && (
-            <div className="border-t border-amber-50 divide-y divide-amber-50">
-              {Object.entries(memoriesByCategory).map(([category, items]) => (
-                <div key={category} className="p-5">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Tag size={12} weight="duotone" className="text-stone-400" />
-                    <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full ${CATEGORY_COLORS[category] ?? 'bg-stone-100 text-stone-600'}`}
+            <div className="border-t border-amber-50">
+              {/* Ensinar algo novo */}
+              <div className="px-5 pt-4 pb-3 flex items-center justify-between">
+                <span className="text-xs text-stone-400">
+                  {agentSource.memory.length} {agentSource.memory.length === 1 ? 'item' : 'itens'}
+                </span>
+                <button
+                  onClick={() => setTeachOpen((prev) => !prev)}
+                  className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 bg-amber-100 hover:bg-amber-200 px-3 py-1.5 rounded-xl transition-colors"
+                >
+                  <Plus size={12} weight="bold" />
+                  Ensinar algo novo
+                </button>
+              </div>
+
+              {/* Teach form */}
+              {teachOpen && (
+                <div className="mx-5 mb-4 bg-amber-50 rounded-2xl p-4 space-y-3 border border-amber-100">
+                  <p className="text-xs font-semibold text-stone-700">Novo item de memória</p>
+                  <div>
+                    <label className="text-xs text-stone-500 block mb-1">Categoria</label>
+                    <select
+                      value={teachCategory}
+                      onChange={(e) => setTeachCategory(e.target.value as MemoryItem['category'])}
+                      className="w-full text-xs border border-amber-200 rounded-xl px-3 py-1.5 bg-white text-stone-700 focus:outline-none focus:ring-1 focus:ring-amber-400"
                     >
-                      {CATEGORY_LABELS[category] ?? category}
-                    </span>
+                      {CATEGORIES.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {CATEGORY_LABELS[cat]}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="space-y-2">
-                    {items.map((item) => (
-                      <div
-                        key={item.id}
-                        className="text-sm text-stone-600 bg-amber-50/50 rounded-xl p-3 leading-relaxed"
-                      >
-                        {item.content}
-                      </div>
-                    ))}
+                  <div>
+                    <label className="text-xs text-stone-500 block mb-1">O que o agente deve saber?</label>
+                    <textarea
+                      value={teachText}
+                      onChange={(e) => setTeachText(e.target.value)}
+                      rows={3}
+                      placeholder="Ex: Clientes preferem atendimento por WhatsApp..."
+                      className="w-full text-xs border border-amber-200 rounded-xl px-3 py-2 bg-white text-stone-700 resize-none focus:outline-none focus:ring-1 focus:ring-amber-400 placeholder:text-stone-300"
+                    />
+                  </div>
+                  <div className="flex gap-2 justify-end">
+                    <button
+                      onClick={() => { setTeachOpen(false); setTeachText('') }}
+                      className="px-3 py-1.5 text-xs text-stone-500 hover:bg-amber-100 rounded-xl transition-colors"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={handleTeachSubmit}
+                      disabled={!teachText.trim()}
+                      className="px-3 py-1.5 text-xs text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl transition-colors font-semibold"
+                    >
+                      Confirmar
+                    </button>
                   </div>
                 </div>
-              ))}
+              )}
+
+              {/* Categories */}
+              <div className="divide-y divide-amber-50">
+                {CATEGORIES.map((category) => {
+                  const items = memoriesByCategory[category] ?? []
+                  return (
+                    <div key={category} className="p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Tag size={12} weight="duotone" className="text-stone-400" />
+                        <span
+                          className={`text-xs font-semibold px-2 py-0.5 rounded-full ${CATEGORY_COLORS[category]}`}
+                        >
+                          {CATEGORY_LABELS[category]}
+                        </span>
+                        <span className="text-xs text-stone-300 ml-auto">{items.length}</span>
+                      </div>
+                      {items.length === 0 ? (
+                        <p className="text-xs text-stone-300 pl-1">Nenhum item ainda</p>
+                      ) : (
+                        <div className="space-y-2">
+                          {items.map((item) => (
+                            <div
+                              key={item.id}
+                              className="flex items-start gap-2 group bg-amber-50/50 hover:bg-amber-50 rounded-xl p-3 transition-colors"
+                            >
+                              <p className="flex-1 text-sm text-stone-600 leading-relaxed">{item.content}</p>
+                              <button
+                                onClick={() => setRemoveTarget(item)}
+                                className="flex-shrink-0 p-1 text-stone-300 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                title="Remover"
+                              >
+                                <X size={12} weight="bold" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           )}
         </div>

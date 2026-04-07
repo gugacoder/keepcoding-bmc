@@ -38,10 +38,34 @@ export const agents: Agent[] = [
         addedAt: '2026-02-22T09:00:00Z',
       },
       {
+        id: 'mem-s-001-4',
+        category: 'operações',
+        content: 'Valor da consulta: R$ 180 (presencial) | R$ 150 (online)',
+        addedAt: '2026-03-01T08:00:00Z',
+      },
+      {
+        id: 'mem-s-001-5',
+        category: 'operações',
+        content: 'Confirmação de consulta enviada 24h antes por WhatsApp e e-mail',
+        addedAt: '2026-03-05T09:00:00Z',
+      },
+      {
         id: 'mem-s-001-2',
         category: 'preferências',
         content: 'Tom de comunicação: amigável, motivador, sem termos técnicos excessivos',
         addedAt: '2026-02-22T09:05:00Z',
+      },
+      {
+        id: 'mem-s-001-6',
+        category: 'preferências',
+        content: 'Usar o primeiro nome do cliente em todas as mensagens',
+        addedAt: '2026-02-28T10:00:00Z',
+      },
+      {
+        id: 'mem-s-001-7',
+        category: 'preferências',
+        content: 'Posts publicados às 18h às sextas — horário de maior engajamento',
+        addedAt: '2026-03-08T11:00:00Z',
       },
       {
         id: 'mem-s-001-3',
@@ -50,10 +74,16 @@ export const agents: Agent[] = [
         addedAt: '2026-02-25T10:00:00Z',
       },
       {
-        id: 'mem-s-001-4',
-        category: 'operações',
-        content: 'Valor da consulta: R$ 180 (presencial) | R$ 150 (online)',
-        addedAt: '2026-03-01T08:00:00Z',
+        id: 'mem-s-001-8',
+        category: 'regras',
+        content: 'Cancelamentos com menos de 24h de antecedência geram cobrança de 50%',
+        addedAt: '2026-03-02T09:00:00Z',
+      },
+      {
+        id: 'mem-s-001-9',
+        category: 'regras',
+        content: 'Não divulgar preços antes de explicar a proposta de valor',
+        addedAt: '2026-03-10T10:00:00Z',
       },
     ],
     hints: [
