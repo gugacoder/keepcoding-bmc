@@ -1,9 +1,12 @@
-import { Robot, Pulse, Lightbulb } from '@phosphor-icons/react'
+import { Robot, Pulse, Lightbulb, GitBranch, ArrowRight } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
 import { agents } from '@/data'
+import { useWorkflows } from '@/contexts/WorkflowContext'
 
 const agent = agents[0]!
 
 export function AgentsPage() {
+  const { workflows } = useWorkflows()
   return (
     <div className="p-6 space-y-6 max-w-2xl">
       {/* Header */}
@@ -82,6 +85,25 @@ export function AgentsPage() {
           ))}
         </div>
       )}
+
+      {/* Workflows shortcut */}
+      <Link
+        to="/agents/workflows"
+        className="block bg-white rounded-2xl border border-amber-100 shadow-sm p-5 hover:shadow-md hover:border-amber-200 transition-all"
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center">
+              <GitBranch size={18} weight="duotone" className="text-amber-600" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-stone-800">Workflows</h3>
+              <p className="text-xs text-stone-400">{workflows.length} processo{workflows.length !== 1 ? 's' : ''} mapeado{workflows.length !== 1 ? 's' : ''}</p>
+            </div>
+          </div>
+          <ArrowRight size={18} weight="bold" className="text-stone-300" />
+        </div>
+      </Link>
 
       {/* Recent activities */}
       <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
