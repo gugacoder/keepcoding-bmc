@@ -347,7 +347,7 @@
     "id": "F-015",
     "name": "KeepBiz agent chat",
     "description": "Implementar chat com agentes no KeepBiz em /agents/chat. Desktop: layout 3 colunas — (1) lista/dropdown de agentes para selecionar, (2) área de chat central com bolhas diferenciadas (usuário à direita, agente à esquerda), (3) painel de contexto (memória resumida, status, último treinamento do agente selecionado). Mobile: dropdown de agente no topo + chat full-width. Input conectado ao state, envio por Enter ou click no botão. Indicador 'digitando...' com 3 dots animados e delay 1-2s antes da resposta. Pool de 5-8 respostas contextuais POR agente (variam por role). Scroll automático para última mensagem. Input limpa após envio.",
-    "status": "pending",
+    "status": "passing",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -367,7 +367,8 @@
       "Painel de contexto mostra memória/status do agente selecionado no desktop",
       "Mobile: dropdown no topo + chat full-width funciona"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-007-agent-chat.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-007-agent-chat.md",
+    "completed_at": "2026-04-07T17:00:00Z"
   },
   {
     "id": "F-016",
