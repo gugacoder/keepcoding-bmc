@@ -399,7 +399,7 @@
     "id": "F-017",
     "name": "KeepBiz connectors",
     "description": "Implementar gestão de conectores do KeepBiz em /agents/connectors. Grid de cards com ícone, nome, status badge (conectado verde / desconectado cinza). Pills de filtro por categoria: Todos, Produtividade, Comunicação, Finanças — funcionais. Botão 'Adicionar conector' abre dialog catálogo com grid de opções disponíveis (não-conectados). Clicar em conector existente abre painel de configuração mock (campo API key readonly, botão OAuth decorativo). Botão 'Desconectar' com Dialog de confirmação → altera status para desconectado.",
-    "status": "pending",
+    "status": "passing",
     "priority": 9,
     "agent": "coder",
     "task": "vibe-code",
@@ -417,7 +417,8 @@
       "Confirmar desconexão muda status badge para desconectado",
       "Adicionar conector do catálogo muda status para conectado"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-008-connectors.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-008-connectors.md",
+    "completed_at": "2026-04-07T20:00:00Z"
   },
   {
     "id": "F-018",
