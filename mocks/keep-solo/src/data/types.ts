@@ -6,6 +6,7 @@ export type WorkflowStatus =
   | 'app_pronto'
   | 'implantado'
   | 'agente_treinando'
+  | 'agente_pronto'
   | 'agente_ativo';
 
 export interface Workflow {

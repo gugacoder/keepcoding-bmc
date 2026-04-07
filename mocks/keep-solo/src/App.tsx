@@ -11,11 +11,13 @@ import { AgentsToolsPage } from '@/pages/AgentsToolsPage'
 import { AgentsWorkflowsPage } from '@/pages/AgentsWorkflowsPage'
 import { ConfigPage } from '@/pages/ConfigPage'
 import { WorkflowProvider } from '@/contexts/WorkflowContext'
+import { AgentsProvider } from '@/contexts/AgentsContext'
 
 function App() {
   return (
     <Suspense fallback={null}>
       <WorkflowProvider>
+        <AgentsProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<AppLayout />}>
@@ -31,6 +33,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        </AgentsProvider>
       </WorkflowProvider>
     </Suspense>
   )

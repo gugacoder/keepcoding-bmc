@@ -298,7 +298,7 @@
     "id": "F-013",
     "name": "KeepSolo deploy pipeline + heartbeat",
     "description": "Implementar pipeline de deploy no detail panel de workflow do KeepSolo. Mesma lógica do KeepBiz (stepper 6 estados, botões por estado, delays simulados, barra de treinamento, heartbeat animation com 3 rings + confetti), mas com visual KeepSolo (cantos arredondados, cores quentes). Ao ativar heartbeat: agente atualizado na página 'Meu Agente' com novo workflow ativo, status Working.",
-    "status": "pending",
+    "status": "passing",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
@@ -315,7 +315,8 @@
       "Após ativação, agente na página 'Meu Agente' atualiza com novo workflow",
       "Design segue tokens KeepSolo"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-005-deploy-pipeline-heartbeat.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-005-deploy-pipeline-heartbeat.md",
+    "completed_at": "2026-04-07T15:30:00Z"
   },
   {
     "id": "F-014",

@@ -15,7 +15,7 @@ import {
   Tag,
 } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
-import { agents } from '@/data'
+import { useAgents } from '@/contexts/AgentsContext'
 import { useWorkflows } from '@/contexts/WorkflowContext'
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -30,16 +30,15 @@ const CATEGORY_COLORS: Record<string, string> = {
   regras: 'bg-rose-100 text-rose-700',
 }
 
-const agentSource = agents[0]!
-
 export function AgentsPage() {
+  const { agent: agentSource } = useAgents()
   const { workflows } = useWorkflows()
   const [isPaused, setIsPaused] = useState(false)
   const [memoryExpanded, setMemoryExpanded] = useState(false)
   const [dismissedHints, setDismissedHints] = useState<Set<string>>(new Set())
   const [acceptedHints, setAcceptedHints] = useState<Set<string>>(new Set())
 
-  const agent = { ...agentSource, status: isPaused ? 'Idle' : agentSource.status }
+  const agent = { ...agentSource, status: isPaused ? ('Idle' as const) : agentSource.status }
   const activeHints = agentSource.hints.filter(
     (h) => !h.dismissed && !dismissedHints.has(h.id) && !acceptedHints.has(h.id)
   )
