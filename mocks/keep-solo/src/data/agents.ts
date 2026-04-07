@@ -69,6 +69,18 @@ export const agents: Agent[] = [
         detectedAt: '2026-04-07T08:00:00Z',
         dismissed: false,
       },
+      {
+        id: 'hint-s-001-3',
+        suggestion: 'Percebi que você posta toda sexta-feira por volta das 18h — quer que eu agende e publique automaticamente nesse horário?',
+        detectedAt: '2026-04-07T10:30:00Z',
+        dismissed: false,
+      },
+      {
+        id: 'hint-s-001-4',
+        suggestion: 'Toda semana você envia planilha de agendamentos para si mesmo por e-mail — posso gerar esse relatório e enviar automaticamente às segundas?',
+        detectedAt: '2026-04-07T11:00:00Z',
+        dismissed: false,
+      },
     ],
   },
 ];
