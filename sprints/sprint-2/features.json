@@ -198,7 +198,7 @@
     "id": "F-009",
     "name": "KeepBiz deploy pipeline stepper",
     "description": "Implementar pipeline de deploy no detail panel do workflow (KeepBiz). Clicar em workflow na lista abre detail panel com stepper horizontal de 6 estados: mapeado → app em criação → app pronto → implantado → agente treinando → agente ativo. Cada estado tem ícone e label. Botões de ação por estado: 'Gerar App' (mapeado, delay 2s → app em criação, delay 3s auto → app pronto), 'Implantar' (app pronto, delay 1s → implantado), 'Iniciar Treinamento' (implantado, delay 2s → agente treinando). Barra de progresso durante treinamento (0→100% em ~5s). Estado visual: step ativo destacado, steps passados com check, steps futuros desabilitados.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -217,7 +217,8 @@
       "Estados avançam corretamente com delays simulados",
       "State do workflow atualiza na lista (badge muda)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-005-deploy-pipeline-heartbeat.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-005-deploy-pipeline-heartbeat.md",
+    "completed_at": "2026-04-07T14:04:35Z"
   },
   {
     "id": "F-010",

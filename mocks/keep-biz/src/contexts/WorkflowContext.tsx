@@ -5,6 +5,7 @@ import type { Workflow, WorkflowStatus, Department } from '@/data/types'
 interface WorkflowContextValue {
   workflows: Workflow[]
   addWorkflow: (data: { name: string; description: string; department: Department; connectorIds: string[] }) => void
+  updateWorkflowStatus: (id: string, status: WorkflowStatus, agentId?: string) => void
 }
 
 const WorkflowContext = createContext<WorkflowContextValue | null>(null)
@@ -27,8 +28,18 @@ export function WorkflowProvider({ children }: { children: ReactNode }) {
     setWorkflows((prev) => [newWorkflow, ...prev])
   }
 
+  const updateWorkflowStatus = (id: string, status: WorkflowStatus, agentId?: string) => {
+    setWorkflows((prev) =>
+      prev.map((wf) =>
+        wf.id === id
+          ? { ...wf, status, agentId: agentId ?? wf.agentId, updatedAt: new Date().toISOString() }
+          : wf
+      )
+    )
+  }
+
   return (
-    <WorkflowContext.Provider value={{ workflows, addWorkflow }}>
+    <WorkflowContext.Provider value={{ workflows, addWorkflow, updateWorkflowStatus }}>
       {children}
     </WorkflowContext.Provider>
   )
