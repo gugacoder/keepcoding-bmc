@@ -495,7 +495,7 @@
     "id": "F-021",
     "name": "KeepSolo Monitor dashboard",
     "description": "Implementar dashboard Monitor do KeepSolo em /monitor. KPI cards: leads novos, conversões, receita, performance de conteúdo — cada um com número e trend. Funil visual: 4 etapas horizontais (Visitante → Lead → Contato → Cliente) com barras proporcionais. Lista de leads: nome, email, origem, status no funil, data. Click em lead abre Sheet com detalhes mock completos (nome, email, telefone, notas). Click em etapa do funil filtra leads por status. Cards de performance de conteúdo: posts recentes com views, clicks, engagement. Seletor de período (7d/30d/90d) funcional — troca todos os números.",
-    "status": "pending",
+    "status": "passing",
     "priority": 10,
     "agent": "coder",
     "task": "vibe-code",
@@ -512,7 +512,8 @@
       "Seletor de período (7d/30d/90d) troca todos os números",
       "Design KeepSolo aplicado (cantos arredondados, cores quentes)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-010-monitor-keepsolo.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-3/worktree/sprints/sprint-2/3-prps/PRP-010-monitor-keepsolo.md",
+    "completed_at": "2026-04-07T22:30:00Z"
   },
   {
     "id": "F-022",
