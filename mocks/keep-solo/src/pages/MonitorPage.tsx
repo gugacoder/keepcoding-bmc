@@ -20,6 +20,7 @@ import {
   ArrowRight,
 } from '@phosphor-icons/react'
 import { leads } from '@/data'
+import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
 import type { Lead, LeadStatus } from '@/data/types'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -79,11 +80,11 @@ const PERIOD_DATA: Record<
 
 // ─── Funnel stages (4 main ones) ─────────────────────────────────────────────
 
-const FUNNEL_STEPS: { key: LeadStatus; label: string; color: string; barColor: string }[] = [
-  { key: 'visitante', label: 'Visitante', color: 'bg-muted text-muted-foreground', barColor: 'bg-muted-foreground/40' },
-  { key: 'lead', label: 'Lead', color: 'bg-accent text-secondary-foreground', barColor: 'bg-primary' },
-  { key: 'contato', label: 'Contato', color: 'bg-orange-100 text-orange-700 dark:bg-orange-950/30 dark:text-orange-400', barColor: 'bg-orange-400' },
-  { key: 'cliente', label: 'Cliente', color: 'bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400', barColor: 'bg-green-400' },
+const FUNNEL_STEPS: { key: LeadStatus; label: string; color: BadgeColor; barColor: string }[] = [
+  { key: 'visitante', label: 'Visitante', color: 'muted',   barColor: 'bg-muted-foreground/40' },
+  { key: 'lead',      label: 'Lead',      color: 'amber',   barColor: 'bg-primary' },
+  { key: 'contato',   label: 'Contato',   color: 'orange',  barColor: 'bg-orange-400' },
+  { key: 'cliente',   label: 'Cliente',   color: 'green',   barColor: 'bg-green-400' },
 ]
 
 // ─── Status display helpers ───────────────────────────────────────────────────
@@ -97,13 +98,13 @@ const STATUS_LABEL: Record<LeadStatus, string> = {
   perdido: 'Perdido',
 }
 
-const STATUS_COLOR: Record<LeadStatus, string> = {
-  visitante: 'bg-muted text-muted-foreground',
-  lead: 'bg-accent text-secondary-foreground',
-  contato: 'bg-orange-100 text-orange-700 dark:bg-orange-950/30 dark:text-orange-400',
-  proposta: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400',
-  cliente: 'bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400',
-  perdido: 'bg-red-100 text-red-600 dark:bg-red-950/30 dark:text-red-400',
+const STATUS_BADGE_COLOR: Record<LeadStatus, BadgeColor> = {
+  visitante: 'muted',
+  lead: 'amber',
+  contato: 'orange',
+  proposta: 'yellow',
+  cliente: 'green',
+  perdido: 'rose',
 }
 
 // ─── Origin icon ─────────────────────────────────────────────────────────────
@@ -140,9 +141,7 @@ function LeadSheet({ lead, onClose }: { lead: Lead; onClose: () => void }) {
             </div>
             <div>
               <p className="font-semibold text-foreground">{lead.name}</p>
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLOR[lead.status]}`}>
-                {STATUS_LABEL[lead.status]}
-              </span>
+              <Badge color={STATUS_BADGE_COLOR[lead.status]}>{STATUS_LABEL[lead.status]}</Badge>
             </div>
           </div>
           <button
@@ -239,7 +238,7 @@ function LeadSheet({ lead, onClose }: { lead: Lead; onClose: () => void }) {
 // ─── KPI card ────────────────────────────────────────────────────────────────
 
 const KPI_ICONS = [Users, TrendUp, CurrencyDollar, ChartBar]
-const KPI_COLORS = ['amber', 'green', 'orange', 'blue']
+const KPI_COLORS: BadgeColor[] = ['amber', 'green', 'orange', 'blue']
 
 function KpiCard({
   label,
@@ -259,9 +258,9 @@ function KpiCard({
   return (
     <div className="bg-card rounded-2xl p-5 border border-border shadow-sm">
       <div className="flex items-center justify-between mb-3">
-        <div className={`w-8 h-8 rounded-xl bg-${color}-100 dark:bg-${color}-950/30 flex items-center justify-center`}>
-          <Icon size={16} weight="duotone" className={`text-${color}-500`} />
-        </div>
+        <IconBubble color={color}>
+          <Icon size={16} weight="duotone" />
+        </IconBubble>
         {up ? (
           <TrendUp size={14} className="text-green-500" />
         ) : (
@@ -294,9 +293,7 @@ function ContentCard({
     <div className="bg-card rounded-2xl p-4 border border-border shadow-sm">
       <div className="flex items-start justify-between gap-2 mb-3">
         <p className="text-sm font-medium text-foreground leading-snug flex-1">{title}</p>
-        <span className="text-xs bg-secondary text-accent-foreground px-2 py-0.5 rounded-full font-medium shrink-0">
-          {channel}
-        </span>
+        <Badge color="amber" className="shrink-0">{channel}</Badge>
       </div>
       <div className="flex items-center gap-4">
         <div className="text-center">
@@ -410,9 +407,7 @@ export function MonitorPage() {
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${step.color}`}>
-                    {step.label}
-                  </span>
+                  <Badge color={step.color}>{step.label}</Badge>
                   <span className="text-sm font-bold text-foreground">{count}</span>
                 </div>
                 <div className="h-2 bg-muted rounded-full overflow-hidden">
@@ -467,11 +462,9 @@ export function MonitorPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 shrink-0 ml-3">
-                  <span
-                    className={`hidden sm:inline text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_COLOR[lead.status]}`}
-                  >
+                  <Badge color={STATUS_BADGE_COLOR[lead.status]} className="hidden sm:inline-flex">
                     {STATUS_LABEL[lead.status]}
-                  </span>
+                  </Badge>
                   <span className="text-xs text-muted-foreground/50">
                     {new Date(lead.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}
                   </span>

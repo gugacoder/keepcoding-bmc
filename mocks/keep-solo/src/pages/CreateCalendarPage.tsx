@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Calendar, X, InstagramLogo, TiktokLogo, LinkedinLogo, YoutubeLogo, Article, Globe } from '@phosphor-icons/react'
 import { useContent } from '@/contexts/ContentContext'
+import { Badge, badgeDotClass, type BadgeColor } from '@/components/ui/badge'
 import type { ContentItem } from '@/data/types'
 
 const DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
@@ -11,13 +12,13 @@ const DAYS_IN_MONTH = 30
 const MONTH_LABEL = 'Abril 2026'
 const MONTH_INDEX = 3 // April = 3
 
-const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string }> = {
-  rascunho:   { label: 'Rascunho',  dot: 'bg-muted-foreground',  badge: 'bg-muted text-muted-foreground' },
-  em_revisao: { label: 'Em revisão', dot: 'bg-yellow-400', badge: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400' },
-  pronto:     { label: 'Pronto',    dot: 'bg-blue-400',   badge: 'bg-blue-100 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400' },
-  aprovado:   { label: 'Pronto',    dot: 'bg-blue-400',   badge: 'bg-blue-100 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400' },
-  agendado:   { label: 'Agendado',  dot: 'bg-purple-400', badge: 'bg-purple-100 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400' },
-  publicado:  { label: 'Publicado', dot: 'bg-green-400',  badge: 'bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400' },
+const STATUS_CONFIG: Record<string, { label: string; color: BadgeColor }> = {
+  rascunho:   { label: 'Rascunho',  color: 'muted' },
+  em_revisao: { label: 'Em revisão', color: 'yellow' },
+  pronto:     { label: 'Pronto',    color: 'blue' },
+  aprovado:   { label: 'Pronto',    color: 'blue' },
+  agendado:   { label: 'Agendado',  color: 'purple' },
+  publicado:  { label: 'Publicado', color: 'green' },
 }
 
 const CHANNEL_ICON: Record<string, React.ElementType> = {
@@ -40,9 +41,7 @@ function DetailModal({ item, onClose }: { item: ContentItem; onClose: () => void
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-sm">
         <div className="flex items-center justify-between p-5 border-b border-border/50">
-          <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${cfg.badge}`}>
-            {cfg.label}
-          </span>
+          <Badge color={cfg.color}>{cfg.label}</Badge>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={20} />
           </button>
@@ -174,7 +173,7 @@ export function CreateCalendarPage() {
           const cfg = STATUS_CONFIG[s]
           return (
             <div key={s} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className={`w-2 h-2 rounded-full ${cfg.dot}`} />
+              <span className={`w-2 h-2 rounded-full ${badgeDotClass(cfg.color)}`} />
               {cfg.label}
             </div>
           )

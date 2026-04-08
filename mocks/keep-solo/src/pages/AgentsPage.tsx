@@ -20,19 +20,14 @@ import { Link } from 'react-router-dom'
 import { useAgents } from '@/contexts/AgentsContext'
 import { useWorkflows } from '@/contexts/WorkflowContext'
 import { SkeletonPanel } from '@/components/Skeleton'
+import { Badge, type BadgeColor } from '@/components/ui/badge'
 import { useState, useEffect } from 'react'
 import type { MemoryItem } from '@/data/types'
 
-const CATEGORY_LABELS: Record<MemoryItem['category'], string> = {
-  operações: 'Operações',
-  preferências: 'Preferências',
-  regras: 'Regras',
-}
-
-const CATEGORY_COLORS: Record<MemoryItem['category'], string> = {
-  operações: 'bg-accent text-secondary-foreground',
-  preferências: 'bg-orange-100 text-orange-700 dark:bg-orange-950/30 dark:text-orange-400',
-  regras: 'bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400',
+const CATEGORY_CONFIG: Record<MemoryItem['category'], { label: string; color: BadgeColor }> = {
+  operações: { label: 'Operações', color: 'blue' },
+  preferências: { label: 'Preferências', color: 'orange' },
+  regras: { label: 'Regras', color: 'rose' },
 }
 
 const CATEGORIES: MemoryItem['category'][] = ['operações', 'preferências', 'regras']
@@ -295,7 +290,7 @@ export function AgentsPage() {
                     >
                       {CATEGORIES.map((cat) => (
                         <option key={cat} value={cat}>
-                          {CATEGORY_LABELS[cat]}
+                          {CATEGORY_CONFIG[cat].label}
                         </option>
                       ))}
                     </select>
@@ -336,11 +331,9 @@ export function AgentsPage() {
                     <div key={category} className="p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <Tag size={12} weight="duotone" className="text-muted-foreground" />
-                        <span
-                          className={`text-xs font-semibold px-2 py-0.5 rounded-full ${CATEGORY_COLORS[category]}`}
-                        >
-                          {CATEGORY_LABELS[category]}
-                        </span>
+                        <Badge color={CATEGORY_CONFIG[category].color}>
+                          {CATEGORY_CONFIG[category].label}
+                        </Badge>
                         <span className="text-xs text-muted-foreground/50 ml-auto">{items.length}</span>
                       </div>
                       {items.length === 0 ? (
@@ -403,9 +396,9 @@ export function AgentsPage() {
             <div className="flex items-center gap-2 px-1">
               <Lightbulb size={16} weight="duotone" className="text-primary" />
               <h3 className="text-sm font-semibold text-muted-foreground">Sugestões autônomas</h3>
-              <span className="ml-auto text-xs bg-accent text-secondary-foreground font-semibold px-2 py-0.5 rounded-full">
+              <Badge color="amber" className="ml-auto">
                 {activeHints.length}
-              </span>
+              </Badge>
             </div>
             {activeHints.map((hint) => (
               <div

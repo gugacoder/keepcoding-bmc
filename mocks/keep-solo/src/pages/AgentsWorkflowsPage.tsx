@@ -5,64 +5,25 @@ import { WorkflowWizard } from '@/components/WorkflowWizard'
 import { WorkflowDetailPanel } from '@/components/WorkflowDetailPanel'
 import { EmptyState } from '@/components/EmptyState'
 import { SkeletonCard } from '@/components/Skeleton'
+import { Badge, type BadgeColor } from '@/components/ui/badge'
 import type { Workflow, WorkflowStatus } from '@/data/types'
 
-const STATUS_CONFIG: Record<WorkflowStatus, { label: string; className: string; pulse?: boolean }> = {
-  mapeado: {
-    label: 'Mapeado',
-    className: 'bg-muted text-muted-foreground border-border',
-  },
-  app_em_criacao: {
-    label: 'App em criação',
-    className: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/30 dark:text-purple-400 dark:border-purple-800',
-    pulse: true,
-  },
-  app_pronto: {
-    label: 'App pronto',
-    className: 'bg-cyan-50 text-cyan-700 border-cyan-200 dark:bg-cyan-950/30 dark:text-cyan-400 dark:border-cyan-800',
-  },
-  implantado: {
-    label: 'Implantado',
-    className: 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400 dark:border-orange-800',
-  },
-  agente_treinando: {
-    label: 'Treinando',
-    className: 'bg-secondary text-secondary-foreground border-border',
-    pulse: true,
-  },
-  agente_pronto: {
-    label: 'Pronto',
-    className: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400 dark:border-orange-800',
-    pulse: true,
-  },
-  agente_ativo: {
-    label: 'Agente ativo',
-    className: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800',
-    pulse: true,
-  },
+const STATUS_CONFIG: Record<WorkflowStatus, { label: string; color: BadgeColor; pulse?: boolean }> = {
+  mapeado:          { label: 'Mapeado',        color: 'muted' },
+  app_em_criacao:   { label: 'App em criação',  color: 'purple', pulse: true },
+  app_pronto:       { label: 'App pronto',      color: 'cyan' },
+  implantado:       { label: 'Implantado',      color: 'orange' },
+  agente_treinando: { label: 'Treinando',       color: 'muted',   pulse: true },
+  agente_pronto:    { label: 'Pronto',          color: 'orange',  pulse: true },
+  agente_ativo:     { label: 'Agente ativo',    color: 'emerald', pulse: true },
 }
 
 function StatusBadge({ status }: { status: WorkflowStatus }) {
   const config = STATUS_CONFIG[status]
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full border ${config.className}`}
-    >
-      {config.pulse && (
-        <span
-          className={`w-1.5 h-1.5 rounded-full animate-pulse ${
-            status === 'agente_ativo'
-              ? 'bg-emerald-500'
-              : status === 'agente_pronto'
-              ? 'bg-orange-500'
-              : status === 'agente_treinando'
-              ? 'bg-primary'
-              : 'bg-purple-500'
-          }`}
-        />
-      )}
+    <Badge color={config.color} border pulse={config.pulse} className="py-1">
       {config.label}
-    </span>
+    </Badge>
   )
 }
 

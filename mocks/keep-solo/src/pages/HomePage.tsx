@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { UserCircle } from '@phosphor-icons/react'
+import { Sparkle } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { LanguageSelector } from '@/components/LanguageSelector'
 
@@ -13,7 +13,9 @@ export function HomePage() {
       </div>
       <div className="flex flex-col items-center gap-6 text-center">
         <div className="flex items-center gap-3">
-          <UserCircle size={48} weight="duotone" className="text-primary" />
+          <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center">
+            <Sparkle size={24} weight="fill" className="text-white" />
+          </div>
           <h1 className="text-4xl font-bold tracking-tight text-foreground">
             KeepSolo
           </h1>

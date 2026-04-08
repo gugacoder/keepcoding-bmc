@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Eye, PencilSimple, Robot, Gear, Moon, Sun } from '@phosphor-icons/react'
+import { Eye, PencilSimple, Robot, Gear, Moon, Sun, Sparkle } from '@phosphor-icons/react'
 import { useTheme } from '@/contexts/ThemeContext'
 
 const navItems = [
@@ -18,7 +18,7 @@ export function DesktopHeader() {
       {/* Logo */}
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-sm">KS</span>
+          <Sparkle size={16} weight="fill" className="text-white" />
         </div>
         <span className="font-semibold text-foreground text-lg">KeepSolo</span>
       </div>
