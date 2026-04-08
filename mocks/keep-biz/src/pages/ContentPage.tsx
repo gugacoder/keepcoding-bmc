@@ -10,6 +10,7 @@ import {
   X,
   MagnifyingGlass,
   Robot,
+  CaretDown,
 } from '@phosphor-icons/react'
 import { teamMembers } from '@/data'
 import { useContent } from '@/contexts/ContentContext'
@@ -645,6 +646,7 @@ export function ContentPage() {
   const [fadingIds, setFadingIds] = useState<Set<string>>(new Set())
   const [editingItem, setEditingItem] = useState<ContentItem | null>(null)
   const [toast, setToast] = useState<ToastState | null>(null)
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({})
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const undoBuffer = useRef<Map<string, ContentItem>>(new Map())
 
@@ -657,6 +659,35 @@ export function ContentPage() {
   const profileNameMap = Object.fromEntries(
     profiles.map(p => [p.id, p.identity.businessName])
   )
+
+  // Group suggestions by profileId for consolidated view
+  const suggestionsByProfile: { profileId: string; profileName: string; items: ContentItem[] }[] = []
+  if (activeProfileId === null) {
+    const seen = new Map<string, ContentItem[]>()
+    for (const item of aiSuggestions) {
+      const pid = item.profileId ?? '__unknown__'
+      if (!seen.has(pid)) seen.set(pid, [])
+      seen.get(pid)!.push(item)
+    }
+    for (const [pid, groupItems] of seen.entries()) {
+      suggestionsByProfile.push({
+        profileId: pid,
+        profileName: profileNameMap[pid] ?? pid,
+        items: groupItems,
+      })
+    }
+  }
+
+  function toggleGroup(profileId: string) {
+    setExpandedGroups(prev => ({
+      ...prev,
+      [profileId]: !(prev[profileId] ?? true),
+    }))
+  }
+
+  function isGroupExpanded(profileId: string) {
+    return expandedGroups[profileId] ?? true
+  }
 
   // Content items for the main list (exclude ai+rascunho)
   const allNonSuggestions = items.filter(
@@ -799,40 +830,104 @@ export function ContentPage() {
                 <Robot size={18} weight="duotone" className="text-blue-500" />
                 <h2 className="text-sm font-semibold text-foreground">Sugestões da IA</h2>
                 <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-2 py-0.5 rounded-full">
-                  {aiSuggestions.length} {aiSuggestions.length === 1 ? 'nova' : 'novas'}
+                  {aiSuggestions.length} {aiSuggestions.length === 1 ? 'pendente' : 'pendentes'}
                 </span>
               </div>
 
-              {/* Mobile: horizontal scroll */}
-              <div className="md:hidden flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-none -mx-6 px-6">
-                {aiSuggestions.map((item) => (
-                  <div key={item.id} className="snap-start shrink-0 w-72">
-                    <AiSuggestionCard
-                      item={item}
-                      profileName={activeProfileId === null ? profileNameMap[item.profileId ?? ''] : undefined}
-                      fading={fadingIds.has(item.id)}
-                      onApprove={() => handleApprove(item.id)}
-                      onEdit={() => handleEdit(item)}
-                      onReject={() => handleReject(item)}
-                    />
-                  </div>
-                ))}
-              </div>
+              {activeProfileId === null ? (
+                /* ── Consolidated grouped view (Todos os perfis) ── */
+                <div className="space-y-4">
+                  {suggestionsByProfile.map(({ profileId, profileName, items: groupItems }) => {
+                    const expanded = isGroupExpanded(profileId)
+                    return (
+                      <div key={profileId} className="rounded-xl border border-blue-100 dark:border-blue-900/40 overflow-hidden">
+                        {/* Profile group header */}
+                        <button
+                          onClick={() => toggleGroup(profileId)}
+                          className="w-full flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-950/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-semibold text-blue-800 dark:text-blue-200">{profileName}</span>
+                            <span className="text-xs text-blue-600 dark:text-blue-400">—</span>
+                            <span className="text-xs text-blue-600 dark:text-blue-400">
+                              {groupItems.length} {groupItems.length === 1 ? 'sugestão' : 'sugestões'}
+                            </span>
+                          </div>
+                          <CaretDown
+                            size={14}
+                            weight="bold"
+                            className={`text-blue-500 transition-transform duration-200 ${expanded ? '' : '-rotate-90'}`}
+                          />
+                        </button>
 
-              {/* Desktop: 3-col grid */}
-              <div className="hidden md:grid grid-cols-3 gap-3">
-                {aiSuggestions.map((item) => (
-                  <AiSuggestionCard
-                    key={item.id}
-                    item={item}
-                    profileName={activeProfileId === null ? profileNameMap[item.profileId ?? ''] : undefined}
-                    fading={fadingIds.has(item.id)}
-                    onApprove={() => handleApprove(item.id)}
-                    onEdit={() => handleEdit(item)}
-                    onReject={() => handleReject(item)}
-                  />
-                ))}
-              </div>
+                        {/* Cards */}
+                        {expanded && (
+                          <div className="p-3">
+                            {/* Mobile: horizontal scroll */}
+                            <div className="md:hidden flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-none">
+                              {groupItems.map((item) => (
+                                <div key={item.id} className="snap-start shrink-0 w-72">
+                                  <AiSuggestionCard
+                                    item={item}
+                                    fading={fadingIds.has(item.id)}
+                                    onApprove={() => handleApprove(item.id)}
+                                    onEdit={() => handleEdit(item)}
+                                    onReject={() => handleReject(item)}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                            {/* Desktop: 3-col grid */}
+                            <div className="hidden md:grid grid-cols-3 gap-3">
+                              {groupItems.map((item) => (
+                                <AiSuggestionCard
+                                  key={item.id}
+                                  item={item}
+                                  fading={fadingIds.has(item.id)}
+                                  onApprove={() => handleApprove(item.id)}
+                                  onEdit={() => handleEdit(item)}
+                                  onReject={() => handleReject(item)}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                /* ── Flat list for specific profile ── */
+                <>
+                  {/* Mobile: horizontal scroll */}
+                  <div className="md:hidden flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-none -mx-6 px-6">
+                    {aiSuggestions.map((item) => (
+                      <div key={item.id} className="snap-start shrink-0 w-72">
+                        <AiSuggestionCard
+                          item={item}
+                          fading={fadingIds.has(item.id)}
+                          onApprove={() => handleApprove(item.id)}
+                          onEdit={() => handleEdit(item)}
+                          onReject={() => handleReject(item)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  {/* Desktop: 3-col grid */}
+                  <div className="hidden md:grid grid-cols-3 gap-3">
+                    {aiSuggestions.map((item) => (
+                      <AiSuggestionCard
+                        key={item.id}
+                        item={item}
+                        fading={fadingIds.has(item.id)}
+                        onApprove={() => handleApprove(item.id)}
+                        onEdit={() => handleEdit(item)}
+                        onReject={() => handleReject(item)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </section>
           )}
 
