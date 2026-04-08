@@ -62,7 +62,7 @@
     "id": "F-004",
     "name": "ProfilesPage grid responsivo KeepBiz",
     "description": "Criar `mocks/keep-biz/src/pages/ProfilesPage.tsx` com header (título 'Perfis', botão 'Criar Novo Perfil' → `/profiles/new`) e grid responsivo (2 colunas desktop, 1 mobile) para renderizar cards de perfil. Importar array `profiles` de data. Registrar rota `/profiles` no router (App.tsx). O grid segue o padrão de layout do projeto: `p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-start`.",
-    "status": "pending",
+    "status": "passing",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
@@ -76,7 +76,8 @@
       "Grid usa classes responsivas (grid-cols-1 md:grid-cols-2)",
       "Página renderiza sem erros no browser"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-023-keepbiz-profiles-page.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-023-keepbiz-profiles-page.md",
+    "completed_at": "2026-04-08T14:00:00Z"
   },
   {
     "id": "F-005",
@@ -142,7 +143,7 @@
     "id": "F-008",
     "name": "SoloProfileContext KeepSolo",
     "description": "Criar `mocks/keep-solo/src/contexts/ProfileContext.tsx` com: profile (Profile), isConfigured (boolean), completeOnboarding() (seta isConfigured=true e persiste em localStorage('keepsolo-profile-configured')), updateProfile(data) (merge parcial no profile). Inicializar com `soloProfile` e `profileConfigured` de data. Prover no App.tsx wrapping rotas protegidas.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
