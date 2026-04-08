@@ -12,7 +12,7 @@ export const soloProfile: Profile = {
     ],
   },
   niche: {
-    segment: 'Saúde & Bem-estar',
+    segment: 'saude',
     targetAudience: 'Famílias que precisam de cuidadores qualificados para idosos, pessoas com deficiência ou em recuperação',
     competitors: ['CuidarBem', 'Homecare Brasil', 'Rede Cuidar'],
   },

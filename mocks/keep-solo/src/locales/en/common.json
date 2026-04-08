@@ -11,10 +11,22 @@
   },
   "onboarding": {
     "steps": {
-      "0": { "label": "Your Business", "subtitle": "Tell me a bit about yourself" },
-      "1": { "label": "Researching...", "subtitle": "Let me take a look" },
-      "2": { "label": "Validation", "subtitle": "Is this right?" },
-      "3": { "label": "Ready!", "subtitle": "All set to start" }
+      "0": {
+        "label": "Your Business",
+        "subtitle": "Tell me a bit about yourself"
+      },
+      "1": {
+        "label": "Researching...",
+        "subtitle": "Let me take a look"
+      },
+      "2": {
+        "label": "Validation",
+        "subtitle": "Is this right?"
+      },
+      "3": {
+        "label": "Ready!",
+        "subtitle": "All set to start"
+      }
     },
     "stepOf": "{{step}} of {{total}}",
     "nav": {
@@ -83,12 +95,62 @@
       "defaultSocial": "Instagram",
       "cta": "Start using",
       "tones": {
-        "amigavel": { "label": "Friendly", "description": "Close, warm and approachable" },
-        "formal": { "label": "Formal", "description": "Professional and respectful" },
-        "casual": { "label": "Casual", "description": "Relaxed and natural" },
-        "tecnico": { "label": "Technical", "description": "Precise and detailed" },
-        "inspiracional": { "label": "Inspirational", "description": "Motivating and exciting" }
+        "amigavel": {
+          "label": "Friendly",
+          "description": "Close, warm and approachable"
+        },
+        "formal": {
+          "label": "Formal",
+          "description": "Professional and respectful"
+        },
+        "casual": {
+          "label": "Casual",
+          "description": "Relaxed and natural"
+        },
+        "tecnico": {
+          "label": "Technical",
+          "description": "Precise and detailed"
+        },
+        "inspiracional": {
+          "label": "Inspirational",
+          "description": "Motivating and exciting"
+        }
       }
+    }
+  },
+  "businessProfile": {
+    "title": "My Business",
+    "businessNameLabel": "Business name",
+    "businessNamePlaceholder": "E.g.: My Business Name",
+    "segmentLabel": "Segment",
+    "targetAudienceLabel": "Target audience",
+    "targetAudiencePlaceholder": "E.g.: Families with dependent elderly",
+    "positioningLabel": "Positioning",
+    "positioningPlaceholder": "How do you position yourself in the market?",
+    "toneLabel": "Tone of voice",
+    "platformsLabel": "Active platforms",
+    "socialNetworksLabel": "Social networks",
+    "socialHandlePlaceholder": "@username or url",
+    "addSocial": "Add social network",
+    "removeAriaLabel": "Remove",
+    "save": "Save changes",
+    "saved": "Saved!",
+    "segments": {
+      "saude": "Health & Wellness",
+      "tecnologia": "Technology",
+      "varejo": "Retail",
+      "servicos-b2b": "B2B Services",
+      "educacao": "Education",
+      "alimentacao": "Food & Beverage",
+      "financas": "Finance",
+      "industria": "Industry"
+    },
+    "tones": {
+      "formal": "Formal",
+      "casual": "Casual",
+      "técnico": "Technical",
+      "inspiracional": "Inspirational",
+      "amigável": "Friendly"
     }
   }
 }

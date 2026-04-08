@@ -767,7 +767,7 @@
     "id": "F-037",
     "name": "i18n seção Meu Negócio KeepSolo",
     "description": "Adicionar strings da BusinessProfileSection e integração na ConfigPage ao sistema i18n em pt/en/es. Incluir: título 'Meu Negócio', labels dos campos, opções de segmento, opções de tom de voz, botão salvar, toast de confirmação, placeholders.",
-    "status": "pending",
+    "status": "passing",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -780,6 +780,7 @@
       "Trocar idioma reflete na seção completa",
       "Labels de segmento e tom de voz traduzidos nos 3 idiomas"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md",
+    "completed_at": "2026-04-08T00:00:00Z"
   }
 ]

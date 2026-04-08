@@ -1,27 +1,28 @@
 import { useState } from 'react'
-import { Buildings, Plus, Trash, FloppyDisk, Check, X } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
+import { Buildings, Plus, Trash, FloppyDisk, Check } from '@phosphor-icons/react'
 import { useSoloProfile } from '@/contexts/ProfileContext'
 import type { ToneOfVoice } from '@/data/types'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const SEGMENTS = [
-  'Saúde & Bem-estar',
-  'Tecnologia',
-  'Varejo',
-  'Serviços B2B',
-  'Educação',
-  'Alimentação',
-  'Finanças',
-  'Indústria',
+const SEGMENT_IDS = [
+  'saude',
+  'tecnologia',
+  'varejo',
+  'servicos-b2b',
+  'educacao',
+  'alimentacao',
+  'financas',
+  'industria',
 ] as const
 
-const TONES: { value: ToneOfVoice; label: string }[] = [
-  { value: 'formal', label: 'Formal' },
-  { value: 'casual', label: 'Casual' },
-  { value: 'técnico', label: 'Técnico' },
-  { value: 'inspiracional', label: 'Inspiracional' },
-  { value: 'amigável', label: 'Amigável' },
+const TONE_VALUES: ToneOfVoice[] = [
+  'formal',
+  'casual',
+  'técnico',
+  'inspiracional',
+  'amigável',
 ]
 
 const ALL_PLATFORMS = [
@@ -118,6 +119,7 @@ interface Props {
 }
 
 export function BusinessProfileSection({ onSave }: Props) {
+  const { t } = useTranslation()
   const { profile, updateProfile } = useSoloProfile()
 
   // Local form state, pre-filled from context
@@ -188,7 +190,7 @@ export function BusinessProfileSection({ onSave }: Props) {
         <span className="text-primary">
           <Buildings size={16} weight="duotone" />
         </span>
-        <h2 className="font-semibold text-foreground">Meu Negócio</h2>
+        <h2 className="font-semibold text-foreground">{t('businessProfile.title')}</h2>
         <div className="ml-auto flex items-center gap-2.5">
           <span className={`text-xs font-semibold tabular-nums ${completenessTextColor(completeness)}`}>
             {completeness}%
@@ -208,13 +210,13 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 1. Nome do negócio */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
-            Nome do negócio
+            {t('businessProfile.businessNameLabel')}
           </label>
           <input
             type="text"
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            placeholder="Ex: Cia Cuidadores"
+            placeholder={t('businessProfile.businessNamePlaceholder')}
             className="w-full px-4 py-2.5 rounded-xl text-sm text-foreground bg-card border border-border/80 focus:border-primary/50 outline-none transition-colors"
           />
         </div>
@@ -222,16 +224,16 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 2. Segmento */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
-            Segmento
+            {t('businessProfile.segmentLabel')}
           </label>
           <select
             value={segment}
             onChange={(e) => setSegment(e.target.value)}
             className="w-full px-4 py-2.5 rounded-xl text-sm text-foreground bg-card border border-border/80 focus:border-primary/50 outline-none transition-colors appearance-none cursor-pointer"
           >
-            {SEGMENTS.map((s) => (
-              <option key={s} value={s}>
-                {s}
+            {SEGMENT_IDS.map((id) => (
+              <option key={id} value={id}>
+                {t(`businessProfile.segments.${id}`)}
               </option>
             ))}
           </select>
@@ -240,13 +242,13 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 3. Público-alvo */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
-            Público-alvo
+            {t('businessProfile.targetAudienceLabel')}
           </label>
           <input
             type="text"
             value={targetAudience}
             onChange={(e) => setTargetAudience(e.target.value)}
-            placeholder="Ex: Famílias com idosos dependentes"
+            placeholder={t('businessProfile.targetAudiencePlaceholder')}
             className="w-full px-4 py-2.5 rounded-xl text-sm text-foreground bg-card border border-border/80 focus:border-primary/50 outline-none transition-colors"
           />
         </div>
@@ -254,13 +256,13 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 4. Posicionamento */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
-            Posicionamento
+            {t('businessProfile.positioningLabel')}
           </label>
           <textarea
             value={statement}
             onChange={(e) => setStatement(e.target.value)}
             rows={3}
-            placeholder="Como você se posiciona no mercado?"
+            placeholder={t('businessProfile.positioningPlaceholder')}
             className="w-full px-4 py-2.5 rounded-xl text-sm text-foreground bg-card border border-border/80 focus:border-primary/50 outline-none transition-colors resize-none"
           />
         </div>
@@ -268,16 +270,16 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 5. Tom de voz */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
-            Tom de voz
+            {t('businessProfile.toneLabel')}
           </label>
           <select
             value={tone}
             onChange={(e) => setTone(e.target.value as ToneOfVoice)}
             className="w-full px-4 py-2.5 rounded-xl text-sm text-foreground bg-card border border-border/80 focus:border-primary/50 outline-none transition-colors appearance-none cursor-pointer"
           >
-            {TONES.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
+            {TONE_VALUES.map((v) => (
+              <option key={v} value={v}>
+                {t(`businessProfile.tones.${v}`)}
               </option>
             ))}
           </select>
@@ -286,7 +288,7 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 6. Plataformas ativas */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-2 block">
-            Plataformas ativas
+            {t('businessProfile.platformsLabel')}
           </label>
           <div className="grid grid-cols-2 gap-2">
             {ALL_PLATFORMS.map((p) => (
@@ -311,7 +313,7 @@ export function BusinessProfileSection({ onSave }: Props) {
         {/* 7. Redes sociais (repeater) */}
         <div>
           <label className="text-xs font-medium text-muted-foreground mb-2 block">
-            Redes sociais
+            {t('businessProfile.socialNetworksLabel')}
           </label>
           <div className="space-y-2">
             {socialLinks.map((link, index) => (
@@ -331,13 +333,13 @@ export function BusinessProfileSection({ onSave }: Props) {
                   type="text"
                   value={link.handle}
                   onChange={(e) => handleSocialLinkChange(index, 'handle', e.target.value)}
-                  placeholder="@usuario ou url"
+                  placeholder={t('businessProfile.socialHandlePlaceholder')}
                   className="flex-1 px-3 py-2 rounded-xl text-sm text-foreground bg-card border border-border/80 focus:border-primary/50 outline-none transition-colors"
                 />
                 <button
                   onClick={() => handleRemoveSocialLink(index)}
                   className="p-2 rounded-xl text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors shrink-0"
-                  aria-label="Remover"
+                  aria-label={t('businessProfile.removeAriaLabel')}
                 >
                   <Trash size={14} weight="duotone" />
                 </button>
@@ -349,7 +351,7 @@ export function BusinessProfileSection({ onSave }: Props) {
               className="flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors mt-1"
             >
               <Plus size={14} weight="bold" />
-              Adicionar rede social
+              {t('businessProfile.addSocial')}
             </button>
           </div>
         </div>
@@ -363,12 +365,12 @@ export function BusinessProfileSection({ onSave }: Props) {
             {saved ? (
               <>
                 <Check size={14} weight="bold" />
-                Salvo!
+                {t('businessProfile.saved')}
               </>
             ) : (
               <>
                 <FloppyDisk size={14} weight="duotone" />
-                Salvar alterações
+                {t('businessProfile.save')}
               </>
             )}
           </button>
