@@ -613,7 +613,7 @@
     "id": "F-030",
     "name": "Onboarding Etapa 3 — Validação KeepSolo",
     "description": "Criar componente para a etapa 3 do onboarding KeepSolo. Título: 'Encontrei isso — está certo?'. 5-6 achados mock baseados em Cia Cuidadores (ex: segmento Saúde & Bem-estar, atendimento domiciliar, Instagram @ciacuidadores, etc). Mesma lógica do wizard KeepBiz: Confirmar/Corrigir/Ignorar com inline edit. CTA 'Tudo certo!' habilitado quando todos revisados. Integrar no OnboardingPage como step 2.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -628,7 +628,8 @@
       "CTA 'Tudo certo!' só habilitado quando todos revisados",
       "NÃO menciona a palavra 'perfil'"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md",
+    "completed_at": "2026-04-08T14:10:00Z"
   },
   {
     "id": "F-031",

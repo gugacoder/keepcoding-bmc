@@ -6,11 +6,12 @@ import {
   type BusinessData,
 } from '@/components/onboarding/OnboardingStepBusiness'
 import { OnboardingStepLoading } from '@/components/onboarding/OnboardingStepLoading'
+import { OnboardingStepValidation } from '@/components/onboarding/OnboardingStepValidation'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
-// Steps that auto-advance — hide Voltar/Avançar buttons
-const AUTO_ADVANCE_STEPS = new Set([1])
+// Steps that auto-advance OR manage their own CTA — hide Voltar/Avançar buttons
+const AUTO_ADVANCE_STEPS = new Set([1, 2])
 
 const STEPS = [
   { label: 'Seu Negócio', subtitle: 'Me conta um pouco sobre você' },
@@ -135,6 +136,9 @@ export function OnboardingPage() {
     }
     if (currentStep === 1) {
       return <OnboardingStepLoading onComplete={() => setCurrentStep(2)} />
+    }
+    if (currentStep === 2) {
+      return <OnboardingStepValidation onContinue={() => setCurrentStep(3)} />
     }
     return <StepPlaceholder step={currentStep} />
   }
