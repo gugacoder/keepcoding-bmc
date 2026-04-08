@@ -722,7 +722,7 @@
     "id": "F-035",
     "name": "Indicador de completude na seção Meu Negócio KeepSolo",
     "description": "Adicionar ao header da seção 'Meu Negócio' (BusinessProfileSection) um indicador de completude: progress bar + percentual numérico, à direita do título. Cores por faixa: red < 50%, yellow < 80%, green >= 80%. Cálculo: campos preenchidos / total de campos × 100.",
-    "status": "pending",
+    "status": "passing",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
@@ -736,7 +736,8 @@
       "Cor verde quando completude >= 80%",
       "Porcentagem atualiza ao preencher/limpar campos"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md",
+    "completed_at": "2026-04-08T14:30:00Z"
   },
   {
     "id": "F-036",

@@ -75,6 +75,42 @@ function parseSocialLinks(urls: string[]): SocialLink[] {
   })
 }
 
+// ─── Completeness ─────────────────────────────────────────────────────────────
+
+function computeCompleteness(
+  businessName: string,
+  segment: string,
+  targetAudience: string,
+  statement: string,
+  tone: string,
+  platforms: string[],
+  socialLinks: SocialLink[]
+): number {
+  const filled = [
+    businessName.trim() !== '',
+    segment.trim() !== '',
+    targetAudience.trim() !== '',
+    statement.trim() !== '',
+    tone.trim() !== '',
+    platforms.length > 0,
+    socialLinks.some((l) => l.handle.trim() !== ''),
+  ].filter(Boolean).length
+
+  return Math.round((filled / 7) * 100)
+}
+
+function completenessColor(pct: number): string {
+  if (pct < 50) return 'bg-red-500'
+  if (pct < 80) return 'bg-yellow-500'
+  return 'bg-green-500'
+}
+
+function completenessTextColor(pct: number): string {
+  if (pct < 50) return 'text-red-500'
+  if (pct < 80) return 'text-yellow-500'
+  return 'text-green-500'
+}
+
 // ─── BusinessProfileSection ───────────────────────────────────────────────────
 
 interface Props {
@@ -95,6 +131,8 @@ export function BusinessProfileSection({ onSave }: Props) {
     parseSocialLinks(profile.identity.socialLinks)
   )
   const [saved, setSaved] = useState(false)
+
+  const completeness = computeCompleteness(businessName, segment, targetAudience, statement, tone, platforms, socialLinks)
 
   const handleTogglePlatform = (platform: string) => {
     setPlatforms((prev) =>
@@ -151,6 +189,17 @@ export function BusinessProfileSection({ onSave }: Props) {
           <Buildings size={16} weight="duotone" />
         </span>
         <h2 className="font-semibold text-foreground">Meu Negócio</h2>
+        <div className="ml-auto flex items-center gap-2.5">
+          <span className={`text-xs font-semibold tabular-nums ${completenessTextColor(completeness)}`}>
+            {completeness}%
+          </span>
+          <div className="w-24 h-1.5 rounded-full bg-border overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-300 ${completenessColor(completeness)}`}
+              style={{ width: `${completeness}%` }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Fields */}
