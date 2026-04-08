@@ -3,7 +3,7 @@
     "id": "F-001",
     "name": "Tipos de perfil em ambos os apps",
     "description": "Adicionar tipos TypeScript de perfil em `src/data/types.ts` de ambos os apps (mocks/keep-biz e mocks/keep-solo). Tipos: `ProfileStatus` (union 'rascunho'|'completo'|'ativo'|'inativo'), `ProfileIdentity` (businessName, url, socialLinks[]), `ProfileNiche` (segment, targetAudience, competitors[]), `ProfilePositioning` (differentials, statement, agentSuggestion), `ToneOfVoice` (union 5 valores: formal/casual/técnico/inspiracional/amigável), `ProfileTone` (primary: ToneOfVoice, examples: string[]), `Profile` (id, identity, niche, positioning, tone, platforms: string[], status, completeness: number, createdAt, updatedAt). Os tipos devem ser idênticos em ambos os apps.",
-    "status": "pending",
+    "status": "passing",
     "priority": 1,
     "agent": "coder",
     "task": "vibe-code",
@@ -13,17 +13,20 @@
       "Arquivo mocks/keep-solo/src/data/types.ts exporta os mesmos tipos",
       "TypeScript compila sem erros em ambos os apps"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-022-profile-data-structure.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-022-profile-data-structure.md",
+    "completed_at": "2026-04-08T13:40:00Z"
   },
   {
     "id": "F-002",
     "name": "Mock data perfis KeepBiz",
     "description": "Criar `mocks/keep-biz/src/data/profiles.ts` com array de 2 perfis mock usando os tipos de Profile. Perfil 1: PRF-001, Processa Sistemas, segmento Tecnologia, status 'ativo', completeness 100%. Perfil 2: PRF-002, Processa Academy, segmento Educação & Tecnologia, status 'rascunho', completeness 75%. Incluir dados realistas em identity (socialLinks), niche (competitors), positioning (statement), tone (exemplos). Re-exportar `profiles` em `src/data/index.ts`.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "Arquivo mocks/keep-biz/src/data/profiles.ts exporta array `profiles` com 2 itens",
       "profiles[0].id === 'PRF-001' e profiles[0].identity.businessName === 'Processa Sistemas'",
@@ -37,11 +40,13 @@
     "id": "F-003",
     "name": "Mock data perfil KeepSolo",
     "description": "Criar `mocks/keep-solo/src/data/profiles.ts` com objeto único `soloProfile` (PRF-SOLO, Cia Cuidadores, segmento Saúde & Bem-estar, status 'ativo', completeness 100%) e booleano `profileConfigured` (default true). Incluir dados realistas. Re-exportar `soloProfile` e `profileConfigured` em `src/data/index.ts`.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "Arquivo mocks/keep-solo/src/data/profiles.ts exporta `soloProfile` e `profileConfigured`",
       "soloProfile.id === 'PRF-SOLO' e soloProfile.identity.businessName contém 'Cia Cuidadores'",
@@ -55,11 +60,13 @@
     "id": "F-004",
     "name": "ProfilesPage grid responsivo KeepBiz",
     "description": "Criar `mocks/keep-biz/src/pages/ProfilesPage.tsx` com header (título 'Perfis', botão 'Criar Novo Perfil' → `/profiles/new`) e grid responsivo (2 colunas desktop, 1 mobile) para renderizar cards de perfil. Importar array `profiles` de data. Registrar rota `/profiles` no router (App.tsx). O grid segue o padrão de layout do projeto: `p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-start`.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002"],
+    "dependencies": [
+      "F-002"
+    ],
     "tests": [
       "Arquivo mocks/keep-biz/src/pages/ProfilesPage.tsx existe e exporta componente",
       "Rota /profiles renderiza ProfilesPage",
@@ -73,11 +80,13 @@
     "id": "F-005",
     "name": "ProfileCard componente KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/ProfileCard.tsx` — card individual de perfil com: nome do negócio (identity.businessName) como título, segmento (niche.segment) como subtítulo, status badge colorido (ativo=green, completo=blue, rascunho=yellow, inativo=gray), barra de completude 0-100% com cor por faixa (red<50, yellow<80, green>=80), ícones das plataformas ativas, 'Atualizado há X dias' (relative time calculado a partir de updatedAt). Perfil com status 'ativo' tem borda destacada (border-blue-500). Usar nos ProfileCard os mesmos componentes Badge do projeto se existirem.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002"],
+    "dependencies": [
+      "F-002"
+    ],
     "tests": [
       "Arquivo mocks/keep-biz/src/components/ProfileCard.tsx existe e exporta componente",
       "Card renderiza businessName, segment, status badge com cor correta",
@@ -91,11 +100,13 @@
     "id": "F-006",
     "name": "Sidebar seção Perfis KeepBiz",
     "description": "Adicionar seção 'Perfis' na Sidebar do KeepBiz (`mocks/keep-biz/src/components/Sidebar.tsx`) com ícone UserCircle (Phosphor) e link direto para `/profiles`. Posicionar ACIMA das 3 zonas existentes (Social Monitor, Content Forge, Agent Core). Sem sub-links — apenas um link direto.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002"],
+    "dependencies": [
+      "F-002"
+    ],
     "tests": [
       "Sidebar mostra seção 'Perfis' com ícone UserCircle",
       "Seção Perfis aparece acima de Social Monitor",
@@ -108,11 +119,13 @@
     "id": "F-007",
     "name": "ProfileContext KeepBiz",
     "description": "Criar `mocks/keep-biz/src/contexts/ProfileContext.tsx` com interface ProfileContextValue: profiles (Profile[]), activeProfileId (string|null), hasProfiles (boolean), setActiveProfileId(id), addProfile(profile), removeProfile(id). Inicializar com dados de `data/profiles.ts`. Persistir `activeProfileId` via localStorage('keepbiz-active-profile'). Prover o contexto no App.tsx wrapping rotas protegidas.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002"],
+    "dependencies": [
+      "F-002"
+    ],
     "tests": [
       "Arquivo mocks/keep-biz/src/contexts/ProfileContext.tsx existe e exporta ProfileContext e useProfiles hook",
       "Context inicializa com 2 perfis do mock data",
@@ -127,11 +140,13 @@
     "id": "F-008",
     "name": "SoloProfileContext KeepSolo",
     "description": "Criar `mocks/keep-solo/src/contexts/ProfileContext.tsx` com: profile (Profile), isConfigured (boolean), completeOnboarding() (seta isConfigured=true e persiste em localStorage('keepsolo-profile-configured')), updateProfile(data) (merge parcial no profile). Inicializar com `soloProfile` e `profileConfigured` de data. Prover no App.tsx wrapping rotas protegidas.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-003"],
+    "dependencies": [
+      "F-003"
+    ],
     "tests": [
       "Arquivo mocks/keep-solo/src/contexts/ProfileContext.tsx existe e exporta SoloProfileContext e useSoloProfile hook",
       "Context inicializa com soloProfile do mock data",
@@ -146,11 +161,15 @@
     "id": "F-009",
     "name": "Ações do ProfileCard KeepBiz",
     "description": "Adicionar ao ProfileCard dois botões de ação: 'Editar' (navega para `/profiles/new?edit=PRF-XXX`) e 'Excluir' (abre dialog de confirmação; ao confirmar, remove do state local via removeProfile do ProfileContext). Usar o padrão de dialog existente no projeto (se houver) ou criar um AlertDialog simples.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004", "F-005", "F-007"],
+    "dependencies": [
+      "F-004",
+      "F-005",
+      "F-007"
+    ],
     "tests": [
       "ProfileCard mostra botões 'Editar' e 'Excluir'",
       "Click em 'Editar' navega para /profiles/new?edit={profileId}",
@@ -164,11 +183,14 @@
     "id": "F-010",
     "name": "Empty state ProfilesPage KeepBiz",
     "description": "Adicionar empty state à ProfilesPage quando array de perfis está vazio: ícone UserCirclePlus (Phosphor, 64px, muted), título 'Nenhum perfil criado', descrição explicativa, CTA 'Criar Primeiro Perfil' → `/profiles/new`. Usar o componente EmptyState existente se compatível, ou criar inline. Renderizar quando profiles.length === 0.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004", "F-007"],
+    "dependencies": [
+      "F-004",
+      "F-007"
+    ],
     "tests": [
       "Quando profiles está vazio, mostra empty state com ícone e CTA",
       "CTA navega para /profiles/new",
@@ -181,11 +203,13 @@
     "id": "F-011",
     "name": "ProfileWizardPage com stepper KeepBiz",
     "description": "Criar `mocks/keep-biz/src/pages/ProfileWizardPage.tsx` com layout fullscreen (max-w-2xl centralizado), stepper horizontal de 5 etapas (labels: 'Seu Negócio', 'Pesquisando...', 'Validação', 'Nicho & Posicionamento', 'Resumo'), indicador de etapa ativa, botões Voltar/Avançar na parte inferior. Registrar rota `/profiles/new`. O stepper gerencia currentStep (0-4) e renderiza placeholder divs para cada etapa (conteúdo será implementado nas features seguintes).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004"],
+    "dependencies": [
+      "F-004"
+    ],
     "tests": [
       "Arquivo mocks/keep-biz/src/pages/ProfileWizardPage.tsx existe",
       "Rota /profiles/new renderiza ProfileWizardPage",
@@ -200,11 +224,13 @@
     "id": "F-012",
     "name": "Wizard Etapa 1 — Coleta KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepIdentity.tsx` — formulário de coleta inicial com: campo Nome do negócio (obrigatório), URL do site (opcional), repeater de redes sociais (até 5 entradas, cada com select de plataforma [Instagram, LinkedIn, TikTok, YouTube, Twitter/X, Facebook, WhatsApp, Google Meu Negócio] e campo de handle/URL). Validação: nome não vazio para permitir avançar. Integrar no ProfileWizardPage como step 0.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-011"],
+    "dependencies": [
+      "F-011"
+    ],
     "tests": [
       "WizardStepIdentity renderiza campos Nome, URL, redes sociais",
       "Select de plataforma tem 8 opções",
@@ -218,11 +244,13 @@
     "id": "F-013",
     "name": "Wizard Etapa 2 — Loading pesquisa KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepResearch.tsx` — tela de loading simulado com ícone MagnifyingGlass (pulse + spinner), texto 'Pesquisando na internet sobre {businessName}...'. Items sequenciais aparecem a cada 1.5s: 'Buscando informações...', 'Analisando redes sociais...', 'Identificando concorrentes...', 'Mapeando segmento...', 'Concluído!'. Auto-avanço para próxima etapa 1s após último item. Integrar no ProfileWizardPage como step 1.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-011"],
+    "dependencies": [
+      "F-011"
+    ],
     "tests": [
       "WizardStepResearch mostra ícone MagnifyingGlass com animação",
       "Texto inclui o businessName digitado na etapa 1",
@@ -236,11 +264,13 @@
     "id": "F-014",
     "name": "Wizard Etapa 3 — Validação achados KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepValidation.tsx` — lista de 6-8 achados mock por categoria (identidade, segmento, concorrente, rede_social, dado_publico). Cada achado tem: label, valor, botões Confirmar (bg verde, ícone check) / Corrigir (abre input inline, valor original riscado + correção em azul) / Ignorar (bg cinza, texto riscado). Toggle: mudar decisão. Contador 'X de Y itens revisados'. CTA 'Tudo certo, continuar' só habilitado quando todos revisados. Integrar no ProfileWizardPage como step 2.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-011"],
+    "dependencies": [
+      "F-011"
+    ],
     "tests": [
       "WizardStepValidation renderiza 6-8 achados mock",
       "Cada achado tem botões Confirmar, Corrigir, Ignorar",
@@ -256,11 +286,13 @@
     "id": "F-015",
     "name": "Wizard Etapa 4 — Nicho e posicionamento KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepNiche.tsx` — grid de cards de segmento (3 colunas desktop, 2 mobile): Saúde & Bem-estar, Tecnologia, Varejo, Serviços B2B, Educação, Alimentação, Finanças, Indústria. Seleção única (radio). Segmento da etapa 3 pré-selecionado. Sub-opções de público-alvo como chips multi-select (3-4 por segmento). Textarea de posicionamento com sugestão mock do agente. Botões 'Usar sugestão do agente' / 'Escrever do meu jeito'. Integrar no ProfileWizardPage como step 3.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-011"],
+    "dependencies": [
+      "F-011"
+    ],
     "tests": [
       "WizardStepNiche renderiza grid de 8 segmentos",
       "Grid usa 3 colunas desktop, 2 mobile",
@@ -275,11 +307,14 @@
     "id": "F-016",
     "name": "Wizard Etapa 5 — Resumo KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepSummary.tsx` — card com resumo: Identidade (nome, URL, redes), Segmento, Posicionamento, Tom de voz (select com 5 opções: formal/casual/técnico/inspiracional/amigável), Plataformas (checkboxes). Links 'Editar' em cada seção voltam para a etapa correspondente. Botão 'Criar Perfil' → adiciona perfil via addProfile do ProfileContext → toast sucesso → navega para `/profiles`. Integrar no ProfileWizardPage como step 4.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-011", "F-007"],
+    "dependencies": [
+      "F-011",
+      "F-007"
+    ],
     "tests": [
       "WizardStepSummary renderiza card com todas as seções de resumo",
       "Select de tom de voz tem 5 opções",
@@ -294,11 +329,15 @@
     "id": "F-017",
     "name": "Wizard modo edição KeepBiz",
     "description": "Adicionar suporte a modo edição no ProfileWizardPage. Detectar query param `?edit=PRF-XXX` via URL. Quando presente: carregar perfil existente do ProfileContext, pré-preencher campos das etapas 1, 4 e 5, pular etapas 2 (loading) e 3 (validação), mudar botão final para 'Salvar Alterações' em vez de 'Criar Perfil'. Ao salvar: atualizar perfil no context e navegar de volta para `/profiles`.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-012", "F-015", "F-016"],
+    "dependencies": [
+      "F-012",
+      "F-015",
+      "F-016"
+    ],
     "tests": [
       "URL /profiles/new?edit=PRF-001 carrega dados do perfil PRF-001",
       "Etapas 2 e 3 são puladas no modo edição",
@@ -312,11 +351,13 @@
     "id": "F-018",
     "name": "i18n wizard KeepBiz",
     "description": "Adicionar todas as strings do wizard de criação de perfil (ProfileWizardPage, WizardStepIdentity, WizardStepResearch, WizardStepValidation, WizardStepNiche, WizardStepSummary) ao sistema i18n em pt/en/es. Substituir strings hardcoded por chamadas t(). Incluir labels de stepper, textos de botões, placeholders, mensagens de loading, labels dos achados, nomes de segmentos.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-011"],
+    "dependencies": [
+      "F-011"
+    ],
     "tests": [
       "Todas as strings visíveis do wizard usam t()",
       "Traduções existem para pt, en e es",
@@ -329,11 +370,13 @@
     "id": "F-019",
     "name": "ProfileGate componente KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/ProfileGate.tsx`. Quando `hasProfiles === true` (do ProfileContext): renderiza children normalmente. Quando `hasProfiles === false`: renderiza empty state com ícone Lock (Phosphor, 64px, muted), mensagem 'Para acessar esta área, crie seu primeiro perfil', CTA 'Criar Primeiro Perfil' → `/profiles/new`. Componente wrapper que recebe children.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-007"],
+    "dependencies": [
+      "F-007"
+    ],
     "tests": [
       "Arquivo mocks/keep-biz/src/components/ProfileGate.tsx existe",
       "Quando hasProfiles=true, children são renderizados",
@@ -347,11 +390,13 @@
     "id": "F-020",
     "name": "Integração ProfileGate nas rotas KeepBiz",
     "description": "Aplicar o componente ProfileGate como wrapper em MonitorPage, ContentPage e ContentCalendarPage do KeepBiz. NÃO afetar rotas de Agent Core (/agents/*) nem Settings (/settings). O gate deve wrapping o conteúdo da página, de forma que se não houver perfis, o gate substitui todo o conteúdo.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-019"],
+    "dependencies": [
+      "F-019"
+    ],
     "tests": [
       "MonitorPage é envolvida por ProfileGate",
       "ContentPage é envolvida por ProfileGate",
@@ -366,11 +411,13 @@
     "id": "F-021",
     "name": "ProfileSelector componente KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/ProfileSelector.tsx`. Desktop: tab group horizontal com 'Todos os perfis' + uma tab por perfil. Mobile: dropdown Select. Cada tab/opção mostra status dot colorido (green=ativo, yellow=rascunho). Seleção atualiza `activeProfileId` via ProfileContext. Renderizar no topo de MonitorPage e ContentPage (dentro do ProfileGate, antes do conteúdo).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-007"],
+    "dependencies": [
+      "F-007"
+    ],
     "tests": [
       "ProfileSelector renderiza tabs em desktop e dropdown em mobile",
       "Tab 'Todos os perfis' + uma tab por perfil existente",
@@ -384,11 +431,13 @@
     "id": "F-022",
     "name": "Filtragem mock por perfil KeepBiz",
     "description": "Adicionar campo `profileId?: string` nos types Mention e ContentItem em `mocks/keep-biz/src/data/types.ts`. Distribuir 'PRF-001' e 'PRF-002' nos mock data de `mentions.ts` e `content.ts` (metade para cada). Em MonitorPage e ContentPage: quando um perfil específico está selecionado (activeProfileId !== null), filtrar dados por profileId. 'Todos os perfis' (null): sem filtro (comportamento atual).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-021"],
+    "dependencies": [
+      "F-021"
+    ],
     "tests": [
       "Types Mention e ContentItem incluem campo profileId opcional",
       "Mock data de mentions distribuem profileId entre PRF-001 e PRF-002",
@@ -402,11 +451,13 @@
     "id": "F-023",
     "name": "Orchestrator Bar perfil ativo KeepBiz",
     "description": "Adicionar indicação do perfil ativo na OrchestratorBar existente (`mocks/keep-biz/src/components/OrchestratorBar.tsx`). Quando activeProfileId !== null: exibir identity.businessName com ícone IdentificationBadge (Phosphor). Quando null: exibir 'Todos os perfis'. Texto truncado com ellipsis (max-w-[150px]). Transição opacity fade 200ms ao trocar.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-007"],
+    "dependencies": [
+      "F-007"
+    ],
     "tests": [
       "OrchestratorBar mostra nome do perfil ativo quando selecionado",
       "OrchestratorBar mostra 'Todos os perfis' quando nenhum selecionado",
@@ -420,11 +471,14 @@
     "id": "F-024",
     "name": "i18n gate, seletor e Orchestrator Bar KeepBiz",
     "description": "Adicionar strings de ProfileGate, ProfileSelector e indicação de perfil na OrchestratorBar ao sistema i18n em pt/en/es. Substituir hardcoded strings por t(). Incluir: textos do gate (mensagem, CTA), labels do seletor ('Todos os perfis', status labels), texto da Orchestrator Bar.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-019", "F-021"],
+    "dependencies": [
+      "F-019",
+      "F-021"
+    ],
     "tests": [
       "Strings do ProfileGate usam t()",
       "Strings do ProfileSelector usam t()",
@@ -438,11 +492,14 @@
     "id": "F-025",
     "name": "i18n ProfilesPage e ProfileCard KeepBiz",
     "description": "Adicionar strings de ProfilesPage e ProfileCard ao sistema i18n em pt/en/es. Substituir hardcoded strings por t(). Incluir: título da página, botão criar, labels de status, texto de completude, texto de relative time, empty state, labels de ações (Editar, Excluir), textos do dialog de confirmação.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004", "F-005"],
+    "dependencies": [
+      "F-004",
+      "F-005"
+    ],
     "tests": [
       "Strings de ProfilesPage usam t()",
       "Strings de ProfileCard usam t()",
@@ -455,11 +512,13 @@
     "id": "F-026",
     "name": "Detecção first-run KeepSolo",
     "description": "Adicionar lógica no RouteGuard do KeepSolo (`mocks/keep-solo/src/components/RouteGuard.tsx`): quando `isConfigured === false` (do SoloProfileContext) e rota atual NÃO é `/onboarding` → redirecionar para `/onboarding`. Quando `isConfigured === true` e rota é `/onboarding` → redirecionar para `/monitor`. Flag persiste via localStorage.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-008"],
+    "dependencies": [
+      "F-008"
+    ],
     "tests": [
       "Com isConfigured=false, qualquer rota protegida redireciona para /onboarding",
       "Com isConfigured=true, /onboarding redireciona para /monitor",
@@ -472,11 +531,13 @@
     "id": "F-027",
     "name": "OnboardingPage layout KeepSolo",
     "description": "Criar `mocks/keep-solo/src/pages/OnboardingPage.tsx` — página fullscreen SEM BottomNav/header (fora do AppLayout), stepper de 4 dots (labels: 'Seu Negócio', 'Pesquisando...', 'Validação', 'Pronto!'), botões Voltar/Avançar. Identidade visual amber/orange do KeepSolo. Registrar rota `/onboarding` como auth-protected mas fora do layout padrão. Gerencia currentStep (0-3) e renderiza placeholders para cada etapa.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-008"],
+    "dependencies": [
+      "F-008"
+    ],
     "tests": [
       "Arquivo mocks/keep-solo/src/pages/OnboardingPage.tsx existe",
       "Rota /onboarding renderiza OnboardingPage",
@@ -491,11 +552,13 @@
     "id": "F-028",
     "name": "Onboarding Etapa 1 — Coleta KeepSolo",
     "description": "Criar componente para a etapa 1 do onboarding KeepSolo. Título conversacional: 'Me conta sobre o seu negócio', subtítulo: 'Vou usar isso pra entender como posso te ajudar.' Campos: Nome do negócio (obrigatório), URL (opcional), Instagram ou principal rede social (opcional — campo único, não repeater). Tom pessoal, sem jargão. Validação: nome não vazio para avançar. Integrar no OnboardingPage como step 0.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-027"],
+    "dependencies": [
+      "F-027"
+    ],
     "tests": [
       "Etapa 1 mostra título conversacional e subtítulo",
       "Campos: nome (obrigatório), URL, rede social principal",
@@ -509,11 +572,13 @@
     "id": "F-029",
     "name": "Onboarding Etapa 2 — Loading KeepSolo",
     "description": "Criar componente para a etapa 2 do onboarding KeepSolo. Loading em tom amber/orange. Items sequenciais (1 a cada 1.5s): 'Procurando na internet...', 'Analisando suas redes...', 'Entendendo seu mercado...', 'Quase lá...'. Auto-avanço para etapa 3 após 1s do último item. Integrar no OnboardingPage como step 1.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-027"],
+    "dependencies": [
+      "F-027"
+    ],
     "tests": [
       "Etapa 2 mostra animação de loading em amber/orange",
       "4 items aparecem sequencialmente (1.5s intervalo)",
@@ -526,11 +591,13 @@
     "id": "F-030",
     "name": "Onboarding Etapa 3 — Validação KeepSolo",
     "description": "Criar componente para a etapa 3 do onboarding KeepSolo. Título: 'Encontrei isso — está certo?'. 5-6 achados mock baseados em Cia Cuidadores (ex: segmento Saúde & Bem-estar, atendimento domiciliar, Instagram @ciacuidadores, etc). Mesma lógica do wizard KeepBiz: Confirmar/Corrigir/Ignorar com inline edit. CTA 'Tudo certo!' habilitado quando todos revisados. Integrar no OnboardingPage como step 2.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-027"],
+    "dependencies": [
+      "F-027"
+    ],
     "tests": [
       "Etapa 3 mostra título 'Encontrei isso — está certo?'",
       "5-6 achados mock relevantes para Cia Cuidadores",
@@ -545,11 +612,14 @@
     "id": "F-031",
     "name": "Onboarding Etapa 4 — Pronto KeepSolo",
     "description": "Criar componente para a etapa 4 do onboarding KeepSolo. Título: 'Pronto! Conheço seu negócio.' Tela de sucesso com resumo enxuto (nome, segmento, plataforma principal). Select de tom de voz (default 'amigável', opções: formal/casual/técnico/inspiracional/amigável). Botão 'Começar a usar' → chama `completeOnboarding()` do SoloProfileContext → navega para `/monitor`. Animação sutil de sucesso (confetti opcional). Integrar no OnboardingPage como step 3.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-027", "F-008"],
+    "dependencies": [
+      "F-027",
+      "F-008"
+    ],
     "tests": [
       "Etapa 4 mostra título 'Pronto! Conheço seu negócio.'",
       "Resumo mostra nome, segmento e plataforma",
@@ -563,11 +633,13 @@
     "id": "F-032",
     "name": "i18n onboarding KeepSolo",
     "description": "Adicionar todas as strings do onboarding (OnboardingPage, etapas 1-4) ao sistema i18n em pt/en/es. Substituir strings hardcoded por t(). Incluir: títulos, subtítulos, labels de campos, textos de loading, labels de achados, textos de sucesso, labels de tom de voz. NENHUMA tradução deve conter a palavra 'perfil'.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-027"],
+    "dependencies": [
+      "F-027"
+    ],
     "tests": [
       "Todas as strings do onboarding usam t()",
       "Traduções existem para pt, en e es",
@@ -580,11 +652,13 @@
     "id": "F-033",
     "name": "BusinessProfileSection componente KeepSolo",
     "description": "Criar `mocks/keep-solo/src/components/BusinessProfileSection.tsx` — seção de formulário com campos: Nome do negócio (text input, de identity.businessName), Segmento (select: Saúde & Bem-estar, Tecnologia, Varejo, Serviços B2B, Educação, Alimentação, Finanças, Indústria), Público-alvo (text input, de niche.targetAudience), Posicionamento (textarea, de positioning.statement), Tom de voz (select: formal/casual/técnico/inspiracional/amigável), Plataformas ativas (checkbox group), Redes sociais (repeater plataforma + handle). Campos pré-preenchidos com dados de soloProfile via SoloProfileContext.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-008"],
+    "dependencies": [
+      "F-008"
+    ],
     "tests": [
       "Componente renderiza todos os 7 campos listados",
       "Campos vêm pré-preenchidos com dados do soloProfile",
@@ -599,11 +673,13 @@
     "id": "F-034",
     "name": "Integração BusinessProfileSection na ConfigPage KeepSolo",
     "description": "Inserir BusinessProfileSection como PRIMEIRA seção da ConfigPage existente (`mocks/keep-solo/src/pages/ConfigPage.tsx`), acima da seção 'Perfil Pessoal'. Título da seção: 'Meu Negócio'. Manter todas as seções existentes da ConfigPage intactas.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-033"],
+    "dependencies": [
+      "F-033"
+    ],
     "tests": [
       "ConfigPage mostra seção 'Meu Negócio' como primeira seção",
       "Seção 'Meu Negócio' aparece acima de 'Perfil Pessoal'",
@@ -616,11 +692,13 @@
     "id": "F-035",
     "name": "Indicador de completude na seção Meu Negócio KeepSolo",
     "description": "Adicionar ao header da seção 'Meu Negócio' (BusinessProfileSection) um indicador de completude: progress bar + percentual numérico, à direita do título. Cores por faixa: red < 50%, yellow < 80%, green >= 80%. Cálculo: campos preenchidos / total de campos × 100.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-033"],
+    "dependencies": [
+      "F-033"
+    ],
     "tests": [
       "Progress bar + % aparece no header da seção",
       "Cor vermelha quando completude < 50%",
@@ -634,11 +712,13 @@
     "id": "F-036",
     "name": "Salvar alterações perfil KeepSolo",
     "description": "Adicionar botão 'Salvar alterações' ao final da BusinessProfileSection. Ao clicar: chamar `updateProfile(formData)` do SoloProfileContext com os valores atuais do formulário. Exibir toast 'Alterações salvas!' (usando o padrão de toast existente no app). Mock: atualiza state em memória, não persiste em reload.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-033"],
+    "dependencies": [
+      "F-033"
+    ],
     "tests": [
       "Botão 'Salvar alterações' está no final da seção",
       "Click chama updateProfile() no context",
@@ -651,11 +731,13 @@
     "id": "F-037",
     "name": "i18n seção Meu Negócio KeepSolo",
     "description": "Adicionar strings da BusinessProfileSection e integração na ConfigPage ao sistema i18n em pt/en/es. Incluir: título 'Meu Negócio', labels dos campos, opções de segmento, opções de tom de voz, botão salvar, toast de confirmação, placeholders.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-033"],
+    "dependencies": [
+      "F-033"
+    ],
     "tests": [
       "Todas as strings da seção usam t()",
       "Traduções existem para pt, en e es",
