@@ -210,7 +210,7 @@
     "id": "F-011",
     "name": "ProfileWizardPage com stepper KeepBiz",
     "description": "Criar `mocks/keep-biz/src/pages/ProfileWizardPage.tsx` com layout fullscreen (max-w-2xl centralizado), stepper horizontal de 5 etapas (labels: 'Seu Negócio', 'Pesquisando...', 'Validação', 'Nicho & Posicionamento', 'Resumo'), indicador de etapa ativa, botões Voltar/Avançar na parte inferior. Registrar rota `/profiles/new`. O stepper gerencia currentStep (0-4) e renderiza placeholder divs para cada etapa (conteúdo será implementado nas features seguintes).",
-    "status": "pending",
+    "status": "passing",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
@@ -225,7 +225,8 @@
       "Etapa ativa é visualmente destacada no stepper",
       "Layout é max-w-2xl centralizado"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T13:52:45Z"
   },
   {
     "id": "F-012",
@@ -519,7 +520,7 @@
     "id": "F-026",
     "name": "Detecção first-run KeepSolo",
     "description": "Adicionar lógica no RouteGuard do KeepSolo (`mocks/keep-solo/src/components/RouteGuard.tsx`): quando `isConfigured === false` (do SoloProfileContext) e rota atual NÃO é `/onboarding` → redirecionar para `/onboarding`. Quando `isConfigured === true` e rota é `/onboarding` → redirecionar para `/monitor`. Flag persiste via localStorage.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
@@ -538,7 +539,7 @@
     "id": "F-027",
     "name": "OnboardingPage layout KeepSolo",
     "description": "Criar `mocks/keep-solo/src/pages/OnboardingPage.tsx` — página fullscreen SEM BottomNav/header (fora do AppLayout), stepper de 4 dots (labels: 'Seu Negócio', 'Pesquisando...', 'Validação', 'Pronto!'), botões Voltar/Avançar. Identidade visual amber/orange do KeepSolo. Registrar rota `/onboarding` como auth-protected mas fora do layout padrão. Gerencia currentStep (0-3) e renderiza placeholders para cada etapa.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
@@ -659,7 +660,7 @@
     "id": "F-033",
     "name": "BusinessProfileSection componente KeepSolo",
     "description": "Criar `mocks/keep-solo/src/components/BusinessProfileSection.tsx` — seção de formulário com campos: Nome do negócio (text input, de identity.businessName), Segmento (select: Saúde & Bem-estar, Tecnologia, Varejo, Serviços B2B, Educação, Alimentação, Finanças, Indústria), Público-alvo (text input, de niche.targetAudience), Posicionamento (textarea, de positioning.statement), Tom de voz (select: formal/casual/técnico/inspiracional/amigável), Plataformas ativas (checkbox group), Redes sociais (repeater plataforma + handle). Campos pré-preenchidos com dados de soloProfile via SoloProfileContext.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",

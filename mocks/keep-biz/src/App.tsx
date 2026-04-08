@@ -11,6 +11,7 @@ import { AgentsChatPage } from '@/pages/AgentsChatPage'
 import { AgentsConnectorsPage } from '@/pages/AgentsConnectorsPage'
 import { SettingsPage } from '@/pages/SettingsPage'
 import { ProfilesPage } from '@/pages/ProfilesPage'
+import { ProfileWizardPage } from '@/pages/ProfileWizardPage'
 import { LandingPage } from '@/pages/LandingPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
@@ -50,7 +51,7 @@ function App() {
               <Route path="/agents/connectors" element={<AgentsConnectorsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/profiles" element={<ProfilesPage />} />
-              <Route path="/profiles/new" element={<ProfilesPage />} />
+              <Route path="/profiles/new" element={<ProfileWizardPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
