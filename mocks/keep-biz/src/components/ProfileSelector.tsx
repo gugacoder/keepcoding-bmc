@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useProfiles } from '@/contexts/ProfileContext'
 
 const STATUS_DOT: Record<string, string> = {
@@ -9,8 +10,9 @@ const STATUS_DOT: Record<string, string> = {
 
 export function ProfileSelector() {
   const { profiles, activeProfileId, setActiveProfileId } = useProfiles()
+  const { t } = useTranslation()
 
-  const tabs = [{ id: null, label: 'Todos os perfis', status: null }, ...profiles.map(p => ({
+  const tabs = [{ id: null, label: t('profileSelector.allProfiles'), status: null }, ...profiles.map(p => ({
     id: p.id,
     label: p.identity.businessName,
     status: p.status,
@@ -48,7 +50,7 @@ export function ProfileSelector() {
           onChange={(e) => setActiveProfileId(e.target.value === '' ? null : e.target.value)}
           className="w-full px-3 py-2 text-sm bg-card border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
-          <option value="">Todos os perfis</option>
+          <option value="">{t('profileSelector.allProfiles')}</option>
           {profiles.map((p) => (
             <option key={p.id} value={p.id}>
               {p.status === 'ativo' ? '🟢' : p.status === 'rascunho' ? '🟡' : '⚪'} {p.identity.businessName}

@@ -493,7 +493,7 @@
     "id": "F-024",
     "name": "i18n gate, seletor e Orchestrator Bar KeepBiz",
     "description": "Adicionar strings de ProfileGate, ProfileSelector e indicação de perfil na OrchestratorBar ao sistema i18n em pt/en/es. Substituir hardcoded strings por t(). Incluir: textos do gate (mensagem, CTA), labels do seletor ('Todos os perfis', status labels), texto da Orchestrator Bar.",
-    "status": "pending",
+    "status": "passing",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -508,7 +508,8 @@
       "Traduções existem para pt, en e es",
       "Trocar idioma reflete em todos os componentes"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md",
+    "completed_at": "2026-04-08T15:17:02Z"
   },
   {
     "id": "F-025",

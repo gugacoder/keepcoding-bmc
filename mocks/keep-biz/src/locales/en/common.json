@@ -155,5 +155,25 @@
       "submitCreate": "Create Profile",
       "submitEdit": "Save Changes"
     }
+  },
+  "profileGate": {
+    "message": "To access this area, create your first profile",
+    "cta": "Create First Profile"
+  },
+  "profileSelector": {
+    "allProfiles": "All profiles"
+  },
+  "orchestratorBar": {
+    "allProfiles": "All profiles",
+    "teamStatus": "Team Status",
+    "statusLabels": {
+      "green": "Operational",
+      "yellow": "Attention",
+      "red": "Alert"
+    },
+    "agentsActive_one": "{{count}} active agent",
+    "agentsActive_other": "{{count}} active agents",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode"
   }
 }

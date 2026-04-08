@@ -155,5 +155,25 @@
       "submitCreate": "Criar Perfil",
       "submitEdit": "Salvar Alterações"
     }
+  },
+  "profileGate": {
+    "message": "Para acessar esta área, crie seu primeiro perfil",
+    "cta": "Criar Primeiro Perfil"
+  },
+  "profileSelector": {
+    "allProfiles": "Todos os perfis"
+  },
+  "orchestratorBar": {
+    "allProfiles": "Todos os perfis",
+    "teamStatus": "Team Status",
+    "statusLabels": {
+      "green": "Operacional",
+      "yellow": "Atenção",
+      "red": "Alerta"
+    },
+    "agentsActive_one": "{{count}} agente ativo",
+    "agentsActive_other": "{{count}} agentes ativos",
+    "lightMode": "Modo claro",
+    "darkMode": "Modo escuro"
   }
 }
