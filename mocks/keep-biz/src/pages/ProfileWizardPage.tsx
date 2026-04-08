@@ -6,6 +6,7 @@ import {
   type IdentityData,
 } from '../components/wizard/WizardStepIdentity'
 import { WizardStepResearch } from '../components/wizard/WizardStepResearch'
+import { WizardStepValidation } from '../components/wizard/WizardStepValidation'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -104,8 +105,9 @@ function isStepValid(step: number, data: WizardData): boolean {
 
 // ─── Main page ─────────────────────────────────────────────────────────────
 
-// Step 1 (Pesquisando) has no manual nav — it auto-advances
-const AUTO_ADVANCE_STEPS = new Set([1])
+// Steps with internal navigation (no Voltar/Avançar footer nav)
+// Step 1 (Pesquisando) auto-advances; step 2 (Validação) has its own CTA
+const AUTO_ADVANCE_STEPS = new Set([1, 2])
 
 export function ProfileWizardPage() {
   const navigate = useNavigate()
@@ -129,6 +131,10 @@ export function ProfileWizardPage() {
 
   const handleResearchComplete = useCallback(() => {
     setCurrentStep(2)
+  }, [])
+
+  const handleValidationContinue = useCallback(() => {
+    setCurrentStep(3)
   }, [])
 
   return (
@@ -159,6 +165,8 @@ export function ProfileWizardPage() {
               businessName={wizardData.identity.businessName}
               onComplete={handleResearchComplete}
             />
+          ) : currentStep === 2 ? (
+            <WizardStepValidation onContinue={handleValidationContinue} />
           ) : (
             <StepPlaceholder step={currentStep} />
           )}

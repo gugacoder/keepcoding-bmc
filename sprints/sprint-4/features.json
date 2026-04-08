@@ -276,7 +276,7 @@
     "id": "F-014",
     "name": "Wizard Etapa 3 — Validação achados KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepValidation.tsx` — lista de 6-8 achados mock por categoria (identidade, segmento, concorrente, rede_social, dado_publico). Cada achado tem: label, valor, botões Confirmar (bg verde, ícone check) / Corrigir (abre input inline, valor original riscado + correção em azul) / Ignorar (bg cinza, texto riscado). Toggle: mudar decisão. Contador 'X de Y itens revisados'. CTA 'Tudo certo, continuar' só habilitado quando todos revisados. Integrar no ProfileWizardPage como step 2.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -292,7 +292,8 @@
       "Contador 'X de Y' atualiza ao interagir",
       "CTA 'Tudo certo, continuar' desabilitado até todos revisados"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T14:30:00Z"
   },
   {
     "id": "F-015",
