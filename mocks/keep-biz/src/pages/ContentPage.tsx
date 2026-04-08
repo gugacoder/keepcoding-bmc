@@ -11,13 +11,14 @@ import {
   MagnifyingGlass,
   Robot,
   CaretDown,
+  Megaphone,
 } from '@phosphor-icons/react'
-import { teamMembers } from '@/data'
+import { teamMembers, campaigns as initialCampaigns } from '@/data'
 import { useContent } from '@/contexts/ContentContext'
 import { EmptyState } from '@/components/EmptyState'
 import { SkeletonCard } from '@/components/Skeleton'
 import { useEffect } from 'react'
-import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
+import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry, AiCampaign, AiCampaignPost } from '@/data/types'
 import { ContentThumbnail } from '@/components/ContentThumbnail'
 import { ProfileSelector } from '@/components/ProfileSelector'
 import { useProfiles } from '@/contexts/ProfileContext'
@@ -565,6 +566,206 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
   )
 }
 
+// ── Customize Campaign Dialog ─────────────────────────────────────────────────
+
+interface CustomizeCampaignDialogProps {
+  campaign: AiCampaign
+  onClose: () => void
+  onSave: (updated: AiCampaign) => void
+}
+
+function CustomizeCampaignDialog({ campaign, onClose, onSave }: CustomizeCampaignDialogProps) {
+  const [title, setTitle] = useState(campaign.title)
+  const [description, setDescription] = useState(campaign.description)
+  const [posts, setPosts] = useState<AiCampaignPost[]>(campaign.posts.map(p => ({ ...p })))
+
+  function updatePost(i: number, field: keyof AiCampaignPost, value: string) {
+    setPosts(prev => prev.map((p, idx) => idx === i ? { ...p, [field]: value } : p))
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    onSave({ ...campaign, title, description, posts })
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="relative bg-card rounded-md shadow-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center gap-2">
+            <Megaphone size={16} weight="duotone" className="text-violet" />
+            <h2 className="text-base font-semibold text-foreground">Personalizar campanha</h2>
+          </div>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+            <X size={18} />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div>
+            <label className="block text-xs font-medium text-foreground mb-1">Título da campanha</label>
+            <input
+              type="text"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-foreground mb-1">Descrição</label>
+            <textarea
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              rows={3}
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-foreground mb-2">Posts planejados</label>
+            <div className="flex flex-col gap-3">
+              {posts.map((post, i) => (
+                <div key={i} className="border border-border rounded-md p-3 flex flex-col gap-2">
+                  <span className="text-xs font-medium text-muted-foreground">Post {i + 1}</span>
+                  <input
+                    type="text"
+                    value={post.title}
+                    onChange={e => updatePost(i, 'title', e.target.value)}
+                    className="w-full px-2 py-1.5 text-sm border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
+                    placeholder="Título do post"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <select
+                      value={post.platform}
+                      onChange={e => updatePost(i, 'platform', e.target.value as ContentPlatform)}
+                      className="px-2 py-1.5 text-sm border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring bg-card"
+                    >
+                      <option value="Instagram">Instagram</option>
+                      <option value="TikTok">TikTok</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Twitter">Twitter/X</option>
+                      <option value="Multi">Multi</option>
+                    </select>
+                    <input
+                      type="date"
+                      value={post.targetDate}
+                      onChange={e => updatePost(i, 'targetDate', e.target.value)}
+                      className="px-2 py-1.5 text-sm border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-2 pt-1">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-muted-foreground border border-border rounded-md hover:bg-accent transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 text-sm font-medium text-primary-foreground bg-violet rounded-md hover:bg-violet/90 transition-colors"
+            >
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+// ── Campaign Proposal Card ─────────────────────────────────────────────────────
+
+const OBJECTIVE_LABEL: Record<string, string> = {
+  alcance: 'Alcance',
+  engajamento: 'Engajamento',
+  conversao: 'Conversão',
+}
+
+const OBJECTIVE_CLASSES: Record<string, string> = {
+  alcance: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800',
+  engajamento: 'bg-violet/10 text-violet border-violet/20',
+  conversao: 'bg-success/10 text-success border-success/20',
+}
+
+interface CampaignProposalCardProps {
+  campaign: AiCampaign
+  onAccept: () => void
+  onCustomize: () => void
+  onDismiss: () => void
+}
+
+function CampaignProposalCard({ campaign, onAccept, onCustomize, onDismiss }: CampaignProposalCardProps) {
+  return (
+    <div className="rounded-xl border border-violet/20 border-l-4 border-l-violet-500 bg-gradient-to-r from-violet-50/60 to-transparent dark:from-violet-950/20 dark:to-transparent p-5">
+      {/* Header */}
+      <div className="flex items-center gap-2.5 mb-3">
+        <div className="w-8 h-8 rounded-lg bg-violet/10 flex items-center justify-center shrink-0">
+          <Megaphone size={18} weight="duotone" className="text-violet" />
+        </div>
+        <h3 className="text-sm font-semibold text-foreground flex-1 min-w-0">{campaign.title}</h3>
+        <span className="px-2 py-0.5 text-xs font-medium bg-violet/10 text-violet border border-violet/20 rounded-full shrink-0">
+          Campanha IA
+        </span>
+      </div>
+
+      {/* Description + objective */}
+      <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{campaign.description}</p>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-xs text-muted-foreground font-medium">Objetivo:</span>
+        <span className={`px-2 py-0.5 text-xs font-medium rounded-full border ${OBJECTIVE_CLASSES[campaign.objective] ?? ''}`}>
+          {OBJECTIVE_LABEL[campaign.objective] ?? campaign.objective}
+        </span>
+      </div>
+
+      {/* Posts list */}
+      <div className="flex flex-col gap-1.5 mb-5">
+        {campaign.posts.map((post, i) => (
+          <div key={i} className="flex items-center gap-3 py-2 px-3 rounded-lg bg-background/60 border border-border/60">
+            <span className="text-xs font-bold text-muted-foreground w-4 shrink-0 text-center">{i + 1}</span>
+            <span className="text-sm text-foreground flex-1 min-w-0 line-clamp-1">{post.title}</span>
+            <span className="px-1.5 py-0.5 text-xs bg-muted text-muted-foreground rounded shrink-0">{post.platform}</span>
+            <span className="text-xs text-muted-foreground shrink-0">
+              {new Date(post.targetDate).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <button
+          onClick={onAccept}
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-violet rounded-md hover:bg-violet/90 transition-colors"
+        >
+          <Check size={14} weight="bold" />
+          Aceitar campanha
+        </button>
+        <button
+          onClick={onCustomize}
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-violet bg-violet/10 border border-violet/20 rounded-md hover:bg-violet/20 transition-colors"
+        >
+          Personalizar
+        </button>
+        <button
+          onClick={onDismiss}
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+        >
+          Dispensar
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ── Content card (grid view) ───────────────────────────────────────────────────
 
 function ContentCard({ item, onClick }: { item: ContentItem; onClick: () => void }) {
@@ -647,8 +848,11 @@ export function ContentPage() {
   const [editingItem, setEditingItem] = useState<ContentItem | null>(null)
   const [toast, setToast] = useState<ToastState | null>(null)
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({})
+  const [campaignList, setCampaignList] = useState<AiCampaign[]>(initialCampaigns)
+  const [customizingCampaign, setCustomizingCampaign] = useState<AiCampaign | null>(null)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const undoBuffer = useRef<Map<string, ContentItem>>(new Map())
+  const campaignUndoBuffer = useRef<Map<string, AiCampaign>>(new Map())
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 500)
@@ -747,12 +951,59 @@ export function ContentPage() {
   }
 
   function handleUndo(id: string) {
+    if (id.startsWith('campaign:')) {
+      const campaignId = id.replace('campaign:', '')
+      const saved = campaignUndoBuffer.current.get(campaignId)
+      if (saved) {
+        setCampaignList(prev => prev.map(c => c.id === campaignId ? saved : c))
+        campaignUndoBuffer.current.delete(campaignId)
+      }
+      setToast(null)
+      return
+    }
     const saved = undoBuffer.current.get(id)
     if (saved) {
       addItem(saved)
       undoBuffer.current.delete(id)
     }
     setToast(null)
+  }
+
+  function handleAcceptCampaign(campaign: AiCampaign) {
+    const now = new Date().toISOString()
+    campaign.posts.forEach((post, i) => {
+      const type: ContentType = post.platform === 'TikTok' ? 'short' : 'post'
+      const newItem: ContentItem = {
+        id: `content-${campaign.id}-${i}`,
+        title: post.title,
+        type,
+        platform: post.platform,
+        status: 'rascunho',
+        source: 'ai',
+        author: 'Agente IA',
+        briefing: post.briefing,
+        targetDate: new Date(post.targetDate).toISOString(),
+        createdAt: now,
+        statusHistory: [{ status: 'rascunho', timestamp: now, by: 'Agente IA' }],
+        campaignId: campaign.id,
+        profileId: campaign.profileId,
+      }
+      addItem(newItem)
+    })
+    setCampaignList(prev => prev.map(c => c.id === campaign.id ? { ...c, status: 'aceita' } : c))
+    showToast(`Campanha aceita! ${campaign.posts.length} posts criados.`)
+  }
+
+  function handleDismissCampaign(campaign: AiCampaign) {
+    campaignUndoBuffer.current.set(campaign.id, campaign)
+    setCampaignList(prev => prev.map(c => c.id === campaign.id ? { ...c, status: 'dispensada' } : c))
+    showToast('Campanha dispensada', `campaign:${campaign.id}`)
+  }
+
+  function handleSaveCustomization(updated: AiCampaign) {
+    setCampaignList(prev => prev.map(c => c.id === updated.id ? updated : c))
+    setCustomizingCampaign(null)
+    showToast('Campanha atualizada!')
   }
 
   function handleCreate(newItem: ContentItem) {
@@ -821,6 +1072,23 @@ export function ContentPage() {
               </div>
             ))}
           </div>
+
+          {/* ── Campanha IA ── */}
+          {!loading && campaignList
+            .filter(c =>
+              c.status === 'proposta' &&
+              (activeProfileId === null || c.profileId === activeProfileId)
+            )
+            .map(campaign => (
+              <CampaignProposalCard
+                key={campaign.id}
+                campaign={campaign}
+                onAccept={() => handleAcceptCampaign(campaign)}
+                onCustomize={() => setCustomizingCampaign(campaign)}
+                onDismiss={() => handleDismissCampaign(campaign)}
+              />
+            ))
+          }
 
           {/* ── Sugestões da IA ── */}
           {!loading && aiSuggestions.length > 0 && (
@@ -1039,6 +1307,15 @@ export function ContentPage() {
           item={editingItem}
           onClose={() => setEditingItem(null)}
           onSave={handleEditSave}
+        />
+      )}
+
+      {/* Customize campaign dialog */}
+      {customizingCampaign && (
+        <CustomizeCampaignDialog
+          campaign={customizingCampaign}
+          onClose={() => setCustomizingCampaign(null)}
+          onSave={handleSaveCustomization}
         />
       )}
 
