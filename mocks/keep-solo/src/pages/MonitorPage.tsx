@@ -342,9 +342,9 @@ export function MonitorPage() {
       {/* Header + period selector */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center">
-            <Eye size={22} weight="duotone" className="text-accent-foreground" />
-          </div>
+          <IconBubble color="amber" size="xl">
+            <Eye size={22} weight="duotone" />
+          </IconBubble>
           <div>
             <h1 className="text-xl font-semibold text-foreground">Monitor</h1>
             <p className="text-sm text-muted-foreground">Seu funil pessoal</p>

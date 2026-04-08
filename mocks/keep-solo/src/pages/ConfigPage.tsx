@@ -7,6 +7,7 @@ import {
 } from '@phosphor-icons/react'
 import { useNavigate } from 'react-router-dom'
 import { LanguageSelector } from '../components/LanguageSelector'
+import { Badge, IconBubble } from '../components/ui/badge'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -169,14 +170,10 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
               }`}
             >
               {plan.highlight && (
-                <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-2">
-                  Popular
-                </span>
+                <Badge color="amber" className="mb-2">Popular</Badge>
               )}
               {plan.current && (
-                <span className="inline-block bg-muted text-muted-foreground text-xs font-medium px-2 py-0.5 rounded-full mb-2">
-                  Atual
-                </span>
+                <Badge color="muted" className="mb-2">Atual</Badge>
               )}
               <div className="mb-3">
                 <p className="font-bold text-foreground text-lg">{plan.name}</p>
@@ -281,9 +278,9 @@ export function ConfigPage() {
     <div className="p-4 sm:p-6 max-w-2xl space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center">
-          <Gear size={22} weight="duotone" className="text-accent-foreground" />
-        </div>
+        <IconBubble color="amber" size="xl">
+          <Gear size={22} weight="duotone" />
+        </IconBubble>
         <div>
           <h1 className="text-xl font-semibold text-foreground">Config</h1>
           <p className="text-sm text-muted-foreground">Suas preferências</p>
@@ -394,7 +391,7 @@ export function ConfigPage() {
           <div className="bg-secondary rounded-2xl p-5 border border-border">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <span className="text-xs font-medium text-accent-foreground bg-accent px-2 py-0.5 rounded-full">Plano atual</span>
+                <Badge color="amber">Plano atual</Badge>
                 <p className="text-xl font-bold text-foreground mt-2">Solo</p>
               </div>
               <div className="text-right">

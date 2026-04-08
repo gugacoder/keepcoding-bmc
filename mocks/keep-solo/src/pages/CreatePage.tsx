@@ -14,17 +14,18 @@ import {
 import { useContent } from '@/contexts/ContentContext'
 import { EmptyState } from '@/components/EmptyState'
 import { SkeletonCard } from '@/components/Skeleton'
+import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
 import { useEffect } from 'react'
 import type { ContentItem, ContentType, ContentChannel } from '@/data/types'
 
 // ─── Status config ────────────────────────────────────────────────────────────
-const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
-  rascunho:   { label: 'Rascunho',  className: 'bg-muted text-muted-foreground' },
-  em_revisao: { label: 'Em revisão', className: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400' },
-  pronto:     { label: 'Pronto',    className: 'bg-accent text-secondary-foreground' },
-  aprovado:   { label: 'Pronto',    className: 'bg-accent text-secondary-foreground' },
-  agendado:   { label: 'Agendado',  className: 'bg-purple-100 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400' },
-  publicado:  { label: 'Publicado', className: 'bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400' },
+const STATUS_CONFIG: Record<string, { label: string; color: BadgeColor }> = {
+  rascunho:   { label: 'Rascunho',  color: 'muted' },
+  em_revisao: { label: 'Em revisão', color: 'yellow' },
+  pronto:     { label: 'Pronto',    color: 'amber' },
+  aprovado:   { label: 'Pronto',    color: 'amber' },
+  agendado:   { label: 'Agendado',  color: 'purple' },
+  publicado:  { label: 'Publicado', color: 'green' },
 }
 
 // ─── Thumbnail config per channel ─────────────────────────────────────────────
@@ -79,9 +80,7 @@ function ContentCard({ item, onApprove, onPublish }: {
       <div className="p-4 pt-0 space-y-3">
         {/* Status + channel row */}
         <div className="flex items-center justify-between">
-          <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${cfg.className}`}>
-            {cfg.label}
-          </span>
+          <Badge color={cfg.color}>{cfg.label}</Badge>
           <span className="text-xs text-muted-foreground">{item.channel}</span>
         </div>
 
@@ -111,10 +110,10 @@ function ContentCard({ item, onApprove, onPublish }: {
           </div>
         )}
         {isPublished && (
-          <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 font-medium">
-            <CheckCircle size={14} weight="fill" />
+          <Badge color="green">
+            <CheckCircle size={12} weight="fill" />
             Publicado
-          </div>
+          </Badge>
         )}
       </div>
     </div>
@@ -269,9 +268,9 @@ export function CreatePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/30 flex items-center justify-center">
-            <PencilSimple size={22} weight="duotone" className="text-orange-600 dark:text-orange-400" />
-          </div>
+          <IconBubble color="orange" size="xl">
+            <PencilSimple size={22} weight="duotone" />
+          </IconBubble>
           <div>
             <h1 className="text-xl font-semibold text-foreground">Criar</h1>
             <p className="text-sm text-muted-foreground">{items.length} conteúdo{items.length !== 1 ? 's' : ''}</p>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Calendar, X, InstagramLogo, TiktokLogo, LinkedinLogo, YoutubeLogo, Article, Globe } from '@phosphor-icons/react'
 import { useContent } from '@/contexts/ContentContext'
-import { Badge, badgeDotClass, type BadgeColor } from '@/components/ui/badge'
+import { Badge, IconBubble, badgeDotClass, type BadgeColor } from '@/components/ui/badge'
 import type { ContentItem } from '@/data/types'
 
 const DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
@@ -101,9 +101,9 @@ export function CreateCalendarPage() {
     <div className="p-6 space-y-6 max-w-2xl">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/30 flex items-center justify-center">
-          <Calendar size={22} weight="duotone" className="text-orange-600 dark:text-orange-400" />
-        </div>
+        <IconBubble color="orange" size="xl">
+          <Calendar size={22} weight="duotone" />
+        </IconBubble>
         <div>
           <h1 className="text-xl font-semibold text-foreground">Calendário</h1>
           <p className="text-sm text-muted-foreground">{MONTH_LABEL}</p>

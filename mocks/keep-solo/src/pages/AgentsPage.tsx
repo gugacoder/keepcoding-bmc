@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'
 import { useAgents } from '@/contexts/AgentsContext'
 import { useWorkflows } from '@/contexts/WorkflowContext'
 import { SkeletonPanel } from '@/components/Skeleton'
-import { Badge, type BadgeColor } from '@/components/ui/badge'
+import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
 import { useState, useEffect } from 'react'
 import type { MemoryItem } from '@/data/types'
 
@@ -91,9 +91,9 @@ export function AgentsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="bg-card rounded-3xl shadow-xl p-6 w-full max-w-sm">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-2xl bg-rose-100 dark:bg-rose-950/30 flex items-center justify-center">
-                <Trash weight="duotone" size={18} className="text-rose-500" />
-              </div>
+              <IconBubble color="rose" size="lg">
+                <Trash weight="duotone" size={18} />
+              </IconBubble>
               <h3 className="font-bold text-foreground">Remover memória</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-2">Tem certeza que deseja remover este item?</p>
@@ -121,9 +121,9 @@ export function AgentsPage() {
       <div className="col-span-1 space-y-5">
         {/* Header */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center">
-            <Robot size={22} weight="duotone" className="text-accent-foreground" />
-          </div>
+          <IconBubble color="amber" size="xl">
+            <Robot size={22} weight="duotone" />
+          </IconBubble>
           <div>
             <h1 className="text-xl font-semibold text-foreground">Meu Agente</h1>
             <p className="text-sm text-muted-foreground">Assistente pessoal de negócios</p>
@@ -246,9 +246,9 @@ export function AgentsPage() {
             className="w-full flex items-center justify-between p-5 hover:bg-secondary/50 transition-colors"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-accent flex items-center justify-center">
-                <Brain size={16} weight="duotone" className="text-accent-foreground" />
-              </div>
+              <IconBubble color="amber">
+                <Brain size={16} weight="duotone" />
+              </IconBubble>
               <div className="text-left">
                 <h3 className="text-sm font-semibold text-foreground">Memória</h3>
                 <p className="text-xs text-muted-foreground">{agentSource.memory.length} itens armazenados</p>
@@ -372,9 +372,9 @@ export function AgentsPage() {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center">
-                <GitBranch size={18} weight="duotone" className="text-accent-foreground" />
-              </div>
+              <IconBubble color="amber" size="lg">
+                <GitBranch size={18} weight="duotone" />
+              </IconBubble>
               <div>
                 <h3 className="text-sm font-semibold text-foreground">Workflows</h3>
                 <p className="text-xs text-muted-foreground">

@@ -56,7 +56,7 @@ function PricingCard({ plan, yearly, selected, onCta }: PricingCardProps) {
     <div
       className={`relative flex flex-col rounded-2xl border p-6 transition-all duration-200 ${
         plan.popular
-          ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10 scale-[1.02]'
+          ? 'border-primary bg-card shadow-lg shadow-primary/10 scale-[1.02]'
           : selected
           ? 'border-primary/50 bg-card shadow-md'
           : 'border-border bg-card hover:border-primary/30 hover:shadow-md'

@@ -5,7 +5,7 @@ import { WorkflowWizard } from '@/components/WorkflowWizard'
 import { WorkflowDetailPanel } from '@/components/WorkflowDetailPanel'
 import { EmptyState } from '@/components/EmptyState'
 import { SkeletonCard } from '@/components/Skeleton'
-import { Badge, type BadgeColor } from '@/components/ui/badge'
+import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
 import type { Workflow, WorkflowStatus } from '@/data/types'
 
 const STATUS_CONFIG: Record<WorkflowStatus, { label: string; color: BadgeColor; pulse?: boolean }> = {
@@ -102,9 +102,9 @@ export function AgentsWorkflowsPage() {
                     {/* Top: name + status */}
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center shrink-0">
-                          <GitBranch size={18} weight="duotone" className="text-accent-foreground" />
-                        </div>
+                        <IconBubble color="amber" size="lg" className="shrink-0">
+                          <GitBranch size={18} weight="duotone" />
+                        </IconBubble>
                         <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">
                           {wf.name}
                         </h3>

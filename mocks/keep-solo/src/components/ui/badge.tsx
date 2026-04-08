@@ -73,14 +73,21 @@ export function badgeBaseClass(color: BadgeColor) {
 interface IconBubbleProps {
   color: BadgeColor
   children: ReactNode
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   className?: string
 }
 
+const ICON_SIZE_CLASS = {
+  sm: 'w-7 h-7 rounded-lg',
+  md: 'w-8 h-8 rounded-xl',
+  lg: 'w-9 h-9 rounded-xl',
+  xl: 'w-10 h-10 rounded-2xl',
+  '2xl': 'w-11 h-11 rounded-2xl',
+}
+
 export function IconBubble({ color, children, size = 'md', className = '' }: IconBubbleProps) {
-  const sizeClass = size === 'sm' ? 'w-7 h-7 rounded-lg' : 'w-8 h-8 rounded-xl'
   return (
-    <div className={`${sizeClass} ${COLOR_MAP[color].base} flex items-center justify-center ${className}`}>
+    <div className={`${ICON_SIZE_CLASS[size]} ${COLOR_MAP[color].base} flex items-center justify-center ${className}`}>
       {children}
     </div>
   )

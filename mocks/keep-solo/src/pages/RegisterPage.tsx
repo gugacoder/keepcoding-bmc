@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Eye, EyeSlash, WhatsappLogo, EnvelopeSimple, Check, User, Lock, Sparkle } from '@phosphor-icons/react'
 import { useAuth } from '@/contexts/AuthContext'
 import { OtpInput } from '@/components/OtpInput'
+import { Badge } from '@/components/ui/badge'
 import { OtpTimer } from '@/components/OtpTimer'
 import { PasswordStrength } from '@/components/PasswordStrength'
 import { PricingSection } from '@/components/PricingSection'
@@ -461,11 +462,11 @@ function Step3({
             <span className="text-sm font-semibold text-stone-800 dark:text-stone-200">
               {plan?.name ?? state.selectedPlan}
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 font-medium">
+            <Badge color="amber">
               {plan?.monthlyPrice === 0
                 ? 'Grátis'
                 : `R$ ${plan?.monthlyPrice?.toLocaleString('pt-BR')}/mês`}
-            </span>
+            </Badge>
           </div>
         </div>
       </div>

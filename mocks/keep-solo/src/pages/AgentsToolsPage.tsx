@@ -22,6 +22,7 @@ import {
 import type { Icon } from '@phosphor-icons/react'
 import type { Connector } from '@/data/types'
 import { connectors as initialConnectors } from '@/data'
+import { IconBubble } from '@/components/ui/badge'
 
 const ICON_MAP: Record<string, Icon> = {
   GoogleLogo,
@@ -97,9 +98,9 @@ function DisconnectDialog({ tool, onConfirm, onCancel }: DisconnectDialogProps) 
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onCancel} />
       <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-sm p-6 space-y-5">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center">
-            <Warning size={22} weight="duotone" className="text-red-500" />
-          </div>
+          <IconBubble color="rose" size="2xl">
+            <Warning size={22} weight="duotone" />
+          </IconBubble>
           <div>
             <h3 className="text-base font-semibold text-foreground">Desconectar ferramenta?</h3>
             <p className="text-xs text-muted-foreground mt-0.5">Esta ação pode afetar o agente</p>
@@ -157,9 +158,9 @@ function AddToolDialog({ catalog, onAdd, onClose }: AddToolDialogProps) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-6 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center">
-              <Plus size={18} weight="bold" className="text-accent-foreground" />
-            </div>
+            <IconBubble color="amber" size="lg">
+              <Plus size={18} weight="bold" />
+            </IconBubble>
             <h3 className="text-base font-semibold text-foreground">Adicionar ferramenta</h3>
           </div>
           <button
@@ -253,9 +254,9 @@ export function AgentsToolsPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center">
-              <Wrench size={22} weight="duotone" className="text-accent-foreground" />
-            </div>
+            <IconBubble color="amber" size="xl">
+              <Wrench size={22} weight="duotone" />
+            </IconBubble>
             <div>
               <h1 className="text-xl font-semibold text-foreground">Minhas Ferramentas</h1>
               <p className="text-sm text-muted-foreground">
