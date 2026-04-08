@@ -7,6 +7,10 @@ import {
 } from '../components/wizard/WizardStepIdentity'
 import { WizardStepResearch } from '../components/wizard/WizardStepResearch'
 import { WizardStepValidation } from '../components/wizard/WizardStepValidation'
+import {
+  WizardStepNiche,
+  type NicheData,
+} from '../components/wizard/WizardStepNiche'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -88,6 +92,7 @@ function StepPlaceholder({ step }: { step: number }) {
 
 interface WizardData {
   identity: IdentityData
+  niche: NicheData
 }
 
 const INITIAL_WIZARD_DATA: WizardData = {
@@ -95,6 +100,11 @@ const INITIAL_WIZARD_DATA: WizardData = {
     businessName: '',
     websiteUrl: '',
     socialLinks: [],
+  },
+  niche: {
+    selectedSegment: 'tecnologia', // pre-selected: matches the mock validation finding "Tecnologia B2B"
+    targetAudience: [],
+    positioningStatement: '',
   },
 }
 
@@ -167,6 +177,11 @@ export function ProfileWizardPage() {
             />
           ) : currentStep === 2 ? (
             <WizardStepValidation onContinue={handleValidationContinue} />
+          ) : currentStep === 3 ? (
+            <WizardStepNiche
+              data={wizardData.niche}
+              onChange={(niche) => setWizardData((d) => ({ ...d, niche }))}
+            />
           ) : (
             <StepPlaceholder step={currentStep} />
           )}

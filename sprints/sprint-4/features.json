@@ -299,7 +299,7 @@
     "id": "F-015",
     "name": "Wizard Etapa 4 — Nicho e posicionamento KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepNiche.tsx` — grid de cards de segmento (3 colunas desktop, 2 mobile): Saúde & Bem-estar, Tecnologia, Varejo, Serviços B2B, Educação, Alimentação, Finanças, Indústria. Seleção única (radio). Segmento da etapa 3 pré-selecionado. Sub-opções de público-alvo como chips multi-select (3-4 por segmento). Textarea de posicionamento com sugestão mock do agente. Botões 'Usar sugestão do agente' / 'Escrever do meu jeito'. Integrar no ProfileWizardPage como step 3.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -314,7 +314,8 @@
       "Textarea mostra sugestão do agente",
       "Botões 'Usar sugestão' e 'Escrever do meu jeito' funcionam"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T14:10:00Z"
   },
   {
     "id": "F-016",
