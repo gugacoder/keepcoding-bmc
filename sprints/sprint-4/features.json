@@ -367,7 +367,7 @@
     "id": "F-018",
     "name": "i18n wizard KeepBiz",
     "description": "Adicionar todas as strings do wizard de criação de perfil (ProfileWizardPage, WizardStepIdentity, WizardStepResearch, WizardStepValidation, WizardStepNiche, WizardStepSummary) ao sistema i18n em pt/en/es. Substituir strings hardcoded por chamadas t(). Incluir labels de stepper, textos de botões, placeholders, mensagens de loading, labels dos achados, nomes de segmentos.",
-    "status": "pending",
+    "status": "passing",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -380,7 +380,8 @@
       "Trocar idioma no LanguageSelector reflete no wizard",
       "Nenhuma string hardcoded em português nos componentes do wizard"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T17:00:00Z"
   },
   {
     "id": "F-019",

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Check, PencilSimple, X } from '@phosphor-icons/react'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -9,7 +10,7 @@ type Decision = 'pending' | 'confirmed' | 'corrected' | 'ignored'
 interface Finding {
   id: string
   categoria: Category
-  label: string
+  labelKey: string
   valor: string
 }
 
@@ -22,25 +23,17 @@ interface FindingState {
 // ─── Mock data ──────────────────────────────────────────────────────────────
 
 const MOCK_FINDINGS: Finding[] = [
-  { id: 'f1', categoria: 'identidade', label: 'CNPJ', valor: '12.345.678/0001-90' },
-  { id: 'f2', categoria: 'identidade', label: 'Endereço', valor: 'Rua das Flores, 123, São Paulo – SP' },
-  { id: 'f3', categoria: 'segmento', label: 'Segmento detectado', valor: 'Tecnologia B2B' },
-  { id: 'f4', categoria: 'segmento', label: 'Público-alvo', valor: 'Empresas de médio porte' },
-  { id: 'f5', categoria: 'concorrente', label: 'Concorrente identificado', valor: 'TechSoluções Ltda' },
-  { id: 'f6', categoria: 'rede_social', label: 'Instagram', valor: '@processat' },
-  { id: 'f7', categoria: 'rede_social', label: 'LinkedIn', valor: 'linkedin.com/company/processa' },
-  { id: 'f8', categoria: 'dado_publico', label: 'Ano de fundação', valor: '2018' },
+  { id: 'f1', categoria: 'identidade', labelKey: 'cnpj', valor: '12.345.678/0001-90' },
+  { id: 'f2', categoria: 'identidade', labelKey: 'address', valor: 'Rua das Flores, 123, São Paulo – SP' },
+  { id: 'f3', categoria: 'segmento', labelKey: 'detectedSegment', valor: 'Tecnologia B2B' },
+  { id: 'f4', categoria: 'segmento', labelKey: 'targetAudience', valor: 'Empresas de médio porte' },
+  { id: 'f5', categoria: 'concorrente', labelKey: 'competitor', valor: 'TechSoluções Ltda' },
+  { id: 'f6', categoria: 'rede_social', labelKey: 'instagram', valor: '@processat' },
+  { id: 'f7', categoria: 'rede_social', labelKey: 'linkedin', valor: 'linkedin.com/company/processa' },
+  { id: 'f8', categoria: 'dado_publico', labelKey: 'foundedYear', valor: '2018' },
 ]
 
 // ─── Category badge ─────────────────────────────────────────────────────────
-
-const CATEGORY_LABELS: Record<Category, string> = {
-  identidade: 'Identidade',
-  segmento: 'Segmento',
-  concorrente: 'Concorrente',
-  rede_social: 'Rede Social',
-  dado_publico: 'Dado Público',
-}
 
 const CATEGORY_COLORS: Record<Category, string> = {
   identidade: 'bg-blue-100 text-blue-700',
@@ -57,6 +50,8 @@ interface Props {
 }
 
 export function WizardStepValidation({ onContinue }: Props) {
+  const { t } = useTranslation()
+
   const [states, setStates] = useState<Record<string, FindingState>>(() =>
     Object.fromEntries(
       MOCK_FINDINGS.map((f) => [
@@ -110,13 +105,13 @@ export function WizardStepValidation({ onContinue }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-semibold text-foreground">Validação de achados</h2>
+          <h2 className="text-base font-semibold text-foreground">{t('wizard.validation.title')}</h2>
           <p className="text-sm text-muted-foreground mt-0.5">
-            Confira o que encontramos e confirme, corrija ou ignore cada item.
+            {t('wizard.validation.description')}
           </p>
         </div>
         <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-          {reviewedCount} de {total} revisados
+          {t('wizard.validation.reviewed', { count: reviewedCount, total })}
         </span>
       </div>
 
@@ -154,7 +149,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                       CATEGORY_COLORS[finding.categoria],
                     ].join(' ')}
                   >
-                    {CATEGORY_LABELS[finding.categoria]}
+                    {t(`wizard.validation.categories.${finding.categoria}`)}
                   </span>
                   <span
                     className={[
@@ -162,7 +157,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                       isIgnored ? 'text-muted-foreground' : 'text-foreground',
                     ].join(' ')}
                   >
-                    {finding.label}
+                    {t(`wizard.validation.findingLabels.${finding.labelKey}`)}
                   </span>
                 </div>
 
@@ -171,7 +166,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                   <button
                     onClick={() => resetDecision(finding.id, finding.valor)}
                     className="flex-shrink-0 p-1 rounded hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-colors"
-                    title="Desfazer"
+                    title={t('wizard.validation.undo')}
                   >
                     <X size={14} />
                   </button>
@@ -203,7 +198,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                           onClick={() => stopEditing(finding.id)}
                           className="flex-shrink-0 px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
                         >
-                          OK
+                          {t('wizard.validation.ok')}
                         </button>
                       </div>
                     ) : (
@@ -244,7 +239,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                   ].join(' ')}
                 >
                   <Check size={12} weight="bold" />
-                  Confirmar
+                  {t('wizard.validation.confirm')}
                 </button>
 
                 {/* Corrigir */}
@@ -264,7 +259,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                   ].join(' ')}
                 >
                   <PencilSimple size={12} />
-                  Corrigir
+                  {t('wizard.validation.correct')}
                 </button>
 
                 {/* Ignorar */}
@@ -278,7 +273,7 @@ export function WizardStepValidation({ onContinue }: Props) {
                   ].join(' ')}
                 >
                   <X size={12} />
-                  Ignorar
+                  {t('wizard.validation.ignore')}
                 </button>
               </div>
             </div>
@@ -289,14 +284,16 @@ export function WizardStepValidation({ onContinue }: Props) {
       {/* CTA */}
       <div className="flex items-center justify-between pt-2 border-t border-border">
         <span className="text-sm text-muted-foreground">
-          {allReviewed ? 'Todos os itens revisados!' : `Ainda faltam ${total - reviewedCount} item(ns)`}
+          {allReviewed
+            ? t('wizard.validation.allReviewed')
+            : t('wizard.validation.remaining', { count: total - reviewedCount })}
         </span>
         <button
           onClick={onContinue}
           disabled={!allReviewed}
           className="px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          Tudo certo, continuar
+          {t('wizard.validation.ctaButton')}
         </button>
       </div>
     </div>

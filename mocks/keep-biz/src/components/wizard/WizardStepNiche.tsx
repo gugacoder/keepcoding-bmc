@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Check, Robot, PencilSimple } from '@phosphor-icons/react'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -11,80 +12,27 @@ export interface NicheData {
 
 // ─── Segment data ────────────────────────────────────────────────────────────
 
-interface Segment {
-  id: string
-  label: string
-  icon: string
-  audiences: string[]
-  agentSuggestion: string
-}
+const SEGMENT_IDS = [
+  'saude',
+  'tecnologia',
+  'varejo',
+  'servicos-b2b',
+  'educacao',
+  'alimentacao',
+  'financas',
+  'industria',
+] as const
 
-const SEGMENTS: Segment[] = [
-  {
-    id: 'saude',
-    label: 'Saúde & Bem-estar',
-    icon: '🏥',
-    audiences: ['Pacientes', 'Profissionais de saúde', 'Esportistas', 'Idosos'],
-    agentSuggestion:
-      'Somos referência em cuidados integrados de saúde, combinando tecnologia e humanização para promover bem-estar duradouro aos nossos clientes.',
-  },
-  {
-    id: 'tecnologia',
-    label: 'Tecnologia',
-    icon: '💻',
-    audiences: ['Empresas de médio porte', 'Startups', 'Desenvolvedores', 'Gestores de TI'],
-    agentSuggestion:
-      'Transformamos desafios digitais em soluções escaláveis, entregando tecnologia de ponta com suporte especializado para empresas que buscam crescimento sustentável.',
-  },
-  {
-    id: 'varejo',
-    label: 'Varejo',
-    icon: '🛍️',
-    audiences: ['Consumidor final', 'Famílias', 'Jovens adultos', 'Compradores recorrentes'],
-    agentSuggestion:
-      'Oferecemos uma experiência de compra única, com produtos cuidadosamente selecionados e atendimento personalizado que fideliza nossos clientes.',
-  },
-  {
-    id: 'servicos-b2b',
-    label: 'Serviços B2B',
-    icon: '🤝',
-    audiences: ['Empresas de médio porte', 'Grandes corporações', 'Gestores', 'Diretores'],
-    agentSuggestion:
-      'Somos o parceiro estratégico que empresas escolhem para otimizar processos e escalar resultados com eficiência e confiabilidade.',
-  },
-  {
-    id: 'educacao',
-    label: 'Educação',
-    icon: '🎓',
-    audiences: ['Estudantes', 'Profissionais em transição', 'Pais', 'Empresas (treinamento)'],
-    agentSuggestion:
-      'Democratizamos o acesso ao conhecimento com metodologias inovadoras que transformam aprendizagem em resultados concretos para pessoas e organizações.',
-  },
-  {
-    id: 'alimentacao',
-    label: 'Alimentação',
-    icon: '🍽️',
-    audiences: ['Famílias', 'Jovens profissionais', 'Veganos/vegetarianos', 'Atletas'],
-    agentSuggestion:
-      'Combinamos sabor, nutrição e conveniência para oferecer experiências gastronômicas que encantam e nutrem nossos clientes no dia a dia.',
-  },
-  {
-    id: 'financas',
-    label: 'Finanças',
-    icon: '💰',
-    audiences: ['Investidores', 'Pequenas empresas', 'Autônomos', 'Famílias'],
-    agentSuggestion:
-      'Simplificamos a gestão financeira com soluções inteligentes e transparentes que empoderam nossos clientes a alcançar seus objetivos econômicos.',
-  },
-  {
-    id: 'industria',
-    label: 'Indústria',
-    icon: '🏭',
-    audiences: ['Engenheiros', 'Gerentes de produção', 'Fornecedores', 'Compradores industriais'],
-    agentSuggestion:
-      'Elevamos a eficiência industrial com inovação tecnológica e expertise operacional, sendo o parceiro confiável de empresas que lideram seus setores.',
-  },
-]
+const SEGMENT_ICONS: Record<string, string> = {
+  saude: '🏥',
+  tecnologia: '💻',
+  varejo: '🛍️',
+  'servicos-b2b': '🤝',
+  educacao: '🎓',
+  alimentacao: '🍽️',
+  financas: '💰',
+  industria: '🏭',
+}
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
@@ -94,13 +42,17 @@ interface Props {
 }
 
 export function WizardStepNiche({ data, onChange }: Props) {
+  const { t } = useTranslation()
+
+  const getSegmentSuggestion = (segmentId: string): string =>
+    t(`wizard.niche.agentSuggestions.${segmentId}`)
+
+  const getSegmentAudiences = (segmentId: string): string[] =>
+    t(`wizard.niche.audiences.${segmentId}`, { returnObjects: true }) as string[]
+
   const [useAgentSuggestion, setUseAgentSuggestion] = useState(
     data.positioningStatement === '' || data.positioningStatement === getSegmentSuggestion(data.selectedSegment),
   )
-
-  function getSegmentSuggestion(segmentId: string): string {
-    return SEGMENTS.find((s) => s.id === segmentId)?.agentSuggestion ?? ''
-  }
 
   function handleSelectSegment(segmentId: string) {
     const suggestion = getSegmentSuggestion(segmentId)
@@ -130,29 +82,29 @@ export function WizardStepNiche({ data, onChange }: Props) {
     onChange({ ...data, positioningStatement: '' })
   }
 
-  const activeSegment = SEGMENTS.find((s) => s.id === data.selectedSegment)
+  const activeAudiences = data.selectedSegment ? getSegmentAudiences(data.selectedSegment) : []
 
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
       <div>
-        <h2 className="text-base font-semibold text-foreground">Nicho & Posicionamento</h2>
+        <h2 className="text-base font-semibold text-foreground">{t('wizard.niche.title')}</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Selecione o segmento do seu negócio e defina como você se posiciona no mercado.
+          {t('wizard.niche.description')}
         </p>
       </div>
 
       {/* Segment grid */}
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Segmento de mercado</p>
+        <p className="text-sm font-medium text-foreground mb-3">{t('wizard.niche.marketSegment')}</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {SEGMENTS.map((segment) => {
-            const isSelected = data.selectedSegment === segment.id
+          {SEGMENT_IDS.map((segmentId) => {
+            const isSelected = data.selectedSegment === segmentId
             return (
               <button
-                key={segment.id}
+                key={segmentId}
                 type="button"
-                onClick={() => handleSelectSegment(segment.id)}
+                onClick={() => handleSelectSegment(segmentId)}
                 className={[
                   'relative flex flex-col items-start gap-1.5 p-4 rounded-xl border-2 text-left transition-all',
                   isSelected
@@ -170,14 +122,14 @@ export function WizardStepNiche({ data, onChange }: Props) {
                   {isSelected && <Check size={10} weight="bold" className="text-primary-foreground" />}
                 </div>
 
-                <span className="text-2xl leading-none">{segment.icon}</span>
+                <span className="text-2xl leading-none">{SEGMENT_ICONS[segmentId]}</span>
                 <span
                   className={[
                     'text-sm font-medium leading-tight',
                     isSelected ? 'text-primary' : 'text-foreground',
                   ].join(' ')}
                 >
-                  {segment.label}
+                  {t(`wizard.niche.segments.${segmentId}`)}
                 </span>
               </button>
             )
@@ -186,14 +138,16 @@ export function WizardStepNiche({ data, onChange }: Props) {
       </div>
 
       {/* Target audience chips — shown when segment is selected */}
-      {activeSegment && (
+      {data.selectedSegment && activeAudiences.length > 0 && (
         <div>
           <p className="text-sm font-medium text-foreground mb-2">
-            Público-alvo{' '}
-            <span className="text-xs font-normal text-muted-foreground">(selecione os que se aplicam)</span>
+            {t('wizard.niche.targetAudience')}{' '}
+            <span className="text-xs font-normal text-muted-foreground">
+              {t('wizard.niche.targetAudienceHint')}
+            </span>
           </p>
           <div className="flex flex-wrap gap-2">
-            {activeSegment.audiences.map((audience) => {
+            {activeAudiences.map((audience) => {
               const isSelected = data.targetAudience.includes(audience)
               return (
                 <button
@@ -217,10 +171,10 @@ export function WizardStepNiche({ data, onChange }: Props) {
       )}
 
       {/* Positioning statement */}
-      {activeSegment && (
+      {data.selectedSegment && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-medium text-foreground">Posicionamento</p>
+            <p className="text-sm font-medium text-foreground">{t('wizard.niche.positioning')}</p>
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -233,7 +187,7 @@ export function WizardStepNiche({ data, onChange }: Props) {
                 ].join(' ')}
               >
                 <Robot size={13} />
-                Usar sugestão do agente
+                {t('wizard.niche.useAgentSuggestion')}
               </button>
               <button
                 type="button"
@@ -246,7 +200,7 @@ export function WizardStepNiche({ data, onChange }: Props) {
                 ].join(' ')}
               >
                 <PencilSimple size={13} />
-                Escrever do meu jeito
+                {t('wizard.niche.writeMyWay')}
               </button>
             </div>
           </div>
@@ -256,7 +210,7 @@ export function WizardStepNiche({ data, onChange }: Props) {
             <div className="flex items-start gap-2 mb-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
               <Robot size={16} className="text-primary mt-0.5 flex-shrink-0" />
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Sugestão gerada pelo agente com base no seu segmento e achados da pesquisa.
+                {t('wizard.niche.agentSuggestionBanner')}
               </p>
             </div>
           )}
@@ -269,7 +223,7 @@ export function WizardStepNiche({ data, onChange }: Props) {
             }}
             readOnly={useAgentSuggestion}
             rows={4}
-            placeholder="Descreva como seu negócio se posiciona no mercado..."
+            placeholder={t('wizard.niche.positioningPlaceholder')}
             className={[
               'w-full text-sm rounded-lg border px-3 py-2.5 resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 transition-colors',
               useAgentSuggestion

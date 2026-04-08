@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { MagnifyingGlass } from '@phosphor-icons/react'
 
 // ─── Config ────────────────────────────────────────────────────────────────
 
-const RESEARCH_ITEMS = [
-  'Buscando informações...',
-  'Analisando redes sociais...',
-  'Identificando concorrentes...',
-  'Mapeando segmento...',
-  'Concluído!',
-]
-
+const ITEM_COUNT = 5
 const ITEM_INTERVAL_MS = 1500
 const AUTO_ADVANCE_DELAY_MS = 1000
 
@@ -22,14 +16,17 @@ interface Props {
 }
 
 export function WizardStepResearch({ businessName, onComplete }: Props) {
+  const { t } = useTranslation()
   const [visibleCount, setVisibleCount] = useState(0)
+
+  const items = t('wizard.research.items', { returnObjects: true }) as string[]
 
   useEffect(() => {
     setVisibleCount(0)
 
     const timers: ReturnType<typeof setTimeout>[] = []
 
-    RESEARCH_ITEMS.forEach((_, index) => {
+    items.forEach((_, index) => {
       timers.push(
         setTimeout(() => {
           setVisibleCount(index + 1)
@@ -43,16 +40,16 @@ export function WizardStepResearch({ businessName, onComplete }: Props) {
         () => {
           onComplete()
         },
-        ITEM_INTERVAL_MS * RESEARCH_ITEMS.length + AUTO_ADVANCE_DELAY_MS,
+        ITEM_INTERVAL_MS * ITEM_COUNT + AUTO_ADVANCE_DELAY_MS,
       ),
     )
 
     return () => {
       timers.forEach(clearTimeout)
     }
-  }, [onComplete])
+  }, [onComplete]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const isDone = visibleCount >= RESEARCH_ITEMS.length
+  const isDone = visibleCount >= items.length
 
   return (
     <div className="flex flex-col items-center gap-8 py-8">
@@ -73,19 +70,22 @@ export function WizardStepResearch({ businessName, onComplete }: Props) {
       {/* Main text */}
       <div className="text-center">
         <p className="text-base font-medium text-foreground">
-          Pesquisando na internet sobre{' '}
-          <span className="text-primary font-semibold">{businessName || 'seu negócio'}</span>...
+          {t('wizard.research.searchingFor')}{' '}
+          <span className="text-primary font-semibold">
+            {businessName || t('wizard.research.businessFallback')}
+          </span>
+          ...
         </p>
         <p className="text-sm text-muted-foreground mt-1">
-          Isso pode levar alguns segundos. Por favor, aguarde.
+          {t('wizard.research.waitMessage')}
         </p>
       </div>
 
       {/* Sequential items */}
       <div className="w-full max-w-sm flex flex-col gap-2">
-        {RESEARCH_ITEMS.map((item, index) => {
+        {items.map((item, index) => {
           const isVisible = index < visibleCount
-          const isLast = index === RESEARCH_ITEMS.length - 1
+          const isLast = index === items.length - 1
 
           return (
             <div

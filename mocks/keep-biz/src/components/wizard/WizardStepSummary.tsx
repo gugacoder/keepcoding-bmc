@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { PencilSimple, CheckCircle } from '@phosphor-icons/react'
 import type { ToneOfVoice } from '@/data/types'
 import type { IdentityData } from './WizardStepIdentity'
@@ -12,13 +13,7 @@ export interface SummaryData {
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
-const TONE_OPTIONS: { value: ToneOfVoice; label: string }[] = [
-  { value: 'formal', label: 'Formal' },
-  { value: 'casual', label: 'Casual' },
-  { value: 'técnico', label: 'Técnico' },
-  { value: 'inspiracional', label: 'Inspiracional' },
-  { value: 'amigável', label: 'Amigável' },
-]
+const TONE_VALUES: ToneOfVoice[] = ['formal', 'casual', 'técnico', 'inspiracional', 'amigável']
 
 const PLATFORM_OPTIONS = [
   'Instagram',
@@ -28,29 +23,20 @@ const PLATFORM_OPTIONS = [
   'Twitter/X',
   'Facebook',
   'WhatsApp',
-  'Google Meu Negócio',
+  'Google My Business',
 ]
-
-const SEGMENT_LABELS: Record<string, string> = {
-  saude: 'Saúde & Bem-estar',
-  tecnologia: 'Tecnologia',
-  varejo: 'Varejo',
-  'servicos-b2b': 'Serviços B2B',
-  educacao: 'Educação',
-  alimentacao: 'Alimentação',
-  financas: 'Finanças',
-  industria: 'Indústria',
-}
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 function SectionHeader({
   title,
   step,
+  editLabel,
   onGoToStep,
 }: {
   title: string
   step: number
+  editLabel: string
   onGoToStep: (step: number) => void
 }) {
   return (
@@ -62,7 +48,7 @@ function SectionHeader({
         className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
       >
         <PencilSimple size={12} />
-        Editar
+        {editLabel}
       </button>
     </div>
   )
@@ -80,7 +66,9 @@ interface Props {
   submitLabel?: string
 }
 
-export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep, onCreateProfile, submitLabel = 'Criar Perfil' }: Props) {
+export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep, onCreateProfile, submitLabel }: Props) {
+  const { t } = useTranslation()
+
   function handleTogglePlatform(platform: string) {
     const next = data.platforms.includes(platform)
       ? data.platforms.filter((p) => p !== platform)
@@ -88,33 +76,41 @@ export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep,
     onChange({ ...data, platforms: next })
   }
 
+  const editLabel = t('wizard.summary.edit')
+  const resolvedSubmitLabel = submitLabel ?? t('wizard.summary.submitCreate')
+
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
       <div>
-        <h2 className="text-base font-semibold text-foreground">Resumo do Perfil</h2>
+        <h2 className="text-base font-semibold text-foreground">{t('wizard.summary.title')}</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Revise as informações e finalize a criação do seu perfil.
+          {t('wizard.summary.description')}
         </p>
       </div>
 
       {/* Identidade */}
       <div className="rounded-xl border border-border bg-muted/20 p-4">
-        <SectionHeader title="Identidade" step={0} onGoToStep={onGoToStep} />
+        <SectionHeader
+          title={t('wizard.summary.sections.identity')}
+          step={0}
+          editLabel={editLabel}
+          onGoToStep={onGoToStep}
+        />
         <div className="space-y-1.5 text-sm">
           <div className="flex gap-2">
-            <span className="text-muted-foreground min-w-[80px]">Nome</span>
+            <span className="text-muted-foreground min-w-[80px]">{t('wizard.summary.fields.name')}</span>
             <span className="font-medium text-foreground">{identity.businessName || '—'}</span>
           </div>
           {identity.websiteUrl && (
             <div className="flex gap-2">
-              <span className="text-muted-foreground min-w-[80px]">Site</span>
+              <span className="text-muted-foreground min-w-[80px]">{t('wizard.summary.fields.website')}</span>
               <span className="text-foreground">{identity.websiteUrl}</span>
             </div>
           )}
           {identity.socialLinks.length > 0 && (
             <div className="flex gap-2">
-              <span className="text-muted-foreground min-w-[80px]">Redes</span>
+              <span className="text-muted-foreground min-w-[80px]">{t('wizard.summary.fields.networks')}</span>
               <div className="flex flex-col gap-0.5">
                 {identity.socialLinks.map((link, i) => (
                   <span key={i} className="text-foreground">
@@ -129,17 +125,22 @@ export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep,
 
       {/* Segmento */}
       <div className="rounded-xl border border-border bg-muted/20 p-4">
-        <SectionHeader title="Segmento" step={3} onGoToStep={onGoToStep} />
+        <SectionHeader
+          title={t('wizard.summary.sections.segment')}
+          step={3}
+          editLabel={editLabel}
+          onGoToStep={onGoToStep}
+        />
         <div className="space-y-1.5 text-sm">
           <div className="flex gap-2">
-            <span className="text-muted-foreground min-w-[80px]">Mercado</span>
+            <span className="text-muted-foreground min-w-[80px]">{t('wizard.summary.fields.market')}</span>
             <span className="font-medium text-foreground">
-              {SEGMENT_LABELS[niche.selectedSegment] ?? niche.selectedSegment}
+              {t(`wizard.niche.segments.${niche.selectedSegment}`, { defaultValue: niche.selectedSegment })}
             </span>
           </div>
           {niche.targetAudience.length > 0 && (
             <div className="flex gap-2">
-              <span className="text-muted-foreground min-w-[80px]">Público</span>
+              <span className="text-muted-foreground min-w-[80px]">{t('wizard.summary.fields.audience')}</span>
               <span className="text-foreground">{niche.targetAudience.join(', ')}</span>
             </div>
           )}
@@ -148,23 +149,32 @@ export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep,
 
       {/* Posicionamento */}
       <div className="rounded-xl border border-border bg-muted/20 p-4">
-        <SectionHeader title="Posicionamento" step={3} onGoToStep={onGoToStep} />
+        <SectionHeader
+          title={t('wizard.summary.sections.positioning')}
+          step={3}
+          editLabel={editLabel}
+          onGoToStep={onGoToStep}
+        />
         <p className="text-sm text-foreground leading-relaxed">
-          {niche.positioningStatement || <span className="text-muted-foreground italic">Não definido</span>}
+          {niche.positioningStatement || (
+            <span className="text-muted-foreground italic">{t('wizard.summary.notDefined')}</span>
+          )}
         </p>
       </div>
 
       {/* Tom de voz */}
       <div className="rounded-xl border border-border bg-muted/20 p-4">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Tom de voz</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-3">
+          {t('wizard.summary.sections.toneOfVoice')}
+        </h3>
         <select
           value={data.toneOfVoice}
           onChange={(e) => onChange({ ...data, toneOfVoice: e.target.value as ToneOfVoice })}
           className="w-full text-sm rounded-lg border border-border bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-colors"
         >
-          {TONE_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
+          {TONE_VALUES.map((value) => (
+            <option key={value} value={value}>
+              {t(`wizard.summary.tones.${value}`)}
             </option>
           ))}
         </select>
@@ -172,7 +182,9 @@ export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep,
 
       {/* Plataformas */}
       <div className="rounded-xl border border-border bg-muted/20 p-4">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Plataformas</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-3">
+          {t('wizard.summary.sections.platforms')}
+        </h3>
         <div className="grid grid-cols-2 gap-2">
           {PLATFORM_OPTIONS.map((platform) => {
             const checked = data.platforms.includes(platform)
@@ -206,7 +218,7 @@ export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep,
         onClick={onCreateProfile}
         className="w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
       >
-        {submitLabel}
+        {resolvedSubmitLabel}
       </button>
     </div>
   )

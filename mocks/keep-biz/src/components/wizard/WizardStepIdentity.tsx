@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Plus, Trash } from '@phosphor-icons/react'
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -21,7 +22,7 @@ const PLATFORMS = [
   'Twitter/X',
   'Facebook',
   'WhatsApp',
-  'Google Meu Negócio',
+  'Google My Business',
 ] as const
 
 const MAX_SOCIAL_LINKS = 5
@@ -34,6 +35,8 @@ interface Props {
 }
 
 export function WizardStepIdentity({ data, onChange }: Props) {
+  const { t } = useTranslation()
+
   function setField<K extends keyof IdentityData>(key: K, value: IdentityData[K]) {
     onChange({ ...data, [key]: value })
   }
@@ -60,39 +63,42 @@ export function WizardStepIdentity({ data, onChange }: Props) {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="text-lg font-semibold text-foreground">Seu Negócio</h2>
+        <h2 className="text-lg font-semibold text-foreground">{t('wizard.identity.title')}</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Conte-nos sobre o seu negócio para começarmos a construir o seu perfil.
+          {t('wizard.identity.description')}
         </p>
       </div>
 
       {/* Business name */}
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-foreground">
-          Nome do negócio <span className="text-destructive">*</span>
+          {t('wizard.identity.businessNameLabel')} <span className="text-destructive">*</span>
         </label>
         <input
           type="text"
           value={data.businessName}
           onChange={(e) => setField('businessName', e.target.value)}
-          placeholder="Ex: Processa Sistemas"
+          placeholder={t('wizard.identity.businessNamePlaceholder')}
           className="w-full px-3 py-2 text-sm rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
         />
         {data.businessName.trim() === '' && (
-          <p className="text-xs text-muted-foreground">Campo obrigatório para avançar.</p>
+          <p className="text-xs text-muted-foreground">{t('wizard.identity.businessNameRequired')}</p>
         )}
       </div>
 
       {/* Website URL */}
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-foreground">
-          URL do site <span className="text-xs text-muted-foreground font-normal">(opcional)</span>
+          {t('wizard.identity.websiteLabel')}{' '}
+          <span className="text-xs text-muted-foreground font-normal">
+            {t('wizard.identity.websiteOptional')}
+          </span>
         </label>
         <input
           type="url"
           value={data.websiteUrl}
           onChange={(e) => setField('websiteUrl', e.target.value)}
-          placeholder="https://seusite.com.br"
+          placeholder={t('wizard.identity.websitePlaceholder')}
           className="w-full px-3 py-2 text-sm rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
         />
       </div>
@@ -101,8 +107,10 @@ export function WizardStepIdentity({ data, onChange }: Props) {
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <label className="text-sm font-medium text-foreground">
-            Redes sociais{' '}
-            <span className="text-xs text-muted-foreground font-normal">(opcional, até 5)</span>
+            {t('wizard.identity.socialLinksLabel')}{' '}
+            <span className="text-xs text-muted-foreground font-normal">
+              {t('wizard.identity.socialLinksOptional')}
+            </span>
           </label>
           {data.socialLinks.length < MAX_SOCIAL_LINKS && (
             <button
@@ -111,14 +119,14 @@ export function WizardStepIdentity({ data, onChange }: Props) {
               className="flex items-center gap-1.5 text-xs font-medium text-primary hover:opacity-80 transition-opacity"
             >
               <Plus size={14} weight="bold" />
-              Adicionar rede
+              {t('wizard.identity.addNetwork')}
             </button>
           )}
         </div>
 
         {data.socialLinks.length === 0 && (
           <p className="text-xs text-muted-foreground py-2">
-            Nenhuma rede social adicionada ainda.
+            {t('wizard.identity.noNetworks')}
           </p>
         )}
 
@@ -143,7 +151,7 @@ export function WizardStepIdentity({ data, onChange }: Props) {
                 type="text"
                 value={link.handle}
                 onChange={(e) => updateSocialLink(index, 'handle', e.target.value)}
-                placeholder="@handle ou URL"
+                placeholder={t('wizard.identity.handlePlaceholder')}
                 className="flex-1 min-w-0 px-3 py-2 text-sm rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-shadow"
               />
 
@@ -161,7 +169,7 @@ export function WizardStepIdentity({ data, onChange }: Props) {
 
         {data.socialLinks.length >= MAX_SOCIAL_LINKS && (
           <p className="text-xs text-muted-foreground">
-            Limite de {MAX_SOCIAL_LINKS} redes sociais atingido.
+            {t('wizard.identity.networkLimit', { max: MAX_SOCIAL_LINKS })}
           </p>
         )}
       </div>

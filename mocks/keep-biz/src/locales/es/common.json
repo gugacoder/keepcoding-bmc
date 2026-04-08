@@ -8,5 +8,152 @@
     "pt": "Português",
     "en": "English",
     "es": "Español"
+  },
+  "wizard": {
+    "steps": {
+      "identity": "Tu Negocio",
+      "researching": "Investigando...",
+      "validation": "Validación",
+      "niche": "Nicho & Posicionamiento",
+      "summary": "Resumen"
+    },
+    "createTitle": "Crear Nuevo Perfil",
+    "editTitle": "Editar Perfil",
+    "createSubtitle": "Completa los pasos a continuación para crear tu perfil de negocio.",
+    "editSubtitle": "Actualiza la información de tu perfil de negocio.",
+    "back": "Volver",
+    "next": "Avanzar",
+    "stepOf": "{{current}} / {{total}}",
+    "toastCreated": "¡Perfil creado con éxito!",
+    "toastUpdated": "¡Perfil actualizado con éxito!",
+    "identity": {
+      "title": "Tu Negocio",
+      "description": "Cuéntanos sobre tu negocio para que podamos empezar a construir tu perfil.",
+      "businessNameLabel": "Nombre del negocio",
+      "businessNamePlaceholder": "Ej: Processa Sistemas",
+      "businessNameRequired": "Campo obligatorio para avanzar.",
+      "websiteLabel": "URL del sitio web",
+      "websiteOptional": "(opcional)",
+      "websitePlaceholder": "https://tusitio.com",
+      "socialLinksLabel": "Redes sociales",
+      "socialLinksOptional": "(opcional, hasta 5)",
+      "addNetwork": "Agregar red",
+      "noNetworks": "No hay redes sociales agregadas aún.",
+      "handlePlaceholder": "@handle o URL",
+      "networkLimit": "Límite de {{max}} redes sociales alcanzado."
+    },
+    "research": {
+      "items": [
+        "Buscando información...",
+        "Analizando redes sociales...",
+        "Identificando competidores...",
+        "Mapeando segmento...",
+        "¡Listo!"
+      ],
+      "searchingFor": "Buscando en internet sobre",
+      "businessFallback": "tu negocio",
+      "waitMessage": "Esto puede tardar unos segundos. Por favor, espera."
+    },
+    "validation": {
+      "title": "Validación de hallazgos",
+      "description": "Revisa lo que encontramos y confirma, corrige o ignora cada elemento.",
+      "reviewed": "{{count}} de {{total}} revisados",
+      "allReviewed": "¡Todos los elementos revisados!",
+      "remaining": "Faltan {{count}} elemento(s)",
+      "ctaButton": "Todo bien, continuar",
+      "confirm": "Confirmar",
+      "correct": "Corregir",
+      "ignore": "Ignorar",
+      "ok": "OK",
+      "undo": "Deshacer",
+      "categories": {
+        "identidade": "Identidad",
+        "segmento": "Segmento",
+        "concorrente": "Competidor",
+        "rede_social": "Red Social",
+        "dado_publico": "Dato Público"
+      },
+      "findingLabels": {
+        "cnpj": "ID Fiscal",
+        "address": "Dirección",
+        "detectedSegment": "Segmento detectado",
+        "targetAudience": "Público objetivo",
+        "competitor": "Competidor identificado",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "foundedYear": "Año de fundación"
+      }
+    },
+    "niche": {
+      "title": "Nicho & Posicionamiento",
+      "description": "Selecciona el segmento de tu negocio y define cómo te posicionas en el mercado.",
+      "marketSegment": "Segmento de mercado",
+      "targetAudience": "Público objetivo",
+      "targetAudienceHint": "(selecciona los que apliquen)",
+      "positioning": "Posicionamiento",
+      "useAgentSuggestion": "Usar sugerencia del agente",
+      "writeMyWay": "Escribir a mi manera",
+      "agentSuggestionBanner": "Sugerencia generada por el agente basada en tu segmento y los hallazgos de la investigación.",
+      "positioningPlaceholder": "Describe cómo tu negocio se posiciona en el mercado...",
+      "segments": {
+        "saude": "Salud & Bienestar",
+        "tecnologia": "Tecnología",
+        "varejo": "Comercio Minorista",
+        "servicos-b2b": "Servicios B2B",
+        "educacao": "Educación",
+        "alimentacao": "Alimentación",
+        "financas": "Finanzas",
+        "industria": "Industria"
+      },
+      "audiences": {
+        "saude": ["Pacientes", "Profesionales de la salud", "Deportistas", "Ancianos"],
+        "tecnologia": ["Empresas medianas", "Startups", "Desarrolladores", "Gerentes de TI"],
+        "varejo": ["Consumidor final", "Familias", "Adultos jóvenes", "Compradores frecuentes"],
+        "servicos-b2b": ["Empresas medianas", "Grandes corporaciones", "Gerentes", "Directores"],
+        "educacao": ["Estudiantes", "Profesionales en transición", "Padres", "Empresas (formación)"],
+        "alimentacao": ["Familias", "Jóvenes profesionales", "Veganos/vegetarianos", "Atletas"],
+        "financas": ["Inversores", "Pequeñas empresas", "Autónomos", "Familias"],
+        "industria": ["Ingenieros", "Gerentes de producción", "Proveedores", "Compradores industriales"]
+      },
+      "agentSuggestions": {
+        "saude": "Somos referencia en cuidados integrales de salud, combinando tecnología y humanización para promover el bienestar duradero de nuestros clientes.",
+        "tecnologia": "Transformamos desafíos digitales en soluciones escalables, entregando tecnología de vanguardia con soporte especializado para empresas que buscan crecimiento sostenible.",
+        "varejo": "Ofrecemos una experiencia de compra única, con productos cuidadosamente seleccionados y atención personalizada que fideliza a nuestros clientes.",
+        "servicos-b2b": "Somos el socio estratégico que las empresas eligen para optimizar procesos y escalar resultados con eficiencia y confiabilidad.",
+        "educacao": "Democratizamos el acceso al conocimiento con metodologías innovadoras que transforman el aprendizaje en resultados concretos para personas y organizaciones.",
+        "alimentacao": "Combinamos sabor, nutrición y conveniencia para ofrecer experiencias gastronómicas que deleitan y nutren a nuestros clientes cada día.",
+        "financas": "Simplificamos la gestión financiera con soluciones inteligentes y transparentes que empoderan a nuestros clientes para alcanzar sus objetivos económicos.",
+        "industria": "Elevamos la eficiencia industrial con innovación tecnológica y experiencia operacional, siendo el socio de confianza de las empresas que lideran sus sectores."
+      }
+    },
+    "summary": {
+      "title": "Resumen del Perfil",
+      "description": "Revisa la información y finaliza la creación de tu perfil.",
+      "edit": "Editar",
+      "sections": {
+        "identity": "Identidad",
+        "segment": "Segmento",
+        "positioning": "Posicionamiento",
+        "toneOfVoice": "Tono de voz",
+        "platforms": "Plataformas"
+      },
+      "fields": {
+        "name": "Nombre",
+        "website": "Sitio web",
+        "networks": "Redes",
+        "market": "Mercado",
+        "audience": "Público"
+      },
+      "notDefined": "No definido",
+      "tones": {
+        "formal": "Formal",
+        "casual": "Casual",
+        "técnico": "Técnico",
+        "inspiracional": "Inspiracional",
+        "amigável": "Amigable"
+      },
+      "submitCreate": "Crear Perfil",
+      "submitEdit": "Guardar Cambios"
+    }
   }
 }

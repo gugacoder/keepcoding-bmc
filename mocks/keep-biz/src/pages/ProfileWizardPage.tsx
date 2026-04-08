@@ -1,5 +1,6 @@
 import { useCallback, useState, useMemo } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ArrowRight, Check, CheckCircle, X } from '@phosphor-icons/react'
 import {
   WizardStepIdentity,
@@ -51,20 +52,22 @@ function profileToWizardData(profile: Profile): WizardData {
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
-const STEPS = [
-  'Seu Negócio',
-  'Pesquisando...',
-  'Validação',
-  'Nicho & Posicionamento',
-  'Resumo',
-]
+const STEP_COUNT = 5
 
 // ─── Stepper ───────────────────────────────────────────────────────────────
 
 function WizardStepper({ currentStep }: { currentStep: number }) {
+  const { t } = useTranslation()
+  const steps = [
+    t('wizard.steps.identity'),
+    t('wizard.steps.researching'),
+    t('wizard.steps.validation'),
+    t('wizard.steps.niche'),
+    t('wizard.steps.summary'),
+  ]
   return (
     <div className="flex items-center gap-0">
-      {STEPS.map((label, index) => {
+      {steps.map((label, index) => {
         const isCompleted = index < currentStep
         const isActive = index === currentStep
 
@@ -95,7 +98,7 @@ function WizardStepper({ currentStep }: { currentStep: number }) {
             </div>
 
             {/* Connector line */}
-            {index < STEPS.length - 1 && (
+            {index < steps.length - 1 && (
               <div
                 className={[
                   'h-px w-12 sm:w-16 mb-5 mx-1 transition-colors',
@@ -183,6 +186,7 @@ function getPrevStep(current: number, editMode: boolean): number {
 export function ProfileWizardPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const { t } = useTranslation()
   const { addProfile, updateProfile, profiles } = useProfiles()
 
   const editId = searchParams.get('edit')
@@ -203,7 +207,7 @@ export function ProfileWizardPage() {
 
   const isFirst = currentStep === 0
   const isAutoStep = AUTO_ADVANCE_STEPS.has(currentStep)
-  const isLast = currentStep === STEPS.length - 1
+  const isLast = currentStep === STEP_COUNT - 1
   const canAdvance = isStepValid(currentStep, wizardData)
 
   function showToast(msg: string) {
@@ -259,7 +263,7 @@ export function ProfileWizardPage() {
 
     if (editMode && editId) {
       updateProfile(editId, profileData)
-      showToast('Perfil atualizado com sucesso!')
+      showToast(t('wizard.toastUpdated'))
       setTimeout(() => navigate('/profiles'), 500)
     } else {
       const newProfile: Profile = {
@@ -271,7 +275,7 @@ export function ProfileWizardPage() {
         updatedAt: now,
       }
       addProfile(newProfile)
-      showToast('Perfil criado com sucesso!')
+      showToast(t('wizard.toastCreated'))
       setTimeout(() => navigate('/profiles'), 500)
     }
   }
@@ -282,12 +286,10 @@ export function ProfileWizardPage() {
         {/* Header */}
         <div>
           <h1 className="text-2xl font-semibold text-foreground">
-            {editMode ? 'Editar Perfil' : 'Criar Novo Perfil'}
+            {editMode ? t('wizard.editTitle') : t('wizard.createTitle')}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            {editMode
-              ? 'Atualize as informações do seu perfil de negócio.'
-              : 'Preencha as etapas abaixo para criar seu perfil de negócio.'}
+            {editMode ? t('wizard.editSubtitle') : t('wizard.createSubtitle')}
           </p>
         </div>
 
@@ -323,7 +325,7 @@ export function ProfileWizardPage() {
               onChange={(summary) => setWizardData((d) => ({ ...d, summary }))}
               onGoToStep={handleGoToStep}
               onCreateProfile={handleCreateProfile}
-              submitLabel={editMode ? 'Salvar Alterações' : 'Criar Perfil'}
+              submitLabel={editMode ? t('wizard.summary.submitEdit') : t('wizard.summary.submitCreate')}
             />
           )}
         </div>
@@ -337,11 +339,11 @@ export function ProfileWizardPage() {
               className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <ArrowLeft size={16} />
-              Voltar
+              {t('wizard.back')}
             </button>
 
             <span className="text-xs text-muted-foreground">
-              {currentStep + 1} / {STEPS.length}
+              {t('wizard.stepOf', { current: currentStep + 1, total: STEP_COUNT })}
             </span>
 
             <button
@@ -349,7 +351,7 @@ export function ProfileWizardPage() {
               disabled={!canAdvance}
               className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Avançar
+              {t('wizard.next')}
               <ArrowRight size={16} />
             </button>
           </div>
