@@ -16,6 +16,8 @@ import {
 } from '@phosphor-icons/react'
 import { mentions, alerts } from '@/data'
 import type { Mention, Alert } from '@/data/types'
+import { ProfileSelector } from '@/components/ProfileSelector'
+import { useProfiles } from '@/contexts/ProfileContext'
 
 // ─── Period config ─────────────────────────────────────────────────────────
 
@@ -240,15 +242,19 @@ export function MonitorPage() {
   const [sourceFilter, setSourceFilter] = useState('Todos')
   const [selectedMention, setSelectedMention] = useState<Mention | null>(null)
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null)
+  const { activeProfileId } = useProfiles()
 
   const data = PERIOD_DATA[period]
   const isUp = data.trend >= 0
   const trendLabel = `${isUp ? '+' : ''}${data.trend}%`
   const trendColor = isUp ? 'text-success' : 'text-destructive'
 
-  // Filter mentions by period (date range) AND source
+  // Filter mentions by period (date range), source AND active profile
   const cutoffMs = TODAY.getTime() - PERIOD_DAYS[period] * 24 * 60 * 60 * 1000
-  const periodMentions = mentions.filter((m) => new Date(m.date).getTime() >= cutoffMs)
+  const profileMentions = activeProfileId !== null
+    ? mentions.filter((m) => m.profileId === activeProfileId)
+    : mentions
+  const periodMentions = profileMentions.filter((m) => new Date(m.date).getTime() >= cutoffMs)
   const filteredMentions =
     sourceFilter === 'Todos'
       ? periodMentions
@@ -259,6 +265,7 @@ export function MonitorPage() {
 
   return (
     <>
+      <ProfileSelector />
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
         {/* Header */}
         <div className="col-span-full flex items-center justify-between flex-wrap gap-3">

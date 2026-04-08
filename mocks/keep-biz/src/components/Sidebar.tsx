@@ -10,6 +10,7 @@ import {
   CaretDoubleLeft,
   CaretDoubleRight,
   GitBranch,
+  UserCircle,
 } from '@phosphor-icons/react'
 
 interface SidebarProps {
@@ -22,6 +23,12 @@ interface NavItem {
   href: string
   icon: React.ElementType
   children?: { label: string; href: string; icon: React.ElementType }[]
+}
+
+const profilesItem: NavItem = {
+  label: 'Perfis',
+  href: '/profiles',
+  icon: UserCircle,
 }
 
 const navItems: NavItem[] = [
@@ -85,6 +92,24 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       {/* Navigation zones */}
       <nav className="flex-1 overflow-y-auto py-3 space-y-1 px-2">
+        {/* Perfis — direct link, above the three zones */}
+        <NavLink
+          to={profilesItem.href}
+          className={({ isActive: active }) =>
+            [
+              'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors',
+              collapsed ? 'justify-center' : '',
+              active
+                ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+                : 'text-sidebar-accent-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent',
+            ].join(' ')
+          }
+          title={collapsed ? profilesItem.label : undefined}
+        >
+          <UserCircle size={20} weight="duotone" className="shrink-0" />
+          {!collapsed && <span className="truncate">{profilesItem.label}</span>}
+        </NavLink>
+
         {navItems.map((item) => {
           const Icon = item.icon
           const active = isActive(item.href)

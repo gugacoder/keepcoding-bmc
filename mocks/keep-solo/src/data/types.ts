@@ -132,3 +132,44 @@ export interface FunnelStage {
   count: number;
   value: number;
 }
+
+// Profile types
+export type ProfileStatus = 'rascunho' | 'completo' | 'ativo' | 'inativo';
+
+export interface ProfileIdentity {
+  businessName: string;
+  url: string;
+  socialLinks: string[];
+}
+
+export interface ProfileNiche {
+  segment: string;
+  targetAudience: string;
+  competitors: string[];
+}
+
+export interface ProfilePositioning {
+  differentials: string[];
+  statement: string;
+  agentSuggestion: string;
+}
+
+export type ToneOfVoice = 'formal' | 'casual' | 'técnico' | 'inspiracional' | 'amigável';
+
+export interface ProfileTone {
+  primary: ToneOfVoice;
+  examples: string[];
+}
+
+export interface Profile {
+  id: string;
+  identity: ProfileIdentity;
+  niche: ProfileNiche;
+  positioning: ProfilePositioning;
+  tone: ProfileTone;
+  platforms: string[];
+  status: ProfileStatus;
+  completeness: number;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -8,5 +8,149 @@
     "pt": "Português",
     "en": "English",
     "es": "Español"
+  },
+  "onboarding": {
+    "steps": {
+      "0": {
+        "label": "Your Business",
+        "subtitle": "Tell me a bit about yourself"
+      },
+      "1": {
+        "label": "Researching...",
+        "subtitle": "Let me take a look"
+      },
+      "2": {
+        "label": "Validation",
+        "subtitle": "Is this right?"
+      },
+      "3": {
+        "label": "Ready!",
+        "subtitle": "All set to start"
+      }
+    },
+    "stepOf": "{{step}} of {{total}}",
+    "nav": {
+      "back": "Back",
+      "next": "Next",
+      "start": "Start using"
+    },
+    "business": {
+      "title": "Tell me about your business",
+      "subtitle": "I'll use this to understand how I can help you.",
+      "nameLabel": "What's your business called?",
+      "namePlaceholder": "E.g.: Cia Cuidadores, Studio Mel, TechRaptor...",
+      "urlLabel": "Do you have a website?",
+      "optional": "(optional)",
+      "urlPlaceholder": "https://yourbusiness.com",
+      "socialLabel": "Instagram or main social network?",
+      "socialPlaceholder": "@yourbusiness or page link"
+    },
+    "loading": {
+      "mainText": "Let me take a look at your market...",
+      "subtitle": "This will only take a few seconds.",
+      "items": {
+        "0": "Searching the internet...",
+        "1": "Analyzing your networks...",
+        "2": "Understanding your market...",
+        "3": "Almost there..."
+      }
+    },
+    "validation": {
+      "title": "Found this — is it right?",
+      "subtitle": "Confirm, correct or ignore each item I found.",
+      "reviewedCount": "{{count}} of {{total}} reviewed",
+      "confirm": "Confirm",
+      "correct": "Correct",
+      "ignore": "Ignore",
+      "undo": "Undo",
+      "ok": "OK",
+      "allReviewed": "All reviewed!",
+      "remaining": "{{count}} item(s) left",
+      "cta": "All good!",
+      "categories": {
+        "segmento": "Segment",
+        "servico": "Service",
+        "rede_social": "Social Network",
+        "localizacao": "Location",
+        "site": "Website",
+        "publico": "Audience"
+      },
+      "findings": {
+        "f1": "Detected segment",
+        "f2": "Main service",
+        "f3": "Instagram",
+        "f4": "City",
+        "f5": "Website",
+        "f6": "Target audience"
+      }
+    },
+    "ready": {
+      "title": "Ready! I know your business.",
+      "subtitle": "Here's what I learned about you.",
+      "businessLabel": "Business",
+      "segmentLabel": "Segment",
+      "socialLabel": "Main social network",
+      "toneLabel": "How do you want to communicate?",
+      "noName": "No name",
+      "defaultSocial": "Instagram",
+      "cta": "Start using",
+      "tones": {
+        "amigavel": {
+          "label": "Friendly",
+          "description": "Close, warm and approachable"
+        },
+        "formal": {
+          "label": "Formal",
+          "description": "Professional and respectful"
+        },
+        "casual": {
+          "label": "Casual",
+          "description": "Relaxed and natural"
+        },
+        "tecnico": {
+          "label": "Technical",
+          "description": "Precise and detailed"
+        },
+        "inspiracional": {
+          "label": "Inspirational",
+          "description": "Motivating and exciting"
+        }
+      }
+    }
+  },
+  "businessProfile": {
+    "title": "My Business",
+    "businessNameLabel": "Business name",
+    "businessNamePlaceholder": "E.g.: My Business Name",
+    "segmentLabel": "Segment",
+    "targetAudienceLabel": "Target audience",
+    "targetAudiencePlaceholder": "E.g.: Families with dependent elderly",
+    "positioningLabel": "Positioning",
+    "positioningPlaceholder": "How do you position yourself in the market?",
+    "toneLabel": "Tone of voice",
+    "platformsLabel": "Active platforms",
+    "socialNetworksLabel": "Social networks",
+    "socialHandlePlaceholder": "@username or url",
+    "addSocial": "Add social network",
+    "removeAriaLabel": "Remove",
+    "save": "Save changes",
+    "saved": "Saved!",
+    "segments": {
+      "saude": "Health & Wellness",
+      "tecnologia": "Technology",
+      "varejo": "Retail",
+      "servicos-b2b": "B2B Services",
+      "educacao": "Education",
+      "alimentacao": "Food & Beverage",
+      "financas": "Finance",
+      "industria": "Industry"
+    },
+    "tones": {
+      "formal": "Formal",
+      "casual": "Casual",
+      "técnico": "Technical",
+      "inspiracional": "Inspirational",
+      "amigável": "Friendly"
+    }
   }
 }

@@ -10,6 +10,8 @@ import { AgentsWorkflowsPage } from '@/pages/AgentsWorkflowsPage'
 import { AgentsChatPage } from '@/pages/AgentsChatPage'
 import { AgentsConnectorsPage } from '@/pages/AgentsConnectorsPage'
 import { SettingsPage } from '@/pages/SettingsPage'
+import { ProfilesPage } from '@/pages/ProfilesPage'
+import { ProfileWizardPage } from '@/pages/ProfileWizardPage'
 import { LandingPage } from '@/pages/LandingPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
@@ -18,7 +20,9 @@ import { AgentsProvider } from '@/contexts/AgentsContext'
 import { ContentProvider } from '@/contexts/ContentContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { ProfileProvider } from '@/contexts/ProfileContext'
 import { RouteGuard } from '@/components/RouteGuard'
+import { ProfileGate } from '@/components/ProfileGate'
 
 function App() {
   return (
@@ -38,15 +42,17 @@ function App() {
             <Route path="/pricing" element={<Navigate to="/landing#pricing" replace />} />
 
             {/* Protected routes */}
-            <Route element={<RouteGuard><AppLayout /></RouteGuard>}>
-              <Route path="/monitor" element={<MonitorPage />} />
-              <Route path="/content" element={<ContentPage />} />
-              <Route path="/content/calendar" element={<ContentCalendarPage />} />
+            <Route element={<RouteGuard><ProfileProvider><AppLayout /></ProfileProvider></RouteGuard>}>
+              <Route path="/monitor" element={<ProfileGate><MonitorPage /></ProfileGate>} />
+              <Route path="/content" element={<ProfileGate><ContentPage /></ProfileGate>} />
+              <Route path="/content/calendar" element={<ProfileGate><ContentCalendarPage /></ProfileGate>} />
               <Route path="/agents" element={<AgentsPage />} />
               <Route path="/agents/workflows" element={<AgentsWorkflowsPage />} />
               <Route path="/agents/chat" element={<AgentsChatPage />} />
               <Route path="/agents/connectors" element={<AgentsConnectorsPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/profiles" element={<ProfilesPage />} />
+              <Route path="/profiles/new" element={<ProfileWizardPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -18,6 +18,8 @@ import { SkeletonCard } from '@/components/Skeleton'
 import { useEffect } from 'react'
 import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
 import { ContentThumbnail } from '@/components/ContentThumbnail'
+import { ProfileSelector } from '@/components/ProfileSelector'
+import { useProfiles } from '@/contexts/ProfileContext'
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
@@ -498,6 +500,7 @@ const FILTER_OPTIONS: { value: FilterStatus; label: string }[] = [
 
 export function ContentPage() {
   const { items, addItem, updateStatus } = useContent()
+  const { activeProfileId } = useProfiles()
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('todos')
   const [showNewDialog, setShowNewDialog] = useState(false)
@@ -509,7 +512,10 @@ export function ContentPage() {
     return () => clearTimeout(t)
   }, [])
 
-  const filtered = filterStatus === 'todos' ? items : items.filter(i => i.status === filterStatus)
+  const profileItems = activeProfileId !== null
+    ? items.filter(i => i.profileId === activeProfileId)
+    : items
+  const filtered = filterStatus === 'todos' ? profileItems : profileItems.filter(i => i.status === filterStatus)
 
   function handleCreate(newItem: ContentItem) {
     addItem(newItem)
@@ -527,6 +533,7 @@ export function ContentPage() {
     <div className="flex h-full min-h-0">
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <ProfileSelector />
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
@@ -580,7 +587,7 @@ export function ContentPage() {
           {/* Filter pills */}
           <div className="flex gap-2 flex-wrap mb-5">
             {FILTER_OPTIONS.map(opt => {
-              const count = opt.value === 'todos' ? items.length : items.filter(i => i.status === opt.value).length
+              const count = opt.value === 'todos' ? profileItems.length : profileItems.filter(i => i.status === opt.value).length
               return (
                 <button
                   key={opt.value}

@@ -18,7 +18,7 @@ Estrutura de Pastas:
 Use a chave da OpenAi para inventar criativos para demonstrar a ideia.
 Use modelos de desenho e vídeos curtos da OpenAi.
 
-A chave está em `.env` na raiz do repositório.
+OPENAI_API_KEY=REDACTED_OPENAI_KEY
 
 ## Passada 1 — Scaffold & Navegação
 

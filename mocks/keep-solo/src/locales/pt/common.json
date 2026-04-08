@@ -8,5 +8,149 @@
     "pt": "Português",
     "en": "English",
     "es": "Español"
+  },
+  "onboarding": {
+    "steps": {
+      "0": {
+        "label": "Seu Negócio",
+        "subtitle": "Me conta um pouco sobre você"
+      },
+      "1": {
+        "label": "Pesquisando...",
+        "subtitle": "Deixa eu dar uma olhada"
+      },
+      "2": {
+        "label": "Validação",
+        "subtitle": "Isso está certo?"
+      },
+      "3": {
+        "label": "Pronto!",
+        "subtitle": "Tudo certo para começar"
+      }
+    },
+    "stepOf": "{{step}} de {{total}}",
+    "nav": {
+      "back": "Voltar",
+      "next": "Avançar",
+      "start": "Começar a usar"
+    },
+    "business": {
+      "title": "Me conta sobre o seu negócio",
+      "subtitle": "Vou usar isso pra entender como posso te ajudar.",
+      "nameLabel": "Como se chama o seu negócio?",
+      "namePlaceholder": "Ex: Cia Cuidadores, Studio Mel, TechRaptor...",
+      "urlLabel": "Tem site?",
+      "optional": "(opcional)",
+      "urlPlaceholder": "https://seunegocio.com.br",
+      "socialLabel": "Instagram ou principal rede social?",
+      "socialPlaceholder": "@seunegocio ou link da página"
+    },
+    "loading": {
+      "mainText": "Deixa eu dar uma olhada no seu mercado...",
+      "subtitle": "Isso leva só alguns segundos.",
+      "items": {
+        "0": "Procurando na internet...",
+        "1": "Analisando suas redes...",
+        "2": "Entendendo seu mercado...",
+        "3": "Quase lá..."
+      }
+    },
+    "validation": {
+      "title": "Encontrei isso — está certo?",
+      "subtitle": "Confirme, corrija ou ignore cada item que encontrei.",
+      "reviewedCount": "{{count}} de {{total}} revisados",
+      "confirm": "Confirmar",
+      "correct": "Corrigir",
+      "ignore": "Ignorar",
+      "undo": "Desfazer",
+      "ok": "OK",
+      "allReviewed": "Tudo revisado!",
+      "remaining": "Faltam {{count}} item(ns)",
+      "cta": "Tudo certo!",
+      "categories": {
+        "segmento": "Segmento",
+        "servico": "Serviço",
+        "rede_social": "Rede Social",
+        "localizacao": "Localização",
+        "site": "Site",
+        "publico": "Público"
+      },
+      "findings": {
+        "f1": "Segmento detectado",
+        "f2": "Serviço principal",
+        "f3": "Instagram",
+        "f4": "Cidade",
+        "f5": "Site",
+        "f6": "Público-alvo"
+      }
+    },
+    "ready": {
+      "title": "Pronto! Conheço seu negócio.",
+      "subtitle": "Aqui está o que aprendi sobre você.",
+      "businessLabel": "Negócio",
+      "segmentLabel": "Segmento",
+      "socialLabel": "Rede social principal",
+      "toneLabel": "Como você quer se comunicar?",
+      "noName": "Sem nome",
+      "defaultSocial": "Instagram",
+      "cta": "Começar a usar",
+      "tones": {
+        "amigavel": {
+          "label": "Amigável",
+          "description": "Próximo, caloroso e acessível"
+        },
+        "formal": {
+          "label": "Formal",
+          "description": "Profissional e respeitoso"
+        },
+        "casual": {
+          "label": "Casual",
+          "description": "Descontraído e natural"
+        },
+        "tecnico": {
+          "label": "Técnico",
+          "description": "Preciso e detalhado"
+        },
+        "inspiracional": {
+          "label": "Inspiracional",
+          "description": "Motivador e empolgante"
+        }
+      }
+    }
+  },
+  "businessProfile": {
+    "title": "Meu Negócio",
+    "businessNameLabel": "Nome do negócio",
+    "businessNamePlaceholder": "Ex: Cia Cuidadores",
+    "segmentLabel": "Segmento",
+    "targetAudienceLabel": "Público-alvo",
+    "targetAudiencePlaceholder": "Ex: Famílias com idosos dependentes",
+    "positioningLabel": "Posicionamento",
+    "positioningPlaceholder": "Como você se posiciona no mercado?",
+    "toneLabel": "Tom de voz",
+    "platformsLabel": "Plataformas ativas",
+    "socialNetworksLabel": "Redes sociais",
+    "socialHandlePlaceholder": "@usuario ou url",
+    "addSocial": "Adicionar rede social",
+    "removeAriaLabel": "Remover",
+    "save": "Salvar alterações",
+    "saved": "Salvo!",
+    "segments": {
+      "saude": "Saúde & Bem-estar",
+      "tecnologia": "Tecnologia",
+      "varejo": "Varejo",
+      "servicos-b2b": "Serviços B2B",
+      "educacao": "Educação",
+      "alimentacao": "Alimentação",
+      "financas": "Finanças",
+      "industria": "Indústria"
+    },
+    "tones": {
+      "formal": "Formal",
+      "casual": "Casual",
+      "técnico": "Técnico",
+      "inspiracional": "Inspiracional",
+      "amigável": "Amigável"
+    }
   }
 }

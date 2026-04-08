@@ -8,5 +8,201 @@
     "pt": "Português",
     "en": "English",
     "es": "Español"
+  },
+  "wizard": {
+    "steps": {
+      "identity": "Seu Negócio",
+      "researching": "Pesquisando...",
+      "validation": "Validação",
+      "niche": "Nicho & Posicionamento",
+      "summary": "Resumo"
+    },
+    "createTitle": "Criar Novo Perfil",
+    "editTitle": "Editar Perfil",
+    "createSubtitle": "Preencha as etapas abaixo para criar seu perfil de negócio.",
+    "editSubtitle": "Atualize as informações do seu perfil de negócio.",
+    "back": "Voltar",
+    "next": "Avançar",
+    "stepOf": "{{current}} / {{total}}",
+    "toastCreated": "Perfil criado com sucesso!",
+    "toastUpdated": "Perfil atualizado com sucesso!",
+    "identity": {
+      "title": "Seu Negócio",
+      "description": "Conte-nos sobre o seu negócio para começarmos a construir o seu perfil.",
+      "businessNameLabel": "Nome do negócio",
+      "businessNamePlaceholder": "Ex: Processa Sistemas",
+      "businessNameRequired": "Campo obrigatório para avançar.",
+      "websiteLabel": "URL do site",
+      "websiteOptional": "(opcional)",
+      "websitePlaceholder": "https://seusite.com.br",
+      "socialLinksLabel": "Redes sociais",
+      "socialLinksOptional": "(opcional, até 5)",
+      "addNetwork": "Adicionar rede",
+      "noNetworks": "Nenhuma rede social adicionada ainda.",
+      "handlePlaceholder": "@handle ou URL",
+      "networkLimit": "Limite de {{max}} redes sociais atingido."
+    },
+    "research": {
+      "items": [
+        "Buscando informações...",
+        "Analisando redes sociais...",
+        "Identificando concorrentes...",
+        "Mapeando segmento...",
+        "Concluído!"
+      ],
+      "searchingFor": "Pesquisando na internet sobre",
+      "businessFallback": "seu negócio",
+      "waitMessage": "Isso pode levar alguns segundos. Por favor, aguarde."
+    },
+    "validation": {
+      "title": "Validação de achados",
+      "description": "Confira o que encontramos e confirme, corrija ou ignore cada item.",
+      "reviewed": "{{count}} de {{total}} revisados",
+      "allReviewed": "Todos os itens revisados!",
+      "remaining": "Ainda faltam {{count}} item(ns)",
+      "ctaButton": "Tudo certo, continuar",
+      "confirm": "Confirmar",
+      "correct": "Corrigir",
+      "ignore": "Ignorar",
+      "ok": "OK",
+      "undo": "Desfazer",
+      "categories": {
+        "identidade": "Identidade",
+        "segmento": "Segmento",
+        "concorrente": "Concorrente",
+        "rede_social": "Rede Social",
+        "dado_publico": "Dado Público"
+      },
+      "findingLabels": {
+        "cnpj": "CNPJ",
+        "address": "Endereço",
+        "detectedSegment": "Segmento detectado",
+        "targetAudience": "Público-alvo",
+        "competitor": "Concorrente identificado",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "foundedYear": "Ano de fundação"
+      }
+    },
+    "niche": {
+      "title": "Nicho & Posicionamento",
+      "description": "Selecione o segmento do seu negócio e defina como você se posiciona no mercado.",
+      "marketSegment": "Segmento de mercado",
+      "targetAudience": "Público-alvo",
+      "targetAudienceHint": "(selecione os que se aplicam)",
+      "positioning": "Posicionamento",
+      "useAgentSuggestion": "Usar sugestão do agente",
+      "writeMyWay": "Escrever do meu jeito",
+      "agentSuggestionBanner": "Sugestão gerada pelo agente com base no seu segmento e achados da pesquisa.",
+      "positioningPlaceholder": "Descreva como seu negócio se posiciona no mercado...",
+      "segments": {
+        "saude": "Saúde & Bem-estar",
+        "tecnologia": "Tecnologia",
+        "varejo": "Varejo",
+        "servicos-b2b": "Serviços B2B",
+        "educacao": "Educação",
+        "alimentacao": "Alimentação",
+        "financas": "Finanças",
+        "industria": "Indústria"
+      },
+      "audiences": {
+        "saude": ["Pacientes", "Profissionais de saúde", "Esportistas", "Idosos"],
+        "tecnologia": ["Empresas de médio porte", "Startups", "Desenvolvedores", "Gestores de TI"],
+        "varejo": ["Consumidor final", "Famílias", "Jovens adultos", "Compradores recorrentes"],
+        "servicos-b2b": ["Empresas de médio porte", "Grandes corporações", "Gestores", "Diretores"],
+        "educacao": ["Estudantes", "Profissionais em transição", "Pais", "Empresas (treinamento)"],
+        "alimentacao": ["Famílias", "Jovens profissionais", "Veganos/vegetarianos", "Atletas"],
+        "financas": ["Investidores", "Pequenas empresas", "Autônomos", "Famílias"],
+        "industria": ["Engenheiros", "Gerentes de produção", "Fornecedores", "Compradores industriais"]
+      },
+      "agentSuggestions": {
+        "saude": "Somos referência em cuidados integrados de saúde, combinando tecnologia e humanização para promover bem-estar duradouro aos nossos clientes.",
+        "tecnologia": "Transformamos desafios digitais em soluções escaláveis, entregando tecnologia de ponta com suporte especializado para empresas que buscam crescimento sustentável.",
+        "varejo": "Oferecemos uma experiência de compra única, com produtos cuidadosamente selecionados e atendimento personalizado que fideliza nossos clientes.",
+        "servicos-b2b": "Somos o parceiro estratégico que empresas escolhem para otimizar processos e escalar resultados com eficiência e confiabilidade.",
+        "educacao": "Democratizamos o acesso ao conhecimento com metodologias inovadoras que transformam aprendizagem em resultados concretos para pessoas e organizações.",
+        "alimentacao": "Combinamos sabor, nutrição e conveniência para oferecer experiências gastronômicas que encantam e nutrem nossos clientes no dia a dia.",
+        "financas": "Simplificamos a gestão financeira com soluções inteligentes e transparentes que empoderam nossos clientes a alcançar seus objetivos econômicos.",
+        "industria": "Elevamos a eficiência industrial com inovação tecnológica e expertise operacional, sendo o parceiro confiável de empresas que lideram seus setores."
+      }
+    },
+    "summary": {
+      "title": "Resumo do Perfil",
+      "description": "Revise as informações e finalize a criação do seu perfil.",
+      "edit": "Editar",
+      "sections": {
+        "identity": "Identidade",
+        "segment": "Segmento",
+        "positioning": "Posicionamento",
+        "toneOfVoice": "Tom de voz",
+        "platforms": "Plataformas"
+      },
+      "fields": {
+        "name": "Nome",
+        "website": "Site",
+        "networks": "Redes",
+        "market": "Mercado",
+        "audience": "Público"
+      },
+      "notDefined": "Não definido",
+      "tones": {
+        "formal": "Formal",
+        "casual": "Casual",
+        "técnico": "Técnico",
+        "inspiracional": "Inspiracional",
+        "amigável": "Amigável"
+      },
+      "submitCreate": "Criar Perfil",
+      "submitEdit": "Salvar Alterações"
+    }
+  },
+  "profileGate": {
+    "message": "Para acessar esta área, crie seu primeiro perfil",
+    "cta": "Criar Primeiro Perfil"
+  },
+  "profileSelector": {
+    "allProfiles": "Todos os perfis"
+  },
+  "profilesPage": {
+    "title": "Perfis",
+    "createButton": "Criar Novo Perfil",
+    "emptyTitle": "Nenhum perfil criado",
+    "emptyDescription": "Crie seu primeiro perfil para começar a gerenciar sua presença digital e produzir conteúdo com o agente.",
+    "emptyCta": "Criar Primeiro Perfil"
+  },
+  "profileCard": {
+    "completeness": "Completude",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "statusLabels": {
+      "ativo": "Ativo",
+      "completo": "Completo",
+      "rascunho": "Rascunho",
+      "inativo": "Inativo"
+    },
+    "relativeTime": {
+      "today": "Atualizado hoje",
+      "oneDay": "Atualizado há 1 dia",
+      "manyDays": "Atualizado há {{count}} dias"
+    },
+    "deleteDialog": {
+      "title": "Excluir perfil",
+      "message": "Tem certeza que deseja excluir \"{{name}}\"? Esta ação não pode ser desfeita.",
+      "cancel": "Cancelar",
+      "confirm": "Excluir"
+    }
+  },
+  "orchestratorBar": {
+    "allProfiles": "Todos os perfis",
+    "teamStatus": "Team Status",
+    "statusLabels": {
+      "green": "Operacional",
+      "yellow": "Atenção",
+      "red": "Alerta"
+    },
+    "agentsActive_one": "{{count}} agente ativo",
+    "agentsActive_other": "{{count}} agentes ativos",
+    "lightMode": "Modo claro",
+    "darkMode": "Modo escuro"
   }
 }

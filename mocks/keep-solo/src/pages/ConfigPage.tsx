@@ -10,6 +10,7 @@ import { LanguageSelector } from '../components/LanguageSelector'
 import { Badge, IconBubble } from '../components/ui/badge'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
+import { BusinessProfileSection } from '../components/BusinessProfileSection'
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 
@@ -286,6 +287,9 @@ export function ConfigPage() {
           <p className="text-sm text-muted-foreground">Suas preferências</p>
         </div>
       </div>
+
+      {/* Business Profile */}
+      <BusinessProfileSection onSave={() => showToast('Alterações salvas!')} />
 
       {/* Profile */}
       <Section icon={<User size={16} weight="duotone" />} title="Perfil">
