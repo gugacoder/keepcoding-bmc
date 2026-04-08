@@ -150,17 +150,17 @@ export function AgentsChatPage() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-amber-50/30">
+    <div className="flex flex-col h-full bg-secondary/30">
       {/* Header */}
-      <div className="flex items-center gap-3 px-6 py-4 border-b border-amber-100 bg-white/80 backdrop-blur-sm flex-shrink-0">
+      <div className="flex items-center gap-3 px-6 py-4 border-b border-border bg-card/80 backdrop-blur-sm flex-shrink-0">
         <div className="relative">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-sm">
             <Robot size={20} weight="duotone" className="text-white" />
           </div>
-          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-white" />
+          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-card" />
         </div>
         <div>
-          <p className="font-semibold text-stone-800 text-sm">{agent.name}</p>
+          <p className="font-semibold text-foreground text-sm">{agent.name}</p>
           <p className="text-xs text-green-500 font-medium">Online · {agent.role}</p>
         </div>
       </div>
@@ -180,8 +180,8 @@ export function AgentsChatPage() {
             <div
               className={`max-w-[78%] px-4 py-2.5 text-sm leading-relaxed ${
                 msg.from === 'user'
-                  ? 'bg-amber-500 text-white rounded-2xl rounded-br-md shadow-sm'
-                  : 'bg-white border border-amber-100 text-stone-700 rounded-2xl rounded-bl-md shadow-sm'
+                  ? 'bg-primary text-primary-foreground rounded-2xl rounded-br-md shadow-sm'
+                  : 'bg-card border border-border text-foreground rounded-2xl rounded-bl-md shadow-sm'
               }`}
             >
               {msg.text}
@@ -195,17 +195,17 @@ export function AgentsChatPage() {
             <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0 shadow-sm">
               <Robot size={14} weight="duotone" className="text-white" />
             </div>
-            <div className="bg-white border border-amber-100 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm flex items-center gap-1">
+            <div className="bg-card border border-border rounded-2xl rounded-bl-md px-4 py-3 shadow-sm flex items-center gap-1">
               <span
-                className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce"
+                className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"
                 style={{ animationDelay: '0ms' }}
               />
               <span
-                className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce"
+                className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"
                 style={{ animationDelay: '150ms' }}
               />
               <span
-                className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-bounce"
+                className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"
                 style={{ animationDelay: '300ms' }}
               />
             </div>
@@ -216,8 +216,8 @@ export function AgentsChatPage() {
       </div>
 
       {/* Input */}
-      <div className="px-4 pb-4 pt-2 flex-shrink-0 bg-white/80 backdrop-blur-sm border-t border-amber-100">
-        <div className="flex items-center gap-2 bg-amber-50 rounded-2xl px-4 py-2.5 border border-amber-200 focus-within:border-amber-400 transition-colors">
+      <div className="px-4 pb-4 pt-2 flex-shrink-0 bg-card/80 backdrop-blur-sm border-t border-border">
+        <div className="flex items-center gap-2 bg-secondary rounded-2xl px-4 py-2.5 border border-border focus-within:border-primary transition-colors">
           <input
             ref={inputRef}
             type="text"
@@ -225,15 +225,15 @@ export function AgentsChatPage() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Manda uma mensagem..."
-            className="flex-1 bg-transparent text-sm text-stone-700 placeholder-stone-400 outline-none"
+            className="flex-1 bg-transparent text-sm text-foreground placeholder-muted-foreground outline-none"
             disabled={isTyping}
           />
           <button
             onClick={sendMessage}
             disabled={!input.trim() || isTyping}
-            className="w-8 h-8 bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
+            className="w-8 h-8 bg-primary hover:bg-primary/80 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
           >
-            <PaperPlaneTilt size={16} weight="duotone" className="text-white" />
+            <PaperPlaneTilt size={16} weight="duotone" className="text-primary-foreground" />
           </button>
         </div>
       </div>

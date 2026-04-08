@@ -12,12 +12,12 @@ const MONTH_LABEL = 'Abril 2026'
 const MONTH_INDEX = 3 // April = 3
 
 const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string }> = {
-  rascunho:   { label: 'Rascunho',  dot: 'bg-stone-400',  badge: 'bg-stone-100 text-stone-600' },
-  em_revisao: { label: 'Em revisão', dot: 'bg-yellow-400', badge: 'bg-yellow-100 text-yellow-700' },
-  pronto:     { label: 'Pronto',    dot: 'bg-blue-400',   badge: 'bg-blue-100 text-blue-700' },
-  aprovado:   { label: 'Pronto',    dot: 'bg-blue-400',   badge: 'bg-blue-100 text-blue-700' },
-  agendado:   { label: 'Agendado',  dot: 'bg-purple-400', badge: 'bg-purple-100 text-purple-700' },
-  publicado:  { label: 'Publicado', dot: 'bg-green-400',  badge: 'bg-green-100 text-green-700' },
+  rascunho:   { label: 'Rascunho',  dot: 'bg-muted-foreground',  badge: 'bg-muted text-muted-foreground' },
+  em_revisao: { label: 'Em revisão', dot: 'bg-yellow-400', badge: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400' },
+  pronto:     { label: 'Pronto',    dot: 'bg-blue-400',   badge: 'bg-blue-100 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400' },
+  aprovado:   { label: 'Pronto',    dot: 'bg-blue-400',   badge: 'bg-blue-100 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400' },
+  agendado:   { label: 'Agendado',  dot: 'bg-purple-400', badge: 'bg-purple-100 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400' },
+  publicado:  { label: 'Publicado', dot: 'bg-green-400',  badge: 'bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400' },
 }
 
 const CHANNEL_ICON: Record<string, React.ElementType> = {
@@ -38,35 +38,35 @@ function DetailModal({ item, onClose }: { item: ContentItem; onClose: () => void
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm">
-        <div className="flex items-center justify-between p-5 border-b border-amber-50">
+      <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-sm">
+        <div className="flex items-center justify-between p-5 border-b border-border/50">
           <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${cfg.badge}`}>
             {cfg.label}
           </span>
-          <button onClick={onClose} className="text-stone-400 hover:text-stone-600">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={20} />
           </button>
         </div>
         <div className="p-5 space-y-4">
-          <h2 className="font-semibold text-stone-800 text-base leading-snug">{item.title}</h2>
+          <h2 className="font-semibold text-foreground text-base leading-snug">{item.title}</h2>
 
-          <div className="flex items-center gap-2 text-sm text-stone-500">
-            <ChannelIcon size={16} weight="duotone" className="text-amber-500" />
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <ChannelIcon size={16} weight="duotone" className="text-primary" />
             <span>{item.channel}</span>
-            <span className="text-stone-300">·</span>
+            <span className="text-muted-foreground/50">·</span>
             <span className="capitalize">{item.type}</span>
           </div>
 
           {item.briefing && (
             <div>
-              <p className="text-xs font-medium text-stone-400 mb-1">Briefing</p>
-              <p className="text-sm text-stone-600 leading-relaxed">{item.briefing}</p>
+              <p className="text-xs font-medium text-muted-foreground mb-1">Briefing</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.briefing}</p>
             </div>
           )}
 
           <div>
-            <p className="text-xs font-medium text-stone-400 mb-1">Data alvo</p>
-            <p className="text-sm text-stone-600 capitalize">{dateStr}</p>
+            <p className="text-xs font-medium text-muted-foreground mb-1">Data alvo</p>
+            <p className="text-sm text-muted-foreground capitalize">{dateStr}</p>
           </div>
         </div>
       </div>
@@ -102,21 +102,21 @@ export function CreateCalendarPage() {
     <div className="p-6 space-y-6 max-w-2xl">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-orange-100 flex items-center justify-center">
-          <Calendar size={22} weight="duotone" className="text-orange-600" />
+        <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/30 flex items-center justify-center">
+          <Calendar size={22} weight="duotone" className="text-orange-600 dark:text-orange-400" />
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-stone-800">Calendário</h1>
-          <p className="text-sm text-stone-400">{MONTH_LABEL}</p>
+          <h1 className="text-xl font-semibold text-foreground">Calendário</h1>
+          <p className="text-sm text-muted-foreground">{MONTH_LABEL}</p>
         </div>
       </div>
 
       {/* Calendar grid */}
-      <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
+      <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
         {/* Day headers */}
-        <div className="grid grid-cols-7 border-b border-amber-50">
+        <div className="grid grid-cols-7 border-b border-border/50">
           {DAYS.map((d) => (
-            <div key={d} className="text-center text-xs font-medium text-stone-400 py-3">{d}</div>
+            <div key={d} className="text-center text-xs font-medium text-muted-foreground py-3">{d}</div>
           ))}
         </div>
 
@@ -128,14 +128,14 @@ export function CreateCalendarPage() {
             return (
               <div
                 key={idx}
-                className={`min-h-[72px] p-2 border-b border-r border-amber-50 last:border-r-0 ${
-                  isToday ? 'bg-amber-50' : ''
+                className={`min-h-[72px] p-2 border-b border-r border-border/50 last:border-r-0 ${
+                  isToday ? 'bg-secondary' : ''
                 }`}
               >
                 {day !== null && (
                   <>
                     {/* Day number */}
-                    <span className={`text-xs font-medium ${isToday ? 'text-amber-600 font-bold' : 'text-stone-500'}`}>
+                    <span className={`text-xs font-medium ${isToday ? 'text-accent-foreground font-bold' : 'text-muted-foreground'}`}>
                       {day}
                     </span>
 
@@ -150,14 +150,14 @@ export function CreateCalendarPage() {
                             className="w-full flex items-center gap-1 group text-left"
                           >
                             <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${dotCfg.dot}`} />
-                            <span className="text-xs text-stone-600 truncate group-hover:text-amber-700 transition-colors leading-tight">
+                            <span className="text-xs text-muted-foreground truncate group-hover:text-secondary-foreground transition-colors leading-tight">
                               {item.title}
                             </span>
                           </button>
                         )
                       })}
                       {dayItems.length > 2 && (
-                        <span className="text-xs text-stone-400">+{dayItems.length - 2}</span>
+                        <span className="text-xs text-muted-foreground">+{dayItems.length - 2}</span>
                       )}
                     </div>
                   </>
@@ -173,7 +173,7 @@ export function CreateCalendarPage() {
         {(['rascunho', 'pronto', 'publicado', 'agendado'] as const).map((s) => {
           const cfg = STATUS_CONFIG[s]
           return (
-            <div key={s} className="flex items-center gap-1.5 text-xs text-stone-500">
+            <div key={s} className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <span className={`w-2 h-2 rounded-full ${cfg.dot}`} />
               {cfg.label}
             </div>

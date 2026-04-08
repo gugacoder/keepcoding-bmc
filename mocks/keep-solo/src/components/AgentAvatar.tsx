@@ -38,7 +38,7 @@ export function AgentAvatar({ agent, size = 'md', className = '' }: AgentAvatarP
 
   return (
     <div
-      className={`${sizeClass} rounded-full flex items-center justify-center font-semibold flex-shrink-0 bg-amber-100 text-amber-700 ${className}`}
+      className={`${sizeClass} rounded-full flex items-center justify-center font-semibold flex-shrink-0 bg-accent text-secondary-foreground ${className}`}
       title={agent.name}
     >
       {initials || <Robot weight="duotone" />}

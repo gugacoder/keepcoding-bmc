@@ -19,12 +19,12 @@ import type { ContentItem, ContentType, ContentChannel } from '@/data/types'
 
 // ─── Status config ────────────────────────────────────────────────────────────
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
-  rascunho:   { label: 'Rascunho',  className: 'bg-stone-100 text-stone-500' },
-  em_revisao: { label: 'Em revisão', className: 'bg-yellow-100 text-yellow-700' },
-  pronto:     { label: 'Pronto',    className: 'bg-amber-100 text-amber-700' },
-  aprovado:   { label: 'Pronto',    className: 'bg-amber-100 text-amber-700' },
-  agendado:   { label: 'Agendado',  className: 'bg-purple-100 text-purple-700' },
-  publicado:  { label: 'Publicado', className: 'bg-green-100 text-green-700' },
+  rascunho:   { label: 'Rascunho',  className: 'bg-muted text-muted-foreground' },
+  em_revisao: { label: 'Em revisão', className: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400' },
+  pronto:     { label: 'Pronto',    className: 'bg-accent text-secondary-foreground' },
+  aprovado:   { label: 'Pronto',    className: 'bg-accent text-secondary-foreground' },
+  agendado:   { label: 'Agendado',  className: 'bg-purple-100 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400' },
+  publicado:  { label: 'Publicado', className: 'bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400' },
 }
 
 // ─── Thumbnail config per channel ─────────────────────────────────────────────
@@ -72,7 +72,7 @@ function ContentCard({ item, onApprove, onPublish }: {
   const isReady = item.status === 'pronto' || item.status === 'aprovado'
 
   return (
-    <div className="bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+    <div className="bg-card rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden">
       <div className="p-4 pb-0">
         <Thumbnail channel={item.channel} thumbnail={item.thumbnail} />
       </div>
@@ -82,12 +82,12 @@ function ContentCard({ item, onApprove, onPublish }: {
           <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${cfg.className}`}>
             {cfg.label}
           </span>
-          <span className="text-xs text-stone-400">{item.channel}</span>
+          <span className="text-xs text-muted-foreground">{item.channel}</span>
         </div>
 
         {/* Title */}
-        <h3 className="font-medium text-stone-800 text-sm leading-snug line-clamp-2">{item.title}</h3>
-        <p className="text-xs text-stone-400 capitalize">{item.type}</p>
+        <h3 className="font-medium text-foreground text-sm leading-snug line-clamp-2">{item.title}</h3>
+        <p className="text-xs text-muted-foreground capitalize">{item.type}</p>
 
         {/* Actions */}
         {!isPublished && (
@@ -95,7 +95,7 @@ function ContentCard({ item, onApprove, onPublish }: {
             {!isReady && (
               <button
                 onClick={onApprove}
-                className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-amber-700 border border-amber-200 rounded-xl py-2 hover:bg-amber-50 transition-colors"
+                className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-secondary-foreground border border-border rounded-xl py-2 hover:bg-secondary transition-colors"
               >
                 <CheckCircle size={14} weight="duotone" />
                 Aprovar
@@ -103,7 +103,7 @@ function ContentCard({ item, onApprove, onPublish }: {
             )}
             <button
               onClick={onPublish}
-              className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-emerald-700 border border-emerald-200 rounded-xl py-2 hover:bg-emerald-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 rounded-xl py-2 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
             >
               <Globe size={14} weight="duotone" />
               Publicar
@@ -111,7 +111,7 @@ function ContentCard({ item, onApprove, onPublish }: {
           </div>
         )}
         {isPublished && (
-          <div className="flex items-center gap-1.5 text-xs text-green-600 font-medium">
+          <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 font-medium">
             <CheckCircle size={14} weight="fill" />
             Publicado
           </div>
@@ -157,11 +157,11 @@ function CreateDialog({ onClose, onSubmit }: {
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md">
+      <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-md">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-amber-50">
-          <h2 className="font-semibold text-stone-800 text-base">Criar post</h2>
-          <button onClick={onClose} className="text-stone-400 hover:text-stone-600">
+        <div className="flex items-center justify-between p-5 border-b border-border/50">
+          <h2 className="font-semibold text-foreground text-base">Criar post</h2>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={20} />
           </button>
         </div>
@@ -169,13 +169,13 @@ function CreateDialog({ onClose, onSubmit }: {
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           {/* Title */}
           <div>
-            <label className="block text-xs font-medium text-stone-500 mb-1.5">Título *</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1.5">Título *</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Ex: 5 dicas para aumentar suas vendas"
-              className="w-full text-sm border border-stone-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-300 placeholder-stone-300"
+              className="w-full text-sm border border-border rounded-xl px-3.5 py-2.5 bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring placeholder-muted-foreground/50"
               required
             />
           </div>
@@ -183,11 +183,11 @@ function CreateDialog({ onClose, onSubmit }: {
           {/* Type + Channel */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1.5">Tipo</label>
+              <label className="block text-xs font-medium text-muted-foreground mb-1.5">Tipo</label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as ContentType)}
-                className="w-full text-sm border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white"
+                className="w-full text-sm border border-border rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-ring bg-card text-foreground"
               >
                 {TYPES.map((t) => (
                   <option key={t} value={t} className="capitalize">{t.charAt(0).toUpperCase() + t.slice(1)}</option>
@@ -195,11 +195,11 @@ function CreateDialog({ onClose, onSubmit }: {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1.5">Canal</label>
+              <label className="block text-xs font-medium text-muted-foreground mb-1.5">Canal</label>
               <select
                 value={channel}
                 onChange={(e) => setChannel(e.target.value as ContentChannel)}
-                className="w-full text-sm border border-stone-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white"
+                className="w-full text-sm border border-border rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-ring bg-card text-foreground"
               >
                 {CHANNELS.map((c) => (
                   <option key={c} value={c}>{c}</option>
@@ -210,24 +210,24 @@ function CreateDialog({ onClose, onSubmit }: {
 
           {/* Briefing */}
           <div>
-            <label className="block text-xs font-medium text-stone-500 mb-1.5">Briefing</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1.5">Briefing</label>
             <textarea
               value={briefing}
               onChange={(e) => setBriefing(e.target.value)}
               placeholder="Descreva o conteúdo, tom, CTA..."
               rows={3}
-              className="w-full text-sm border border-stone-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-300 resize-none placeholder-stone-300"
+              className="w-full text-sm border border-border rounded-xl px-3.5 py-2.5 bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none placeholder-muted-foreground/50"
             />
           </div>
 
           {/* Date */}
           <div>
-            <label className="block text-xs font-medium text-stone-500 mb-1.5">Data alvo</label>
+            <label className="block text-xs font-medium text-muted-foreground mb-1.5">Data alvo</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full text-sm border border-stone-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-300"
+              className="w-full text-sm border border-border rounded-xl px-3.5 py-2.5 bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
 
@@ -236,13 +236,13 @@ function CreateDialog({ onClose, onSubmit }: {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 text-sm font-medium text-stone-500 border border-stone-200 rounded-xl py-2.5 hover:bg-stone-50 transition-colors"
+              className="flex-1 text-sm font-medium text-muted-foreground border border-border rounded-xl py-2.5 hover:bg-muted transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="flex-1 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 rounded-xl py-2.5 transition-colors"
+              className="flex-1 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/80 rounded-xl py-2.5 transition-colors"
             >
               Criar
             </button>
@@ -269,17 +269,17 @@ export function CreatePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-orange-100 flex items-center justify-center">
-            <PencilSimple size={22} weight="duotone" className="text-orange-600" />
+          <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/30 flex items-center justify-center">
+            <PencilSimple size={22} weight="duotone" className="text-orange-600 dark:text-orange-400" />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-stone-800">Criar</h1>
-            <p className="text-sm text-stone-400">{items.length} conteúdo{items.length !== 1 ? 's' : ''}</p>
+            <h1 className="text-xl font-semibold text-foreground">Criar</h1>
+            <p className="text-sm text-muted-foreground">{items.length} conteúdo{items.length !== 1 ? 's' : ''}</p>
           </div>
         </div>
         <button
           onClick={() => setShowDialog(true)}
-          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors shadow-sm"
+          className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-primary-foreground text-sm font-medium px-4 py-2 rounded-xl transition-colors shadow-sm"
         >
           <Plus size={16} weight="bold" />
           Criar post

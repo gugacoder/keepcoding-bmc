@@ -87,13 +87,13 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-lg sm:mx-4 bg-white rounded-t-3xl sm:rounded-3xl shadow-xl overflow-hidden">
+      <div className="relative z-10 w-full max-w-lg sm:mx-4 bg-card rounded-t-3xl sm:rounded-3xl shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-amber-100">
-          <h2 className="text-base font-semibold text-stone-900">Novo Workflow</h2>
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border">
+          <h2 className="text-base font-semibold text-foreground">Novo Workflow</h2>
           <button
             onClick={handleClose}
-            className="flex items-center justify-center w-8 h-8 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-amber-50 transition-colors"
+            className="flex items-center justify-center w-8 h-8 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
           >
             <X size={16} weight="bold" />
           </button>
@@ -108,10 +108,10 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                   className={[
                     'flex items-center justify-center w-8 h-8 rounded-full text-xs font-semibold transition-colors',
                     i < step
-                      ? 'bg-amber-500 text-white'
+                      ? 'bg-primary text-primary-foreground'
                       : i === step
-                      ? 'bg-amber-500 text-white ring-4 ring-amber-100'
-                      : 'bg-stone-100 text-stone-400',
+                      ? 'bg-primary text-primary-foreground ring-4 ring-accent'
+                      : 'bg-muted text-muted-foreground',
                   ].join(' ')}
                 >
                   {i < step ? <Check size={13} weight="bold" /> : i + 1}
@@ -119,7 +119,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                 <span
                   className={[
                     'mt-1 text-[10px] font-medium whitespace-nowrap',
-                    i <= step ? 'text-amber-600' : 'text-stone-400',
+                    i <= step ? 'text-accent-foreground' : 'text-muted-foreground',
                   ].join(' ')}
                 >
                   {label}
@@ -129,7 +129,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                 <div
                   className={[
                     'flex-1 h-px mx-2 mb-4 transition-colors',
-                    i < step ? 'bg-amber-400' : 'bg-stone-200',
+                    i < step ? 'bg-primary' : 'bg-border',
                   ].join(' ')}
                 />
               )}
@@ -142,24 +142,24 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {/* Step 0 — Descrever */}
           {step === 0 && (
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 O que você faz repetidamente?
               </label>
               <div className="relative">
                 <textarea
-                  className="w-full h-32 px-4 py-3 pr-10 text-sm bg-amber-50/50 border border-amber-200 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent text-stone-900 placeholder:text-stone-400"
+                  className="w-full h-32 px-4 py-3 pr-10 text-sm bg-secondary/50 border border-border rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent text-foreground placeholder:text-muted-foreground"
                   placeholder="Ex: 'Toda semana respondo os mesmos DMs de orçamento no Instagram. Copio os dados para uma planilha e mando link de pagamento pelo WhatsApp.'"
                   value={form.description}
                   onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
                   autoFocus
                 />
                 {/* Mic icon decorative */}
-                <div className="absolute bottom-3 right-3 text-stone-300 pointer-events-none">
+                <div className="absolute bottom-3 right-3 text-muted-foreground/50 pointer-events-none">
                   <Microphone size={20} weight="duotone" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-stone-400 flex items-center gap-1">
-                <Microphone size={12} weight="duotone" className="text-amber-400" />
+              <p className="mt-2 text-xs text-muted-foreground flex items-center gap-1">
+                <Microphone size={12} weight="duotone" className="text-primary" />
                 Em breve: descreva por voz
               </p>
             </div>
@@ -168,11 +168,11 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {/* Step 1 — Ferramentas */}
           {step === 1 && (
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-1 flex items-center gap-1.5">
-                <Wrench size={16} weight="duotone" className="text-amber-500" />
+              <label className="block text-sm font-medium text-foreground mb-1 flex items-center gap-1.5">
+                <Wrench size={16} weight="duotone" className="text-primary" />
                 Ferramentas que você usa
               </label>
-              <p className="text-xs text-stone-400 mb-3">Selecione as ferramentas deste workflow</p>
+              <p className="text-xs text-muted-foreground mb-3">Selecione as ferramentas deste workflow</p>
               <div className="space-y-2">
                 {connectedConnectors.map((conn) => {
                   const selected = form.connectorIds.includes(conn.id)
@@ -183,27 +183,27 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                       className={[
                         'w-full flex items-center gap-3 px-4 py-3 rounded-2xl border text-sm transition-all text-left',
                         selected
-                          ? 'border-amber-400 bg-amber-50 shadow-sm'
-                          : 'border-stone-200 bg-white hover:border-amber-300 hover:bg-amber-50/50',
+                          ? 'border-primary bg-secondary shadow-sm'
+                          : 'border-border bg-card hover:border-primary/30 hover:bg-secondary/50',
                       ].join(' ')}
                     >
                       <span
                         className={[
                           'flex items-center justify-center w-5 h-5 rounded-lg border-2 shrink-0 transition-colors',
-                          selected ? 'border-amber-500 bg-amber-500' : 'border-stone-300',
+                          selected ? 'border-primary bg-primary' : 'border-muted-foreground/30',
                         ].join(' ')}
                       >
-                        {selected && <Check size={11} weight="bold" className="text-white" />}
+                        {selected && <Check size={11} weight="bold" className="text-primary-foreground" />}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <span className="font-medium text-stone-800">{conn.name}</span>
-                        <span className="ml-2 text-xs text-stone-400">{conn.category}</span>
+                        <span className="font-medium text-foreground">{conn.name}</span>
+                        <span className="ml-2 text-xs text-muted-foreground">{conn.category}</span>
                       </div>
                     </button>
                   )
                 })}
                 {connectedConnectors.length === 0 && (
-                  <p className="text-sm text-stone-400 text-center py-6">
+                  <p className="text-sm text-muted-foreground text-center py-6">
                     Nenhuma ferramenta conectada ainda.
                   </p>
                 )}
@@ -215,21 +215,21 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {step === 2 && (
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-1">
-                <ClipboardText size={18} weight="duotone" className="text-amber-500" />
-                <span className="text-sm font-semibold text-stone-800">Resumo do workflow</span>
+                <ClipboardText size={18} weight="duotone" className="text-primary" />
+                <span className="text-sm font-semibold text-foreground">Resumo do workflow</span>
               </div>
 
-              <div className="bg-amber-50/60 rounded-2xl border border-amber-100 p-4 space-y-3 text-sm">
+              <div className="bg-secondary/60 rounded-2xl border border-border p-4 space-y-3 text-sm">
                 <div>
-                  <span className="text-xs font-medium text-stone-500 uppercase tracking-wide">Descrição</span>
-                  <p className="mt-1 text-stone-800 leading-relaxed">{form.description}</p>
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Descrição</span>
+                  <p className="mt-1 text-foreground leading-relaxed">{form.description}</p>
                 </div>
 
                 <div className="flex gap-6 items-start">
                   <div>
-                    <span className="text-xs font-medium text-stone-500 uppercase tracking-wide">Status inicial</span>
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Status inicial</span>
                     <p className="mt-1">
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full bg-stone-100 text-stone-600 border border-stone-200">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full bg-muted text-muted-foreground border border-border">
                         mapeado
                       </span>
                     </p>
@@ -237,17 +237,17 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                 </div>
 
                 <div>
-                  <span className="text-xs font-medium text-stone-500 uppercase tracking-wide">Ferramentas</span>
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Ferramentas</span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     {form.connectorIds.length === 0 ? (
-                      <span className="text-stone-400 text-xs">Nenhuma selecionada</span>
+                      <span className="text-muted-foreground text-xs">Nenhuma selecionada</span>
                     ) : (
                       form.connectorIds.map((id) => {
                         const c = connectedConnectors.find((x) => x.id === id)
                         return c ? (
                           <span
                             key={id}
-                            className="px-2.5 py-0.5 text-xs font-medium bg-amber-100 text-amber-700 rounded-full border border-amber-200"
+                            className="px-2.5 py-0.5 text-xs font-medium bg-accent text-secondary-foreground rounded-full border border-border"
                           >
                             {c.name}
                           </span>
@@ -262,11 +262,11 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-amber-100 bg-amber-50/30">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-secondary/30">
           <button
             onClick={handleBack}
             disabled={step === 0}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-stone-500 hover:text-stone-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             <ArrowLeft size={15} weight="bold" />
             Voltar
@@ -276,7 +276,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
             <button
               onClick={handleNext}
               disabled={!canNext()}
-              className="flex items-center gap-1.5 px-5 py-2 text-sm font-semibold text-white bg-amber-500 rounded-xl hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
+              className="flex items-center gap-1.5 px-5 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
               Próximo
               <ArrowRight size={15} weight="bold" />

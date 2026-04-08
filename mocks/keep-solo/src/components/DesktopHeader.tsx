@@ -13,11 +13,12 @@ export function DesktopHeader() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <header className="hidden lg:flex items-center justify-between bg-background border-b border-border px-8 py-4 transition-colors">
+    <header className="hidden lg:block bg-background border-b border-border px-8 py-4 transition-colors">
+    <div className="mx-auto max-w-5xl flex items-center justify-between">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center">
-          <span className="text-white font-bold text-sm">KS</span>
+        <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+          <span className="text-primary-foreground font-bold text-sm">KS</span>
         </div>
         <span className="font-semibold text-foreground text-lg">KeepSolo</span>
       </div>
@@ -35,8 +36,8 @@ export function DesktopHeader() {
                 [
                   'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all',
                   isActive
-                    ? 'text-amber-700 bg-amber-50 border border-amber-200'
-                    : 'text-stone-500 hover:text-amber-600 hover:bg-amber-50',
+                    ? 'text-secondary-foreground bg-secondary border border-border'
+                    : 'text-muted-foreground hover:text-accent-foreground hover:bg-secondary',
                 ].join(' ')
               }
             >
@@ -51,16 +52,17 @@ export function DesktopHeader() {
       <div className="flex items-center gap-3">
         <button
           onClick={toggleTheme}
-          className="flex items-center justify-center w-8 h-8 rounded-xl text-muted-foreground hover:text-foreground hover:bg-amber-50 dark:hover:bg-muted transition-colors"
+          className="flex items-center justify-center w-8 h-8 rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
           aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
           title={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
         >
           {theme === 'dark' ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
         </button>
-        <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 text-sm font-medium">
+        <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-secondary-foreground text-sm font-medium">
           A
         </div>
       </div>
+    </div>
     </header>
   )
 }

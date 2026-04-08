@@ -10,7 +10,9 @@ export function AppLayout() {
 
       {/* Main content — pb-16 prevents bottom nav from covering last content on mobile */}
       <main className="flex-1 overflow-y-auto pb-16 lg:pb-0">
-        <Outlet />
+        <div className="mx-auto max-w-5xl">
+          <Outlet />
+        </div>
       </main>
 
       {/* Bottom nav: mobile only */}

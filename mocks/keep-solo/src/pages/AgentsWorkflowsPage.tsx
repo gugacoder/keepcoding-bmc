@@ -10,34 +10,34 @@ import type { Workflow, WorkflowStatus } from '@/data/types'
 const STATUS_CONFIG: Record<WorkflowStatus, { label: string; className: string; pulse?: boolean }> = {
   mapeado: {
     label: 'Mapeado',
-    className: 'bg-stone-100 text-stone-600 border-stone-200',
+    className: 'bg-muted text-muted-foreground border-border',
   },
   app_em_criacao: {
     label: 'App em criação',
-    className: 'bg-purple-50 text-purple-700 border-purple-200',
+    className: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/30 dark:text-purple-400 dark:border-purple-800',
     pulse: true,
   },
   app_pronto: {
     label: 'App pronto',
-    className: 'bg-cyan-50 text-cyan-700 border-cyan-200',
+    className: 'bg-cyan-50 text-cyan-700 border-cyan-200 dark:bg-cyan-950/30 dark:text-cyan-400 dark:border-cyan-800',
   },
   implantado: {
     label: 'Implantado',
-    className: 'bg-orange-50 text-orange-700 border-orange-200',
+    className: 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400 dark:border-orange-800',
   },
   agente_treinando: {
     label: 'Treinando',
-    className: 'bg-amber-50 text-amber-700 border-amber-200',
+    className: 'bg-secondary text-secondary-foreground border-border',
     pulse: true,
   },
   agente_pronto: {
     label: 'Pronto',
-    className: 'bg-orange-100 text-orange-700 border-orange-200',
+    className: 'bg-orange-100 text-orange-700 border-orange-200 dark:bg-orange-950/30 dark:text-orange-400 dark:border-orange-800',
     pulse: true,
   },
   agente_ativo: {
     label: 'Agente ativo',
-    className: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    className: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800',
     pulse: true,
   },
 }
@@ -56,7 +56,7 @@ function StatusBadge({ status }: { status: WorkflowStatus }) {
               : status === 'agente_pronto'
               ? 'bg-orange-500'
               : status === 'agente_treinando'
-              ? 'bg-amber-500'
+              ? 'bg-primary'
               : 'bg-purple-500'
           }`}
         />
@@ -95,12 +95,12 @@ export function AgentsWorkflowsPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-stone-800">Workflows</h1>
-          <p className="text-sm text-stone-400 mt-0.5">Processos que você faz repetidamente</p>
+          <h1 className="text-xl font-semibold text-foreground">Workflows</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">Processos que você faz repetidamente</p>
         </div>
         <button
           onClick={() => setWizardOpen(true)}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-amber-500 rounded-xl hover:bg-amber-600 transition-colors shadow-sm"
+          className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/80 transition-colors shadow-sm"
         >
           <Plus size={16} weight="bold" />
           Novo Workflow
@@ -132,19 +132,19 @@ export function AgentsWorkflowsPage() {
                   <button
                     key={wf.id}
                     onClick={() => setSelectedWorkflow(live)}
-                    className={`w-full text-left bg-white rounded-2xl border shadow-sm p-5 hover:shadow-md transition-all ${
+                    className={`w-full text-left bg-card rounded-2xl border shadow-sm p-5 hover:shadow-md transition-all ${
                       isSelected
-                        ? 'border-amber-400 ring-2 ring-amber-200'
-                        : 'border-amber-100 hover:border-amber-200'
+                        ? 'border-primary ring-2 ring-accent'
+                        : 'border-border hover:border-primary/30'
                     }`}
                   >
                     {/* Top: name + status */}
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-                          <GitBranch size={18} weight="duotone" className="text-amber-600" />
+                        <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center shrink-0">
+                          <GitBranch size={18} weight="duotone" className="text-accent-foreground" />
                         </div>
-                        <h3 className="text-sm font-semibold text-stone-800 leading-snug line-clamp-2">
+                        <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">
                           {wf.name}
                         </h3>
                       </div>
@@ -153,18 +153,18 @@ export function AgentsWorkflowsPage() {
 
                     {/* Description */}
                     {wf.description && wf.description !== wf.name && (
-                      <p className="text-xs text-stone-500 leading-relaxed line-clamp-2 mb-3">
+                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3">
                         {wf.description}
                       </p>
                     )}
 
                     {/* Footer */}
-                    <div className="flex items-center justify-between pt-3 border-t border-amber-50">
-                      <span className="text-xs text-stone-400">{formatDate(wf.createdAt)}</span>
+                    <div className="flex items-center justify-between pt-3 border-t border-border/50">
+                      <span className="text-xs text-muted-foreground">{formatDate(wf.createdAt)}</span>
                       {live.status === 'agente_ativo' && (
                         <div className="flex items-center gap-1.5">
                           <Pulse size={14} weight="duotone" className="text-emerald-500 animate-pulse" />
-                          <span className="text-xs font-medium text-emerald-600">Heartbeat</span>
+                          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Heartbeat</span>
                         </div>
                       )}
                     </div>
@@ -188,10 +188,10 @@ export function AgentsWorkflowsPage() {
 
             {/* Mobile: full-screen overlay */}
             <div className="fixed inset-0 z-40 lg:hidden flex flex-col bg-black/30 backdrop-blur-sm">
-              <div className="mt-auto bg-white rounded-t-3xl max-h-[90vh] overflow-y-auto">
+              <div className="mt-auto bg-card rounded-t-3xl max-h-[90vh] overflow-y-auto">
                 {/* drag handle */}
                 <div className="flex justify-center pt-3 pb-1">
-                  <div className="w-10 h-1 bg-stone-200 rounded-full" />
+                  <div className="w-10 h-1 bg-border rounded-full" />
                 </div>
                 <WorkflowDetailPanel
                   workflow={liveSelected}
@@ -200,10 +200,10 @@ export function AgentsWorkflowsPage() {
               </div>
               {/* tap backdrop to close */}
               <button
-                className="absolute top-4 right-4 p-2 rounded-full bg-white/90 shadow"
+                className="absolute top-4 right-4 p-2 rounded-full bg-card/90 shadow"
                 onClick={() => setSelectedWorkflow(null)}
               >
-                <X size={18} className="text-stone-600" />
+                <X size={18} className="text-muted-foreground" />
               </button>
             </div>
           </>

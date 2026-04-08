@@ -95,27 +95,27 @@ function DisconnectDialog({ tool, onConfirm, onCancel }: DisconnectDialogProps) 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onCancel} />
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm p-6 space-y-5">
+      <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-sm p-6 space-y-5">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-red-50 flex items-center justify-center">
+          <div className="w-11 h-11 rounded-2xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center">
             <Warning size={22} weight="duotone" className="text-red-500" />
           </div>
           <div>
-            <h3 className="text-base font-semibold text-stone-800">Desconectar ferramenta?</h3>
-            <p className="text-xs text-stone-400 mt-0.5">Esta ação pode afetar o agente</p>
+            <h3 className="text-base font-semibold text-foreground">Desconectar ferramenta?</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Esta ação pode afetar o agente</p>
           </div>
         </div>
 
-        <p className="text-sm text-stone-600">
+        <p className="text-sm text-muted-foreground">
           Tem certeza que quer desconectar{' '}
-          <span className="font-semibold text-stone-800">{tool.name}</span>? O agente perderá
+          <span className="font-semibold text-foreground">{tool.name}</span>? O agente perderá
           acesso a essa integração.
         </p>
 
         <div className="flex gap-3">
           <button
             onClick={onCancel}
-            className="flex-1 px-4 py-2.5 rounded-2xl border border-stone-200 text-sm font-medium text-stone-600 hover:bg-stone-50 transition-colors"
+            className="flex-1 px-4 py-2.5 rounded-2xl border border-border text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
           >
             Cancelar
           </button>
@@ -153,49 +153,49 @@ function AddToolDialog({ catalog, onAdd, onClose }: AddToolDialogProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm flex flex-col max-h-[80vh]">
+      <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-sm flex flex-col max-h-[80vh]">
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-6 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center">
-              <Plus size={18} weight="bold" className="text-amber-600" />
+            <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center">
+              <Plus size={18} weight="bold" className="text-accent-foreground" />
             </div>
-            <h3 className="text-base font-semibold text-stone-800">Adicionar ferramenta</h3>
+            <h3 className="text-base font-semibold text-foreground">Adicionar ferramenta</h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-xl bg-stone-100 hover:bg-stone-200 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-xl bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
           >
-            <X size={16} weight="bold" className="text-stone-500" />
+            <X size={16} weight="bold" className="text-muted-foreground" />
           </button>
         </div>
 
         {/* List */}
         <div className="overflow-y-auto px-4 pb-6 space-y-2">
           {catalog.length === 0 ? (
-            <div className="text-center py-8 text-stone-400">
-              <PlugsConnected size={32} weight="duotone" className="mx-auto mb-2 text-stone-300" />
+            <div className="text-center py-8 text-muted-foreground">
+              <PlugsConnected size={32} weight="duotone" className="mx-auto mb-2 text-muted-foreground/50" />
               <p className="text-sm">Todas as ferramentas já estão na sua lista</p>
             </div>
           ) : (
             catalog.map((tool) => (
               <div
                 key={tool.id}
-                className="flex items-center justify-between p-4 rounded-2xl bg-amber-50 border border-amber-100"
+                className="flex items-center justify-between p-4 rounded-2xl bg-secondary border border-border"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-white border border-amber-100 flex items-center justify-center text-amber-600 shadow-sm">
+                  <div className="w-9 h-9 rounded-xl bg-card border border-border flex items-center justify-center text-accent-foreground shadow-sm">
                     <ToolIcon name={tool.icon} size={18} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-stone-700">{tool.name}</p>
-                    <p className="text-xs text-stone-400">{tool.category}</p>
+                    <p className="text-sm font-medium text-foreground">{tool.name}</p>
+                    <p className="text-xs text-muted-foreground">{tool.category}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => handleAdd(tool)}
                   disabled={adding === tool.id}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 disabled:bg-amber-300 text-white text-xs font-medium transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary hover:bg-primary/80 disabled:bg-primary/50 text-primary-foreground text-xs font-medium transition-colors"
                 >
                   {adding === tool.id ? (
                     <span className="flex gap-0.5 px-1">
@@ -253,19 +253,19 @@ export function AgentsToolsPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
-              <Wrench size={22} weight="duotone" className="text-amber-600" />
+            <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center">
+              <Wrench size={22} weight="duotone" className="text-accent-foreground" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-stone-800">Minhas Ferramentas</h1>
-              <p className="text-sm text-stone-400">
+              <h1 className="text-xl font-semibold text-foreground">Minhas Ferramentas</h1>
+              <p className="text-sm text-muted-foreground">
                 {connectedCount} de {tools.length} conectadas
               </p>
             </div>
           </div>
           <button
             onClick={() => setShowAddDialog(true)}
-            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors shadow-sm"
+            className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-primary-foreground text-sm font-medium px-4 py-2 rounded-xl transition-colors shadow-sm"
           >
             <Plus size={16} weight="bold" />
             <span className="hidden sm:inline">Adicionar ferramenta</span>
@@ -274,16 +274,16 @@ export function AgentsToolsPage() {
         </div>
 
         {/* Tools list */}
-        <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
-          <div className="divide-y divide-amber-50">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="divide-y divide-border/50">
             {tools.map((tool) => (
               <div key={tool.id} className="flex items-center gap-4 px-5 py-4">
                 {/* Icon */}
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
                     tool.status === 'connected'
-                      ? 'bg-amber-50 text-amber-600 border border-amber-100'
-                      : 'bg-stone-50 text-stone-400 border border-stone-100'
+                      ? 'bg-secondary text-accent-foreground border border-border'
+                      : 'bg-muted text-muted-foreground border border-border'
                   }`}
                 >
                   <ToolIcon name={tool.icon} size={20} />
@@ -291,8 +291,8 @@ export function AgentsToolsPage() {
 
                 {/* Name + category */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-stone-800 truncate">{tool.name}</p>
-                  <p className="text-xs text-stone-400">{tool.category}</p>
+                  <p className="text-sm font-medium text-foreground truncate">{tool.name}</p>
+                  <p className="text-xs text-muted-foreground">{tool.category}</p>
                 </div>
 
                 {/* Status */}
@@ -300,14 +300,14 @@ export function AgentsToolsPage() {
                   {tool.status === 'connected' ? (
                     <>
                       <CheckCircle size={15} weight="duotone" className="text-green-500" />
-                      <span className="text-xs font-medium text-green-600 hidden sm:inline">
+                      <span className="text-xs font-medium text-green-600 dark:text-green-400 hidden sm:inline">
                         Conectado
                       </span>
                     </>
                   ) : (
                     <>
-                      <Plugs size={15} weight="duotone" className="text-stone-300" />
-                      <span className="text-xs font-medium text-stone-400 hidden sm:inline">
+                      <Plugs size={15} weight="duotone" className="text-muted-foreground/50" />
+                      <span className="text-xs font-medium text-muted-foreground hidden sm:inline">
                         Desconectado
                       </span>
                     </>
@@ -318,7 +318,7 @@ export function AgentsToolsPage() {
                 {tool.status === 'connected' ? (
                   <button
                     onClick={() => setDisconnectTarget(tool)}
-                    className="flex-shrink-0 text-xs text-red-400 hover:text-red-600 hover:bg-red-50 px-2.5 py-1.5 rounded-xl transition-colors font-medium"
+                    className="flex-shrink-0 text-xs text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 px-2.5 py-1.5 rounded-xl transition-colors font-medium"
                   >
                     Desconectar
                   </button>
@@ -333,7 +333,7 @@ export function AgentsToolsPage() {
                         )
                       )
                     }
-                    className="flex-shrink-0 text-xs text-amber-600 hover:text-amber-800 hover:bg-amber-50 px-2.5 py-1.5 rounded-xl transition-colors font-medium"
+                    className="flex-shrink-0 text-xs text-accent-foreground hover:text-secondary-foreground hover:bg-secondary px-2.5 py-1.5 rounded-xl transition-colors font-medium"
                   >
                     Conectar
                   </button>

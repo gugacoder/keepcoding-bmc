@@ -12,10 +12,10 @@ import { useTheme } from '../contexts/ThemeContext'
 
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-stone-800 text-white text-sm px-5 py-3 rounded-2xl shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <Check size={16} weight="bold" className="text-amber-400 shrink-0" />
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-foreground text-background text-sm px-5 py-3 rounded-2xl shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <Check size={16} weight="bold" className="text-primary shrink-0" />
       <span>{message}</span>
-      <button onClick={onClose} className="ml-2 text-stone-400 hover:text-white transition-colors">
+      <button onClick={onClose} className="ml-2 text-muted-foreground hover:text-background transition-colors">
         <X size={14} weight="bold" />
       </button>
     </div>
@@ -35,7 +35,7 @@ function DarkModeToggle() {
       <button
         onClick={toggleTheme}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-          theme === 'dark' ? 'bg-amber-500' : 'bg-stone-200'
+          theme === 'dark' ? 'bg-primary' : 'bg-muted'
         }`}
         role="switch"
         aria-checked={theme === 'dark'}
@@ -62,10 +62,10 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
-      <div className="px-5 py-4 border-b border-amber-50 flex items-center gap-2">
-        <span className="text-amber-500">{icon}</span>
-        <h2 className="font-semibold text-stone-700">{title}</h2>
+    <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
+      <div className="px-5 py-4 border-b border-border/50 flex items-center gap-2">
+        <span className="text-primary">{icon}</span>
+        <h2 className="font-semibold text-foreground">{title}</h2>
       </div>
       <div className="p-5">{children}</div>
     </div>
@@ -86,8 +86,8 @@ function Toggle({
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 ${
-        checked ? 'bg-amber-500' : 'bg-stone-200'
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${
+        checked ? 'bg-primary' : 'bg-muted'
       }`}
     >
       <span
@@ -140,14 +140,14 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-      <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
+      <div className="bg-card w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-5 border-b border-stone-100 flex items-center justify-between">
+        <div className="px-6 py-5 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Crown size={20} weight="duotone" className="text-amber-500" />
-            <h2 className="font-semibold text-stone-800 text-lg">Escolha seu plano</h2>
+            <Crown size={20} weight="duotone" className="text-primary" />
+            <h2 className="font-semibold text-foreground text-lg">Escolha seu plano</h2>
           </div>
-          <button onClick={onClose} className="text-stone-400 hover:text-stone-600 transition-colors">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition-colors">
             <X size={20} weight="bold" />
           </button>
         </div>
@@ -160,34 +160,34 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
               onClick={() => setSelected(plan.id)}
               className={`text-left rounded-2xl border-2 p-4 transition-all ${
                 plan.highlight
-                  ? 'border-amber-400 bg-amber-50'
+                  ? 'border-primary bg-secondary'
                   : selected === plan.id
-                  ? 'border-amber-300 bg-amber-50'
-                  : 'border-stone-100 bg-white hover:border-amber-200'
+                  ? 'border-primary/50 bg-secondary'
+                  : 'border-border bg-card hover:border-primary/30'
               }`}
             >
               {plan.highlight && (
-                <span className="inline-block bg-amber-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full mb-2">
+                <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-2">
                   Popular
                 </span>
               )}
               {plan.current && (
-                <span className="inline-block bg-stone-100 text-stone-600 text-xs font-medium px-2 py-0.5 rounded-full mb-2">
+                <span className="inline-block bg-muted text-muted-foreground text-xs font-medium px-2 py-0.5 rounded-full mb-2">
                   Atual
                 </span>
               )}
               <div className="mb-3">
-                <p className="font-bold text-stone-800 text-lg">{plan.name}</p>
-                <p className="text-stone-500 text-xs">{plan.description}</p>
+                <p className="font-bold text-foreground text-lg">{plan.name}</p>
+                <p className="text-muted-foreground text-xs">{plan.description}</p>
               </div>
               <div className="flex items-baseline gap-0.5 mb-4">
-                <span className="text-2xl font-bold text-stone-900">{plan.price}</span>
-                <span className="text-stone-400 text-sm">{plan.period}</span>
+                <span className="text-2xl font-bold text-foreground">{plan.price}</span>
+                <span className="text-muted-foreground text-sm">{plan.period}</span>
               </div>
               <ul className="space-y-1.5">
                 {plan.features.map((f) => (
-                  <li key={f} className="flex items-center gap-1.5 text-xs text-stone-600">
-                    <Check size={12} weight="bold" className="text-amber-500 shrink-0" />
+                  <li key={f} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Check size={12} weight="bold" className="text-primary shrink-0" />
                     {f}
                   </li>
                 ))}
@@ -200,13 +200,13 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
         <div className="px-6 pb-6 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 border border-stone-200 hover:bg-stone-50 text-stone-600 text-sm font-medium py-3 rounded-2xl transition-colors"
+            className="flex-1 border border-border hover:bg-muted text-muted-foreground text-sm font-medium py-3 rounded-2xl transition-colors"
           >
             Cancelar
           </button>
           <button
             disabled={!selected || PLANS.find((p) => p.id === selected)?.current}
-            className="flex-2 flex-grow bg-amber-500 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold py-3 rounded-2xl transition-colors flex items-center justify-center gap-2"
+            className="flex-2 flex-grow bg-primary hover:bg-primary/80 disabled:opacity-40 disabled:cursor-not-allowed text-primary-foreground text-sm font-semibold py-3 rounded-2xl transition-colors flex items-center justify-center gap-2"
           >
             <Lightning size={16} weight="duotone" />
             {selected && !PLANS.find((p) => p.id === selected)?.current
@@ -276,12 +276,12 @@ export function ConfigPage() {
     <div className="p-4 sm:p-6 max-w-2xl space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-amber-100 flex items-center justify-center">
-          <Gear size={22} weight="duotone" className="text-amber-600" />
+        <div className="w-10 h-10 rounded-2xl bg-accent flex items-center justify-center">
+          <Gear size={22} weight="duotone" className="text-accent-foreground" />
         </div>
         <div>
-          <h1 className="text-xl font-semibold text-stone-800">Config</h1>
-          <p className="text-sm text-stone-400">Suas preferências</p>
+          <h1 className="text-xl font-semibold text-foreground">Config</h1>
+          <p className="text-sm text-muted-foreground">Suas preferências</p>
         </div>
       </div>
 
@@ -294,9 +294,9 @@ export function ConfigPage() {
               {profile.name.split(' ').map((w) => w[0]).slice(0, 2).join('')}
             </div>
             <div>
-              <p className="font-semibold text-stone-800">{profile.name}</p>
-              <p className="text-sm text-stone-400">{profile.email}</p>
-              <button className="text-xs text-amber-500 hover:text-amber-600 mt-1 transition-colors">
+              <p className="font-semibold text-foreground">{profile.name}</p>
+              <p className="text-sm text-muted-foreground">{profile.email}</p>
+              <button className="text-xs text-primary hover:text-primary/80 mt-1 transition-colors">
                 Trocar foto
               </button>
             </div>
@@ -305,30 +305,30 @@ export function ConfigPage() {
           {/* Fields */}
           <div className="space-y-3">
             <div>
-              <label className="text-xs font-medium text-stone-500 mb-1.5 block">Nome</label>
+              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Nome</label>
               <input
                 type="text"
                 value={editProfile ? draftProfile.name : profile.name}
                 disabled={!editProfile}
                 onChange={(e) => setDraftProfile((p) => ({ ...p, name: e.target.value }))}
-                className={`w-full px-4 py-2.5 rounded-xl text-sm text-stone-700 outline-none transition-colors ${
+                className={`w-full px-4 py-2.5 rounded-xl text-sm text-foreground outline-none transition-colors ${
                   editProfile
-                    ? 'bg-white border border-amber-300 focus:border-amber-400'
-                    : 'bg-amber-50 border border-amber-100 cursor-default'
+                    ? 'bg-card border border-primary/50 focus:border-primary'
+                    : 'bg-secondary border border-border cursor-default'
                 }`}
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-stone-500 mb-1.5 block">Email</label>
+              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Email</label>
               <input
                 type="email"
                 value={editProfile ? draftProfile.email : profile.email}
                 disabled={!editProfile}
                 onChange={(e) => setDraftProfile((p) => ({ ...p, email: e.target.value }))}
-                className={`w-full px-4 py-2.5 rounded-xl text-sm text-stone-700 outline-none transition-colors ${
+                className={`w-full px-4 py-2.5 rounded-xl text-sm text-foreground outline-none transition-colors ${
                   editProfile
-                    ? 'bg-white border border-amber-300 focus:border-amber-400'
-                    : 'bg-amber-50 border border-amber-100 cursor-default'
+                    ? 'bg-card border border-primary/50 focus:border-primary'
+                    : 'bg-secondary border border-border cursor-default'
                 }`}
               />
             </div>
@@ -338,7 +338,7 @@ export function ConfigPage() {
           {!editProfile ? (
             <button
               onClick={handleEditProfile}
-              className="flex items-center gap-2 text-sm font-medium text-amber-600 hover:text-amber-700 transition-colors"
+              className="flex items-center gap-2 text-sm font-medium text-accent-foreground hover:text-secondary-foreground transition-colors"
             >
               <PencilSimple size={14} weight="duotone" />
               Editar perfil
@@ -347,14 +347,14 @@ export function ConfigPage() {
             <div className="flex gap-2">
               <button
                 onClick={handleSaveProfile}
-                className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+                className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-primary-foreground text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
               >
                 <FloppyDisk size={14} weight="duotone" />
                 Salvar
               </button>
               <button
                 onClick={handleCancelProfile}
-                className="flex items-center gap-2 border border-stone-200 hover:bg-stone-50 text-stone-600 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+                className="flex items-center gap-2 border border-border hover:bg-muted text-muted-foreground text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
               >
                 <X size={14} weight="bold" />
                 Cancelar
@@ -370,8 +370,8 @@ export function ConfigPage() {
           {NOTIFICATION_ITEMS.map((item) => (
             <div key={item.id} className="flex items-center justify-between py-1">
               <div className="flex items-center gap-3">
-                <span className="text-amber-400">{item.icon}</span>
-                <span className="text-sm text-stone-700">{item.label}</span>
+                <span className="text-primary">{item.icon}</span>
+                <span className="text-sm text-foreground">{item.label}</span>
               </div>
               <Toggle
                 checked={notifs[item.id]}
@@ -386,31 +386,31 @@ export function ConfigPage() {
       <Section icon={<CreditCard size={16} weight="duotone" />} title="Plano">
         <div className="space-y-4">
           {/* Current plan card */}
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-100">
+          <div className="bg-secondary rounded-2xl p-5 border border-border">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <span className="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full">Plano atual</span>
-                <p className="text-xl font-bold text-stone-800 mt-2">Solo</p>
+                <span className="text-xs font-medium text-accent-foreground bg-accent px-2 py-0.5 rounded-full">Plano atual</span>
+                <p className="text-xl font-bold text-foreground mt-2">Solo</p>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold text-stone-900">R$97</p>
-                <p className="text-xs text-stone-400">/mês</p>
+                <p className="text-2xl font-bold text-foreground">R$97</p>
+                <p className="text-xs text-muted-foreground">/mês</p>
               </div>
             </div>
             <ul className="space-y-1.5 mt-2">
               {['1 agente', '500 ações/mês', 'Monitor básico', 'Suporte email'].map((f) => (
-                <li key={f} className="flex items-center gap-2 text-xs text-stone-600">
-                  <Check size={11} weight="bold" className="text-amber-500 shrink-0" />
+                <li key={f} className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check size={11} weight="bold" className="text-primary shrink-0" />
                   {f}
                 </li>
               ))}
             </ul>
-            <p className="text-xs text-stone-400 mt-3">Renova em 14/05/2026</p>
+            <p className="text-xs text-muted-foreground mt-3">Renova em 14/05/2026</p>
           </div>
 
           <button
             onClick={() => setShowUpgrade(true)}
-            className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold py-3 rounded-2xl transition-colors shadow-sm"
+            className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/80 text-primary-foreground text-sm font-semibold py-3 rounded-2xl transition-colors shadow-sm"
           >
             <Crown size={16} weight="duotone" />
             Fazer upgrade

@@ -24,8 +24,8 @@ export function BottomNav() {
               [
                 'flex flex-col items-center gap-1 px-4 py-3 rounded-xl text-xs font-medium transition-all min-w-[56px] min-h-[48px] justify-center',
                 isActive
-                  ? 'text-amber-600 bg-amber-50 dark:bg-amber-950/30'
-                  : 'text-muted-foreground hover:text-amber-500',
+                  ? 'text-accent-foreground bg-secondary'
+                  : 'text-muted-foreground hover:text-primary',
               ].join(' ')
             }
           >
@@ -37,7 +37,7 @@ export function BottomNav() {
       {/* Dark mode toggle */}
       <button
         onClick={toggleTheme}
-        className="flex flex-col items-center gap-1 px-4 py-3 rounded-xl text-xs font-medium transition-all min-w-[56px] min-h-[48px] justify-center text-muted-foreground hover:text-amber-500"
+        className="flex flex-col items-center gap-1 px-4 py-3 rounded-xl text-xs font-medium transition-all min-w-[56px] min-h-[48px] justify-center text-muted-foreground hover:text-primary"
         aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
       >
         {theme === 'dark' ? <Sun size={24} weight="duotone" /> : <Moon size={24} weight="duotone" />}

@@ -19,7 +19,7 @@ export function EmptyState({ icon: Icon, title, description, ctaLabel, onCta }: 
       {ctaLabel && onCta && (
         <button
           onClick={onCta}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-amber-500 rounded-xl hover:bg-amber-600 active:bg-amber-700 transition-colors shadow-sm"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-xl hover:bg-primary/80 active:bg-primary/70 transition-colors shadow-sm"
         >
           {ctaLabel}
         </button>
