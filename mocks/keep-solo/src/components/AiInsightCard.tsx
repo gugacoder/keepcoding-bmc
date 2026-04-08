@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Lightbulb, X, ArrowRight } from '@phosphor-icons/react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const INSIGHTS = [
   'Seu conteúdo de Instagram teve 3x mais engajamento esta semana — sugerindo mais posts para essa plataforma.',
@@ -10,6 +11,7 @@ const INSIGHTS = [
 export function AiInsightCard() {
   const [dismissed, setDismissed] = useState(false)
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   if (dismissed) return null
 
@@ -18,7 +20,7 @@ export function AiInsightCard() {
       <button
         onClick={() => setDismissed(true)}
         className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-violet-400 hover:text-violet-600 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-colors"
-        aria-label="Dispensar"
+        aria-label={t('autocreation.campaign.dismiss')}
       >
         <X size={14} />
       </button>
@@ -26,7 +28,7 @@ export function AiInsightCard() {
       <div className="flex items-center gap-2 mb-3 pr-6">
         <Lightbulb size={18} weight="duotone" className="text-violet-500 shrink-0" />
         <h3 className="text-sm font-semibold text-violet-900 dark:text-violet-200">
-          Baseado no seu desempenho recente
+          {t('autocreation.monitor.insightTitle')}
         </h3>
       </div>
 
@@ -43,7 +45,7 @@ export function AiInsightCard() {
         onClick={() => navigate('/create')}
         className="flex items-center gap-1.5 text-sm font-medium text-violet-600 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-200 transition-colors"
       >
-        Ver sugestões de conteúdo
+        {t('autocreation.monitor.viewSuggestions')}
         <ArrowRight size={14} />
       </button>
     </div>

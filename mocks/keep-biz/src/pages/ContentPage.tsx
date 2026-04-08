@@ -22,6 +22,7 @@ import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHi
 import { ContentThumbnail } from '@/components/ContentThumbnail'
 import { ProfileSelector } from '@/components/ProfileSelector'
 import { useProfiles } from '@/contexts/ProfileContext'
+import { useTranslation } from 'react-i18next'
 import { useContentActions } from '@/hooks/useContentActions'
 import { AiSuggestionCard } from '@/components/AiSuggestionCard'
 import { SourceBadge } from '@/components/SourceBadge'
@@ -276,6 +277,7 @@ interface EditSuggestionDialogProps {
 }
 
 function EditSuggestionDialog({ item, onClose, onSave }: EditSuggestionDialogProps) {
+  const { t } = useTranslation()
   const [title, setTitle] = useState(item.title)
   const [type, setType] = useState<ContentType>(item.type)
   const [platform, setPlatform] = useState<ContentPlatform>(item.platform)
@@ -303,7 +305,7 @@ function EditSuggestionDialog({ item, onClose, onSave }: EditSuggestionDialogPro
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2">
             <Robot size={16} weight="duotone" className="text-violet-500" />
-            <h2 className="text-base font-semibold text-foreground">Editar sugestão da IA</h2>
+            <h2 className="text-base font-semibold text-foreground">{t('autocreation.actions.edit')}</h2>
           </div>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={18} />
@@ -384,7 +386,7 @@ function EditSuggestionDialog({ item, onClose, onSave }: EditSuggestionDialogPro
               type="submit"
               className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
             >
-              Aprovar com edições
+              {t('autocreation.actions.saveAndApprove')}
             </button>
           </div>
         </form>
@@ -705,6 +707,7 @@ interface CampaignProposalCardProps {
 }
 
 function CampaignProposalCard({ campaign, onAccept, onCustomize, onDismiss }: CampaignProposalCardProps) {
+  const { t } = useTranslation()
   return (
     <div className="rounded-xl border border-violet/20 border-l-4 border-l-violet-500 bg-gradient-to-r from-violet-50/60 to-transparent dark:from-violet-950/20 dark:to-transparent p-5">
       {/* Header */}
@@ -714,7 +717,7 @@ function CampaignProposalCard({ campaign, onAccept, onCustomize, onDismiss }: Ca
         </div>
         <h3 className="text-sm font-semibold text-foreground flex-1 min-w-0">{campaign.title}</h3>
         <span className="px-2 py-0.5 text-xs font-medium bg-violet/10 text-violet border border-violet/20 rounded-full shrink-0">
-          Campanha IA
+          {t('autocreation.campaign.title')}
         </span>
       </div>
 
@@ -748,19 +751,19 @@ function CampaignProposalCard({ campaign, onAccept, onCustomize, onDismiss }: Ca
           className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-violet rounded-md hover:bg-violet/90 transition-colors"
         >
           <Check size={14} weight="bold" />
-          Aceitar campanha
+          {t('autocreation.campaign.accept')}
         </button>
         <button
           onClick={onCustomize}
           className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-violet bg-violet/10 border border-violet/20 rounded-md hover:bg-violet/20 transition-colors"
         >
-          Personalizar
+          {t('autocreation.campaign.customize')}
         </button>
         <button
           onClick={onDismiss}
           className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
         >
-          Dispensar
+          {t('autocreation.campaign.dismiss')}
         </button>
       </div>
     </div>
@@ -843,6 +846,7 @@ const FILTER_OPTIONS: { value: FilterStatus; label: string }[] = [
 ]
 
 export function ContentPage() {
+  const { t } = useTranslation()
   const { items, addItem, updateStatus } = useContent()
   const { activeProfileId, profiles } = useProfiles()
   const { aiSuggestions, approveSuggestion, rejectSuggestion, updateContent } = useContentActions(activeProfileId)
@@ -920,7 +924,7 @@ export function ContentPage() {
 
   function handleApprove(id: string) {
     approveSuggestion(id)
-    showToast('Sugestão aprovada! ✓')
+    showToast(t('autocreation.toast.approved'))
   }
 
   function handleEdit(item: ContentItem) {
@@ -938,7 +942,7 @@ export function ContentPage() {
       source: 'ai',
     })
     setEditingItem(null)
-    showToast('Sugestão editada e aprovada!')
+    showToast(t('autocreation.toast.edited'))
   }
 
   function handleReject(item: ContentItem) {
@@ -954,7 +958,7 @@ export function ContentPage() {
       })
     }, 400)
 
-    showToast('Sugestão rejeitada', item.id)
+    showToast(t('autocreation.toast.rejected'), item.id)
   }
 
   function handleUndo(id: string) {
@@ -998,19 +1002,19 @@ export function ContentPage() {
       addItem(newItem)
     })
     setCampaignList(prev => prev.map(c => c.id === campaign.id ? { ...c, status: 'aceita' } : c))
-    showToast(`Campanha aceita! ${campaign.posts.length} posts criados.`)
+    showToast(t('autocreation.campaign.accepted', { count: campaign.posts.length }))
   }
 
   function handleDismissCampaign(campaign: AiCampaign) {
     campaignUndoBuffer.current.set(campaign.id, campaign)
     setCampaignList(prev => prev.map(c => c.id === campaign.id ? { ...c, status: 'dispensada' } : c))
-    showToast('Campanha dispensada', `campaign:${campaign.id}`)
+    showToast(t('autocreation.campaign.dismiss'), `campaign:${campaign.id}`)
   }
 
   function handleSaveCustomization(updated: AiCampaign) {
     setCampaignList(prev => prev.map(c => c.id === updated.id ? updated : c))
     setCustomizingCampaign(null)
-    showToast('Campanha atualizada!')
+    showToast(t('autocreation.campaign.updated'))
   }
 
   function handleCreate(newItem: ContentItem) {
@@ -1103,9 +1107,9 @@ export function ContentPage() {
               {/* Section header */}
               <div className="flex items-center gap-2">
                 <Robot size={18} weight="duotone" className="text-blue-500" />
-                <h2 className="text-sm font-semibold text-foreground">Sugestões da IA</h2>
+                <h2 className="text-sm font-semibold text-foreground">{t('autocreation.suggestions.titleBiz')}</h2>
                 <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-2 py-0.5 rounded-full">
-                  {aiSuggestions.length} {aiSuggestions.length === 1 ? 'pendente' : 'pendentes'}
+                  {t('autocreation.suggestions.pending', { count: aiSuggestions.length })}
                 </span>
               </div>
 
@@ -1125,7 +1129,7 @@ export function ContentPage() {
                             <span className="text-sm font-semibold text-blue-800 dark:text-blue-200">{profileName}</span>
                             <span className="text-xs text-blue-600 dark:text-blue-400">—</span>
                             <span className="text-xs text-blue-600 dark:text-blue-400">
-                              {groupItems.length} {groupItems.length === 1 ? 'sugestão' : 'sugestões'}
+                              {t('autocreation.suggestions.pending', { count: groupItems.length })}
                             </span>
                           </div>
                           <CaretDown
@@ -1210,7 +1214,7 @@ export function ContentPage() {
           {!loading && aiSuggestions.length > 0 && profileItems.length > 0 && (
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-border" />
-              <span className="text-xs text-muted-foreground font-medium">Conteúdo existente</span>
+              <span className="text-xs text-muted-foreground font-medium">{t('autocreation.divider.existingContent')}</span>
               <div className="flex-1 h-px bg-border" />
             </div>
           )}
@@ -1335,7 +1339,7 @@ export function ContentPage() {
               onClick={() => handleUndo(toast.undoId!)}
               className="text-xs underline opacity-80 hover:opacity-100"
             >
-              Desfazer
+              {t('autocreation.actions.undo')}
             </button>
           )}
           <button onClick={() => setToast(null)} className="opacity-60 hover:opacity-100 ml-1">

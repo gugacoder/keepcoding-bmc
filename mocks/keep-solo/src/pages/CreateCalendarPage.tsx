@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Calendar, X, Robot, Check, PencilSimple, InstagramLogo, TiktokLogo, LinkedinLogo, YoutubeLogo, Article, Globe } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 import { useContent } from '@/contexts/ContentContext'
 import { useContentActions } from '@/hooks/useContentActions'
 import { Badge, IconBubble, badgeDotClass, type BadgeColor } from '@/components/ui/badge'
@@ -46,6 +47,7 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
   const [editing, setEditing] = useState(false)
   const [title, setTitle] = useState(item.title)
   const [briefing, setBriefing] = useState(item.briefing)
+  const { t } = useTranslation()
 
   function handleApprove() { onApprove(); onClose() }
   function handleReject() { onReject(); onClose() }
@@ -58,7 +60,7 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
         <div className="flex items-center justify-between p-4 border-b border-border/50">
           <div className="flex items-center gap-1.5 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-semibold px-2 py-0.5 rounded-full">
             <Robot size={12} weight="duotone" />
-            <span>Sugestão IA</span>
+            <span>{t('autocreation.calendar.aiBadge')}</span>
           </div>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X size={18} /></button>
         </div>
@@ -78,7 +80,7 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
               <div className="flex gap-2 pt-1">
                 <button onClick={handleSaveEdit}
                   className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors">
-                  <Check size={14} weight="bold" /> Salvar e aprovar
+                  <Check size={14} weight="bold" /> {t('autocreation.actions.saveAndApprove')}
                 </button>
                 <button onClick={() => setEditing(false)}
                   className="px-3 py-1.5 text-sm text-muted-foreground border border-border rounded-lg hover:bg-accent transition-colors">
@@ -95,15 +97,15 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
               <div className="flex gap-2 pt-1">
                 <button onClick={handleApprove}
                   className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors">
-                  <Check size={12} weight="bold" /> Aprovar
+                  <Check size={12} weight="bold" /> {t('autocreation.actions.approve')}
                 </button>
                 <button onClick={() => setEditing(true)}
                   className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/40 hover:bg-violet-200 dark:hover:bg-violet-800/60 rounded-lg transition-colors">
-                  <PencilSimple size={12} /> Editar
+                  <PencilSimple size={12} /> {t('autocreation.actions.edit')}
                 </button>
                 <button onClick={handleReject}
                   className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-900/40 rounded-lg transition-colors">
-                  <X size={12} /> Rejeitar
+                  <X size={12} /> {t('autocreation.actions.reject')}
                 </button>
               </div>
             </>
@@ -159,6 +161,7 @@ function DetailModal({ item, onClose }: { item: ContentItem; onClose: () => void
 }
 
 export function CreateCalendarPage() {
+  const { t } = useTranslation()
   const { items } = useContent()
   const { approveSuggestion, rejectSuggestion, updateContent } = useContentActions()
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null)
@@ -271,11 +274,11 @@ export function CreateCalendarPage() {
       <div className="flex flex-wrap gap-3">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <span className="w-2 h-2 rounded-full bg-muted-foreground" />
-          Conteúdo confirmado
+          {t('autocreation.calendar.legend.confirmed')}
         </div>
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <span className="w-2 h-2 rounded-full border border-dashed border-violet-400 bg-transparent" />
-          Sugestão IA (aguardando aprovação)
+          {t('autocreation.calendar.legend.aiPending')}
         </div>
         {(['pronto', 'publicado', 'agendado'] as const).map((s) => {
           const cfg = STATUS_CONFIG[s]

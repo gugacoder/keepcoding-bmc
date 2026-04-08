@@ -92,7 +92,7 @@ export function OrchestratorBar() {
           >
             <Sparkle size={13} weight="duotone" className="text-violet-400 animate-pulse shrink-0" />
             <span className="text-xs font-medium text-violet-400">
-              Agente criou {pendingCount} {pendingCount === 1 ? 'sugestão' : 'sugestões'}
+              {t('autocreation.activity.agentCreated', { count: pendingCount })}
             </span>
           </button>
         )}

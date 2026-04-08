@@ -16,6 +16,7 @@ import {
   CaretDown,
   CaretUp,
 } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 import { useContent } from '@/contexts/ContentContext'
 import { useContentActions } from '@/hooks/useContentActions'
 import { AiSuggestionCard } from '@/components/AiSuggestionCard'
@@ -144,6 +145,7 @@ interface DialogProps {
 }
 
 function CreateDialog({ onClose, onSubmit, prefill, submitLabel = 'Criar' }: DialogProps) {
+  const { t } = useTranslation()
   const [title, setTitle]       = useState(prefill?.title ?? '')
   const [type, setType]         = useState<ContentType>(prefill?.type ?? 'post')
   const [channel, setChannel]   = useState<ContentChannel>(prefill?.channel ?? 'Instagram')
@@ -179,7 +181,7 @@ function CreateDialog({ onClose, onSubmit, prefill, submitLabel = 'Criar' }: Dia
       <div className="relative bg-card rounded-3xl shadow-2xl w-full max-w-md">
         <div className="flex items-center justify-between p-5 border-b border-border/50">
           <h2 className="font-semibold text-foreground text-base">
-            {prefill ? 'Editar sugestão' : 'Criar post'}
+            {prefill ? t('autocreation.actions.edit') : 'Criar post'}
           </h2>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={20} />
@@ -279,6 +281,7 @@ function Toast({ state, onClose, onUndo }: {
   onClose: () => void
   onUndo?: (id: string) => void
 }) {
+  const { t } = useTranslation()
   return (
     <div className="fixed bottom-20 md:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-foreground text-background text-sm px-5 py-3 rounded-2xl shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-300 whitespace-nowrap">
       <Check size={16} weight="bold" className="text-emerald-400 shrink-0" />
@@ -288,7 +291,7 @@ function Toast({ state, onClose, onUndo }: {
           onClick={() => { onUndo(state.undoId!); onClose() }}
           className="ml-2 text-xs font-semibold underline text-amber-300 hover:text-amber-200"
         >
-          Desfazer
+          {t('autocreation.actions.undo')}
         </button>
       )}
       <button onClick={onClose} className="ml-2 text-muted shrink-0">
@@ -307,6 +310,7 @@ interface CampaignBannerProps {
 
 function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) {
   const [expanded, setExpanded] = useState(false)
+  const { t } = useTranslation()
 
   return (
     <div className="rounded-2xl border border-violet-200 dark:border-violet-800/50 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/20 overflow-hidden">
@@ -319,12 +323,12 @@ function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) 
           <div className="flex items-center gap-2 mb-0.5 flex-wrap">
             <h3 className="text-sm font-semibold text-foreground leading-snug">{campaign.title}</h3>
             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/60 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 shrink-0">
-              Campanha IA
+              {t('autocreation.campaign.title')}
             </span>
           </div>
           <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{campaign.description}</p>
           <p className="text-xs font-medium text-violet-600 dark:text-violet-400 mt-1">
-            {campaign.posts.length} posts planejados
+            {t('autocreation.campaign.postsPlanned', { count: campaign.posts.length })}
           </p>
         </div>
       </div>
@@ -356,20 +360,20 @@ function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) 
           className="flex items-center gap-1.5 text-xs font-semibold text-white bg-violet-600 hover:bg-violet-700 px-3 py-1.5 rounded-xl transition-colors shadow-sm"
         >
           <Check size={12} weight="bold" />
-          Aceitar
+          {t('autocreation.campaign.accept')}
         </button>
         <button
           onClick={() => setExpanded((v) => !v)}
           className="flex items-center gap-1.5 text-xs font-medium text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700 px-3 py-1.5 rounded-xl hover:bg-violet-50 dark:hover:bg-violet-900/30 transition-colors"
         >
           {expanded ? <CaretUp size={12} weight="bold" /> : <CaretDown size={12} weight="bold" />}
-          {expanded ? 'Ocultar' : 'Ver detalhes'}
+          {expanded ? t('autocreation.campaign.hideDetails') : t('autocreation.campaign.showDetails')}
         </button>
         <button
           onClick={onDismiss}
           className="text-xs font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-xl hover:bg-muted transition-colors"
         >
-          Dispensar
+          {t('autocreation.campaign.dismiss')}
         </button>
       </div>
     </div>
@@ -378,6 +382,7 @@ function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) 
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export function CreatePage() {
+  const { t } = useTranslation()
   const { items, addItem, updateStatus } = useContent()
   const { aiSuggestions, approveSuggestion, rejectSuggestion, updateContent } = useContentActions()
 
@@ -409,7 +414,7 @@ export function CreatePage() {
 
   function handleApprove(id: string) {
     approveSuggestion(id)
-    showToast('Sugestão aprovada! ✓')
+    showToast(t('autocreation.toast.approved'))
   }
 
   function handleEdit(item: ContentItem) {
@@ -427,7 +432,7 @@ export function CreatePage() {
       source: 'ai',
     })
     setEditingItem(null)
-    showToast('Sugestão editada e aprovada!')
+    showToast(t('autocreation.toast.edited'))
   }
 
   function handleReject(item: ContentItem) {
@@ -443,7 +448,7 @@ export function CreatePage() {
       })
     }, 400)
 
-    showToast('Sugestão rejeitada', item.id)
+    showToast(t('autocreation.toast.rejected'), item.id)
   }
 
   function handleUndo(id: string) {
@@ -480,13 +485,13 @@ export function CreatePage() {
       })
     })
     setCampaignList((prev) => prev.map((c) => (c.id === campaign.id ? { ...c, status: 'aceita' } : c)))
-    showToast(`Campanha aceita! ${campaign.posts.length} posts criados.`)
+    showToast(t('autocreation.campaign.accepted', { count: campaign.posts.length }))
   }
 
   function handleDismissCampaign(campaign: AiCampaign) {
     campaignUndoBuffer.current.set(campaign.id, campaign)
     setCampaignList((prev) => prev.map((c) => (c.id === campaign.id ? { ...c, status: 'dispensada' } : c)))
-    showToast('Campanha dispensada', `campaign:${campaign.id}`)
+    showToast(t('autocreation.campaign.dismiss'), `campaign:${campaign.id}`)
   }
 
   // Contents = all items except ai+rascunho (those appear in the suggestion section)
@@ -540,9 +545,9 @@ export function CreatePage() {
               {/* Section header */}
               <div className="flex items-center gap-2">
                 <Sparkle size={18} weight="duotone" className="text-amber-500" />
-                <h2 className="text-sm font-semibold text-foreground">Sugestões para você</h2>
+                <h2 className="text-sm font-semibold text-foreground">{t('autocreation.suggestions.title')}</h2>
                 <span className="bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold px-2 py-0.5 rounded-full">
-                  {aiSuggestions.length} {aiSuggestions.length === 1 ? 'nova' : 'novas'}
+                  {t('autocreation.suggestions.new', { count: aiSuggestions.length })}
                 </span>
               </div>
 
@@ -580,7 +585,7 @@ export function CreatePage() {
           {aiSuggestions.length > 0 && displayContents.length > 0 && (
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-border" />
-              <span className="text-xs text-muted-foreground font-medium">Seu conteúdo</span>
+              <span className="text-xs text-muted-foreground font-medium">{t('autocreation.divider.yourContent')}</span>
               <div className="flex-1 h-px bg-border" />
             </div>
           )}

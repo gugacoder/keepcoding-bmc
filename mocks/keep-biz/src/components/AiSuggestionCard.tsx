@@ -1,4 +1,5 @@
 import { Robot, Check, PencilSimple, X } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 import type { ContentItem } from '@/data/types'
 
 const PLATFORM_LABEL: Record<string, string> = {
@@ -40,6 +41,7 @@ export function AiSuggestionCard({
   onReject,
   fading = false,
 }: AiSuggestionCardProps) {
+  const { t } = useTranslation()
   return (
     <div
       className={`relative bg-blue-50 dark:bg-blue-950/20 rounded-2xl border-l-4 border-blue-500 dark:border-blue-400 border border-blue-200 dark:border-blue-800 shadow-sm transition-all duration-500 ${fading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
@@ -47,7 +49,7 @@ export function AiSuggestionCard({
       {/* AI Badge */}
       <div className="absolute top-3 right-3 flex items-center gap-1 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-semibold px-2 py-0.5 rounded-full">
         <Robot size={12} weight="duotone" />
-        <span>IA</span>
+        <span>{t('autocreation.suggestions.badge')}</span>
       </div>
 
       <div className="p-4 space-y-3 pr-16">
@@ -88,21 +90,21 @@ export function AiSuggestionCard({
             className="flex items-center gap-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 rounded-xl px-3 py-1.5 transition-colors"
           >
             <Check size={13} weight="bold" />
-            Aprovar
+            {t('autocreation.actions.approve')}
           </button>
           <button
             onClick={onEdit}
             className="flex items-center gap-1.5 text-xs font-medium text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-xl px-3 py-1.5 transition-colors"
           >
             <PencilSimple size={13} weight="duotone" />
-            Editar
+            {t('autocreation.actions.edit')}
           </button>
           <button
             onClick={onReject}
             className="flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-xl px-3 py-1.5 transition-colors"
           >
             <X size={13} weight="bold" />
-            Rejeitar
+            {t('autocreation.actions.reject')}
           </button>
         </div>
       </div>

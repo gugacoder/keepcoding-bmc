@@ -244,5 +244,55 @@
       "cancel": "Cancel",
       "confirm": "Delete"
     }
+  },
+  "autocreation": {
+    "suggestions": {
+      "title": "Suggestions for you",
+      "titleBiz": "AI Suggestions",
+      "badge": "AI",
+      "new": "{{count}} new",
+      "pending": "{{count}} pending"
+    },
+    "actions": {
+      "approve": "Approve",
+      "edit": "Edit suggestion",
+      "reject": "Reject",
+      "undo": "Undo",
+      "saveAndApprove": "Save and approve"
+    },
+    "toast": {
+      "approved": "Suggestion approved!",
+      "edited": "Suggestion edited and approved!",
+      "rejected": "Suggestion rejected"
+    },
+    "campaign": {
+      "title": "Proposed campaign",
+      "accept": "Accept campaign",
+      "customize": "Customize",
+      "dismiss": "Dismiss",
+      "accepted": "Campaign accepted! {{count}} posts created.",
+      "postsPlanned": "{{count}} posts planned",
+      "showDetails": "View details",
+      "hideDetails": "Hide",
+      "updated": "Campaign updated!"
+    },
+    "activity": {
+      "agentCreated": "Agent created {{count}} suggestions"
+    },
+    "calendar": {
+      "aiBadge": "AI Suggestion",
+      "legend": {
+        "confirmed": "Confirmed content",
+        "aiPending": "AI suggestion (awaiting approval)"
+      }
+    },
+    "divider": {
+      "yourContent": "Your content",
+      "existingContent": "Existing content"
+    },
+    "monitor": {
+      "insightTitle": "Based on your recent performance",
+      "viewSuggestions": "View content suggestions"
+    }
   }
 }

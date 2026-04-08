@@ -274,8 +274,9 @@
     "id": "F-012",
     "name": "i18n autocreation strings",
     "description": "Internationalize all autocreation UI strings in both apps for pt/en/es locales. Add autocreation namespace with keys for: suggestions titles/badges, approve/edit/reject actions, toast messages, campaign accept/customize/dismiss, activity indicator text, calendar legend, divider labels, monitor insight title/CTA. Replace all hardcoded strings in autocreation components (PRP-029 through PRP-034) with i18n keys. Follow existing i18n structure in each app.",
-    "status": "blocked",
+    "status": "passing",
     "priority": 8,
+    "completed_at": "2026-04-08T21:30:00Z",
     "agent": "coder",
     "task": "vibe-code",
     "dependencies": [

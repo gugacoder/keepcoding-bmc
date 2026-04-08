@@ -11,6 +11,7 @@ import {
   PencilSimple,
 } from '@phosphor-icons/react'
 import { teamMembers } from '@/data'
+import { useTranslation } from 'react-i18next'
 import { useContent } from '@/contexts/ContentContext'
 import { useContentActions } from '@/hooks/useContentActions'
 import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
@@ -67,6 +68,7 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
   const [editing, setEditing] = useState(false)
   const [title, setTitle] = useState(item.title)
   const [briefing, setBriefing] = useState(item.briefing)
+  const { t } = useTranslation()
 
   function handleApprove() { onApprove(); onClose() }
   function handleReject() { onReject(); onClose() }
@@ -79,7 +81,7 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
         <div className="flex items-center justify-between p-4 border-b border-border/50">
           <div className="flex items-center gap-1.5 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-semibold px-2 py-0.5 rounded-full">
             <Robot size={12} weight="duotone" />
-            <span>Sugestão IA</span>
+            <span>{t('autocreation.calendar.aiBadge')}</span>
           </div>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X size={18} /></button>
         </div>
@@ -99,7 +101,7 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
               <div className="flex gap-2 pt-1">
                 <button onClick={handleSaveEdit}
                   className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors">
-                  <Check size={14} weight="bold" /> Salvar e aprovar
+                  <Check size={14} weight="bold" /> {t('autocreation.actions.saveAndApprove')}
                 </button>
                 <button onClick={() => setEditing(false)}
                   className="px-3 py-1.5 text-sm text-muted-foreground border border-border rounded-lg hover:bg-accent transition-colors">
@@ -116,15 +118,15 @@ function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: A
               <div className="flex gap-2 pt-1">
                 <button onClick={handleApprove}
                   className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors">
-                  <Check size={12} weight="bold" /> Aprovar
+                  <Check size={12} weight="bold" /> {t('autocreation.actions.approve')}
                 </button>
                 <button onClick={() => setEditing(true)}
                   className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/40 hover:bg-violet-200 dark:hover:bg-violet-800/60 rounded-lg transition-colors">
-                  <PencilSimple size={12} /> Editar
+                  <PencilSimple size={12} /> {t('autocreation.actions.edit')}
                 </button>
                 <button onClick={handleReject}
                   className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-900/40 rounded-lg transition-colors">
-                  <X size={12} /> Rejeitar
+                  <X size={12} /> {t('autocreation.actions.reject')}
                 </button>
               </div>
             </>
@@ -609,6 +611,7 @@ interface WeeklyViewProps {
 }
 
 function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewProps) {
+  const { t } = useTranslation()
   const today = new Date()
 
   // Build 7 days starting from weekStart (Monday)
@@ -665,7 +668,7 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
                     >
                       <div className="flex items-center gap-1 mb-1">
                         <Robot size={10} weight="duotone" className="text-violet-500 shrink-0" />
-                        <span className="text-xs font-medium text-violet-700 dark:text-violet-300 truncate">Sugestão IA</span>
+                        <span className="text-xs font-medium text-violet-700 dark:text-violet-300 truncate">{t('autocreation.calendar.aiBadge')}</span>
                       </div>
                       <p className="text-xs font-semibold text-violet-800 dark:text-violet-200 leading-tight line-clamp-2">{item.title}</p>
                       <p className="text-xs text-violet-500 mt-0.5 truncate">{item.platform}</p>
@@ -707,6 +710,7 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
 type ViewMode = 'monthly' | 'weekly'
 
 export function ContentCalendarPage() {
+  const { t } = useTranslation()
   const { items, addItem, updateStatus } = useContent()
   const { approveSuggestion, rejectSuggestion, updateContent } = useContentActions(null)
 
@@ -869,11 +873,11 @@ export function ContentCalendarPage() {
           <div className="flex gap-4 flex-wrap mt-4">
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground" />
-              <span className="text-xs text-muted-foreground">Conteúdo confirmado</span>
+              <span className="text-xs text-muted-foreground">{t('autocreation.calendar.legend.confirmed')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full border border-dashed border-violet-400 bg-transparent" />
-              <span className="text-xs text-muted-foreground">Sugestão IA (aguardando aprovação)</span>
+              <span className="text-xs text-muted-foreground">{t('autocreation.calendar.legend.aiPending')}</span>
             </div>
             {(Object.entries(STATUS_BG) as [ContentStatus, string][]).map(([status, bgClass]) => (
               <div key={status} className="flex items-center gap-1.5">
