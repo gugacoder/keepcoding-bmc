@@ -2,7 +2,7 @@ name: keepcoding-solo
 
 services:
   app:
-    build: .
+    image: ghcr.io/gugacoder/keepcoding-bmc/keep-solo:${TAG:-latest}
     restart: unless-stopped
     networks:
       codr-net:

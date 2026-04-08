@@ -2,7 +2,7 @@ name: keepcoding-biz
 
 services:
   app:
-    build: .
+    image: ghcr.io/gugacoder/keepcoding-bmc/keep-biz:${TAG:-latest}
     restart: unless-stopped
     networks:
       codr-net:

@@ -1,0 +1,51 @@
+name: Build & Publish Mocks
+
+on:
+  push:
+    branches: [main, keepcoding-bmc-harness]
+    paths:
+      - 'mocks/keep-biz/**'
+      - 'mocks/keep-solo/**'
+      - '.github/workflows/build-mocks.yml'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ghcr.io/gugacoder/keepcoding-bmc
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        mock:
+          - name: keep-biz
+            context: mocks/keep-biz
+          - name: keep-solo
+            context: mocks/keep-solo
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set image tags
+        id: tags
+        run: |
+          IMAGE="${{ env.IMAGE_PREFIX }}/${{ matrix.mock.name }}"
+          if [[ "${{ github.ref }}" == refs/heads/main ]]; then
+            echo "tags=${IMAGE}:latest" >> "$GITHUB_OUTPUT"
+          else
+            echo "tags=${IMAGE}:staging" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.mock.context }}
+          push: true
+          tags: ${{ steps.tags.outputs.tags }}
