@@ -19,6 +19,7 @@ import { ContentProvider } from '@/contexts/ContentContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { RouteGuard } from '@/components/RouteGuard'
+import { SoloProfileProvider } from '@/contexts/ProfileContext'
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
             <Route path="/pricing" element={<Navigate to="/landing#pricing" replace />} />
 
             {/* Protected routes */}
-            <Route element={<RouteGuard><AppLayout /></RouteGuard>}>
+            <Route element={<SoloProfileProvider><RouteGuard><AppLayout /></RouteGuard></SoloProfileProvider>}>
               <Route path="/monitor" element={<MonitorPage />} />
               <Route path="/create" element={<CreatePage />} />
               <Route path="/create/calendar" element={<CreateCalendarPage />} />
