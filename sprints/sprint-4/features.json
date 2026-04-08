@@ -20,7 +20,7 @@
     "id": "F-002",
     "name": "Mock data perfis KeepBiz",
     "description": "Criar `mocks/keep-biz/src/data/profiles.ts` com array de 2 perfis mock usando os tipos de Profile. Perfil 1: PRF-001, Processa Sistemas, segmento Tecnologia, status 'ativo', completeness 100%. Perfil 2: PRF-002, Processa Academy, segmento Educação & Tecnologia, status 'rascunho', completeness 75%. Incluir dados realistas em identity (socialLinks), niche (competitors), positioning (statement), tone (exemplos). Re-exportar `profiles` em `src/data/index.ts`.",
-    "status": "blocked",
+    "status": "passing",
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
@@ -34,13 +34,14 @@
       "Re-export de `profiles` acessível via `data/index.ts`",
       "TypeScript compila sem erros"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-022-profile-data-structure.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-022-profile-data-structure.md",
+    "completed_at": "2026-04-08T14:00:00Z"
   },
   {
     "id": "F-003",
     "name": "Mock data perfil KeepSolo",
     "description": "Criar `mocks/keep-solo/src/data/profiles.ts` com objeto único `soloProfile` (PRF-SOLO, Cia Cuidadores, segmento Saúde & Bem-estar, status 'ativo', completeness 100%) e booleano `profileConfigured` (default true). Incluir dados realistas. Re-exportar `soloProfile` e `profileConfigured` em `src/data/index.ts`.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
