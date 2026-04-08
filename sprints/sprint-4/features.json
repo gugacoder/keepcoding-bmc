@@ -427,7 +427,7 @@
     "id": "F-021",
     "name": "ProfileSelector componente KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/ProfileSelector.tsx`. Desktop: tab group horizontal com 'Todos os perfis' + uma tab por perfil. Mobile: dropdown Select. Cada tab/opção mostra status dot colorido (green=ativo, yellow=rascunho). Seleção atualiza `activeProfileId` via ProfileContext. Renderizar no topo de MonitorPage e ContentPage (dentro do ProfileGate, antes do conteúdo).",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -441,13 +441,14 @@
       "Seleção atualiza activeProfileId no context",
       "Componente aparece no topo de MonitorPage e ContentPage"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md",
+    "completed_at": "2026-04-08T15:00:00Z"
   },
   {
     "id": "F-022",
     "name": "Filtragem mock por perfil KeepBiz",
     "description": "Adicionar campo `profileId?: string` nos types Mention e ContentItem em `mocks/keep-biz/src/data/types.ts`. Distribuir 'PRF-001' e 'PRF-002' nos mock data de `mentions.ts` e `content.ts` (metade para cada). Em MonitorPage e ContentPage: quando um perfil específico está selecionado (activeProfileId !== null), filtrar dados por profileId. 'Todos os perfis' (null): sem filtro (comportamento atual).",
-    "status": "blocked",
+    "status": "pending",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",

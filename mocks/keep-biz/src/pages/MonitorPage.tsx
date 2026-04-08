@@ -16,6 +16,7 @@ import {
 } from '@phosphor-icons/react'
 import { mentions, alerts } from '@/data'
 import type { Mention, Alert } from '@/data/types'
+import { ProfileSelector } from '@/components/ProfileSelector'
 
 // ─── Period config ─────────────────────────────────────────────────────────
 
@@ -259,6 +260,7 @@ export function MonitorPage() {
 
   return (
     <>
+      <ProfileSelector />
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
         {/* Header */}
         <div className="col-span-full flex items-center justify-between flex-wrap gap-3">
