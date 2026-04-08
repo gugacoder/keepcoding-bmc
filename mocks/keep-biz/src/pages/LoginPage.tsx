@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Eye, EyeSlash, WhatsappLogo, EnvelopeSimple, Lock } from '@phosphor-icons/react'
+import { Eye, EyeSlash, WhatsappLogo, EnvelopeSimple, Lock, Buildings } from '@phosphor-icons/react'
 import { useAuth } from '@/contexts/AuthContext'
 import { OtpInput } from '@/components/OtpInput'
 import { OtpTimer } from '@/components/OtpTimer'
@@ -57,8 +57,8 @@ export function LoginPage() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">K</span>
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <Buildings size={18} weight="fill" className="text-primary-foreground" />
             </div>
             <span className="text-xl font-semibold text-foreground tracking-tight">KeepBiz</span>
           </div>

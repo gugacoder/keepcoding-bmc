@@ -1,5 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { Globe } from '@phosphor-icons/react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const LANGUAGES = [
   { code: 'pt', labelKey: 'language.pt' },
@@ -13,18 +20,18 @@ export function LanguageSelector() {
   return (
     <div className="flex items-center gap-2">
       <Globe size={18} weight="duotone" className="text-muted-foreground" />
-      <select
-        value={i18n.language}
-        onChange={(e) => i18n.changeLanguage(e.target.value)}
-        className="bg-transparent text-sm text-foreground border border-input rounded px-2 py-1 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
-        aria-label={t('language.label')}
-      >
-        {LANGUAGES.map(({ code, labelKey }) => (
-          <option key={code} value={code}>
-            {t(labelKey)}
-          </option>
-        ))}
-      </select>
+      <Select value={i18n.language} onValueChange={(v) => i18n.changeLanguage(v)}>
+        <SelectTrigger className="w-auto min-w-[100px] h-8 text-sm" aria-label={t('language.label')}>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {LANGUAGES.map(({ code, labelKey }) => (
+            <SelectItem key={code} value={code}>
+              {t(labelKey)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   )
 }
