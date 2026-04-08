@@ -470,7 +470,7 @@
     "id": "F-023",
     "name": "Orchestrator Bar perfil ativo KeepBiz",
     "description": "Adicionar indicação do perfil ativo na OrchestratorBar existente (`mocks/keep-biz/src/components/OrchestratorBar.tsx`). Quando activeProfileId !== null: exibir identity.businessName com ícone IdentificationBadge (Phosphor). Quando null: exibir 'Todos os perfis'. Texto truncado com ellipsis (max-w-[150px]). Transição opacity fade 200ms ao trocar.",
-    "status": "pending",
+    "status": "passing",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
@@ -484,7 +484,8 @@
       "Texto trunca com ellipsis em nomes longos",
       "Transição suave ao trocar perfil"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md",
+    "completed_at": "2026-04-08T14:00:00Z"
   },
   {
     "id": "F-024",
