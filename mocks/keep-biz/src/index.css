@@ -173,3 +173,64 @@ a,
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
   transform: translateY(-1px);
 }
+
+/* ───────────────────────────────────────────
+   Landing Page Animations
+─────────────────────────────────────────── */
+
+/* Scroll-triggered fade-in + slide-up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up.delay-1 { transition-delay: 0.12s; }
+.fade-up.delay-2 { transition-delay: 0.24s; }
+.fade-up.delay-3 { transition-delay: 0.36s; }
+.fade-up.delay-4 { transition-delay: 0.48s; }
+
+/* OrchestratorBarDemo: status dot green→yellow→green loop */
+@keyframes orchestratorDot {
+  0%, 55%  { background-color: oklch(0.596 0.145 163.225); }
+  65%, 88% { background-color: oklch(0.666 0.179 58.318); }
+  95%, 100%{ background-color: oklch(0.596 0.145 163.225); }
+}
+.orchestrator-status {
+  animation: orchestratorDot 4s ease-in-out infinite;
+}
+
+/* Agent pulse dot */
+@keyframes agentPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.agent-pulse {
+  animation: agentPulse 2.2s ease-in-out infinite;
+}
+
+/* Mobile navbar menu */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu-open {
+  animation: slideDown 0.2s ease forwards;
+}
+
+/* Navbar shadow on scroll */
+.navbar-scrolled {
+  box-shadow: 0 1px 16px rgb(0 0 0 / 0.08);
+}
+
+/* Toast fade-up */
+@keyframes fadeUpToast {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.animate-fade-up-toast {
+  animation: fadeUpToast 0.25s ease forwards;
+}

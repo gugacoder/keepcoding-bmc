@@ -116,3 +116,57 @@ a,
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.07);
   transform: translateY(-1px);
 }
+
+/* ───────────────────────────────────────────
+   Landing Page Animations
+─────────────────────────────────────────── */
+
+/* Scroll-triggered fade-in + slide-up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up.delay-1 { transition-delay: 0.12s; }
+.fade-up.delay-2 { transition-delay: 0.24s; }
+.fade-up.delay-3 { transition-delay: 0.36s; }
+.fade-up.delay-4 { transition-delay: 0.48s; }
+
+/* MonitorDemo: lead card slide-in from top */
+@keyframes leadSlideIn {
+  from { opacity: 0; transform: translateY(-12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.lead-card {
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+.lead-entering {
+  animation: leadSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* MonitorDemo: count dot pulse amber */
+@keyframes monitorPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.8); }
+}
+.monitor-dot {
+  animation: monitorPulse 2s ease-in-out infinite;
+}
+
+/* Mobile navbar menu */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu-open {
+  animation: slideDown 0.2s ease forwards;
+}
+
+/* Navbar shadow on scroll */
+.navbar-scrolled {
+  box-shadow: 0 1px 16px rgb(0 0 0 / 0.08);
+}

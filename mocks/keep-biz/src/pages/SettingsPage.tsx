@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { teamMembers as initialTeamMembers, auditLog } from '@/data'
 import { LanguageSelector } from '@/components/LanguageSelector'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useAuth } from '@/contexts/AuthContext'
 import type { TeamMember, TeamRole, AuditLogEntry, AuditResult } from '@/data/types'
 import {
   PencilSimple,
@@ -656,6 +658,13 @@ const TABS: { id: SettingsTab; label: string }[] = [
 
 export function SettingsPage() {
   const [activeTab, setActiveTab] = useState<SettingsTab>('perfil')
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    navigate('/landing', { replace: true })
+  }
 
   // Toast
   const [toast, setToast] = useState<string | null>(null)
@@ -750,9 +759,17 @@ export function SettingsPage() {
 
       <div className="p-6 max-w-5xl">
         {/* Header */}
-        <div className="mb-5">
-          <h1 className="text-xl font-semibold text-foreground">Configurações</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">Empresa, equipe, notificações e plano</p>
+        <div className="flex items-start justify-between mb-5">
+          <div>
+            <h1 className="text-xl font-semibold text-foreground">Configurações</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">Empresa, equipe, notificações e plano</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border text-muted-foreground rounded hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-colors"
+          >
+            Sair da conta
+          </button>
         </div>
 
         {/* Tabs */}

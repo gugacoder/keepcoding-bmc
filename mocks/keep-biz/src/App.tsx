@@ -10,22 +10,35 @@ import { AgentsWorkflowsPage } from '@/pages/AgentsWorkflowsPage'
 import { AgentsChatPage } from '@/pages/AgentsChatPage'
 import { AgentsConnectorsPage } from '@/pages/AgentsConnectorsPage'
 import { SettingsPage } from '@/pages/SettingsPage'
+import { LandingPage } from '@/pages/LandingPage'
+import { LoginPage } from '@/pages/LoginPage'
+import { RegisterPage } from '@/pages/RegisterPage'
 import { WorkflowProvider } from '@/contexts/WorkflowContext'
 import { AgentsProvider } from '@/contexts/AgentsContext'
 import { ContentProvider } from '@/contexts/ContentContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { RouteGuard } from '@/components/RouteGuard'
 
 function App() {
   return (
     <Suspense fallback={null}>
       <ThemeProvider>
+      <AuthProvider>
       <AgentsProvider>
       <ContentProvider>
       <WorkflowProvider>
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
-              <Route index element={<Navigate to="/monitor" replace />} />
+            {/* Public routes */}
+            <Route index element={<Navigate to="/landing" replace />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/pricing" element={<Navigate to="/landing#pricing" replace />} />
+
+            {/* Protected routes */}
+            <Route element={<RouteGuard><AppLayout /></RouteGuard>}>
               <Route path="/monitor" element={<MonitorPage />} />
               <Route path="/content" element={<ContentPage />} />
               <Route path="/content/calendar" element={<ContentCalendarPage />} />
@@ -40,6 +53,7 @@ function App() {
       </WorkflowProvider>
       </ContentProvider>
       </AgentsProvider>
+      </AuthProvider>
       </ThemeProvider>
     </Suspense>
   )

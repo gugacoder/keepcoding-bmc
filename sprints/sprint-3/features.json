@@ -1,0 +1,270 @@
+[
+  {
+    "id": "F-001",
+    "name": "KeepBiz: AuthContext + RouteGuard + Rotas Públicas",
+    "description": "Implementar AuthContext (isLoggedIn, user, login(), logout() com persistência em localStorage), RouteGuard (redireciona não-autenticados para /login, preserva location.state.from), reestruturar App.tsx do KeepBiz separando rotas públicas (/landing, /login, /register, /pricing→redirect) das protegidas (todas existentes envolvidas no RouteGuard). Criar placeholders mínimos para /landing, /login, /register. Adicionar botão de logout em SettingsPage. Garantir que ThemeProvider envolve também rotas públicas para continuidade visual (D-036). Path: mocks/keep-biz/.",
+    "status": "passing",
+    "priority": 1,
+    "agent": "coder",
+    "task": "vibe-code",
+    "completed_at": "2026-04-08T00:00:00Z",
+    "dependencies": [],
+    "tests": [
+      "Acessar /monitor sem auth redireciona para /login",
+      "Acessar /landing sem auth funciona normalmente",
+      "Login com qualquer credencial seta isLoggedIn no localStorage e redireciona para /monitor",
+      "Logout em SettingsPage limpa localStorage e redireciona para /landing",
+      "Rota / redireciona para /landing",
+      "Rota /pricing redireciona para /landing#pricing",
+      "Refresh mantém sessão (localStorage persiste)",
+      "Dark mode funciona nas páginas públicas"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-015-route-guard-auth-context.md"
+  },
+  {
+    "id": "F-002",
+    "name": "KeepSolo: AuthContext + RouteGuard + Rotas Públicas",
+    "description": "Implementar AuthContext (isLoggedIn, user, login(), logout() com persistência em localStorage), RouteGuard (redireciona não-autenticados para /login), reestruturar App.tsx do KeepSolo separando rotas públicas (/landing, /login, /register, /pricing→redirect) das protegidas (todas existentes envolvidas no RouteGuard). Criar placeholders mínimos para /landing, /login, /register. Adicionar botão de logout em ConfigPage. Garantir continuidade visual com ThemeProvider. Path: mocks/keep-solo/.",
+    "status": "passing",
+    "priority": 1,
+    "agent": "coder",
+    "task": "vibe-code",
+    "completed_at": "2026-04-08T03:30:00Z",
+    "dependencies": [],
+    "tests": [
+      "Acessar /monitor sem auth redireciona para /login",
+      "Acessar /landing sem auth funciona normalmente",
+      "Login com qualquer credencial seta isLoggedIn no localStorage e redireciona para /monitor",
+      "Logout em ConfigPage limpa localStorage e redireciona para /landing",
+      "Rota / redireciona para /landing",
+      "Rota /pricing redireciona para /landing#pricing",
+      "Refresh mantém sessão (localStorage persiste)",
+      "Dark mode funciona nas páginas públicas"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-015-route-guard-auth-context.md"
+  },
+  {
+    "id": "F-003",
+    "name": "KeepBiz: PricingSection Component",
+    "description": "Criar dados de pricing em src/data/pricing.ts com tipos Plan e array keepbizPlans (Starter R$297, Growth R$897 popular, Enterprise sob consulta). Criar componente PricingSection com: 3 cards verticais com features/preços/badges, toggle mensal/anual com animação de preço e badge 'Economize X%', badge 'Mais Popular' no Growth, CTA por plano navegando para /register?plan={id}, Enterprise com CTA de contato mock. Props: app, selectedPlan?, onSelectPlan?, showBillingToggle?. Responsivo: 3 colunas desktop, stack mobile. Path: mocks/keep-biz/.",
+    "status": "passing",
+    "completed_at": "2026-04-08T04:00:00Z",
+    "priority": 2,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-001"
+    ],
+    "tests": [
+      "PricingSection renderiza 3 cards (Starter, Growth, Enterprise)",
+      "Toggle mensal/anual atualiza preços com animação",
+      "Badge 'Mais Popular' aparece no plano Growth",
+      "CTA de plano navega para /register?plan={id}",
+      "Enterprise CTA mostra dialog ou mailto mock",
+      "Componente responsivo: 3 colunas desktop, stack mobile",
+      "Props onSelectPlan e selectedPlan funcionam para uso no wizard de registro"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-016-pricing-section.md"
+  },
+  {
+    "id": "F-004",
+    "name": "KeepSolo: PricingSection Component",
+    "description": "Criar dados de pricing em src/data/pricing.ts com tipos Plan e array keepsoloPlans (Free grátis, Pro R$97 popular, Scale R$247). Criar componente PricingSection com: 3 cards verticais com features/preços/badges, toggle mensal/anual com animação de preço, badge 'Mais Popular' no Pro, CTA por plano navegando para /register?plan={id}. Props: app, selectedPlan?, onSelectPlan?, showBillingToggle?. Responsivo: 3 colunas desktop, stack mobile com popular primeiro. Path: mocks/keep-solo/.",
+    "status": "passing",
+    "completed_at": "2026-04-08T05:00:00Z",
+    "priority": 2,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-002"
+    ],
+    "tests": [
+      "PricingSection renderiza 3 cards (Free, Pro, Scale)",
+      "Toggle mensal/anual atualiza preços com animação",
+      "Badge 'Mais Popular' aparece no plano Pro",
+      "CTA de plano navega para /register?plan={id}",
+      "Componente responsivo: 3 colunas desktop, stack mobile",
+      "Props onSelectPlan e selectedPlan funcionam para uso no wizard de registro"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-016-pricing-section.md"
+  },
+  {
+    "id": "F-005",
+    "name": "DALL-E Hero Assets Generation",
+    "description": "Criar script (scripts/generate-hero-assets.mjs ou inline via curl/fetch) que usa a API OpenAI DALL-E 3 para gerar 2 imagens hero em landscape HD (1792x1024): (1) Hero KeepBiz — ambiente corporativo moderno com equipe + agentes digitais holográficos, tons frios azuis/cinzas, salvar em mocks/keep-biz/public/images/hero-keepbiz.png; (2) Hero KeepSolo — solopreneur confiante com agentes amigáveis (orbes amber), tons quentes, salvar em mocks/keep-solo/public/images/hero-keepsolo.png. Sem texto dentro das imagens. OPENAI_API_KEY disponível no TASK.md.",
+    "status": "passing",
+    "completed_at": "2026-04-08T06:00:00Z",
+    "priority": 2,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [],
+    "tests": [
+      "Arquivo mocks/keep-biz/public/images/hero-keepbiz.png existe e é PNG válido",
+      "Arquivo mocks/keep-solo/public/images/hero-keepsolo.png existe e é PNG válido",
+      "Imagens são landscape (largura > altura)",
+      "Imagens não contêm texto ilegível",
+      "Se geração falhar, landing pages usam fallback gradient CSS (previsto em PRP-017/018)"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-019-openai-dalle-hero-assets.md"
+  },
+  {
+    "id": "F-006",
+    "name": "KeepBiz: Landing Page Completa",
+    "description": "Substituir placeholder da LandingPage em mocks/keep-biz/ por landing page completa com: (1) Navbar fixa com logo, links de âncora (Como Funciona, Benefícios, Depoimentos, Pricing), botões Entrar/Começar Grátis, hamburguer mobile; (2) Hero com headline 'Sua equipe de agentes de IA. Pronta para trabalhar.', subheadline, 2 CTAs, imagem DALL-E hero-keepbiz.png (fallback gradient + ícones), OrchestratorBarDemo animado (status green→yellow→green em loop CSS); (3) Como Funciona — 3 passos com ícones Phosphor; (4) Benefícios — grid 2x2 com 4 cards corporativos; (5) Social Proof — logos Processa Sistemas + Cia Cuidadores + 3 depoimentos fictícios; (6) Pricing — integração <PricingSection app='keepbiz' />; (7) CTA Final + Footer. Animações scroll-triggered via IntersectionObserver (fade-in + slide-up). Tom corporativo, cores frias. Responsivo: 2 colunas desktop, stack mobile.",
+    "status": "passing",
+    "completed_at": "2026-04-08T07:00:00Z",
+    "priority": 3,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-001",
+      "F-003"
+    ],
+    "tests": [
+      "Landing page renderiza com todas as 7 seções visíveis",
+      "Navbar fixa com scroll suave para âncoras",
+      "Hero exibe imagem DALL-E se existir, senão fallback gradient",
+      "OrchestratorBarDemo anima status green→yellow→green em loop",
+      "Seção Como Funciona tem 3 passos com ícones Phosphor",
+      "Seção Social Proof exibe logos e depoimentos",
+      "Seção Pricing renderiza PricingSection component",
+      "Animações scroll-triggered funcionam (fade-in + slide-up)",
+      "Layout responsivo: 2 colunas desktop, stack mobile",
+      "Hamburguer menu funciona no mobile"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-017-landing-page-keepbiz.md"
+  },
+  {
+    "id": "F-007",
+    "name": "KeepSolo: Landing Page Completa",
+    "description": "Substituir placeholder da LandingPage em mocks/keep-solo/ por landing page completa com: (1) Navbar fixa com logo KeepSolo, links de âncora, botões Entrar/Começar Agora, hamburguer mobile; (2) Hero com headline 'Você não precisa fazer tudo sozinho.', subheadline, 2 CTAs (Começar Agora→/register, Ver Demo→#how-it-works), imagem DALL-E hero-keepsolo.png (fallback gradient quente), MonitorDemo animado (lead chegando no funil com slide-in + contagem incrementando); (3) Como Funciona — 3 passos com ícones Phosphor (ChatCircle, Lightning, Eye); (4) Benefícios — grid 2x2 com 4 cards pessoais/empoderadoras; (5) Social Proof — 3 personas fictícias (coach, consultor, freelancer) com depoimentos; (6) Pricing — integração <PricingSection app='keepsolo' />; (7) CTA Final + Footer. Animações scroll-triggered. Tom pessoal, cores quentes. Responsivo.",
+    "status": "passing",
+    "completed_at": "2026-04-08T08:00:00Z",
+    "priority": 3,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-002",
+      "F-004"
+    ],
+    "tests": [
+      "Landing page renderiza com todas as 7 seções visíveis",
+      "Navbar fixa com scroll suave para âncoras",
+      "Hero exibe imagem DALL-E se existir, senão fallback gradient quente",
+      "MonitorDemo anima lead chegando no funil (slide-in + contagem)",
+      "Seção Como Funciona tem 3 passos com ícones Phosphor",
+      "Seção Social Proof exibe 3 personas com depoimentos",
+      "Seção Pricing renderiza PricingSection component",
+      "Animações scroll-triggered funcionam",
+      "Layout responsivo: 2 colunas desktop, stack mobile",
+      "Cores quentes e tom pessoal consistentes"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-018-landing-page-keepsolo.md"
+  },
+  {
+    "id": "F-008",
+    "name": "KeepBiz: LoginPage + OTP Components",
+    "description": "Substituir placeholder de /login em mocks/keep-biz/ por LoginPage completa com card centralizado e 3 tabs: (1) Email + Senha (default) — campos email/senha com toggle visibility, checkbox 'Lembrar de mim', botão Entrar, links 'Esqueci senha' (toast mock) e 'Criar conta'→/register; (2) OTP WhatsApp — step 1 campo telefone (+55) → spinner 1s → step 2 OtpInput 6 dígitos + OtpTimer 60s; (3) OTP Email — step 1 campo email → spinner 1s → step 2 OtpInput + OtpTimer. Criar componentes reutilizáveis OtpInput (6 inputs com auto-advance, backspace, paste) e OtpTimer (contagem regressiva 60s com 'Reenviar código'). Qualquer credencial aceita → auth.login() → redirect. Visual corporativo: cores frias, borda sutil.",
+    "status": "passing",
+    "completed_at": "2026-04-08T09:00:00Z",
+    "priority": 3,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-001"
+    ],
+    "tests": [
+      "LoginPage renderiza com 3 tabs (Email, WhatsApp, Email OTP)",
+      "Tab email/senha: login com qualquer credencial redireciona para /monitor",
+      "Toggle de visibilidade da senha funciona",
+      "Link 'Esqueci senha' mostra toast mock",
+      "Link 'Criar conta' navega para /register",
+      "Tab WhatsApp: inserir telefone → spinner → campo OTP aparece",
+      "Tab Email OTP: inserir email → spinner → campo OTP aparece",
+      "OtpInput aceita 6 dígitos com auto-advance entre campos",
+      "OtpInput suporta paste de código completo",
+      "OtpTimer conta de 60s até 0, depois mostra 'Reenviar código'",
+      "Qualquer código OTP de 6 dígitos aceito → login → redirect"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-020-auth-login-otp.md"
+  },
+  {
+    "id": "F-009",
+    "name": "KeepSolo: LoginPage + OTP Components",
+    "description": "Substituir placeholder de /login em mocks/keep-solo/ por LoginPage com mesma lógica do KeepBiz (3 tabs: email/senha, WhatsApp OTP, Email OTP) mas visual distinto: cores quentes, cantos arredondados, fundo quente, placeholder 'voce@email.com'. Criar componentes OtpInput e OtpTimer no KeepSolo. Qualquer credencial aceita → auth.login() → redirect.",
+    "status": "passing",
+    "completed_at": "2026-04-08T10:00:00Z",
+    "priority": 3,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-002"
+    ],
+    "tests": [
+      "LoginPage renderiza com 3 tabs",
+      "Tab email/senha: login com qualquer credencial redireciona para /monitor",
+      "Toggle de visibilidade da senha funciona",
+      "Tab WhatsApp OTP: fluxo telefone → spinner → código OTP funciona",
+      "Tab Email OTP: fluxo email → spinner → código OTP funciona",
+      "OtpInput e OtpTimer funcionam corretamente",
+      "Visual usa cores quentes e cantos arredondados",
+      "Qualquer código OTP aceito → login → redirect"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-020-auth-login-otp.md"
+  },
+  {
+    "id": "F-010",
+    "name": "KeepBiz: RegisterPage Wizard",
+    "description": "Substituir placeholder de /register em mocks/keep-biz/ por RegisterPage com wizard de 3 steps e stepper visual: Step 1 — nome, email, empresa (opcional), senha com PasswordStrength (3 barras), confirmar senha, divider 'Ou crie com' + botões OTP WhatsApp/Email (reutiliza OtpInput/OtpTimer de F-008). Step 2 — integração <PricingSection> com onSelectPlan e selectedPlan, pré-seleção via query param ?plan=pro, ao menos um plano selecionado para avançar. Step 3 — resumo dos dados, checkbox termos (links mock), botão 'Criar Conta' com loading spinner 1.5s → auth.login() → toast sucesso → redirect /monitor. useReducer local para state. Visual corporativo: heading 'Crie sua conta corporativa', cores frias.",
+    "status": "passing",
+    "completed_at": "2026-04-08T11:00:00Z",
+    "priority": 4,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-003",
+      "F-008"
+    ],
+    "tests": [
+      "RegisterPage renderiza wizard com 3 steps e stepper visual",
+      "Step 1: campos nome/email/empresa/senha/confirmar renderizam",
+      "PasswordStrength indica fraca/média/forte baseado no comprimento",
+      "Step 1: método OTP alternativo funciona (reutiliza OtpInput/OtpTimer)",
+      "Step 2: PricingSection renderiza com seleção de plano interativa",
+      "Step 2: query param ?plan=pro pré-seleciona plano",
+      "Step 2: não avança sem plano selecionado",
+      "Step 3: resumo exibe nome, email, plano selecionado",
+      "Step 3: checkbox de termos obrigatório para criar conta",
+      "Step 3: botão 'Criar Conta' com spinner → login → toast → redirect /monitor",
+      "Navegação Voltar/Próximo entre steps funciona"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-021-auth-register-plan.md"
+  },
+  {
+    "id": "F-011",
+    "name": "KeepSolo: RegisterPage Wizard",
+    "description": "Substituir placeholder de /register em mocks/keep-solo/ por RegisterPage com wizard de 3 steps: Step 1 — nome, email, senha com PasswordStrength, confirmar senha (sem campo empresa), OTP alternativo. Step 2 — PricingSection KeepSolo com onSelectPlan, pré-seleção via query param. Step 3 — resumo, checkbox termos, botão 'Começar Agora' com loading → login → toast → redirect. Visual pessoal: heading 'Crie sua conta', cores quentes, cantos arredondados.",
+    "status": "passing",
+    "completed_at": "2026-04-08T12:00:00Z",
+    "priority": 4,
+    "agent": "coder",
+    "task": "vibe-code",
+    "dependencies": [
+      "F-004",
+      "F-009"
+    ],
+    "tests": [
+      "RegisterPage renderiza wizard com 3 steps e stepper visual",
+      "Step 1: campos nome/email/senha/confirmar (sem campo empresa)",
+      "PasswordStrength indica fraca/média/forte",
+      "Step 1: método OTP alternativo funciona",
+      "Step 2: PricingSection KeepSolo renderiza com seleção de plano",
+      "Step 2: query param ?plan=pro pré-seleciona plano",
+      "Step 3: resumo exibe dados e checkbox termos",
+      "Step 3: botão 'Começar Agora' com spinner → login → toast → redirect",
+      "Visual usa cores quentes e cantos arredondados",
+      "Navegação Voltar/Próximo funciona"
+    ],
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-4/worktree/sprints/sprint-3/3-prps/PRP-021-auth-register-plan.md"
+  }
+]
