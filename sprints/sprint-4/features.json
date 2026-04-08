@@ -679,7 +679,7 @@
     "id": "F-033",
     "name": "BusinessProfileSection componente KeepSolo",
     "description": "Criar `mocks/keep-solo/src/components/BusinessProfileSection.tsx` — seção de formulário com campos: Nome do negócio (text input, de identity.businessName), Segmento (select: Saúde & Bem-estar, Tecnologia, Varejo, Serviços B2B, Educação, Alimentação, Finanças, Indústria), Público-alvo (text input, de niche.targetAudience), Posicionamento (textarea, de positioning.statement), Tom de voz (select: formal/casual/técnico/inspiracional/amigável), Plataformas ativas (checkbox group), Redes sociais (repeater plataforma + handle). Campos pré-preenchidos com dados de soloProfile via SoloProfileContext.",
-    "status": "pending",
+    "status": "passing",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
@@ -694,7 +694,8 @@
       "Checkbox group permite selecionar múltiplas plataformas",
       "Repeater de redes sociais permite adicionar/remover entradas"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md",
+    "completed_at": "2026-04-08T14:10:00Z"
   },
   {
     "id": "F-034",
