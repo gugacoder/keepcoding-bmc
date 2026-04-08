@@ -17,6 +17,7 @@ import {
 import { mentions, alerts } from '@/data'
 import type { Mention, Alert } from '@/data/types'
 import { ProfileSelector } from '@/components/ProfileSelector'
+import { AiInsightCard } from '@/components/AiInsightCard'
 import { useProfiles } from '@/contexts/ProfileContext'
 
 // ─── Period config ─────────────────────────────────────────────────────────
@@ -361,6 +362,11 @@ export function MonitorPage() {
               <span key={label} className="text-xs text-muted-foreground">{label}</span>
             ))}
           </div>
+        </div>
+
+        {/* AI Insight Card — above feed */}
+        <div className="col-span-full">
+          <AiInsightCard />
         </div>
 
         {/* Mentions feed */}

@@ -86,6 +86,7 @@ export type ContentStatus =
 
 export type ContentType = 'post' | 'short' | 'campanha' | 'criativo';
 export type ContentPlatform = 'Instagram' | 'TikTok' | 'LinkedIn' | 'Twitter' | 'Multi';
+export type ContentSource = 'ai' | 'manual';
 
 export interface ContentItem {
   id: string;
@@ -93,6 +94,7 @@ export interface ContentItem {
   type: ContentType;
   platform: ContentPlatform;
   status: ContentStatus;
+  source: ContentSource;
   author: string;
   briefing: string;
   targetDate: string;
@@ -100,6 +102,8 @@ export interface ContentItem {
   statusHistory: StatusHistoryEntry[];
   thumbnail?: string;
   profileId?: string;
+  campaignId?: string;
+  aiSuggestionId?: string;
 }
 
 export interface StatusHistoryEntry {
@@ -173,6 +177,28 @@ export interface AuditLogEntry {
   details: string;
   result: AuditResult;
   humanInLoop?: boolean;
+}
+
+// Campaign types
+export type CampaignObjective = 'alcance' | 'engajamento' | 'conversao';
+
+export interface AiCampaignPost {
+  title: string;
+  briefing: string;
+  platform: ContentPlatform;
+  targetDate: string;
+}
+
+export interface AiCampaign {
+  id: string;
+  title: string;
+  description: string;
+  objective: CampaignObjective;
+  posts: AiCampaignPost[];
+  profileId?: string;
+  source: 'ai';
+  status: 'proposta' | 'aceita' | 'dispensada';
+  createdAt: string;
 }
 
 // Profile types

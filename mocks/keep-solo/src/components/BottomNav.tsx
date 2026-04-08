@@ -1,15 +1,18 @@
 import { NavLink } from 'react-router-dom'
 import { Eye, PencilSimple, Robot, Moon, Sun } from '@phosphor-icons/react'
 import { useTheme } from '@/contexts/ThemeContext'
-
-const navItems = [
-  { label: 'Monitor', href: '/monitor', icon: Eye },
-  { label: 'Criar', href: '/create', icon: PencilSimple },
-  { label: 'Agentes', href: '/agents', icon: Robot },
-]
+import { useContentActions } from '@/hooks/useContentActions'
 
 export function BottomNav() {
   const { theme, toggleTheme } = useTheme()
+  const { aiSuggestions } = useContentActions()
+  const pendingCount = aiSuggestions.length
+
+  const navItems = [
+    { label: 'Monitor', href: '/monitor', icon: Eye, badge: 0 },
+    { label: 'Criar', href: '/create', icon: PencilSimple, badge: pendingCount },
+    { label: 'Agentes', href: '/agents', icon: Robot, badge: 0 },
+  ]
 
   return (
     <nav className="flex items-center justify-around bg-background border-t border-border px-2 py-2 safe-area-pb transition-colors">
@@ -29,7 +32,14 @@ export function BottomNav() {
               ].join(' ')
             }
           >
-            <Icon size={24} weight="duotone" />
+            <div className="relative">
+              <Icon size={24} weight="duotone" />
+              {item.badge > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center leading-none">
+                  {item.badge > 99 ? '99+' : item.badge}
+                </span>
+              )}
+            </div>
             <span>{item.label}</span>
           </NavLink>
         )

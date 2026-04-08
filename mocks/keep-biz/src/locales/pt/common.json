@@ -204,5 +204,55 @@
     "agentsActive_other": "{{count}} agentes ativos",
     "lightMode": "Modo claro",
     "darkMode": "Modo escuro"
+  },
+  "autocreation": {
+    "suggestions": {
+      "title": "Sugestões para você",
+      "titleBiz": "Sugestões da IA",
+      "badge": "IA",
+      "new": "{{count}} novas",
+      "pending": "{{count}} pendentes"
+    },
+    "actions": {
+      "approve": "Aprovar",
+      "edit": "Editar sugestão",
+      "reject": "Rejeitar",
+      "undo": "Desfazer",
+      "saveAndApprove": "Salvar e aprovar"
+    },
+    "toast": {
+      "approved": "Sugestão aprovada!",
+      "edited": "Sugestão editada e aprovada!",
+      "rejected": "Sugestão rejeitada"
+    },
+    "campaign": {
+      "title": "Campanha proposta",
+      "accept": "Aceitar campanha",
+      "customize": "Personalizar",
+      "dismiss": "Dispensar",
+      "accepted": "Campanha aceita! {{count}} posts criados.",
+      "postsPlanned": "{{count}} posts planejados",
+      "showDetails": "Ver detalhes",
+      "hideDetails": "Ocultar",
+      "updated": "Campanha atualizada!"
+    },
+    "activity": {
+      "agentCreated": "Agente criou {{count}} sugestões"
+    },
+    "calendar": {
+      "aiBadge": "Sugestão IA",
+      "legend": {
+        "confirmed": "Conteúdo confirmado",
+        "aiPending": "Sugestão da IA (aguardando aprovação)"
+      }
+    },
+    "divider": {
+      "yourContent": "Seu conteúdo",
+      "existingContent": "Conteúdo existente"
+    },
+    "monitor": {
+      "insightTitle": "Baseado no seu desempenho recente",
+      "viewSuggestions": "Ver sugestões de conteúdo"
+    }
   }
 }

@@ -86,6 +86,7 @@ export type ContentStatus =
 
 export type ContentType = 'post' | 'short' | 'criativo' | 'artigo';
 export type ContentChannel = 'Instagram' | 'TikTok' | 'LinkedIn' | 'YouTube' | 'Blog';
+export type ContentSource = 'ai' | 'manual';
 
 export interface ContentItem {
   id: string;
@@ -93,6 +94,7 @@ export interface ContentItem {
   type: ContentType;
   channel: ContentChannel;
   status: ContentStatus;
+  source: ContentSource;
   briefing: string;
   targetDate: string;
   createdAt: string;
@@ -100,6 +102,8 @@ export interface ContentItem {
   clicks?: number;
   engagement?: number;
   thumbnail?: string;
+  campaignId?: string;
+  aiSuggestionId?: string;
 }
 
 export type LeadStatus = 'visitante' | 'lead' | 'contato' | 'proposta' | 'cliente' | 'perdido';
@@ -131,6 +135,27 @@ export interface FunnelStage {
   label: string;
   count: number;
   value: number;
+}
+
+// Campaign types
+export type CampaignObjective = 'alcance' | 'engajamento' | 'conversao';
+
+export interface AiCampaignPost {
+  title: string;
+  briefing: string;
+  channel: ContentChannel;
+  targetDate: string;
+}
+
+export interface AiCampaign {
+  id: string;
+  title: string;
+  description: string;
+  objective: CampaignObjective;
+  posts: AiCampaignPost[];
+  source: 'ai';
+  status: 'proposta' | 'aceita' | 'dispensada';
+  createdAt: string;
 }
 
 // Profile types

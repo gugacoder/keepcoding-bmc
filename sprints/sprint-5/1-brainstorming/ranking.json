@@ -1,0 +1,524 @@
+[
+  {
+    "id": "D-001",
+    "type": "feature",
+    "description": "Scaffold dos dois projetos: Vite + React 19 + TS + Tailwind 4 + shadcn (radix-nova) + Phosphor Icons. Um projeto em mocks/keep-biz/ e outro em mocks/keep-solo/. Estrutura de pastas src/, data/, public/.",
+    "score": 10,
+    "justification": "Pré-requisito absoluto — nenhuma outra feature pode existir sem o scaffold.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-002",
+    "type": "feature",
+    "description": "Dados mock realistas em data/ para cada app: workflows, agentes, conectores, conteúdo, leads e menções. Usando nomes próximos dos clientes piloto reais (Processa Sistemas, Cia Cuidadores).",
+    "score": 10,
+    "justification": "Pré-condição para todas as telas renderizarem com conteúdo convincente.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-003",
+    "type": "feature",
+    "description": "i18n setup com 3 idiomas (en, es, pt). Arquivos de tradução por locale. Seletor de idioma. Default: Português.",
+    "score": 9,
+    "justification": "Deve ser configurado junto com o scaffold; migrar strings hardcoded depois é retrabalho.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-004",
+    "type": "feature",
+    "description": "KeepBiz — shell completo: sidebar 3 zonas (Social Monitor, Content Forge, Agent Core), bottom nav mobile, Orchestrator Bar persistente. Tom corporativo, cores frias.",
+    "score": 9,
+    "justification": "Estrutura de navegação base do KeepBiz com Orchestrator Bar como diferencial único.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-005",
+    "type": "feature",
+    "description": "KeepSolo — shell completo: bottom nav 3 ícones (Eye/Monitor, Pen/Create, Robot/Agents), sub-rotas. Tom pessoal, cores quentes.",
+    "score": 9,
+    "justification": "Estrutura de navegação base do KeepSolo. Mobile-first é requisito funcional.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-006",
+    "type": "feature",
+    "description": "Pipeline de deploy funcional: stepper horizontal mapeado → app em criação → app pronto → implantado → agente treinando → agente ativo.",
+    "score": 10,
+    "justification": "Coração da narrativa do produto — a hipótese central em ação.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-007",
+    "type": "feature",
+    "description": "Lista de workflows com dados mock. Wizard de mapeamento: KeepBiz 4 etapas, KeepSolo 3 etapas. Ao finalizar: novo workflow com status 'mapeado'.",
+    "score": 9,
+    "justification": "Ponto de entrada da jornada principal; demonstra o início do loop.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-008",
+    "type": "feature",
+    "description": "Lista e detail panel de agentes. KeepBiz: heartbeat, Play/Pause, Atividades, Treinamento, Conversar. KeepSolo: card 'Meu Agente' com controles diretos.",
+    "score": 9,
+    "justification": "Demonstra agentes ativos com identidade própria pós-pipeline.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-009",
+    "type": "feature",
+    "description": "Animação especial de ativação do heartbeat: pulse expandido (3 rings) + confetti. Agente aparece na lista com heartbeat pulsante.",
+    "score": 9,
+    "justification": "Momento mais memorável do demo — o clímax emocional da hipótese.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-010",
+    "type": "feature",
+    "description": "Memória do agente: itens por categoria, remover com confirmação, 'Ensinar algo novo' → textarea → item imediato.",
+    "score": 8,
+    "justification": "Demonstra controle humano sobre o agente; reforça confiança.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-011",
+    "type": "feature",
+    "description": "Chat funcional com agentes. KeepBiz: seletor de agente + painel de contexto. KeepSolo: chat direto. Pool de respostas contextuais por agente.",
+    "score": 8,
+    "justification": "Demonstra interação direta e personalidade individual do agente.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-012",
+    "type": "feature",
+    "description": "Conectores. KeepBiz: grid + filtros + catálogo + painel de config mock. KeepSolo: lista simplificada 'Minhas Ferramentas'.",
+    "score": 7,
+    "justification": "Prova que os agentes operam ferramentas reais do cliente.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-013",
+    "type": "feature",
+    "description": "Orchestrator Bar persistente no KeepBiz: Team Status indicator (green/yellow/red), contagem de agentes ativos, animação suave.",
+    "score": 8,
+    "justification": "Diferencial visual único do KeepBiz — reforça 'equipe de agentes'.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-014",
+    "type": "feature",
+    "description": "Social Monitor KeepBiz: feed de menções, score de reputação, alertas, gráfico de trends, filtro por fonte, seletor de período.",
+    "score": 7,
+    "justification": "Zona 1 do KeepBiz — demonstra valor de monitoramento de marca.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-015",
+    "type": "feature",
+    "description": "Monitor KeepSolo: KPIs, lista de leads, funil visual, performance de conteúdo, seletor de período.",
+    "score": 7,
+    "justification": "Zona 1 do KeepSolo — painel de controle do solopreneur.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-016",
+    "type": "feature",
+    "description": "Content Forge KeepBiz: lista/grid com status badges, filtros, dialog de campanha, preview panel com aprovação/agendamento, swarm indicator, calendário.",
+    "score": 6,
+    "justification": "Zona 2 do KeepBiz — output de conteúdo gerado pelos agentes.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-017",
+    "type": "feature",
+    "description": "Create KeepSolo: grid de cards, dialog de criação, aprovação e publicação, calendário simples.",
+    "score": 6,
+    "justification": "Zona 2 do KeepSolo — versão simplificada do Content Forge.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-018",
+    "type": "feature",
+    "description": "Integração OpenAI DALL-E para gerar thumbnails de conteúdo, imagens de campanha e assets visuais mock.",
+    "score": 7,
+    "justification": "Assets visuais reais elevam credibilidade do demo vs. placeholders.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-019",
+    "type": "feature",
+    "description": "Audit log KeepBiz: tabela de ações recentes com quem triggered, dado tocado, timestamp, resultado.",
+    "score": 6,
+    "justification": "Demonstra transparência e controle para o gestor da PME on-premise.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-020",
+    "type": "feature",
+    "description": "KeepBiz Configurações: perfil da empresa, equipe com convite, notificações, plano, seletor de idioma.",
+    "score": 5,
+    "justification": "Admin necessário para completude do produto.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-021",
+    "type": "feature",
+    "description": "KeepSolo Config: perfil pessoal, notificações simplificadas, plano, seletor de idioma.",
+    "score": 5,
+    "justification": "Admin simplificado do KeepSolo — necessário para completude.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-022",
+    "type": "feature",
+    "description": "RBAC lite KeepBiz: presets Admin/Operador/Viewer visíveis no perfil de membro. Human-in-loop: dialog de confirmação para ações high-stakes.",
+    "score": 6,
+    "justification": "Diferencial para PME com equipe — controle de quem faz o quê.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-023",
+    "type": "feature",
+    "description": "Identidade visual e responsividade: KeepBiz cores frias (blues/grays), KeepSolo cores quentes (ambers/oranges). Mobile-first real com bottom nav acessível.",
+    "score": 7,
+    "justification": "Mobile-first é requisito funcional; identidades visuais distintas diferenciam os dois produtos.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-024",
+    "type": "feature",
+    "description": "Estados e transições: empty states educativos, loading skeletons, heartbeat pulsante, dark mode, ícones Phosphor duotone consistentes.",
+    "score": 6,
+    "justification": "Polimento que separa demo funcional de demo profissional.",
+    "sprint": 2,
+    "implemented": true
+  },
+  {
+    "id": "D-025",
+    "type": "feature",
+    "description": "Landing page KeepBiz: hero section com headline corporativa + asset OpenAI + CTA para /register e /pricing.",
+    "score": 9,
+    "justification": "Porta de entrada pública para o demo e pitch com clientes piloto.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-026",
+    "type": "feature",
+    "description": "Landing page KeepSolo: hero section com headline pessoal + asset OpenAI + CTA para /register e /pricing.",
+    "score": 9,
+    "justification": "Porta de entrada pública do KeepSolo; tom pessoal e cálido.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-027",
+    "type": "feature",
+    "description": "Geração de assets visuais via OpenAI DALL-E especificamente para hero sections das landing pages.",
+    "score": 8,
+    "justification": "Assets hero de alta qualidade para impacto no pitch.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-028",
+    "type": "feature",
+    "description": "Tela de login para ambos os apps: campos email + senha, OTP WhatsApp e OTP email como métodos alternativos.",
+    "score": 9,
+    "justification": "Pré-requisito para demonstrar o funil completo de aquisição.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-029",
+    "type": "feature",
+    "description": "Tela de registro para ambos os apps: nome + email + senha (step 1), seleção de plano (step 2), confirmação.",
+    "score": 9,
+    "justification": "Demonstra o funil de aquisição completo: landing → plano → conta → app.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-030",
+    "type": "feature",
+    "description": "Route guard em ambos os apps: rotas públicas (/landing, /login, /register) vs. protegidas (dashboard). AuthContext com localStorage.",
+    "score": 9,
+    "justification": "Necessário para que o demo simule um produto real com autenticação.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-031",
+    "type": "feature",
+    "description": "Seção de pricing nas landing pages: 3 planos por app com toggle mensal/anual, badge 'Mais Popular', CTAs para /register?plan={id}.",
+    "score": 8,
+    "justification": "Pricing é parte da narrativa de aquisição; plano selecionado précarrega no registro.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-032",
+    "type": "feature",
+    "description": "Copy de conversão definido para ambas as landings: headline principal, subheadline, features sections, CTA primário e secundário.",
+    "score": 8,
+    "justification": "Copy alinhado ao posicionamento é o que converte visitantes em clientes no pitch.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-033",
+    "type": "feature",
+    "description": "Social proof nas landing pages: logos e depoimentos fictícios de Processa Sistemas (KeepBiz) e Cia Cuidadores (KeepSolo).",
+    "score": 7,
+    "justification": "Credibilidade imediata para o pitch com os próprios clientes piloto.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-034",
+    "type": "feature",
+    "description": "Seção de demo animado no hero ou seção dedicada: screenshot do Orchestrator Bar ou pipeline de deploy em loop.",
+    "score": 7,
+    "justification": "Screenshot animado do produto em ação é mais convincente que texto estático.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-035",
+    "type": "feature",
+    "description": "UI de OTP mock: step adicional em login/registro após escolher OTP (WhatsApp ou email). Qualquer código de 6 dígitos aceito.",
+    "score": 6,
+    "justification": "Necessário para que os 3 métodos de auth definidos no TASK.md sejam demonstráveis.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-036",
+    "type": "feature",
+    "description": "Continuidade visual entre landing e app: mesmos tokens de design (cores, tipografia, componentes shadcn) em toda a jornada.",
+    "score": 7,
+    "justification": "Produto coeso — landing e app parecem a mesma experiência.",
+    "sprint": 3,
+    "implemented": true
+  },
+  {
+    "id": "D-037",
+    "type": "feature",
+    "description": "Estrutura de dados de perfil em data/profiles.ts para ambos os apps. Categorias: identidade (nome, URL, redes), nicho (segmento, público-alvo), posicionamento (diferenciais, concorrentes), tom de voz (formal/informal, exemplos), plataformas-alvo. KeepBiz: array de perfis. KeepSolo: objeto único.",
+    "score": 10,
+    "justification": "Pré-requisito absoluto para todas as telas de perfil — sem dados não há wizard, lista, gate ou seletor.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-038",
+    "type": "feature",
+    "description": "KeepBiz: ProfilesPage (/profiles) com lista/grid de perfis. Card por perfil: nome, nicho, status (ativo/inativo), completude (%). Botões: Criar novo, Editar, Excluir com confirmação. Perfil ativo destacado com badge. Navegação sidebar para a nova seção Perfis.",
+    "score": 10,
+    "justification": "Ponto de entrada para o conceito multi-perfil do KeepBiz; pré-requisito para gate e seletor.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-039",
+    "type": "feature",
+    "description": "KeepBiz: Wizard de criação de perfil em 5 etapas — (1) Coleta inicial: nome do negócio, URL, redes sociais; (2) Loading 'Pesquisando na internet...'; (3) Validação: agent mostra achados, usuário confirma/corrige; (4) Estudo de nicho: cards de segmento + posicionamento para seleção; (5) Resumo e finalização. Stepper horizontal no topo. Mesmo padrão visual dos wizards de workflow.",
+    "score": 10,
+    "justification": "Implementa o processo de 5 etapas definido no TASK.md. Traduz o conceito central de perfil em UX concreta.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-040",
+    "type": "feature",
+    "description": "KeepBiz: Gate em ContentPage e MonitorPage quando nenhum perfil existe. Empty state com ícone de cadeado, mensagem 'Para acessar esta área, crie seu primeiro perfil', botão CTA 'Criar Perfil' navegando para /profiles. Remover o gate assim que o primeiro perfil for criado.",
+    "score": 9,
+    "justification": "Requisito explícito do TASK.md. Comunica ao usuário a dependência entre perfil e funcionalidade de criação/monitoramento.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-041",
+    "type": "feature",
+    "description": "KeepBiz: Seletor de perfil em ContentPage e MonitorPage. Dropdown ou tab group no topo da página com opção 'Todos os perfis' e uma opção por perfil. Seleção persiste via localStorage. Quando um perfil específico está ativo, conteúdo/métricas são filtrados por ele (mock: exibir badge do perfil ativo nos cards).",
+    "score": 8,
+    "justification": "Requisito explícito do TASK.md — o usuário pode ver todos os perfis ou um por vez. Demonstra o multi-perfil em operação.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-042",
+    "type": "feature",
+    "description": "KeepSolo: Onboarding de perfil como first-run experience. Detectar no AuthContext se perfil está configurado. Se não, redirecionar para /onboarding após login. Wizard de 4 etapas sem linguagem de 'perfil': (1) 'Me conta sobre o seu negócio'; (2) 'Deixa eu pesquisar um pouco...' (loading); (3) 'Encontrei isso — está certo?' (validação); (4) 'Pronto! Conheço seu negócio.' (resumo). Após finalizar: redirecionar para /monitor.",
+    "score": 10,
+    "justification": "Sem onboarding o KeepSolo não implementa o conceito de perfil. É o ponto de entrada de toda a proposta de valor do produto para o solopreneur.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-043",
+    "type": "feature",
+    "description": "KeepSolo: Seção 'Meu Negócio' na ConfigPage para edição do perfil após onboarding. Campos editáveis: nome do negócio, nicho, posicionamento, tom de voz, plataformas ativas. Botão salvar com toast de confirmação. Ícone de completude (%) no topo da seção.",
+    "score": 8,
+    "justification": "O TASK.md define que o perfil fica disponível para modificação quando o usuário quiser. Sem essa tela, o perfil é imutável após o onboarding.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-044",
+    "type": "feature",
+    "description": "Step de validação (etapa 3 do wizard): após o loading de pesquisa, o agente exibe uma lista de 'achados' sobre o negócio. Cada achado tem botões Confirmar / Corrigir / Ignorar. Correção abre inline input. CTA 'Tudo certo, continuar' só ativa quando todos os itens foram revisados.",
+    "score": 9,
+    "justification": "O diferencial mais sofisticado do conceito de perfil — o agente mostra inteligência ao pesquisar, e o usuário ensina ao corrigir.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-045",
+    "type": "feature",
+    "description": "Step de estudo de nicho (etapa 4 do wizard): grid de cards de segmento de mercado para o usuário selecionar. Campo de posicionamento com sugestão pré-preenchida pelo agente. Botão 'Usar sugestão do agente' ou 'Escrever do meu jeito'.",
+    "score": 7,
+    "justification": "Etapa necessária para completude do wizard. O toggle 'aceitar sugestão / fazer do meu jeito' implementa a autonomia do usuário.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-046",
+    "type": "feature",
+    "description": "KeepBiz: Indicação do perfil ativo na Orchestrator Bar. Quando um perfil específico está selecionado em Criação ou Monitor, exibir o nome do perfil ativo como badge na Orchestrator Bar. Texto 'Todos os perfis' quando nenhum filtro está ativo.",
+    "score": 6,
+    "justification": "Enriquece a Orchestrator Bar com contexto de qual perfil os agentes estão operando.",
+    "sprint": 4,
+    "implemented": true
+  },
+  {
+    "id": "D-047",
+    "type": "feature",
+    "description": "Adicionar campo `source: 'ai' | 'manual'` ao tipo ContentItem em ambos os apps (mocks/keep-biz/src/data/types.ts e mocks/keep-solo/src/data/types.ts). Adicionar campo opcional `campaignId?: string` para vincular posts a campanhas. Adicionar campo opcional `aiSuggestionId?: string` para rastrear origem da sugestão. O campo source deve ser 'manual' por default nos itens existentes.",
+    "score": 10,
+    "justification": "Pré-requisito absoluto — sem esse campo não é possível filtrar sugestões de IA, aplicar visuais distintos ou construir o fluxo de aprovação. Zero funcionalidade de autocriação é viável sem ele.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-048",
+    "type": "feature",
+    "description": "Mock data de sugestões de IA em ambos os apps. KeepSolo: adicionar 3-4 ContentItems com source='ai', status='rascunho' alinhados ao perfil solo (nicho saúde/nutrição). KeepBiz: adicionar 3-4 ContentItems com source='ai', status='rascunho' por perfil (PRF-001 e PRF-002). Os itens devem ter títulos e briefings que pareçam gerados por agente: específicos, alinhados ao nicho, com hashtags sugeridas.",
+    "score": 10,
+    "justification": "Sem dados mock de IA, as telas renderizam vazio. É o pré-requisito imediato após o tipo para qualquer visualização funcionar.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-049",
+    "type": "feature",
+    "description": "KeepSolo: Seção 'Sugestões para você' no topo da CreatePage. Cards de sugestões com visual diferenciado (borda âmbar/roxa, badge 'Gerado pela IA' com ícone Robot). Renderiza apenas quando existem itens com source='ai' e status='rascunho'. Quando vazia, seção não aparece (sem empty state). Layout: scroll horizontal em mobile, grid 2-col em desktop.",
+    "score": 10,
+    "justification": "É o entry point visual do conceito de autocriação no KeepSolo. Sem essa seção, o usuário nunca vê que o sistema trabalhou para ele. Implementa o TASK.md: 'o padrão é o sistema propor'.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-050",
+    "type": "feature",
+    "description": "Fluxo Aprovar / Editar / Rejeitar para sugestões de IA em ambos os apps. Card de sugestão expõe 3 ações inline: Aprovar (move para status='aprovado', mantém source='ai'), Editar (abre dialog de edição com campos pré-preenchidos pelo briefing da IA), Rejeitar (remove da lista com confirmação toast). Após aprovar: card migra para a lista principal de conteúdo. Após rejeitar: desaparece da seção de sugestões.",
+    "score": 10,
+    "justification": "Core funcional do conceito de autocriação. O TASK.md define explicitamente que o usuário pode aceitar, editar ou rejeitar. Sem esse fluxo a seção de sugestões é read-only e sem utilidade.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-051",
+    "type": "feature",
+    "description": "KeepBiz: Seção 'Sugestões da IA' na ContentPage, acima da lista de conteúdo existente. Filtragem integrada com ProfileSelector: quando um perfil está selecionado, exibe apenas sugestões daquele perfil (por profileId); quando 'Todos os perfis', agrupa sugestões por perfil com header por nome de perfil. Mesmo padrão visual do D-049 mas com badge de perfil adicional no card.",
+    "score": 9,
+    "justification": "O TASK.md define autocriação 'por perfil' no KeepBiz. Essa seção é a implementação direta dessa promessa — cada perfil tem seu próprio fluxo de sugestões visível no mesmo lugar.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-052",
+    "type": "feature",
+    "description": "Badge 'Gerado pela IA' nos cards de conteúdo já aprovados (source='ai'). Badge pequeno com ícone Robot e texto 'IA' em cor violeta/roxa. Deve aparecer em todos os cards da lista principal que foram aprovados da sugestão de IA. Badge 'Você criou' com ícone PencilSimple para itens manuais (opcional/sutil). Implementar em ambos os apps.",
+    "score": 9,
+    "justification": "Diferencial visual que torna a autocriação perceptível mesmo no conteúdo já aprovado. Sem isso, após aprovação o usuário perde o rastro de origem e o diferencial se torna invisível.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-053",
+    "type": "feature",
+    "description": "Campanha proposta automaticamente pela IA. Adicionar tipo Campaign com campo source='ai'. KeepBiz: dialog ou card expandido de 'Campanha proposta' na ContentPage — título da campanha, série de 3-5 posts com datas sugeridas, objetivo (alcance/engajamento/conversão). Botões: 'Aceitar campanha' (cria todos os posts como source='ai'/status='rascunho'), 'Personalizar' (abre detalhamento), 'Dispensar'. KeepSolo: versão simplificada como banner/card no topo da CreatePage.",
+    "score": 9,
+    "justification": "O TASK.md menciona explicitamente 'campanhas propostas automaticamente'. É o clímax visual do sprint — o momento em que o sistema mostra que não só cria posts, mas planeja séries completas de conteúdo.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-054",
+    "type": "feature",
+    "description": "Indicador de atividade do agente criando conteúdo. KeepBiz: na Orchestrator Bar, quando existem sugestões de IA novas (status='rascunho'/source='ai'), exibir texto animado 'Agente criou X sugestões' com ícone pulsante. KeepSolo: badge numérico no ícone do room 'Criar' no bottom nav indicando quantas sugestões aguardam revisão.",
+    "score": 8,
+    "justification": "A narrativa de autonomia depende de elementos visuais que comuniquem que o sistema está ativo. Sem esse indicador o sistema parece passivo — o usuário tem que descobrir as sugestões navegando.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-055",
+    "type": "feature",
+    "description": "Calendário editorial diferenciando conteúdo IA vs manual. Nos calendários de CreateCalendarPage (KeepSolo) e ContentCalendarPage (KeepBiz): eventos de conteúdo com source='ai' exibem com borda pontilhada e ícone Robot pequeno. Tooltip/popover do evento IA inclui botões Aprovar/Editar/Rejeitar. Legenda no topo do calendário: ponto sólido = manual, ponto pontilhado = aguardando aprovação (IA).",
+    "score": 8,
+    "justification": "O calendário é a visão temporal do conteúdo. Sugestões de IA aparecem como 'slots planejados' que precisam de confirmação — sem diferenciação visual, o usuário pode publicar acidentalmente sem revisar.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-056",
+    "type": "feature",
+    "description": "KeepBiz: Visão consolidada de sugestões por todos os perfis quando ProfileSelector está em 'Todos os perfis'. Seção de sugestões agrupa cards por perfil com header expandível (ex: 'Processa Sistemas — 2 sugestões ▾'). Permite aprovar/rejeitar sugestões de múltiplos perfis sem trocar de contexto. Contador total de sugestões pendentes no header da seção.",
+    "score": 7,
+    "justification": "O gestor KeepBiz gerencia múltiplos negócios. A visão consolidada permite processar todas as sugestões em batch, sem ter que alternar entre perfis. Diferencial de produtividade para o caso de uso real.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-057",
+    "type": "feature",
+    "description": "i18n para toda a UX de autocriação em ambos os apps. Strings a traduzir: 'Sugestões para você', 'Gerado pela IA', 'Aprovar', 'Editar sugestão', 'Rejeitar', 'Campanha proposta', 'Aceitar campanha', 'Personalizar', 'Dispensar', 'Aguardando aprovação', 'X sugestões pendentes', 'Agente criou X sugestões'. Locales: pt (default), en, es.",
+    "score": 7,
+    "justification": "Consistência com os sprints anteriores — todos os novos textos de UI devem ser internacionalizados. Sem isso, a seção de autocriação fica em português hardcoded enquanto o resto do app é multilíngue.",
+    "sprint": 5,
+    "implemented": false
+  },
+  {
+    "id": "D-058",
+    "type": "feature",
+    "description": "Monitor: sugestão de ajuste baseada em dados de desempenho. KeepBiz MonitorPage e KeepSolo MonitorPage: card de insight da IA ('Baseado no seu desempenho recente') com 1-2 sugestões contextuais mock (ex: 'Seu conteúdo de LinkedIn teve 3x mais engajamento — sugerindo mais posts para essa plataforma'). CTA: 'Ver sugestões de conteúdo' → navega para CreatePage/ContentPage. Card dismissível.",
+    "score": 6,
+    "justification": "O TASK.md menciona 'sugestões de ajuste baseadas em dados' na Área Monitor. Esse card fecha o loop de retroalimentação do ciclo de autocriação e demonstra que o agente aprende com o desempenho.",
+    "sprint": 5,
+    "implemented": false
+  }
+]

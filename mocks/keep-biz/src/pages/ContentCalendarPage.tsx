@@ -8,9 +8,12 @@ import {
   ArrowCounterClockwise,
   Clock,
   Robot,
+  PencilSimple,
 } from '@phosphor-icons/react'
 import { teamMembers } from '@/data'
+import { useTranslation } from 'react-i18next'
 import { useContent } from '@/contexts/ContentContext'
+import { useContentActions } from '@/hooks/useContentActions'
 import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHistoryEntry } from '@/data/types'
 
 // ── Status helpers ─────────────────────────────────────────────────────────────
@@ -45,6 +48,93 @@ const STATUS_DOT: Record<ContentStatus, string> = {
   aprovado: 'bg-info',
   agendado: 'bg-violet',
   publicado: 'bg-success',
+}
+
+function isAiDraft(item: ContentItem): boolean {
+  return item.source === 'ai' && item.status === 'rascunho'
+}
+
+// ── AI Calendar Popover ───────────────────────────────────────────────────────
+
+interface AiCalendarPopoverProps {
+  item: ContentItem
+  onClose: () => void
+  onApprove: () => void
+  onReject: () => void
+  onSaveEdit: (updates: Partial<ContentItem>) => void
+}
+
+function AiCalendarPopover({ item, onClose, onApprove, onReject, onSaveEdit }: AiCalendarPopoverProps) {
+  const [editing, setEditing] = useState(false)
+  const [title, setTitle] = useState(item.title)
+  const [briefing, setBriefing] = useState(item.briefing)
+  const { t } = useTranslation()
+
+  function handleApprove() { onApprove(); onClose() }
+  function handleReject() { onReject(); onClose() }
+  function handleSaveEdit() { onSaveEdit({ title: title.trim() || item.title, briefing, status: 'aprovado' }); onClose() }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-card rounded-2xl shadow-2xl w-full max-w-sm border border-violet-200 dark:border-violet-800">
+        <div className="flex items-center justify-between p-4 border-b border-border/50">
+          <div className="flex items-center gap-1.5 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-semibold px-2 py-0.5 rounded-full">
+            <Robot size={12} weight="duotone" />
+            <span>{t('autocreation.calendar.aiBadge')}</span>
+          </div>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X size={18} /></button>
+        </div>
+        <div className="p-4 space-y-3">
+          {editing ? (
+            <>
+              <div>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">Título</label>
+                <input type="text" value={title} onChange={e => setTitle(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-muted-foreground mb-1">Briefing</label>
+                <textarea value={briefing} onChange={e => setBriefing(e.target.value)} rows={3}
+                  className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400 resize-none" />
+              </div>
+              <div className="flex gap-2 pt-1">
+                <button onClick={handleSaveEdit}
+                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors">
+                  <Check size={14} weight="bold" /> {t('autocreation.actions.saveAndApprove')}
+                </button>
+                <button onClick={() => setEditing(false)}
+                  className="px-3 py-1.5 text-sm text-muted-foreground border border-border rounded-lg hover:bg-accent transition-colors">
+                  Cancelar
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="text-sm font-semibold text-foreground leading-snug">{item.title}</h2>
+              {item.briefing && (
+                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{item.briefing}</p>
+              )}
+              <div className="flex gap-2 pt-1">
+                <button onClick={handleApprove}
+                  className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors">
+                  <Check size={12} weight="bold" /> {t('autocreation.actions.approve')}
+                </button>
+                <button onClick={() => setEditing(true)}
+                  className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-violet-700 dark:text-violet-300 bg-violet-100 dark:bg-violet-900/40 hover:bg-violet-200 dark:hover:bg-violet-800/60 rounded-lg transition-colors">
+                  <PencilSimple size={12} /> {t('autocreation.actions.edit')}
+                </button>
+                <button onClick={handleReject}
+                  className="flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-900/40 rounded-lg transition-colors">
+                  <X size={12} /> {t('autocreation.actions.reject')}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 const SWARM_PHASES: { phase: 'research' | 'draft' | 'schedule'; label: string; agent: string; contentId: string }[] = [
@@ -462,18 +552,34 @@ function MonthlyView({ year, month, items, onItemClick, onDayClick }: MonthlyVie
 
                   {/* Items */}
                   <div className="flex flex-col gap-0.5">
-                    {cellItems.slice(0, 3).map(item => (
-                      <button
-                        key={item.id}
-                        onClick={e => { e.stopPropagation(); onItemClick(item) }}
-                        className={`w-full text-left text-xs px-1.5 py-0.5 rounded truncate font-medium transition-opacity hover:opacity-80
-                          ${STATUS_CLASSES[item.status]}`}
-                        title={item.title}
-                      >
-                        <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${STATUS_DOT[item.status]}`} />
-                        {item.title}
-                      </button>
-                    ))}
+                    {cellItems.slice(0, 3).map(item => {
+                      if (isAiDraft(item)) {
+                        return (
+                          <button
+                            key={item.id}
+                            onClick={e => { e.stopPropagation(); onItemClick(item) }}
+                            className="w-full text-left text-xs px-1.5 py-0.5 rounded truncate font-medium opacity-80 hover:opacity-100 transition-opacity text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/20"
+                            style={{ border: '1px dashed rgb(167,139,250)' }}
+                            title={item.title}
+                          >
+                            <Robot size={10} weight="duotone" className="inline mr-0.5 align-middle" />
+                            {item.title}
+                          </button>
+                        )
+                      }
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={e => { e.stopPropagation(); onItemClick(item) }}
+                          className={`w-full text-left text-xs px-1.5 py-0.5 rounded truncate font-medium transition-opacity hover:opacity-80
+                            ${STATUS_CLASSES[item.status]}`}
+                          title={item.title}
+                        >
+                          <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${STATUS_DOT[item.status]}`} />
+                          {item.title}
+                        </button>
+                      )
+                    })}
                     {cellItems.length > 3 && (
                       <span className="text-xs text-muted-foreground pl-1">+{cellItems.length - 3} mais</span>
                     )}
@@ -505,6 +611,7 @@ interface WeeklyViewProps {
 }
 
 function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewProps) {
+  const { t } = useTranslation()
   const today = new Date()
 
   // Build 7 days starting from weekStart (Monday)
@@ -550,21 +657,40 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
                 ${isToday ? 'bg-info/10' : ''}
                 ${dayItems.length === 0 ? 'cursor-pointer hover:bg-info/10' : 'hover:bg-accent'}`}
             >
-              {dayItems.map(item => (
-                <button
-                  key={item.id}
-                  onClick={e => { e.stopPropagation(); onItemClick(item) }}
-                  className={`w-full text-left rounded-md p-2 border transition-shadow hover:shadow-sm ${STATUS_CLASSES[item.status]}`}
-                >
-                  <div className="flex items-center gap-1 mb-1">
-                    <span className={`w-1.5 h-1.5 rounded-full ${STATUS_BG[item.status]} shrink-0`} />
-                    <span className="text-xs font-medium truncate">{STATUS_LABEL[item.status]}</span>
-                  </div>
-                  <p className="text-xs font-semibold text-foreground leading-tight line-clamp-2">{item.title}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.platform}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.author}</p>
-                </button>
-              ))}
+              {dayItems.map(item => {
+                if (isAiDraft(item)) {
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={e => { e.stopPropagation(); onItemClick(item) }}
+                      className="w-full text-left rounded-md p-2 opacity-80 hover:opacity-100 transition-opacity bg-violet-50 dark:bg-violet-950/20"
+                      style={{ border: '1px dashed rgb(167,139,250)' }}
+                    >
+                      <div className="flex items-center gap-1 mb-1">
+                        <Robot size={10} weight="duotone" className="text-violet-500 shrink-0" />
+                        <span className="text-xs font-medium text-violet-700 dark:text-violet-300 truncate">{t('autocreation.calendar.aiBadge')}</span>
+                      </div>
+                      <p className="text-xs font-semibold text-violet-800 dark:text-violet-200 leading-tight line-clamp-2">{item.title}</p>
+                      <p className="text-xs text-violet-500 mt-0.5 truncate">{item.platform}</p>
+                    </button>
+                  )
+                }
+                return (
+                  <button
+                    key={item.id}
+                    onClick={e => { e.stopPropagation(); onItemClick(item) }}
+                    className={`w-full text-left rounded-md p-2 border transition-shadow hover:shadow-sm ${STATUS_CLASSES[item.status]}`}
+                  >
+                    <div className="flex items-center gap-1 mb-1">
+                      <span className={`w-1.5 h-1.5 rounded-full ${STATUS_BG[item.status]} shrink-0`} />
+                      <span className="text-xs font-medium truncate">{STATUS_LABEL[item.status]}</span>
+                    </div>
+                    <p className="text-xs font-semibold text-foreground leading-tight line-clamp-2">{item.title}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.platform}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.author}</p>
+                  </button>
+                )
+              })}
 
               {dayItems.length === 0 && (
                 <div className="flex-1 flex items-center justify-center">
@@ -584,7 +710,9 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
 type ViewMode = 'monthly' | 'weekly'
 
 export function ContentCalendarPage() {
+  const { t } = useTranslation()
   const { items, addItem, updateStatus } = useContent()
+  const { approveSuggestion, rejectSuggestion, updateContent } = useContentActions(null)
 
   const now = new Date()
   const [viewMode, setViewMode] = useState<ViewMode>('monthly')
@@ -593,6 +721,7 @@ export function ContentCalendarPage() {
   const [currentWeekStart, setCurrentWeekStart] = useState(() => getMonday(now))
 
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+  const [selectedAiItem, setSelectedAiItem] = useState<ContentItem | null>(null)
   const [showNewDialog, setShowNewDialog] = useState(false)
   const [prefillDate, setPrefillDate] = useState<string | undefined>()
 
@@ -722,20 +851,34 @@ export function ContentCalendarPage() {
               year={currentYear}
               month={currentMonth}
               items={items}
-              onItemClick={item => setSelectedItemId(item.id)}
+              onItemClick={item => {
+                if (isAiDraft(item)) { setSelectedAiItem(item); setSelectedItemId(null) }
+                else { setSelectedItemId(item.id); setSelectedAiItem(null) }
+              }}
               onDayClick={handleDayClick}
             />
           ) : (
             <WeeklyView
               weekStart={currentWeekStart}
               items={items}
-              onItemClick={item => setSelectedItemId(item.id)}
+              onItemClick={item => {
+                if (isAiDraft(item)) { setSelectedAiItem(item); setSelectedItemId(null) }
+                else { setSelectedItemId(item.id); setSelectedAiItem(null) }
+              }}
               onDayClick={handleDayClick}
             />
           )}
 
           {/* Legend */}
           <div className="flex gap-4 flex-wrap mt-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground" />
+              <span className="text-xs text-muted-foreground">{t('autocreation.calendar.legend.confirmed')}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full border border-dashed border-violet-400 bg-transparent" />
+              <span className="text-xs text-muted-foreground">{t('autocreation.calendar.legend.aiPending')}</span>
+            </div>
             {(Object.entries(STATUS_BG) as [ContentStatus, string][]).map(([status, bgClass]) => (
               <div key={status} className="flex items-center gap-1.5">
                 <div className={`w-2.5 h-2.5 rounded-full ${bgClass}`} />
@@ -767,6 +910,17 @@ export function ContentCalendarPage() {
             onUpdateStatus={handleUpdateStatus}
           />
         </div>
+      )}
+
+      {/* AI event popover */}
+      {selectedAiItem && (
+        <AiCalendarPopover
+          item={selectedAiItem}
+          onClose={() => setSelectedAiItem(null)}
+          onApprove={() => approveSuggestion(selectedAiItem.id)}
+          onReject={() => rejectSuggestion(selectedAiItem.id)}
+          onSaveEdit={(updates) => updateContent(selectedAiItem.id, updates)}
+        />
       )}
 
       {/* New content dialog */}
