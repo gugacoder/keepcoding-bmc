@@ -593,7 +593,7 @@
     "id": "F-029",
     "name": "Onboarding Etapa 2 — Loading KeepSolo",
     "description": "Criar componente para a etapa 2 do onboarding KeepSolo. Loading em tom amber/orange. Items sequenciais (1 a cada 1.5s): 'Procurando na internet...', 'Analisando suas redes...', 'Entendendo seu mercado...', 'Quase lá...'. Auto-avanço para etapa 3 após 1s do último item. Integrar no OnboardingPage como step 1.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -606,7 +606,8 @@
       "Auto-avanço para etapa 3 ocorre 1s após último item",
       "Sem botões Voltar/Avançar nesta etapa"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md",
+    "completed_at": "2026-04-08T14:00:00Z"
   },
   {
     "id": "F-030",

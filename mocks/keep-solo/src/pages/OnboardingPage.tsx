@@ -5,8 +5,12 @@ import {
   OnboardingStepBusiness,
   type BusinessData,
 } from '@/components/onboarding/OnboardingStepBusiness'
+import { OnboardingStepLoading } from '@/components/onboarding/OnboardingStepLoading'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
+
+// Steps that auto-advance — hide Voltar/Avançar buttons
+const AUTO_ADVANCE_STEPS = new Set([1])
 
 const STEPS = [
   { label: 'Seu Negócio', subtitle: 'Me conta um pouco sobre você' },
@@ -129,6 +133,9 @@ export function OnboardingPage() {
         <OnboardingStepBusiness data={businessData} onChange={setBusinessData} />
       )
     }
+    if (currentStep === 1) {
+      return <OnboardingStepLoading onComplete={() => setCurrentStep(2)} />
+    }
     return <StepPlaceholder step={currentStep} />
   }
 
@@ -148,8 +155,8 @@ export function OnboardingPage() {
         </div>
       </main>
 
-      {/* Bottom navigation */}
-      <footer className="flex-shrink-0 pb-10 pt-6 px-6 flex items-center justify-between max-w-lg mx-auto w-full">
+      {/* Bottom navigation — hidden on auto-advance steps */}
+      <footer className={['flex-shrink-0 pb-10 pt-6 px-6 flex items-center justify-between max-w-lg mx-auto w-full', AUTO_ADVANCE_STEPS.has(currentStep) ? 'invisible' : ''].join(' ')}>
         <button
           onClick={handleBack}
           disabled={isFirst}
