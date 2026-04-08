@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import {
   List,
   GridFour,
@@ -20,6 +20,8 @@ import type { ContentItem, ContentStatus, ContentType, ContentPlatform, StatusHi
 import { ContentThumbnail } from '@/components/ContentThumbnail'
 import { ProfileSelector } from '@/components/ProfileSelector'
 import { useProfiles } from '@/contexts/ProfileContext'
+import { useContentActions } from '@/hooks/useContentActions'
+import { AiSuggestionCard } from '@/components/AiSuggestionCard'
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
@@ -250,6 +252,139 @@ function SchedulePicker({ onConfirm, onCancel }: SchedulePickerProps) {
             Confirmar
           </button>
         </div>
+      </div>
+    </div>
+  )
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+
+interface ToastState {
+  message: string
+  undoId?: string
+}
+
+// ── Edit suggestion dialog ────────────────────────────────────────────────────
+
+interface EditSuggestionDialogProps {
+  item: ContentItem
+  onClose: () => void
+  onSave: (updated: ContentItem) => void
+}
+
+function EditSuggestionDialog({ item, onClose, onSave }: EditSuggestionDialogProps) {
+  const [title, setTitle] = useState(item.title)
+  const [type, setType] = useState<ContentType>(item.type)
+  const [platform, setPlatform] = useState<ContentPlatform>(item.platform)
+  const [briefing, setBriefing] = useState(item.briefing ?? '')
+  const [targetDate, setTargetDate] = useState(item.targetDate.slice(0, 10))
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    onSave({
+      ...item,
+      title: title.trim() || item.title,
+      type,
+      platform,
+      briefing,
+      targetDate: targetDate ? new Date(targetDate).toISOString() : item.targetDate,
+      status: 'aprovado',
+      source: 'ai',
+    })
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <div className="relative bg-card rounded-md shadow-xl w-full max-w-md p-6">
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center gap-2">
+            <Robot size={16} weight="duotone" className="text-violet-500" />
+            <h2 className="text-base font-semibold text-foreground">Editar sugestão da IA</h2>
+          </div>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+            <X size={18} />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div>
+            <label className="block text-xs font-medium text-foreground mb-1">Título</label>
+            <input
+              type="text"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-foreground mb-1">Tipo</label>
+              <select
+                value={type}
+                onChange={e => setType(e.target.value as ContentType)}
+                className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card"
+              >
+                <option value="post">Post</option>
+                <option value="short">Short</option>
+                <option value="campanha">Campanha</option>
+                <option value="criativo">Criativo</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-foreground mb-1">Plataforma</label>
+              <select
+                value={platform}
+                onChange={e => setPlatform(e.target.value as ContentPlatform)}
+                className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card"
+              >
+                <option value="Instagram">Instagram</option>
+                <option value="TikTok">TikTok</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Twitter">Twitter/X</option>
+                <option value="Multi">Multi</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-foreground mb-1">Briefing</label>
+            <textarea
+              value={briefing}
+              onChange={e => setBriefing(e.target.value)}
+              rows={3}
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-foreground mb-1">Data Alvo</label>
+            <input
+              type="date"
+              value={targetDate}
+              onChange={e => setTargetDate(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+
+          <div className="flex justify-end gap-2 pt-1">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-muted-foreground border border-border rounded-md hover:bg-accent transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Aprovar com edições
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )
@@ -500,22 +635,94 @@ const FILTER_OPTIONS: { value: FilterStatus; label: string }[] = [
 
 export function ContentPage() {
   const { items, addItem, updateStatus } = useContent()
-  const { activeProfileId } = useProfiles()
+  const { activeProfileId, profiles } = useProfiles()
+  const { aiSuggestions, approveSuggestion, rejectSuggestion, updateContent } = useContentActions(activeProfileId)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('todos')
   const [showNewDialog, setShowNewDialog] = useState(false)
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [fadingIds, setFadingIds] = useState<Set<string>>(new Set())
+  const [editingItem, setEditingItem] = useState<ContentItem | null>(null)
+  const [toast, setToast] = useState<ToastState | null>(null)
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const undoBuffer = useRef<Map<string, ContentItem>>(new Map())
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 500)
     return () => clearTimeout(t)
   }, [])
 
+  // Profile name lookup
+  const profileNameMap = Object.fromEntries(
+    profiles.map(p => [p.id, p.identity.businessName])
+  )
+
+  // Content items for the main list (exclude ai+rascunho)
+  const allNonSuggestions = items.filter(
+    (it) => !(it.source === 'ai' && it.status === 'rascunho')
+  )
   const profileItems = activeProfileId !== null
-    ? items.filter(i => i.profileId === activeProfileId)
-    : items
+    ? allNonSuggestions.filter(i => i.profileId === activeProfileId)
+    : allNonSuggestions
   const filtered = filterStatus === 'todos' ? profileItems : profileItems.filter(i => i.status === filterStatus)
+
+  function showToast(msg: string, undoId?: string) {
+    if (toastTimer.current) clearTimeout(toastTimer.current)
+    setToast({ message: msg, undoId })
+    toastTimer.current = setTimeout(() => {
+      if (undoId) undoBuffer.current.delete(undoId)
+      setToast(null)
+    }, 5000)
+  }
+
+  function handleApprove(id: string) {
+    approveSuggestion(id)
+    showToast('Sugestão aprovada! ✓')
+  }
+
+  function handleEdit(item: ContentItem) {
+    setEditingItem(item)
+  }
+
+  function handleEditSave(updated: ContentItem) {
+    updateContent(updated.id, {
+      title: updated.title,
+      type: updated.type,
+      platform: updated.platform,
+      briefing: updated.briefing,
+      targetDate: updated.targetDate,
+      status: 'aprovado',
+      source: 'ai',
+    })
+    setEditingItem(null)
+    showToast('Sugestão editada e aprovada!')
+  }
+
+  function handleReject(item: ContentItem) {
+    setFadingIds((prev) => new Set(prev).add(item.id))
+    undoBuffer.current.set(item.id, item)
+
+    setTimeout(() => {
+      rejectSuggestion(item.id)
+      setFadingIds((prev) => {
+        const next = new Set(prev)
+        next.delete(item.id)
+        return next
+      })
+    }, 400)
+
+    showToast('Sugestão rejeitada', item.id)
+  }
+
+  function handleUndo(id: string) {
+    const saved = undoBuffer.current.get(id)
+    if (saved) {
+      addItem(saved)
+      undoBuffer.current.delete(id)
+    }
+    setToast(null)
+  }
 
   function handleCreate(newItem: ContentItem) {
     addItem(newItem)
@@ -534,9 +741,9 @@ export function ContentPage() {
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         <ProfileSelector />
-        <div className="p-6">
+        <div className="p-6 space-y-5">
           {/* Header */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-semibold text-foreground">Content Forge</h1>
               <p className="text-sm text-muted-foreground mt-0.5">Pipeline de criação e publicação de conteúdo</p>
@@ -570,7 +777,7 @@ export function ContentPage() {
           </div>
 
           {/* Swarm indicator bar */}
-          <div className="mb-4 bg-muted border border-border rounded-md px-4 py-2.5 flex items-center gap-3 overflow-x-auto">
+          <div className="bg-muted border border-border rounded-md px-4 py-2.5 flex items-center gap-3 overflow-x-auto">
             <div className="flex items-center gap-1.5 shrink-0">
               <Robot size={15} className="text-primary" weight="duotone" />
               <span className="text-xs font-medium text-muted-foreground">Swarm ativo:</span>
@@ -584,8 +791,62 @@ export function ContentPage() {
             ))}
           </div>
 
+          {/* ── Sugestões da IA ── */}
+          {!loading && aiSuggestions.length > 0 && (
+            <section className="space-y-3">
+              {/* Section header */}
+              <div className="flex items-center gap-2">
+                <Robot size={18} weight="duotone" className="text-blue-500" />
+                <h2 className="text-sm font-semibold text-foreground">Sugestões da IA</h2>
+                <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-2 py-0.5 rounded-full">
+                  {aiSuggestions.length} {aiSuggestions.length === 1 ? 'nova' : 'novas'}
+                </span>
+              </div>
+
+              {/* Mobile: horizontal scroll */}
+              <div className="md:hidden flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-none -mx-6 px-6">
+                {aiSuggestions.map((item) => (
+                  <div key={item.id} className="snap-start shrink-0 w-72">
+                    <AiSuggestionCard
+                      item={item}
+                      profileName={activeProfileId === null ? profileNameMap[item.profileId ?? ''] : undefined}
+                      fading={fadingIds.has(item.id)}
+                      onApprove={() => handleApprove(item.id)}
+                      onEdit={() => handleEdit(item)}
+                      onReject={() => handleReject(item)}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop: 3-col grid */}
+              <div className="hidden md:grid grid-cols-3 gap-3">
+                {aiSuggestions.map((item) => (
+                  <AiSuggestionCard
+                    key={item.id}
+                    item={item}
+                    profileName={activeProfileId === null ? profileNameMap[item.profileId ?? ''] : undefined}
+                    fading={fadingIds.has(item.id)}
+                    onApprove={() => handleApprove(item.id)}
+                    onEdit={() => handleEdit(item)}
+                    onReject={() => handleReject(item)}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── Divider ── */}
+          {!loading && aiSuggestions.length > 0 && profileItems.length > 0 && (
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-border" />
+              <span className="text-xs text-muted-foreground font-medium">Conteúdo existente</span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+          )}
+
           {/* Filter pills */}
-          <div className="flex gap-2 flex-wrap mb-5">
+          <div className="flex gap-2 flex-wrap">
             {FILTER_OPTIONS.map(opt => {
               const count = opt.value === 'todos' ? profileItems.length : profileItems.filter(i => i.status === opt.value).length
               return (
@@ -610,7 +871,7 @@ export function ContentPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
-          ) : filtered.length === 0 ? (
+          ) : filtered.length === 0 && aiSuggestions.length === 0 ? (
             <EmptyState
               icon={MagnifyingGlass}
               title="Nenhum item encontrado"
@@ -618,33 +879,35 @@ export function ContentPage() {
               ctaLabel="Nova campanha"
               onCta={() => setShowNewDialog(true)}
             />
-          ) : viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-              {filtered.map(item => (
-                <ContentCard key={item.id} item={item} onClick={() => setSelectedItemId(item.id)} />
-              ))}
-            </div>
-          ) : (
-            <div className="bg-card border border-border rounded-md overflow-hidden">
-              <table className="w-full text-left">
-                <thead className="bg-muted border-b border-border">
-                  <tr>
-                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Título</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Tipo</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Plataforma</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Autor</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Data Alvo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map(item => (
-                    <ContentRow key={item.id} item={item} onClick={() => setSelectedItemId(item.id)} />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          ) : filtered.length > 0 ? (
+            viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                {filtered.map(item => (
+                  <ContentCard key={item.id} item={item} onClick={() => setSelectedItemId(item.id)} />
+                ))}
+              </div>
+            ) : (
+              <div className="bg-card border border-border rounded-md overflow-hidden">
+                <table className="w-full text-left">
+                  <thead className="bg-muted border-b border-border">
+                    <tr>
+                      <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Título</th>
+                      <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Tipo</th>
+                      <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Plataforma</th>
+                      <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Autor</th>
+                      <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</th>
+                      <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Data Alvo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filtered.map(item => (
+                      <ContentRow key={item.id} item={item} onClick={() => setSelectedItemId(item.id)} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          ) : null}
         </div>
       </div>
 
@@ -673,6 +936,33 @@ export function ContentPage() {
       {/* New content dialog */}
       {showNewDialog && (
         <NewContentDialog onClose={() => setShowNewDialog(false)} onSubmit={handleCreate} />
+      )}
+
+      {/* Edit suggestion dialog */}
+      {editingItem && (
+        <EditSuggestionDialog
+          item={editingItem}
+          onClose={() => setEditingItem(null)}
+          onSave={handleEditSave}
+        />
+      )}
+
+      {/* Toast */}
+      {toast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-foreground text-background text-sm font-medium px-4 py-2.5 rounded-xl shadow-lg">
+          <span>{toast.message}</span>
+          {toast.undoId && (
+            <button
+              onClick={() => handleUndo(toast.undoId!)}
+              className="text-xs underline opacity-80 hover:opacity-100"
+            >
+              Desfazer
+            </button>
+          )}
+          <button onClick={() => setToast(null)} className="opacity-60 hover:opacity-100 ml-1">
+            <X size={14} />
+          </button>
+        </div>
       )}
     </div>
   )

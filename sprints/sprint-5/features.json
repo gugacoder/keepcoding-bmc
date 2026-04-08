@@ -73,8 +73,9 @@
     "id": "F-004",
     "name": "KeepBiz suggestion feed + approval flow",
     "description": "Implement the autocreation UX in KeepBiz ContentPage. Create AiSuggestionCard KeepBiz variant with blue/violet border (cool colors) and profile badge. Add 'Sugestoes da IA' section above content list with Robot icon, count badge, responsive layout (3-col grid desktop, horizontal scroll mobile), and 'Conteudo existente' divider. Create useContentActions hook with profileId filter and statusHistory tracking. Implement Approve/Edit/Reject actions with statusHistory updates and toasts. When a specific profile is selected, show flat list of that profile's suggestions only.",
-    "status": "pending",
+    "status": "passing",
     "priority": 3,
+    "completed_at": "2026-04-08T20:00:00Z",
     "agent": "coder",
     "task": "vibe-code",
     "dependencies": [
