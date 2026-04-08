@@ -3,8 +3,9 @@
     "id": "F-001",
     "name": "Autocreation data types + migration",
     "description": "Add ContentSource type ('ai' | 'manual'), source field (required), campaignId? and aiSuggestionId? optional fields to ContentItem in both apps (mocks/keep-biz/src/data/types.ts and mocks/keep-solo/src/data/types.ts). Then add source: 'manual' to every existing ContentItem in both apps' mock data files. No UI changes — pure type and data layer.",
-    "status": "pending",
+    "status": "passing",
     "priority": 1,
+    "completed_at": "2026-04-08T17:00:00Z",
     "agent": "coder",
     "task": "vibe-code",
     "dependencies": [],
@@ -26,7 +27,9 @@
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "KeepSolo content.ts has 4 new ContentItems with source: 'ai' and status: 'rascunho'",
       "KeepBiz content.ts has 6 new ContentItems with source: 'ai' and status: 'rascunho'",
@@ -42,11 +45,14 @@
     "id": "F-003",
     "name": "KeepSolo suggestion feed + approval flow",
     "description": "Implement the full autocreation UX in KeepSolo CreatePage. Create AiSuggestionCard component with amber/violet border, Robot badge, title/type/channel/date, briefing preview, and 3 action buttons (Approve/Edit/Reject). Add 'Sugestoes para voce' section above existing content grid with Sparkle icon, count badge, responsive layout (horizontal scroll mobile, 2-col grid desktop), and 'Seu conteudo' divider. Create useContentActions hook for state management with aiSuggestions filter. Implement Approve (status→aprovado, toast), Edit (dialog pre-filled, save as approved), Reject (remove with undo toast, fade-out).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001", "F-002"],
+    "dependencies": [
+      "F-001",
+      "F-002"
+    ],
     "tests": [
       "AiSuggestionCard component renders with amber/violet border and Robot badge",
       "'Sugestoes para voce' section appears above content grid when AI suggestions exist",
@@ -65,11 +71,14 @@
     "id": "F-004",
     "name": "KeepBiz suggestion feed + approval flow",
     "description": "Implement the autocreation UX in KeepBiz ContentPage. Create AiSuggestionCard KeepBiz variant with blue/violet border (cool colors) and profile badge. Add 'Sugestoes da IA' section above content list with Robot icon, count badge, responsive layout (3-col grid desktop, horizontal scroll mobile), and 'Conteudo existente' divider. Create useContentActions hook with profileId filter and statusHistory tracking. Implement Approve/Edit/Reject actions with statusHistory updates and toasts. When a specific profile is selected, show flat list of that profile's suggestions only.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001", "F-002"],
+    "dependencies": [
+      "F-001",
+      "F-002"
+    ],
     "tests": [
       "AiSuggestionCard KeepBiz renders with blue/violet border and profile badge",
       "'Sugestoes da IA' section appears above content list when AI suggestions exist",
@@ -88,11 +97,13 @@
     "id": "F-005",
     "name": "KeepBiz consolidated multi-profile suggestions view",
     "description": "Implement the 'Todos os perfis' consolidated view for KeepBiz suggestions. When ProfileSelector is set to 'Todos os perfis': group suggestion cards by profile with expandable headers showing profile name + count (e.g. 'Processa Sistemas — 3 sugestoes'). Headers are expand/collapse (default expanded). Total pending count in section header. Approve/reject from one profile does not affect other profiles. When a specific profile is selected, show flat list (no grouping).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004"],
+    "dependencies": [
+      "F-004"
+    ],
     "tests": [
       "When 'Todos os perfis' selected, suggestions are grouped by profile",
       "Each profile group has expandable header with name and count",
@@ -109,11 +120,13 @@
     "id": "F-006",
     "name": "Campaign types + mock data",
     "description": "Add campaign type definitions and mock data to both apps. Types: CampaignObjective ('alcance' | 'engajamento' | 'conversao'), AiCampaignPost (title, briefing, platform/channel, targetDate), AiCampaign (id, title, description, objective, posts[], profileId?, source='ai', status, createdAt). Mock data: KeepBiz 1 campaign for PRF-001 'Serie: Transformacao Digital para PMEs' (4 posts, engajamento). KeepSolo 1 campaign 'Semana do Cuidador: Valorizando Quem Cuida' (3 posts, engajamento). No UI — pure types and data.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "AiCampaign, AiCampaignPost, CampaignObjective types exist in both apps",
       "KeepBiz has 1 mock campaign with 4 posts and profileId PRF-001",
@@ -129,11 +142,14 @@
     "id": "F-007",
     "name": "Campaign UI KeepBiz",
     "description": "Implement campaign proposal card in KeepBiz ContentPage. Full-width card above suggestion section with violet left border, gradient background. Header: Megaphone icon + title + 'Campanha IA' badge. Body: description + objective badge + vertical list of planned posts (title + platform + date). 3 actions: 'Aceitar campanha' (creates ContentItems from posts with source='ai', status='rascunho', campaignId), 'Personalizar' (opens edit dialog), 'Dispensar' (status→dispensada, card disappears with undo toast).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004", "F-006"],
+    "dependencies": [
+      "F-004",
+      "F-006"
+    ],
     "tests": [
       "Campaign card renders in ContentPage above suggestions section",
       "Card shows Megaphone icon, title, 'Campanha IA' badge",
@@ -151,11 +167,14 @@
     "id": "F-008",
     "name": "Campaign UI KeepSolo",
     "description": "Implement simplified campaign banner in KeepSolo CreatePage. Compact card above 'Sugestoes para voce' section with title + description + 'X posts planejados'. 3 actions: 'Aceitar' (creates ContentItems from posts with source='ai', status='rascunho', campaignId, toast with count), 'Ver detalhes' (expands inline to show post list), 'Dispensar' (hides with undo toast).",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-003", "F-006"],
+    "dependencies": [
+      "F-003",
+      "F-006"
+    ],
     "tests": [
       "Campaign banner renders in CreatePage above suggestions section",
       "Banner shows title, description, and post count",
@@ -172,11 +191,14 @@
     "id": "F-009",
     "name": "Visual indicators — SourceBadge + activity indicators",
     "description": "Create SourceBadge component in both apps: for source='ai' shows Robot icon + 'IA' text in violet; for source='manual' renders nothing. Integrate SourceBadge in content cards of main list (not in suggestion section) in both apps. KeepBiz Orchestrator Bar: add animated 'Agente criou X sugestoes' text with Sparkle pulse icon when pending AI suggestions exist, clickable to navigate to ContentPage. KeepSolo Bottom Nav: add notification badge (circle amber) on 'Criar' icon showing count of pending AI suggestions.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-003", "F-004"],
+    "dependencies": [
+      "F-003",
+      "F-004"
+    ],
     "tests": [
       "SourceBadge renders Robot + 'IA' in violet for source='ai'",
       "SourceBadge renders nothing for source='manual'",
@@ -195,11 +217,13 @@
     "id": "F-010",
     "name": "Monitor AI insight cards",
     "description": "Create AiInsightCard component in both apps with violet left border, Lightbulb/Brain icon, title 'Baseado no seu desempenho recente', 1-2 mock insight bullet points, CTA 'Ver sugestoes de conteudo' navigating to CreatePage (KeepSolo) or ContentPage (KeepBiz), and dismiss X button (card hidden for session, state local). KeepSolo: place above KPIs in MonitorPage. KeepBiz: place above feed in MonitorPage, insights vary by selected profile.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "AiInsightCard renders with violet border, icon, title, and insight bullets",
       "CTA navigates to CreatePage in KeepSolo and ContentPage in KeepBiz",
@@ -216,11 +240,14 @@
     "id": "F-011",
     "name": "Calendar AI differentiation",
     "description": "Differentiate AI-suggested content visually in both apps' editorial calendars. AI events (source='ai', status='rascunho'): dashed border, small Robot icon (12px), violet/purple color, reduced opacity (80%). Click on AI event opens popover with title + briefing + Approve/Edit/Reject buttons reusing useContentActions handlers. After approval via calendar, event changes to solid style. Add legend at top of calendar: solid dot = confirmed, hollow dot = AI suggestion (awaiting approval). Apply to both KeepSolo and KeepBiz calendar pages.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-003", "F-004"],
+    "dependencies": [
+      "F-003",
+      "F-004"
+    ],
     "tests": [
       "AI events in calendar show dashed border and Robot icon",
       "AI events have violet color and reduced opacity",
@@ -237,11 +264,19 @@
     "id": "F-012",
     "name": "i18n autocreation strings",
     "description": "Internationalize all autocreation UI strings in both apps for pt/en/es locales. Add autocreation namespace with keys for: suggestions titles/badges, approve/edit/reject actions, toast messages, campaign accept/customize/dismiss, activity indicator text, calendar legend, divider labels, monitor insight title/CTA. Replace all hardcoded strings in autocreation components (PRP-029 through PRP-034) with i18n keys. Follow existing i18n structure in each app.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-003", "F-004", "F-007", "F-008", "F-009", "F-010", "F-011"],
+    "dependencies": [
+      "F-003",
+      "F-004",
+      "F-007",
+      "F-008",
+      "F-009",
+      "F-010",
+      "F-011"
+    ],
     "tests": [
       "All 3 locale files in KeepSolo have autocreation namespace with all required keys",
       "All 3 locale files in KeepBiz have autocreation namespace with all required keys",

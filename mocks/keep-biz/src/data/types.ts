@@ -86,6 +86,7 @@ export type ContentStatus =
 
 export type ContentType = 'post' | 'short' | 'campanha' | 'criativo';
 export type ContentPlatform = 'Instagram' | 'TikTok' | 'LinkedIn' | 'Twitter' | 'Multi';
+export type ContentSource = 'ai' | 'manual';
 
 export interface ContentItem {
   id: string;
@@ -93,6 +94,7 @@ export interface ContentItem {
   type: ContentType;
   platform: ContentPlatform;
   status: ContentStatus;
+  source: ContentSource;
   author: string;
   briefing: string;
   targetDate: string;
@@ -100,6 +102,8 @@ export interface ContentItem {
   statusHistory: StatusHistoryEntry[];
   thumbnail?: string;
   profileId?: string;
+  campaignId?: string;
+  aiSuggestionId?: string;
 }
 
 export interface StatusHistoryEntry {
