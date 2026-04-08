@@ -3,10 +3,12 @@ import {
   Gear, User, Bell, CreditCard, Globe,
   PencilSimple, FloppyDisk, X, Check,
   Crown, Lightning, UserCircle,
-  CurrencyCircleDollar, Newspaper, Robot, Tag, Moon,
+  CurrencyCircleDollar, Newspaper, Robot, Tag, Moon, SignOut,
 } from '@phosphor-icons/react'
+import { useNavigate } from 'react-router-dom'
 import { LanguageSelector } from '../components/LanguageSelector'
 import { useTheme } from '../contexts/ThemeContext'
+import { useAuth } from '../contexts/AuthContext'
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
 
@@ -237,6 +239,9 @@ const NOTIFICATION_ITEMS = [
 type NotifId = (typeof NOTIFICATION_ITEMS)[number]['id']
 
 export function ConfigPage() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
   // Profile state
   const [profile, setProfile] = useState(DEFAULT_PROFILE)
   const [editProfile, setEditProfile] = useState(false)
@@ -433,6 +438,15 @@ export function ConfigPage() {
       <Section icon={<Moon size={16} weight="duotone" />} title="Aparência">
         <DarkModeToggle />
       </Section>
+
+      {/* Logout */}
+      <button
+        onClick={() => { logout(); navigate('/landing', { replace: true }) }}
+        className="w-full flex items-center justify-center gap-2 border border-border hover:bg-muted text-muted-foreground text-sm font-medium py-3 rounded-2xl transition-colors"
+      >
+        <SignOut size={16} weight="duotone" />
+        Sair da conta
+      </button>
 
       {/* Upgrade dialog */}
       {showUpgrade && <UpgradeDialog onClose={() => setShowUpgrade(false)} />}

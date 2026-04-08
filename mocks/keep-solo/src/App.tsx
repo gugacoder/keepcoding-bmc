@@ -10,22 +10,35 @@ import { AgentsChatPage } from '@/pages/AgentsChatPage'
 import { AgentsToolsPage } from '@/pages/AgentsToolsPage'
 import { AgentsWorkflowsPage } from '@/pages/AgentsWorkflowsPage'
 import { ConfigPage } from '@/pages/ConfigPage'
+import { LandingPage } from '@/pages/LandingPage'
+import { LoginPage } from '@/pages/LoginPage'
+import { RegisterPage } from '@/pages/RegisterPage'
 import { WorkflowProvider } from '@/contexts/WorkflowContext'
 import { AgentsProvider } from '@/contexts/AgentsContext'
 import { ContentProvider } from '@/contexts/ContentContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { RouteGuard } from '@/components/RouteGuard'
 
 function App() {
   return (
     <Suspense fallback={null}>
       <ThemeProvider>
+      <AuthProvider>
+      <AgentsProvider>
+      <ContentProvider>
       <WorkflowProvider>
-        <AgentsProvider>
-        <ContentProvider>
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
-              <Route index element={<Navigate to="/monitor" replace />} />
+            {/* Public routes */}
+            <Route index element={<Navigate to="/landing" replace />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/pricing" element={<Navigate to="/landing#pricing" replace />} />
+
+            {/* Protected routes */}
+            <Route element={<RouteGuard><AppLayout /></RouteGuard>}>
               <Route path="/monitor" element={<MonitorPage />} />
               <Route path="/create" element={<CreatePage />} />
               <Route path="/create/calendar" element={<CreateCalendarPage />} />
@@ -37,9 +50,10 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-        </ContentProvider>
-        </AgentsProvider>
       </WorkflowProvider>
+      </ContentProvider>
+      </AgentsProvider>
+      </AuthProvider>
       </ThemeProvider>
     </Suspense>
   )
