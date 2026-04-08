@@ -124,7 +124,7 @@
     "id": "F-007",
     "name": "ProfileContext KeepBiz",
     "description": "Criar `mocks/keep-biz/src/contexts/ProfileContext.tsx` com interface ProfileContextValue: profiles (Profile[]), activeProfileId (string|null), hasProfiles (boolean), setActiveProfileId(id), addProfile(profile), removeProfile(id). Inicializar com dados de `data/profiles.ts`. Persistir `activeProfileId` via localStorage('keepbiz-active-profile'). Prover o contexto no App.tsx wrapping rotas protegidas.",
-    "status": "pending",
+    "status": "passing",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
@@ -139,7 +139,8 @@
       "addProfile e removeProfile atualizam o array de profiles",
       "Provider está no App.tsx"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md",
+    "completed_at": "2026-04-08T14:30:00Z"
   },
   {
     "id": "F-008",
