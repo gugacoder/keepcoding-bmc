@@ -743,7 +743,7 @@
     "id": "F-036",
     "name": "Salvar alterações perfil KeepSolo",
     "description": "Adicionar botão 'Salvar alterações' ao final da BusinessProfileSection. Ao clicar: chamar `updateProfile(formData)` do SoloProfileContext com os valores atuais do formulário. Exibir toast 'Alterações salvas!' (usando o padrão de toast existente no app). Mock: atualiza state em memória, não persiste em reload.",
-    "status": "pending",
+    "status": "passing",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
@@ -756,7 +756,8 @@
       "Toast 'Alterações salvas!' é exibido após salvar",
       "Dados atualizados refletem no context (sem reload)"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-027-keepsolo-profile-config.md",
+    "completed_at": "2026-04-08T14:10:00Z"
   },
   {
     "id": "F-037",
