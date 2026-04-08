@@ -1,0 +1,24 @@
+name: keepcoding-solo
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    networks:
+      codr-net:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=codr-net"
+      - "traefik.http.routers.keepcoding-solo.rule=Host(`solo.keepcoding.net.br`)"
+      - "traefik.http.routers.keepcoding-solo.entrypoints=websecure"
+      - "traefik.http.routers.keepcoding-solo.tls.certresolver=letsencrypt"
+      - "traefik.http.services.keepcoding-solo.loadbalancer.server.port=80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  codr-net:
+    external: true

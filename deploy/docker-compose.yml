@@ -1,0 +1,69 @@
+# ==============================================================================
+# Keep Coding — Mocks (Production)
+# ==============================================================================
+# Build + serve dos mocks keep-biz e keep-solo.
+#
+# Uso:
+#   docker compose build   - Buildar imagens
+#   docker compose up -d   - Subir stack
+#   docker compose logs -f - Ver logs
+#   docker compose down    - Derrubar stack
+# ==============================================================================
+
+name: keepcoding-mocks
+
+services:
+
+  # ============================================================================
+  # KEEP-BIZ — biz.keepcoding.net.br
+  # ============================================================================
+  keep-biz:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        APP: keep-biz
+    restart: unless-stopped
+    networks:
+      codr-net:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=codr-net"
+      - "traefik.http.routers.keepcoding-biz.rule=Host(`biz.keepcoding.net.br`)"
+      - "traefik.http.routers.keepcoding-biz.entrypoints=websecure"
+      - "traefik.http.routers.keepcoding-biz.tls.certresolver=letsencrypt"
+      - "traefik.http.services.keepcoding-biz.loadbalancer.server.port=80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ============================================================================
+  # KEEP-SOLO — solo.keepcoding.net.br
+  # ============================================================================
+  keep-solo:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        APP: keep-solo
+    restart: unless-stopped
+    networks:
+      codr-net:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=codr-net"
+      - "traefik.http.routers.keepcoding-solo.rule=Host(`solo.keepcoding.net.br`)"
+      - "traefik.http.routers.keepcoding-solo.entrypoints=websecure"
+      - "traefik.http.routers.keepcoding-solo.tls.certresolver=letsencrypt"
+      - "traefik.http.services.keepcoding-solo.loadbalancer.server.port=80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  codr-net:
+    external: true
