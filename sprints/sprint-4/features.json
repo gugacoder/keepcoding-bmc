@@ -234,7 +234,7 @@
     "id": "F-012",
     "name": "Wizard Etapa 1 — Coleta KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepIdentity.tsx` — formulário de coleta inicial com: campo Nome do negócio (obrigatório), URL do site (opcional), repeater de redes sociais (até 5 entradas, cada com select de plataforma [Instagram, LinkedIn, TikTok, YouTube, Twitter/X, Facebook, WhatsApp, Google Meu Negócio] e campo de handle/URL). Validação: nome não vazio para permitir avançar. Integrar no ProfileWizardPage como step 0.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -248,7 +248,8 @@
       "Botão Avançar é desabilitado quando nome está vazio",
       "Dados são preservados ao navegar entre steps"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T14:08:21Z"
   },
   {
     "id": "F-013",

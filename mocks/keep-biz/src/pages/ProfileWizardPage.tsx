@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check } from '@phosphor-icons/react'
+import {
+  WizardStepIdentity,
+  type IdentityData,
+} from '../components/wizard/WizardStepIdentity'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -78,20 +82,42 @@ function StepPlaceholder({ step }: { step: number }) {
   )
 }
 
+// ─── Wizard state ──────────────────────────────────────────────────────────
+
+interface WizardData {
+  identity: IdentityData
+}
+
+const INITIAL_WIZARD_DATA: WizardData = {
+  identity: {
+    businessName: '',
+    websiteUrl: '',
+    socialLinks: [],
+  },
+}
+
+function isStepValid(step: number, data: WizardData): boolean {
+  if (step === 0) return data.identity.businessName.trim() !== ''
+  return true
+}
+
 // ─── Main page ─────────────────────────────────────────────────────────────
 
 export function ProfileWizardPage() {
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0)
+  const [wizardData, setWizardData] = useState<WizardData>(INITIAL_WIZARD_DATA)
 
   const isFirst = currentStep === 0
   const isLast = currentStep === STEPS.length - 1
+  const canAdvance = isStepValid(currentStep, wizardData)
 
   function handleBack() {
     if (!isFirst) setCurrentStep((s) => s - 1)
   }
 
   function handleNext() {
+    if (!canAdvance) return
     if (!isLast) setCurrentStep((s) => s + 1)
     else navigate('/profiles')
   }
@@ -114,7 +140,14 @@ export function ProfileWizardPage() {
 
         {/* Step content */}
         <div className="min-h-[280px] rounded-xl border border-border bg-card p-6">
-          <StepPlaceholder step={currentStep} />
+          {currentStep === 0 ? (
+            <WizardStepIdentity
+              data={wizardData.identity}
+              onChange={(identity) => setWizardData((d) => ({ ...d, identity }))}
+            />
+          ) : (
+            <StepPlaceholder step={currentStep} />
+          )}
         </div>
 
         {/* Navigation */}
@@ -134,7 +167,8 @@ export function ProfileWizardPage() {
 
           <button
             onClick={handleNext}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+            disabled={!canAdvance}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {isLast ? 'Criar Perfil' : 'Avançar'}
             {!isLast && <ArrowRight size={16} />}
