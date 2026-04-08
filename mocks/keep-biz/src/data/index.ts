@@ -8,3 +8,4 @@ export * from './mentions';
 export * from './alerts';
 export * from './team';
 export * from './auditLog';
+export * from './campaigns';

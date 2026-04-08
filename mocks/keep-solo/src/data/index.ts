@@ -5,3 +5,4 @@ export * from './agents';
 export * from './connectors';
 export * from './content';
 export * from './leads';
+export * from './campaigns';

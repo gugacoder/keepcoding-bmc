@@ -179,6 +179,28 @@ export interface AuditLogEntry {
   humanInLoop?: boolean;
 }
 
+// Campaign types
+export type CampaignObjective = 'alcance' | 'engajamento' | 'conversao';
+
+export interface AiCampaignPost {
+  title: string;
+  briefing: string;
+  platform: ContentPlatform;
+  targetDate: string;
+}
+
+export interface AiCampaign {
+  id: string;
+  title: string;
+  description: string;
+  objective: CampaignObjective;
+  posts: AiCampaignPost[];
+  profileId?: string;
+  source: 'ai';
+  status: 'proposta' | 'aceita' | 'dispensada';
+  createdAt: string;
+}
+
 // Profile types
 export type ProfileStatus = 'rascunho' | 'completo' | 'ativo' | 'inativo';
 

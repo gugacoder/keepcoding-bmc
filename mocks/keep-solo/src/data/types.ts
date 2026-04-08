@@ -137,6 +137,27 @@ export interface FunnelStage {
   value: number;
 }
 
+// Campaign types
+export type CampaignObjective = 'alcance' | 'engajamento' | 'conversao';
+
+export interface AiCampaignPost {
+  title: string;
+  briefing: string;
+  channel: ContentChannel;
+  targetDate: string;
+}
+
+export interface AiCampaign {
+  id: string;
+  title: string;
+  description: string;
+  objective: CampaignObjective;
+  posts: AiCampaignPost[];
+  source: 'ai';
+  status: 'proposta' | 'aceita' | 'dispensada';
+  createdAt: string;
+}
+
 // Profile types
 export type ProfileStatus = 'rascunho' | 'completo' | 'ativo' | 'inativo';
 
