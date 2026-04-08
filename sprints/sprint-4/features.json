@@ -104,7 +104,7 @@
     "id": "F-006",
     "name": "Sidebar seção Perfis KeepBiz",
     "description": "Adicionar seção 'Perfis' na Sidebar do KeepBiz (`mocks/keep-biz/src/components/Sidebar.tsx`) com ícone UserCircle (Phosphor) e link direto para `/profiles`. Posicionar ACIMA das 3 zonas existentes (Social Monitor, Content Forge, Agent Core). Sem sub-links — apenas um link direto.",
-    "status": "pending",
+    "status": "passing",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
@@ -117,7 +117,8 @@
       "Click em 'Perfis' navega para /profiles",
       "Sidebar renderiza sem erros"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-023-keepbiz-profiles-page.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-023-keepbiz-profiles-page.md",
+    "completed_at": "2026-04-08T14:30:00Z"
   },
   {
     "id": "F-007",
@@ -496,7 +497,7 @@
     "id": "F-025",
     "name": "i18n ProfilesPage e ProfileCard KeepBiz",
     "description": "Adicionar strings de ProfilesPage e ProfileCard ao sistema i18n em pt/en/es. Substituir hardcoded strings por t(). Incluir: título da página, botão criar, labels de status, texto de completude, texto de relative time, empty state, labels de ações (Editar, Excluir), textos do dialog de confirmação.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
