@@ -3,10 +3,11 @@
     "id": "F-001",
     "name": "KeepBiz: AuthContext + RouteGuard + Rotas Públicas",
     "description": "Implementar AuthContext (isLoggedIn, user, login(), logout() com persistência em localStorage), RouteGuard (redireciona não-autenticados para /login, preserva location.state.from), reestruturar App.tsx do KeepBiz separando rotas públicas (/landing, /login, /register, /pricing→redirect) das protegidas (todas existentes envolvidas no RouteGuard). Criar placeholders mínimos para /landing, /login, /register. Adicionar botão de logout em SettingsPage. Garantir que ThemeProvider envolve também rotas públicas para continuidade visual (D-036). Path: mocks/keep-biz/.",
-    "status": "pending",
+    "status": "passing",
     "priority": 1,
     "agent": "coder",
     "task": "vibe-code",
+    "completed_at": "2026-04-08T00:00:00Z",
     "dependencies": [],
     "tests": [
       "Acessar /monitor sem auth redireciona para /login",
@@ -49,7 +50,9 @@
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "PricingSection renderiza 3 cards (Starter, Growth, Enterprise)",
       "Toggle mensal/anual atualiza preços com animação",
@@ -65,11 +68,13 @@
     "id": "F-004",
     "name": "KeepSolo: PricingSection Component",
     "description": "Criar dados de pricing em src/data/pricing.ts com tipos Plan e array keepsoloPlans (Free grátis, Pro R$97 popular, Scale R$247). Criar componente PricingSection com: 3 cards verticais com features/preços/badges, toggle mensal/anual com animação de preço, badge 'Mais Popular' no Pro, CTA por plano navegando para /register?plan={id}. Props: app, selectedPlan?, onSelectPlan?, showBillingToggle?. Responsivo: 3 colunas desktop, stack mobile com popular primeiro. Path: mocks/keep-solo/.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 2,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002"],
+    "dependencies": [
+      "F-002"
+    ],
     "tests": [
       "PricingSection renderiza 3 cards (Free, Pro, Scale)",
       "Toggle mensal/anual atualiza preços com animação",
@@ -102,11 +107,14 @@
     "id": "F-006",
     "name": "KeepBiz: Landing Page Completa",
     "description": "Substituir placeholder da LandingPage em mocks/keep-biz/ por landing page completa com: (1) Navbar fixa com logo, links de âncora (Como Funciona, Benefícios, Depoimentos, Pricing), botões Entrar/Começar Grátis, hamburguer mobile; (2) Hero com headline 'Sua equipe de agentes de IA. Pronta para trabalhar.', subheadline, 2 CTAs, imagem DALL-E hero-keepbiz.png (fallback gradient + ícones), OrchestratorBarDemo animado (status green→yellow→green em loop CSS); (3) Como Funciona — 3 passos com ícones Phosphor; (4) Benefícios — grid 2x2 com 4 cards corporativos; (5) Social Proof — logos Processa Sistemas + Cia Cuidadores + 3 depoimentos fictícios; (6) Pricing — integração <PricingSection app='keepbiz' />; (7) CTA Final + Footer. Animações scroll-triggered via IntersectionObserver (fade-in + slide-up). Tom corporativo, cores frias. Responsivo: 2 colunas desktop, stack mobile.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001", "F-003"],
+    "dependencies": [
+      "F-001",
+      "F-003"
+    ],
     "tests": [
       "Landing page renderiza com todas as 7 seções visíveis",
       "Navbar fixa com scroll suave para âncoras",
@@ -125,11 +133,14 @@
     "id": "F-007",
     "name": "KeepSolo: Landing Page Completa",
     "description": "Substituir placeholder da LandingPage em mocks/keep-solo/ por landing page completa com: (1) Navbar fixa com logo KeepSolo, links de âncora, botões Entrar/Começar Agora, hamburguer mobile; (2) Hero com headline 'Você não precisa fazer tudo sozinho.', subheadline, 2 CTAs (Começar Agora→/register, Ver Demo→#how-it-works), imagem DALL-E hero-keepsolo.png (fallback gradient quente), MonitorDemo animado (lead chegando no funil com slide-in + contagem incrementando); (3) Como Funciona — 3 passos com ícones Phosphor (ChatCircle, Lightning, Eye); (4) Benefícios — grid 2x2 com 4 cards pessoais/empoderadoras; (5) Social Proof — 3 personas fictícias (coach, consultor, freelancer) com depoimentos; (6) Pricing — integração <PricingSection app='keepsolo' />; (7) CTA Final + Footer. Animações scroll-triggered. Tom pessoal, cores quentes. Responsivo.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002", "F-004"],
+    "dependencies": [
+      "F-002",
+      "F-004"
+    ],
     "tests": [
       "Landing page renderiza com todas as 7 seções visíveis",
       "Navbar fixa com scroll suave para âncoras",
@@ -152,7 +163,9 @@
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-001"],
+    "dependencies": [
+      "F-001"
+    ],
     "tests": [
       "LoginPage renderiza com 3 tabs (Email, WhatsApp, Email OTP)",
       "Tab email/senha: login com qualquer credencial redireciona para /monitor",
@@ -172,11 +185,13 @@
     "id": "F-009",
     "name": "KeepSolo: LoginPage + OTP Components",
     "description": "Substituir placeholder de /login em mocks/keep-solo/ por LoginPage com mesma lógica do KeepBiz (3 tabs: email/senha, WhatsApp OTP, Email OTP) mas visual distinto: cores quentes, cantos arredondados, fundo quente, placeholder 'voce@email.com'. Criar componentes OtpInput e OtpTimer no KeepSolo. Qualquer credencial aceita → auth.login() → redirect.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-002"],
+    "dependencies": [
+      "F-002"
+    ],
     "tests": [
       "LoginPage renderiza com 3 tabs",
       "Tab email/senha: login com qualquer credencial redireciona para /monitor",
@@ -193,11 +208,14 @@
     "id": "F-010",
     "name": "KeepBiz: RegisterPage Wizard",
     "description": "Substituir placeholder de /register em mocks/keep-biz/ por RegisterPage com wizard de 3 steps e stepper visual: Step 1 — nome, email, empresa (opcional), senha com PasswordStrength (3 barras), confirmar senha, divider 'Ou crie com' + botões OTP WhatsApp/Email (reutiliza OtpInput/OtpTimer de F-008). Step 2 — integração <PricingSection> com onSelectPlan e selectedPlan, pré-seleção via query param ?plan=pro, ao menos um plano selecionado para avançar. Step 3 — resumo dos dados, checkbox termos (links mock), botão 'Criar Conta' com loading spinner 1.5s → auth.login() → toast sucesso → redirect /monitor. useReducer local para state. Visual corporativo: heading 'Crie sua conta corporativa', cores frias.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-003", "F-008"],
+    "dependencies": [
+      "F-003",
+      "F-008"
+    ],
     "tests": [
       "RegisterPage renderiza wizard com 3 steps e stepper visual",
       "Step 1: campos nome/email/empresa/senha/confirmar renderizam",
@@ -217,11 +235,14 @@
     "id": "F-011",
     "name": "KeepSolo: RegisterPage Wizard",
     "description": "Substituir placeholder de /register em mocks/keep-solo/ por RegisterPage com wizard de 3 steps: Step 1 — nome, email, senha com PasswordStrength, confirmar senha (sem campo empresa), OTP alternativo. Step 2 — PricingSection KeepSolo com onSelectPlan, pré-seleção via query param. Step 3 — resumo, checkbox termos, botão 'Começar Agora' com loading → login → toast → redirect. Visual pessoal: heading 'Crie sua conta', cores quentes, cantos arredondados.",
-    "status": "pending",
+    "status": "blocked",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
-    "dependencies": ["F-004", "F-009"],
+    "dependencies": [
+      "F-004",
+      "F-009"
+    ],
     "tests": [
       "RegisterPage renderiza wizard com 3 steps e stepper visual",
       "Step 1: campos nome/email/senha/confirmar (sem campo empresa)",
