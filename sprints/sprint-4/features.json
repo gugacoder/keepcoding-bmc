@@ -83,7 +83,7 @@
     "id": "F-005",
     "name": "ProfileCard componente KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/ProfileCard.tsx` — card individual de perfil com: nome do negócio (identity.businessName) como título, segmento (niche.segment) como subtítulo, status badge colorido (ativo=green, completo=blue, rascunho=yellow, inativo=gray), barra de completude 0-100% com cor por faixa (red<50, yellow<80, green>=80), ícones das plataformas ativas, 'Atualizado há X dias' (relative time calculado a partir de updatedAt). Perfil com status 'ativo' tem borda destacada (border-blue-500). Usar nos ProfileCard os mesmos componentes Badge do projeto se existirem.",
-    "status": "pending",
+    "status": "passing",
     "priority": 3,
     "agent": "coder",
     "task": "vibe-code",
@@ -97,7 +97,8 @@
       "Perfil ativo tem borda destacada",
       "Relative time é exibido (ex: 'Atualizado há 3 dias')"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-023-keepbiz-profiles-page.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-023-keepbiz-profiles-page.md",
+    "completed_at": "2026-04-08T14:30:00Z"
   },
   {
     "id": "F-006",
@@ -206,7 +207,7 @@
     "id": "F-011",
     "name": "ProfileWizardPage com stepper KeepBiz",
     "description": "Criar `mocks/keep-biz/src/pages/ProfileWizardPage.tsx` com layout fullscreen (max-w-2xl centralizado), stepper horizontal de 5 etapas (labels: 'Seu Negócio', 'Pesquisando...', 'Validação', 'Nicho & Posicionamento', 'Resumo'), indicador de etapa ativa, botões Voltar/Avançar na parte inferior. Registrar rota `/profiles/new`. O stepper gerencia currentStep (0-4) e renderiza placeholder divs para cada etapa (conteúdo será implementado nas features seguintes).",
-    "status": "blocked",
+    "status": "pending",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
