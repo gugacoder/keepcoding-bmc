@@ -16,7 +16,7 @@ Gerar imagens de hero de alto impacto para as landing pages de KeepBiz e KeepSol
 ## API Configuration
 
 ```
-OPENAI_API_KEY=REDACTED_OPENAI_KEY
+OPENAI_API_KEY=  # ver .env na raiz do repositório
 ```
 
 ### Endpoint

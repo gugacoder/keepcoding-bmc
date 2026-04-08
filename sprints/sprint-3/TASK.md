@@ -16,7 +16,7 @@ Crie landing pages fantásticas para os dois apps com movimento e COPY que conve
 Use a chave da OpenAi para inventar criativos para demonstrar a ideia.
 Use modelos de desenho e vídeos da OpenAi.
 
-OPENAI_API_KEY=REDACTED_OPENAI_KEY
+A chave está em `.env` na raiz do repositório.
 
 ## Auth
 

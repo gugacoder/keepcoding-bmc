@@ -14,9 +14,11 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 
-const OPENAI_API_KEY =
-  process.env.OPENAI_API_KEY ||
-  'REDACTED_OPENAI_KEY';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+if (!OPENAI_API_KEY) {
+  console.error('OPENAI_API_KEY not set. Add it to .env at the repo root.');
+  process.exit(1);
+}
 
 const HEROES = [
   {

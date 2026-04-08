@@ -90,7 +90,7 @@ Atualizar os arquivos de dados mock para referenciar as imagens:
 ### Variável de Ambiente
 
 ```
-OPENAI_API_KEY=REDACTED_OPENAI_KEY
+OPENAI_API_KEY=  # ver .env na raiz do repositório
 ```
 
 ---
