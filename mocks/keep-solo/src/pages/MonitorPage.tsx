@@ -21,6 +21,7 @@ import {
 } from '@phosphor-icons/react'
 import { leads } from '@/data'
 import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
+import { AiInsightCard } from '@/components/AiInsightCard'
 import type { Lead, LeadStatus } from '@/data/types'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -367,6 +368,9 @@ export function MonitorPage() {
           ))}
         </div>
       </div>
+
+      {/* AI Insight Card — above KPIs */}
+      <AiInsightCard />
 
       {/* KPI cards — 2x2 mobile, 4 cols on lg */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
