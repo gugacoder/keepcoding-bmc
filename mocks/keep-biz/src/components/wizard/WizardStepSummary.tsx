@@ -77,9 +77,10 @@ interface Props {
   onChange: (data: SummaryData) => void
   onGoToStep: (step: number) => void
   onCreateProfile: () => void
+  submitLabel?: string
 }
 
-export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep, onCreateProfile }: Props) {
+export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep, onCreateProfile, submitLabel = 'Criar Perfil' }: Props) {
   function handleTogglePlatform(platform: string) {
     const next = data.platforms.includes(platform)
       ? data.platforms.filter((p) => p !== platform)
@@ -199,13 +200,13 @@ export function WizardStepSummary({ identity, niche, data, onChange, onGoToStep,
         </div>
       </div>
 
-      {/* Create profile button */}
+      {/* Submit button */}
       <button
         type="button"
         onClick={onCreateProfile}
         className="w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
       >
-        Criar Perfil
+        {submitLabel}
       </button>
     </div>
   )

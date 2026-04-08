@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useCallback, useState, useMemo } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check, CheckCircle, X } from '@phosphor-icons/react'
 import {
   WizardStepIdentity,
@@ -17,6 +17,37 @@ import {
 } from '../components/wizard/WizardStepSummary'
 import { useProfiles } from '../contexts/ProfileContext'
 import type { Profile } from '../data/types'
+
+// ─── Edit mode helpers ─────────────────────────────────────────────────────
+
+function profileToWizardData(profile: Profile): WizardData {
+  const socialLinks = profile.identity.socialLinks.map((s) => {
+    const colonIdx = s.indexOf(': ')
+    if (colonIdx !== -1) {
+      return { platform: s.slice(0, colonIdx), handle: s.slice(colonIdx + 2) }
+    }
+    return { platform: 'Instagram', handle: s }
+  })
+
+  return {
+    identity: {
+      businessName: profile.identity.businessName,
+      websiteUrl: profile.identity.url ?? '',
+      socialLinks,
+    },
+    niche: {
+      selectedSegment: profile.niche.segment,
+      targetAudience: profile.niche.targetAudience
+        ? profile.niche.targetAudience.split(', ').filter(Boolean)
+        : [],
+      positioningStatement: profile.positioning.statement,
+    },
+    summary: {
+      toneOfVoice: profile.tone.primary,
+      platforms: profile.platforms,
+    },
+  }
+}
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -127,15 +158,48 @@ function isStepValid(step: number, data: WizardData): boolean {
 
 // Steps with internal navigation (no Voltar/Avançar footer nav)
 // Step 1 (Pesquisando) auto-advances; step 2 (Validação) has its own CTA;
-// step 4 (Resumo) has its own Criar Perfil button
-const AUTO_ADVANCE_STEPS = new Set([1, 2, 4])
+// step 4 (Resumo) has its own button
+const AUTO_ADVANCE_STEPS_CREATE = new Set([1, 2, 4])
+const AUTO_ADVANCE_STEPS_EDIT = new Set([4])
+
+// In edit mode, steps 1 (Research) and 2 (Validation) are skipped.
+// Navigation jumps: 0 → 3 → 4 and back: 4 → 3 → 0
+function getNextStep(current: number, editMode: boolean): number {
+  if (editMode) {
+    if (current === 0) return 3
+    return current + 1
+  }
+  return current + 1
+}
+
+function getPrevStep(current: number, editMode: boolean): number {
+  if (editMode) {
+    if (current === 3) return 0
+    return current - 1
+  }
+  return current - 1
+}
 
 export function ProfileWizardPage() {
   const navigate = useNavigate()
-  const { addProfile } = useProfiles()
+  const [searchParams] = useSearchParams()
+  const { addProfile, updateProfile, profiles } = useProfiles()
+
+  const editId = searchParams.get('edit')
+  const editMode = editId !== null
+
+  const editProfile = useMemo(
+    () => (editId ? profiles.find((p) => p.id === editId) ?? null : null),
+    [editId, profiles]
+  )
+
   const [currentStep, setCurrentStep] = useState(0)
-  const [wizardData, setWizardData] = useState<WizardData>(INITIAL_WIZARD_DATA)
+  const [wizardData, setWizardData] = useState<WizardData>(() =>
+    editProfile ? profileToWizardData(editProfile) : INITIAL_WIZARD_DATA
+  )
   const [toast, setToast] = useState<string | null>(null)
+
+  const AUTO_ADVANCE_STEPS = editMode ? AUTO_ADVANCE_STEPS_EDIT : AUTO_ADVANCE_STEPS_CREATE
 
   const isFirst = currentStep === 0
   const isAutoStep = AUTO_ADVANCE_STEPS.has(currentStep)
@@ -148,12 +212,12 @@ export function ProfileWizardPage() {
   }
 
   function handleBack() {
-    if (!isFirst) setCurrentStep((s) => s - 1)
+    if (!isFirst) setCurrentStep(getPrevStep(currentStep, editMode))
   }
 
   function handleNext() {
     if (!canAdvance) return
-    if (!isLast) setCurrentStep((s) => s + 1)
+    if (!isLast) setCurrentStep(getNextStep(currentStep, editMode))
   }
 
   const handleResearchComplete = useCallback(() => {
@@ -170,8 +234,7 @@ export function ProfileWizardPage() {
 
   function handleCreateProfile() {
     const now = new Date().toISOString()
-    const newProfile: Profile = {
-      id: `PRF-${Date.now()}`,
+    const profileData = {
       identity: {
         businessName: wizardData.identity.businessName,
         url: wizardData.identity.websiteUrl,
@@ -180,26 +243,37 @@ export function ProfileWizardPage() {
       niche: {
         segment: wizardData.niche.selectedSegment,
         targetAudience: wizardData.niche.targetAudience.join(', '),
-        competitors: [],
+        competitors: editProfile?.niche.competitors ?? [],
       },
       positioning: {
-        differentials: [],
+        differentials: editProfile?.positioning.differentials ?? [],
         statement: wizardData.niche.positioningStatement,
-        agentSuggestion: '',
+        agentSuggestion: editProfile?.positioning.agentSuggestion ?? '',
       },
       tone: {
         primary: wizardData.summary.toneOfVoice,
-        examples: [],
+        examples: editProfile?.tone.examples ?? [],
       },
       platforms: wizardData.summary.platforms,
-      status: 'rascunho',
-      completeness: 80,
-      createdAt: now,
-      updatedAt: now,
     }
-    addProfile(newProfile)
-    showToast('Perfil criado com sucesso!')
-    setTimeout(() => navigate('/profiles'), 500)
+
+    if (editMode && editId) {
+      updateProfile(editId, profileData)
+      showToast('Perfil atualizado com sucesso!')
+      setTimeout(() => navigate('/profiles'), 500)
+    } else {
+      const newProfile: Profile = {
+        id: `PRF-${Date.now()}`,
+        ...profileData,
+        status: 'rascunho',
+        completeness: 80,
+        createdAt: now,
+        updatedAt: now,
+      }
+      addProfile(newProfile)
+      showToast('Perfil criado com sucesso!')
+      setTimeout(() => navigate('/profiles'), 500)
+    }
   }
 
   return (
@@ -207,9 +281,13 @@ export function ProfileWizardPage() {
       <div className="w-full max-w-2xl flex flex-col gap-8">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-semibold text-foreground">Criar Novo Perfil</h1>
+          <h1 className="text-2xl font-semibold text-foreground">
+            {editMode ? 'Editar Perfil' : 'Criar Novo Perfil'}
+          </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Preencha as etapas abaixo para criar seu perfil de negócio.
+            {editMode
+              ? 'Atualize as informações do seu perfil de negócio.'
+              : 'Preencha as etapas abaixo para criar seu perfil de negócio.'}
           </p>
         </div>
 
@@ -245,6 +323,7 @@ export function ProfileWizardPage() {
               onChange={(summary) => setWizardData((d) => ({ ...d, summary }))}
               onGoToStep={handleGoToStep}
               onCreateProfile={handleCreateProfile}
+              submitLabel={editMode ? 'Salvar Alterações' : 'Criar Perfil'}
             />
           )}
         </div>

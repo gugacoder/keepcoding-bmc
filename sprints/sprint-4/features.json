@@ -344,7 +344,7 @@
     "id": "F-017",
     "name": "Wizard modo edição KeepBiz",
     "description": "Adicionar suporte a modo edição no ProfileWizardPage. Detectar query param `?edit=PRF-XXX` via URL. Quando presente: carregar perfil existente do ProfileContext, pré-preencher campos das etapas 1, 4 e 5, pular etapas 2 (loading) e 3 (validação), mudar botão final para 'Salvar Alterações' em vez de 'Criar Perfil'. Ao salvar: atualizar perfil no context e navegar de volta para `/profiles`.",
-    "status": "pending",
+    "status": "passing",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
@@ -360,7 +360,8 @@
       "Botão final mostra 'Salvar Alterações'",
       "Salvar atualiza o perfil no context e navega para /profiles"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T00:00:00Z"
   },
   {
     "id": "F-018",

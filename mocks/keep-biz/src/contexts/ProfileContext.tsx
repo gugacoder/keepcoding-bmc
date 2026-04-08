@@ -9,6 +9,7 @@ interface ProfileContextValue {
   setActiveProfileId: (id: string | null) => void
   addProfile: (profile: Profile) => void
   removeProfile: (id: string) => void
+  updateProfile: (id: string, data: Partial<Profile>) => void
 }
 
 const ProfileContext = createContext<ProfileContextValue | null>(null)
@@ -41,6 +42,12 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const updateProfile = (id: string, data: Partial<Profile>) => {
+    setProfiles((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString() } : p))
+    )
+  }
+
   return (
     <ProfileContext.Provider
       value={{
@@ -50,6 +57,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
         setActiveProfileId,
         addProfile,
         removeProfile,
+        updateProfile,
       }}
     >
       {children}
