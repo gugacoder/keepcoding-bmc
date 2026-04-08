@@ -12,6 +12,9 @@ import {
   CheckCircle,
   Globe,
   Sparkle,
+  Megaphone,
+  CaretDown,
+  CaretUp,
 } from '@phosphor-icons/react'
 import { useContent } from '@/contexts/ContentContext'
 import { useContentActions } from '@/hooks/useContentActions'
@@ -20,7 +23,8 @@ import { EmptyState } from '@/components/EmptyState'
 import { SkeletonCard } from '@/components/Skeleton'
 import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
 import { useEffect } from 'react'
-import type { ContentItem, ContentType, ContentChannel } from '@/data/types'
+import type { ContentItem, ContentType, ContentChannel, AiCampaign } from '@/data/types'
+import { campaigns as initialCampaigns } from '@/data'
 
 // ─── Status config ────────────────────────────────────────────────────────────
 const STATUS_CONFIG: Record<string, { label: string; color: BadgeColor }> = {
@@ -290,6 +294,84 @@ function Toast({ state, onClose, onUndo }: {
   )
 }
 
+// ─── Campaign Banner ───────────────────────────────────────────────────────────
+interface CampaignBannerProps {
+  campaign: AiCampaign
+  onAccept: () => void
+  onDismiss: () => void
+}
+
+function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div className="rounded-2xl border border-violet-200 dark:border-violet-800/50 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/20 overflow-hidden">
+      {/* Compact header */}
+      <div className="p-4 flex items-start gap-3">
+        <div className="shrink-0 w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-900/50 flex items-center justify-center">
+          <Megaphone size={16} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+            <h3 className="text-sm font-semibold text-foreground leading-snug">{campaign.title}</h3>
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/60 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 shrink-0">
+              Campanha IA
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{campaign.description}</p>
+          <p className="text-xs font-medium text-violet-600 dark:text-violet-400 mt-1">
+            {campaign.posts.length} posts planejados
+          </p>
+        </div>
+      </div>
+
+      {/* Expanded post list */}
+      {expanded && (
+        <div className="px-4 pb-3 space-y-2">
+          <div className="h-px bg-violet-100 dark:bg-violet-800/40 mb-3" />
+          {campaign.posts.map((post, i) => (
+            <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+              <span className="shrink-0 w-5 h-5 rounded-full bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center text-[10px]">
+                {i + 1}
+              </span>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-foreground leading-snug">{post.title}</p>
+                <p className="text-muted-foreground mt-0.5">
+                  {post.channel} · {new Date(post.targetDate).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' })}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Actions */}
+      <div className="px-4 pb-4 flex items-center gap-2 flex-wrap">
+        <button
+          onClick={onAccept}
+          className="flex items-center gap-1.5 text-xs font-semibold text-white bg-violet-600 hover:bg-violet-700 px-3 py-1.5 rounded-xl transition-colors shadow-sm"
+        >
+          <Check size={12} weight="bold" />
+          Aceitar
+        </button>
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="flex items-center gap-1.5 text-xs font-medium text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700 px-3 py-1.5 rounded-xl hover:bg-violet-50 dark:hover:bg-violet-900/30 transition-colors"
+        >
+          {expanded ? <CaretUp size={12} weight="bold" /> : <CaretDown size={12} weight="bold" />}
+          {expanded ? 'Ocultar' : 'Ver detalhes'}
+        </button>
+        <button
+          onClick={onDismiss}
+          className="text-xs font-medium text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-xl hover:bg-muted transition-colors"
+        >
+          Dispensar
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export function CreatePage() {
   const { items, addItem, updateStatus } = useContent()
@@ -302,6 +384,9 @@ export function CreatePage() {
   const [toast, setToast] = useState<ToastState | null>(null)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const undoBuffer = useRef<Map<string, ContentItem>>(new Map())
+
+  const [campaignList, setCampaignList] = useState<AiCampaign[]>(initialCampaigns)
+  const campaignUndoBuffer = useRef<Map<string, AiCampaign>>(new Map())
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 500)
@@ -358,13 +443,46 @@ export function CreatePage() {
   }
 
   function handleUndo(id: string) {
+    if (id.startsWith('campaign:')) {
+      const campaignId = id.replace('campaign:', '')
+      const saved = campaignUndoBuffer.current.get(campaignId)
+      if (saved) {
+        setCampaignList((prev) => prev.map((c) => (c.id === campaignId ? saved : c)))
+        campaignUndoBuffer.current.delete(campaignId)
+      }
+      return
+    }
     const saved = undoBuffer.current.get(id)
     if (saved) {
-      // Re-add item by re-adding to content list via addItem workaround:
-      // Since removeItem already removed it, we restore via addItem
       addItem(saved)
       undoBuffer.current.delete(id)
     }
+  }
+
+  function handleAcceptCampaign(campaign: AiCampaign) {
+    const now = new Date().toISOString()
+    campaign.posts.forEach((post, i) => {
+      addItem({
+        id: `content-${campaign.id}-${i}`,
+        title: post.title,
+        briefing: post.briefing,
+        type: 'post',
+        channel: post.channel,
+        status: 'rascunho',
+        source: 'ai',
+        targetDate: post.targetDate,
+        createdAt: now,
+        campaignId: campaign.id,
+      })
+    })
+    setCampaignList((prev) => prev.map((c) => (c.id === campaign.id ? { ...c, status: 'aceita' } : c)))
+    showToast(`Campanha aceita! ${campaign.posts.length} posts criados.`)
+  }
+
+  function handleDismissCampaign(campaign: AiCampaign) {
+    campaignUndoBuffer.current.set(campaign.id, campaign)
+    setCampaignList((prev) => prev.map((c) => (c.id === campaign.id ? { ...c, status: 'dispensada' } : c)))
+    showToast('Campanha dispensada', `campaign:${campaign.id}`)
   }
 
   // Contents = all items except ai+rascunho (those appear in the suggestion section)
@@ -400,6 +518,18 @@ export function CreatePage() {
         </div>
       ) : (
         <>
+          {/* ── Campaign banners ── */}
+          {campaignList
+            .filter((c) => c.status === 'proposta')
+            .map((campaign) => (
+              <CampaignBanner
+                key={campaign.id}
+                campaign={campaign}
+                onAccept={() => handleAcceptCampaign(campaign)}
+                onDismiss={() => handleDismissCampaign(campaign)}
+              />
+            ))}
+
           {/* ── Sugestões para você ── */}
           {aiSuggestions.length > 0 && (
             <section className="space-y-3">
