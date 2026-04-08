@@ -225,3 +225,12 @@ a,
 .navbar-scrolled {
   box-shadow: 0 1px 16px rgb(0 0 0 / 0.08);
 }
+
+/* Toast fade-up */
+@keyframes fadeUpToast {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.animate-fade-up-toast {
+  animation: fadeUpToast 0.25s ease forwards;
+}
