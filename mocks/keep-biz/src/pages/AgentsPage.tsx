@@ -8,15 +8,15 @@ import { AgentAvatar } from '@/components/AgentAvatar'
 import type { Agent, AgentStatus, Department } from '@/data/types'
 
 const STATUS_COLOR: Record<AgentStatus, string> = {
-  Working: 'bg-emerald-100 text-emerald-700',
-  Idle: 'bg-slate-100 text-slate-600',
-  'Waiting on data': 'bg-amber-100 text-amber-700',
+  Working: 'bg-success/10 text-success',
+  Idle: 'bg-muted text-muted-foreground',
+  'Waiting on data': 'bg-warning/10 text-warning',
 }
 
 const STATUS_DOT: Record<AgentStatus, string> = {
-  Working: 'bg-emerald-400 animate-pulse',
-  Idle: 'bg-slate-400',
-  'Waiting on data': 'bg-amber-400',
+  Working: 'bg-success animate-pulse',
+  Idle: 'bg-muted-foreground',
+  'Waiting on data': 'bg-warning',
 }
 
 const DEPARTMENTS: Department[] = ['Financeiro', 'Marketing', 'RH', 'Operações', 'Atendimento']
@@ -46,13 +46,13 @@ export function AgentsPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h1 className="text-xl font-semibold text-slate-900">Agent Core</h1>
-              <p className="text-sm text-slate-500 mt-0.5">
+              <h1 className="text-xl font-semibold text-foreground">Agent Core</h1>
+              <p className="text-sm text-muted-foreground mt-0.5">
                 Central de agentes autônomos por departamento
               </p>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <span className="font-medium text-slate-900">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">
                 {agents.filter((a) => a.heartbeat).length}
               </span>{' '}
               ativos de {agents.length}
@@ -65,8 +65,8 @@ export function AgentsPage() {
               onClick={() => setDeptFilter('Todos')}
               className={`px-3 py-1 text-xs rounded-full font-medium transition-colors ${
                 deptFilter === 'Todos'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground hover:bg-accent'
               }`}
             >
               Todos
@@ -77,8 +77,8 @@ export function AgentsPage() {
                 onClick={() => setDeptFilter(dept)}
                 className={`px-3 py-1 text-xs rounded-full font-medium transition-colors ${
                   deptFilter === dept
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-muted-foreground hover:bg-accent'
                 }`}
               >
                 {dept}
@@ -101,47 +101,47 @@ export function AgentsPage() {
 
           {/* Agent table — desktop */}
           {!loading && visible.length > 0 && (
-          <div className="hidden md:block bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+          <div className="hidden md:block bg-card rounded-md border border-border shadow-sm overflow-hidden">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50 text-left">
-                  <th className="px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                <tr className="border-b border-border bg-muted text-left">
+                  <th className="px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Agente
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                  <th className="px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Departamento
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                  <th className="px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Status
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                  <th className="px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Heartbeat
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                  <th className="px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                     Treino
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-border">
                 {visible.map((agent) => (
                   <tr
                     key={agent.id}
                     onClick={() => setSelected(agent)}
-                    className={`hover:bg-slate-50 cursor-pointer transition-colors ${
-                      selected?.id === agent.id ? 'bg-blue-50' : ''
+                    className={`hover:bg-accent cursor-pointer transition-colors ${
+                      selected?.id === agent.id ? 'bg-info/10' : ''
                     }`}
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <AgentAvatar agent={agent} size="sm" />
                         <div>
-                          <div className="font-medium text-slate-900">{agent.name}</div>
-                          <div className="text-xs text-slate-500">{agent.role}</div>
+                          <div className="font-medium text-foreground">{agent.name}</div>
+                          <div className="text-xs text-muted-foreground">{agent.role}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="px-2 py-0.5 text-xs bg-blue-50 text-blue-700 rounded font-medium">
+                      <span className="px-2 py-0.5 text-xs bg-info/10 text-info rounded font-medium">
                         {agent.department}
                       </span>
                     </td>
@@ -157,29 +157,29 @@ export function AgentsPage() {
                     </td>
                     <td className="px-4 py-3">
                       {agent.heartbeat ? (
-                        <span className="flex items-center gap-1.5 text-xs text-emerald-600">
+                        <span className="flex items-center gap-1.5 text-xs text-success">
                           <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
                           </span>
                           Ativo
                         </span>
                       ) : (
-                        <span className="flex items-center gap-1.5 text-xs text-slate-400">
-                          <span className="w-2 h-2 rounded-full bg-slate-300" />
+                        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <span className="w-2 h-2 rounded-full bg-muted-foreground/30" />
                           Inativo
                         </span>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="w-20 h-1.5 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-blue-500 rounded-full"
+                            className="h-full bg-info rounded-full"
                             style={{ width: `${agent.trainingProgress}%` }}
                           />
                         </div>
-                        <span className="text-xs text-slate-500">{agent.trainingProgress}%</span>
+                        <span className="text-xs text-muted-foreground">{agent.trainingProgress}%</span>
                       </div>
                     </td>
                   </tr>
@@ -196,14 +196,14 @@ export function AgentsPage() {
               <div
                 key={agent.id}
                 onClick={() => setSelected(agent)}
-                className="bg-white rounded-md border border-slate-200 p-4 shadow-sm active:shadow-md cursor-pointer"
+                className="bg-card rounded-md border border-border p-4 shadow-sm active:shadow-md cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <AgentAvatar agent={agent} size="sm" />
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-900">{agent.name}</h3>
-                      <p className="text-xs text-slate-500 mt-0.5">{agent.role}</p>
+                      <h3 className="text-sm font-semibold text-foreground">{agent.name}</h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">{agent.role}</p>
                     </div>
                   </div>
                   <span
@@ -214,27 +214,27 @@ export function AgentsPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 text-xs bg-blue-50 text-blue-700 rounded font-medium">
+                  <span className="px-2 py-0.5 text-xs bg-info/10 text-info rounded font-medium">
                     {agent.department}
                   </span>
                   {agent.heartbeat && (
-                    <span className="flex items-center gap-1 text-xs text-emerald-600">
+                    <span className="flex items-center gap-1 text-xs text-success">
                       <span className="relative flex h-1.5 w-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-success" />
                       </span>
                       heartbeat
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-blue-500 rounded-full"
+                      className="h-full bg-info rounded-full"
                       style={{ width: `${agent.trainingProgress}%` }}
                     />
                   </div>
-                  <span className="text-xs text-slate-500">{agent.trainingProgress}%</span>
+                  <span className="text-xs text-muted-foreground">{agent.trainingProgress}%</span>
                 </div>
               </div>
             ))}
@@ -252,7 +252,7 @@ export function AgentsPage() {
           </div>
 
           {/* Mobile overlay */}
-          <div className="md:hidden fixed inset-0 z-40 bg-white flex flex-col">
+          <div className="md:hidden fixed inset-0 z-40 bg-card flex flex-col">
             <AgentDetailPanel agent={selected} onClose={() => setSelected(null)} />
           </div>
         </>

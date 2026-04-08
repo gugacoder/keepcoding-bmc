@@ -11,9 +11,9 @@ function getTeamStatus(agentList: typeof agents): 'green' | 'yellow' | 'red' {
 }
 
 const statusConfig = {
-  green: { color: 'bg-emerald-400', label: 'Operacional', pulse: 'animate-pulse' },
-  yellow: { color: 'bg-amber-400', label: 'Atenção', pulse: 'animate-pulse' },
-  red: { color: 'bg-red-500', label: 'Alerta', pulse: 'animate-pulse' },
+  green: { color: 'bg-success', label: 'Operacional', pulse: 'animate-pulse' },
+  yellow: { color: 'bg-warning', label: 'Atenção', pulse: 'animate-pulse' },
+  red: { color: 'bg-destructive', label: 'Alerta', pulse: 'animate-pulse' },
 }
 
 export function OrchestratorBar() {
@@ -23,20 +23,20 @@ export function OrchestratorBar() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <header className="flex items-center justify-between bg-slate-950 text-slate-100 px-4 py-2.5 border-b border-slate-800 min-h-[48px] shrink-0 z-10">
+    <header className="flex items-center justify-between bg-sidebar text-sidebar-foreground px-4 py-2.5 border-b border-sidebar-border min-h-[48px] shrink-0 z-10">
       {/* Left: brand */}
       <div className="flex items-center gap-2">
-        <Buildings size={20} weight="duotone" className="text-blue-400" />
+        <Buildings size={20} weight="duotone" className="text-sidebar-primary" />
         <span className="text-sm font-semibold tracking-wide">KeepBiz</span>
       </div>
 
       {/* Center: Team Status */}
       <div className="flex items-center gap-2">
         <div className={`w-2.5 h-2.5 rounded-full ${config.color} ${config.pulse}`} />
-        <span className="text-xs font-medium text-slate-300">
-          Team Status: <span className="text-slate-100">{config.label}</span>
+        <span className="text-xs font-medium text-sidebar-foreground/70">
+          Team Status: <span className="text-sidebar-foreground">{config.label}</span>
         </span>
-        <span className="text-xs text-slate-500 ml-1">
+        <span className="text-xs text-muted-foreground ml-1">
           {activeCount} agente{activeCount !== 1 ? 's' : ''} ativo{activeCount !== 1 ? 's' : ''}
         </span>
       </div>
@@ -45,7 +45,7 @@ export function OrchestratorBar() {
       <div className="flex items-center gap-2">
         <button
           onClick={toggleTheme}
-          className="flex items-center justify-center w-8 h-8 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+          className="flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
           aria-label={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
           title={theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
         >

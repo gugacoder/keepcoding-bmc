@@ -35,10 +35,10 @@ import {
 
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-slate-900 text-white px-4 py-3 rounded-md shadow-xl animate-in slide-in-from-bottom-4">
-      <CheckCircle size={18} weight="fill" className="text-emerald-400 shrink-0" />
+    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-primary text-primary-foreground px-4 py-3 rounded-md shadow-xl animate-in slide-in-from-bottom-4">
+      <CheckCircle size={18} weight="fill" className="text-success shrink-0" />
       <span className="text-sm">{message}</span>
-      <button onClick={onClose} className="ml-1 text-slate-400 hover:text-white">
+      <button onClick={onClose} className="ml-1 text-muted-foreground hover:text-foreground">
         <X size={14} />
       </button>
     </div>
@@ -90,15 +90,15 @@ const ROLE_PERMISSIONS: Record<TeamRole, { label: string; description: string; p
 }
 
 const roleColor: Record<TeamRole, string> = {
-  Admin: 'bg-blue-100 text-blue-700 border border-blue-200',
-  Operador: 'bg-slate-100 text-slate-600 border border-slate-200',
-  Viewer: 'bg-slate-50 text-slate-500 border border-slate-200',
+  Admin: 'bg-info/10 text-info border border-info/20',
+  Operador: 'bg-muted text-muted-foreground border border-border',
+  Viewer: 'bg-muted text-muted-foreground border border-border',
 }
 
 const roleIcon: Record<TeamRole, React.ReactNode> = {
-  Admin: <Crown size={12} weight="fill" className="text-blue-600" />,
-  Operador: <Gear size={12} weight="fill" className="text-slate-500" />,
-  Viewer: <Eye size={12} weight="fill" className="text-slate-400" />,
+  Admin: <Crown size={12} weight="fill" className="text-primary" />,
+  Operador: <Gear size={12} weight="fill" className="text-muted-foreground" />,
+  Viewer: <Eye size={12} weight="fill" className="text-muted-foreground" />,
 }
 
 // ─── Member permissions modal ─────────────────────────────────────────────────
@@ -108,55 +108,55 @@ function MemberModal({ member, onClose }: { member: TeamMember; onClose: () => v
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-md shadow-2xl w-full max-w-sm"
+        className="bg-card rounded-md shadow-2xl w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-100">
+        <div className="flex items-center justify-between p-4 border-b border-border">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-sm font-semibold text-slate-700">
+            <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-sm font-semibold text-foreground">
               {member.avatarInitials}
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-900">{member.name}</p>
-              <p className="text-xs text-slate-400">{member.email}</p>
+              <p className="text-sm font-semibold text-foreground">{member.name}</p>
+              <p className="text-xs text-muted-foreground">{member.email}</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={18} />
           </button>
         </div>
 
-        <div className="p-4 border-b border-slate-100">
+        <div className="p-4 border-b border-border">
           <div className="flex items-center gap-2 mb-2">
             <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full ${roleColor[member.role]}`}>
               {roleIcon[member.role]}
               {member.role}
             </span>
-            <span className="text-xs text-slate-500">{member.department}</span>
+            <span className="text-xs text-muted-foreground">{member.department}</span>
           </div>
-          <p className="text-xs text-slate-600 leading-relaxed">{perms.description}</p>
+          <p className="text-xs text-muted-foreground leading-relaxed">{perms.description}</p>
         </div>
 
         <div className="p-4">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Permissões</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Permissões</p>
           <ul className="space-y-2">
             {perms.permissions.map(({ text, granted }) => (
               <li key={text} className="flex items-center gap-2">
                 {granted ? (
-                  <CheckCircle size={16} weight="fill" className="text-emerald-500 shrink-0" />
+                  <CheckCircle size={16} weight="fill" className="text-success shrink-0" />
                 ) : (
-                  <XCircle size={16} weight="fill" className="text-slate-300 shrink-0" />
+                  <XCircle size={16} weight="fill" className="text-muted-foreground shrink-0" />
                 )}
-                <span className={`text-xs ${granted ? 'text-slate-700' : 'text-slate-400'}`}>{text}</span>
+                <span className={`text-xs ${granted ? 'text-foreground' : 'text-muted-foreground'}`}>{text}</span>
               </li>
             ))}
           </ul>
         </div>
 
         <div className="px-4 pb-4">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-muted-foreground">
             Membro desde {new Date(member.joinedAt).toLocaleDateString('pt-BR')}
-            {!member.active && <span className="ml-2 text-amber-500">(Convite pendente)</span>}
+            {!member.active && <span className="ml-2 text-warning">(Convite pendente)</span>}
           </p>
         </div>
       </div>
@@ -182,40 +182,40 @@ function InviteDialog({ onClose, onInvite }: {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-md shadow-2xl w-full max-w-sm"
+        className="bg-card rounded-md shadow-2xl w-full max-w-sm"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-100">
+        <div className="flex items-center justify-between p-4 border-b border-border">
           <div className="flex items-center gap-2">
-            <UserPlus size={18} className="text-blue-600" />
-            <h3 className="text-sm font-semibold text-slate-900">Convidar membro</h3>
+            <UserPlus size={18} className="text-primary" />
+            <h3 className="text-sm font-semibold text-foreground">Convidar membro</h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={18} />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">E-mail</label>
+            <label className="block text-xs font-medium text-foreground mb-1">E-mail</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="nome@empresa.com.br"
               required
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-2">Função</label>
+            <label className="block text-xs font-medium text-foreground mb-2">Função</label>
             <div className="space-y-2">
               {(['Admin', 'Operador', 'Viewer'] as TeamRole[]).map((r) => (
                 <label
                   key={r}
                   className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
-                    role === r ? 'border-blue-400 bg-blue-50' : 'border-slate-200 hover:border-slate-300'
+                    role === r ? 'border-primary bg-info/10' : 'border-border hover:border-border'
                   }`}
                 >
                   <input
@@ -224,16 +224,16 @@ function InviteDialog({ onClose, onInvite }: {
                     value={r}
                     checked={role === r}
                     onChange={() => setRole(r)}
-                    className="mt-0.5 accent-blue-600"
+                    className="mt-0.5 accent-primary"
                   />
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-medium text-slate-800">{r}</span>
+                      <span className="text-sm font-medium text-foreground">{r}</span>
                       <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-xs rounded-full ${roleColor[r]}`}>
                         {roleIcon[r]}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                       {r === 'Admin' && 'Acesso total à plataforma'}
                       {r === 'Operador' && 'Operar agentes + aprovar conteúdo'}
                       {r === 'Viewer' && 'Somente leitura'}
@@ -248,13 +248,13 @@ function InviteDialog({ onClose, onInvite }: {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-3 py-2 text-sm border border-slate-200 text-slate-600 rounded-md hover:bg-slate-50 transition-colors"
+              className="flex-1 px-3 py-2 text-sm border border-border text-muted-foreground rounded-md hover:bg-accent transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="flex-1 px-3 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
+              className="flex-1 px-3 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
             >
               Enviar convite
             </button>
@@ -295,7 +295,7 @@ const PLANS: PlanDef[] = [
     ],
     limits: { agents: '2', connectors: '5', users: '3' },
     ctaLabel: 'Fazer downgrade',
-    ctaStyle: 'border border-slate-200 text-slate-600 hover:bg-slate-50',
+    ctaStyle: 'border border-border text-muted-foreground hover:bg-accent',
   },
   {
     name: 'Business',
@@ -314,7 +314,7 @@ const PLANS: PlanDef[] = [
     ],
     limits: { agents: '5', connectors: '10', users: '5' },
     ctaLabel: 'Plano atual',
-    ctaStyle: 'bg-blue-100 text-blue-700 cursor-default',
+    ctaStyle: 'bg-info/10 text-info cursor-default',
   },
   {
     name: 'Enterprise',
@@ -334,7 +334,7 @@ const PLANS: PlanDef[] = [
     ],
     limits: { agents: '∞', connectors: '∞', users: '∞' },
     ctaLabel: 'Falar com vendas',
-    ctaStyle: 'bg-blue-600 text-white hover:bg-blue-700',
+    ctaStyle: 'bg-primary text-primary-foreground hover:bg-primary/90',
   },
 ]
 
@@ -342,16 +342,16 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-md shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        className="bg-card rounded-md shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-100">
+        <div className="flex items-center justify-between p-6 border-b border-border">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">Comparar planos</h2>
-            <p className="text-sm text-slate-500 mt-0.5">Escolha o plano ideal para o seu negócio</p>
+            <h2 className="text-lg font-semibold text-foreground">Comparar planos</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">Escolha o plano ideal para o seu negócio</p>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1">
             <X size={20} />
           </button>
         </div>
@@ -363,8 +363,8 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
               key={plan.name}
               className={`rounded-md border p-5 flex flex-col gap-4 ${
                 plan.highlight
-                  ? 'border-blue-400 bg-blue-50 ring-2 ring-blue-300 ring-offset-1'
-                  : 'border-slate-200 bg-white'
+                  ? 'border-primary bg-info/10 ring-2 ring-primary/30 ring-offset-1'
+                  : 'border-border bg-card'
               }`}
             >
               {/* Plan name + tag */}
@@ -372,16 +372,16 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
                 {plan.tag && (
                   <span className={`inline-block mb-2 px-2 py-0.5 text-xs font-medium rounded-full ${
                     plan.highlight
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-100 text-slate-600'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
                   }`}>
                     {plan.tag}
                   </span>
                 )}
-                <h3 className="text-base font-semibold text-slate-900">{plan.name}</h3>
+                <h3 className="text-base font-semibold text-foreground">{plan.name}</h3>
                 <div className="flex items-baseline gap-0.5 mt-1">
-                  <span className="text-2xl font-bold text-slate-900">{plan.price}</span>
-                  <span className="text-sm text-slate-500">{plan.period}</span>
+                  <span className="text-2xl font-bold text-foreground">{plan.price}</span>
+                  <span className="text-sm text-muted-foreground">{plan.period}</span>
                 </div>
               </div>
 
@@ -392,7 +392,7 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
                   { label: plan.limits.connectors + ' conectores', icon: <Wrench size={11} /> },
                   { label: plan.limits.users + ' usuários', icon: <User size={11} /> },
                 ].map(({ label, icon }) => (
-                  <span key={label} className="inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-white border border-slate-200 rounded-full text-slate-600">
+                  <span key={label} className="inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-card border border-border rounded-full text-muted-foreground">
                     {icon}
                     {label}
                   </span>
@@ -402,8 +402,8 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
               {/* Features */}
               <ul className="space-y-1.5 flex-1">
                 {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-slate-700">
-                    <CheckCircle size={14} weight="fill" className="text-emerald-500 mt-0.5 shrink-0" />
+                  <li key={f} className="flex items-start gap-2 text-xs text-foreground">
+                    <CheckCircle size={14} weight="fill" className="text-success mt-0.5 shrink-0" />
                     {f}
                   </li>
                 ))}
@@ -420,7 +420,7 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="px-6 pb-5 text-center">
-          <p className="text-xs text-slate-400">Todos os planos incluem 14 dias de trial gratuito. Cancele a qualquer momento.</p>
+          <p className="text-xs text-muted-foreground">Todos os planos incluem 14 dias de trial gratuito. Cancele a qualquer momento.</p>
         </div>
       </div>
     </div>
@@ -448,22 +448,22 @@ const ACTION_LABELS: Record<string, string> = {
 const RESULT_CONFIG: Record<AuditResult, { label: string; className: string; icon: React.ReactNode }> = {
   success: {
     label: 'Sucesso',
-    className: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    className: 'bg-success/10 text-success border border-success/20',
     icon: <Check size={11} weight="bold" />,
   },
   pending: {
     label: 'Pendente',
-    className: 'bg-amber-50 text-amber-700 border border-amber-200',
+    className: 'bg-warning/10 text-warning border border-warning/20',
     icon: <Clock size={11} />,
   },
   denied: {
     label: 'Negado',
-    className: 'bg-red-50 text-red-600 border border-red-200',
+    className: 'bg-destructive/10 text-destructive border border-destructive/20',
     icon: <Prohibit size={11} />,
   },
   awaiting_confirmation: {
     label: 'Aguardando',
-    className: 'bg-blue-50 text-blue-700 border border-blue-200',
+    className: 'bg-info/10 text-info border border-info/20',
     icon: <Question size={11} />,
   },
 }
@@ -477,38 +477,38 @@ function AuditTable({ entries }: { entries: AuditLogEntry[] }) {
     <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
-          <tr className="border-b border-slate-100">
-            <th className="pb-2 text-left font-medium text-slate-500 pr-3">Ação</th>
-            <th className="pb-2 text-left font-medium text-slate-500 pr-3">Entidade</th>
-            <th className="pb-2 text-left font-medium text-slate-500 pr-3 hidden sm:table-cell">Quem</th>
-            <th className="pb-2 text-left font-medium text-slate-500 pr-3 hidden md:table-cell">Quando</th>
-            <th className="pb-2 text-left font-medium text-slate-500">Resultado</th>
+          <tr className="border-b border-border">
+            <th className="pb-2 text-left font-medium text-muted-foreground pr-3">Ação</th>
+            <th className="pb-2 text-left font-medium text-muted-foreground pr-3">Entidade</th>
+            <th className="pb-2 text-left font-medium text-muted-foreground pr-3 hidden sm:table-cell">Quem</th>
+            <th className="pb-2 text-left font-medium text-muted-foreground pr-3 hidden md:table-cell">Quando</th>
+            <th className="pb-2 text-left font-medium text-muted-foreground">Resultado</th>
           </tr>
         </thead>
         <tbody>
           {sorted.map((entry) => {
             const result = RESULT_CONFIG[entry.result]
             return (
-              <tr key={entry.id} className="border-b border-slate-50 hover:bg-slate-50 group" title={entry.details}>
+              <tr key={entry.id} className="border-b border-border hover:bg-accent group" title={entry.details}>
                 <td className="py-2 pr-3">
                   <div className="flex items-center gap-1.5">
                     {entry.humanInLoop && (
                       <span title="Human-in-loop">
-                        <WarningCircle size={13} weight="fill" className="text-amber-500 shrink-0" />
+                        <WarningCircle size={13} weight="fill" className="text-warning shrink-0" />
                       </span>
                     )}
-                    <span className="text-slate-700 leading-snug">
+                    <span className="text-foreground leading-snug">
                       {ACTION_LABELS[entry.action] ?? entry.action}
                     </span>
                   </div>
                 </td>
                 <td className="py-2 pr-3 max-w-[160px]">
-                  <span className="truncate block text-slate-600">{entry.entity}</span>
+                  <span className="truncate block text-muted-foreground">{entry.entity}</span>
                 </td>
-                <td className="py-2 pr-3 text-slate-500 whitespace-nowrap hidden sm:table-cell">
+                <td className="py-2 pr-3 text-muted-foreground whitespace-nowrap hidden sm:table-cell">
                   {entry.triggeredBy}
                 </td>
-                <td className="py-2 pr-3 text-slate-400 whitespace-nowrap hidden md:table-cell">
+                <td className="py-2 pr-3 text-muted-foreground whitespace-nowrap hidden md:table-cell">
                   {new Date(entry.timestamp).toLocaleString('pt-BR', {
                     day: '2-digit',
                     month: '2-digit',
@@ -527,8 +527,8 @@ function AuditTable({ entries }: { entries: AuditLogEntry[] }) {
           })}
         </tbody>
       </table>
-      <p className="mt-2 text-xs text-slate-400 flex items-center gap-1">
-        <WarningCircle size={11} weight="fill" className="text-amber-500" />
+      <p className="mt-2 text-xs text-muted-foreground flex items-center gap-1">
+        <WarningCircle size={11} weight="fill" className="text-warning" />
         Entradas com ícone laranja são ações com revisão humana (human-in-loop)
       </p>
     </div>
@@ -554,7 +554,7 @@ const NOTIF_CATEGORIES: NotifCategory[] = [
   {
     id: 'agentes',
     label: 'Agentes',
-    icon: <Robot size={14} weight="duotone" className="text-blue-600" />,
+    icon: <Robot size={14} weight="duotone" className="text-primary" />,
     toggles: [
       { key: 'agentes.erro', label: 'Agente parou inesperadamente', defaultOn: true },
       { key: 'agentes.heartbeat', label: 'Heartbeat ativado', defaultOn: true },
@@ -565,7 +565,7 @@ const NOTIF_CATEGORIES: NotifCategory[] = [
   {
     id: 'conteudo',
     label: 'Conteúdo',
-    icon: <Megaphone size={14} weight="duotone" className="text-indigo-600" />,
+    icon: <Megaphone size={14} weight="duotone" className="text-violet" />,
     toggles: [
       { key: 'conteudo.revisao', label: 'Conteúdo pronto para revisão', defaultOn: true },
       { key: 'conteudo.agendado', label: 'Publicação agendada confirmada', defaultOn: false },
@@ -575,7 +575,7 @@ const NOTIF_CATEGORIES: NotifCategory[] = [
   {
     id: 'monitor',
     label: 'Monitor',
-    icon: <Monitor size={14} weight="duotone" className="text-emerald-600" />,
+    icon: <Monitor size={14} weight="duotone" className="text-success" />,
     toggles: [
       { key: 'monitor.mencao_negativa', label: 'Menção negativa detectada', defaultOn: true },
       { key: 'monitor.score_caiu', label: 'Score de reputação caiu', defaultOn: true },
@@ -585,7 +585,7 @@ const NOTIF_CATEGORIES: NotifCategory[] = [
   {
     id: 'sistema',
     label: 'Sistema',
-    icon: <Wrench size={14} weight="duotone" className="text-slate-500" />,
+    icon: <Wrench size={14} weight="duotone" className="text-muted-foreground" />,
     toggles: [
       { key: 'sistema.novo_membro', label: 'Novo membro na equipe', defaultOn: false },
       { key: 'sistema.plano', label: 'Renovação do plano se aproxima', defaultOn: true },
@@ -627,13 +627,13 @@ function DarkModeCard() {
         <button
           onClick={toggleTheme}
           className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-            theme === 'dark' ? 'bg-blue-600' : 'bg-slate-200'
+            theme === 'dark' ? 'bg-primary' : 'bg-muted'
           }`}
           role="switch"
           aria-checked={theme === 'dark'}
         >
           <span
-            className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+            className={`inline-block h-4 w-4 transform rounded-full bg-card shadow-sm transition-transform ${
               theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
             }`}
           />
@@ -751,20 +751,20 @@ export function SettingsPage() {
       <div className="p-6 max-w-5xl">
         {/* Header */}
         <div className="mb-5">
-          <h1 className="text-xl font-semibold text-slate-900">Configurações</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Empresa, equipe, notificações e plano</p>
+          <h1 className="text-xl font-semibold text-foreground">Configurações</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">Empresa, equipe, notificações e plano</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 border-b border-slate-200 mb-6 overflow-x-auto">
+        <div className="flex gap-1 border-b border-border mb-6 overflow-x-auto">
           {TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 text-sm whitespace-nowrap border-b-2 transition-colors ${
                 activeTab === tab.id
-                  ? 'border-blue-600 text-blue-700 font-medium'
-                  : 'border-transparent text-slate-500 hover:text-slate-700'
+                  ? 'border-primary text-info font-medium'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
               {tab.label}
@@ -774,16 +774,16 @@ export function SettingsPage() {
 
         {/* ── Perfil ─────────────────────────────────────────────────── */}
         {activeTab === 'perfil' && (
-          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm max-w-md">
+          <div className="bg-card rounded-md border border-border p-5 shadow-sm max-w-md">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Buildings size={16} weight="duotone" className="text-blue-600" />
-                <h2 className="text-sm font-semibold text-slate-800">Perfil da Empresa</h2>
+                <Buildings size={16} weight="duotone" className="text-primary" />
+                <h2 className="text-sm font-semibold text-foreground">Perfil da Empresa</h2>
               </div>
               {!isEditingProfile ? (
                 <button
                   onClick={handleEditProfile}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-xs border border-slate-200 text-slate-600 rounded hover:bg-slate-50 transition-colors"
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-xs border border-border text-muted-foreground rounded hover:bg-accent transition-colors"
                 >
                   <PencilSimple size={13} />
                   Editar
@@ -792,13 +792,13 @@ export function SettingsPage() {
                 <div className="flex gap-1.5">
                   <button
                     onClick={handleCancelProfile}
-                    className="px-2.5 py-1 text-xs border border-slate-200 text-slate-500 rounded hover:bg-slate-50 transition-colors"
+                    className="px-2.5 py-1 text-xs border border-border text-muted-foreground rounded hover:bg-accent transition-colors"
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={handleSaveProfile}
-                    className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
                   >
                     <FloppyDisk size={13} />
                     Salvar
@@ -808,14 +808,14 @@ export function SettingsPage() {
             </div>
 
             <div className="mb-4 flex items-center gap-3">
-              <div className="w-14 h-14 rounded-md bg-slate-100 border border-slate-200 border-dashed flex items-center justify-center text-slate-400">
+              <div className="w-14 h-14 rounded-md bg-muted border border-border border-dashed flex items-center justify-center text-muted-foreground">
                 <Buildings size={24} weight="duotone" />
               </div>
               <div>
-                <p className="text-xs font-medium text-slate-600">Logo da empresa</p>
+                <p className="text-xs font-medium text-muted-foreground">Logo da empresa</p>
                 <button
                   disabled={!isEditingProfile}
-                  className="mt-1 text-xs text-blue-600 hover:text-blue-700 disabled:text-slate-400 disabled:cursor-not-allowed"
+                  className="mt-1 text-xs text-primary hover:text-info disabled:text-muted-foreground disabled:cursor-not-allowed"
                 >
                   {isEditingProfile ? 'Trocar imagem' : 'Sem logo configurado'}
                 </button>
@@ -825,7 +825,7 @@ export function SettingsPage() {
             <div className="space-y-3">
               {profileFields.map(({ key, label, type }) => (
                 <div key={key}>
-                  <label className="block text-xs text-slate-500 mb-0.5">{label}</label>
+                  <label className="block text-xs text-muted-foreground mb-0.5">{label}</label>
                   <input
                     type={type ?? 'text'}
                     value={isEditingProfile ? draftProfile[key] : savedProfile[key]}
@@ -834,10 +834,10 @@ export function SettingsPage() {
                       setDraftProfile((prev) => ({ ...prev, [key]: e.target.value }))
                     }
                     disabled={!isEditingProfile}
-                    className={`w-full px-2.5 py-1.5 text-sm border rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-blue-400 ${
+                    className={`w-full px-2.5 py-1.5 text-sm border rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-ring ${
                       isEditingProfile
-                        ? 'border-blue-300 bg-white'
-                        : 'border-slate-200 bg-slate-50 text-slate-600'
+                        ? 'border-primary bg-card'
+                        : 'border-border bg-muted text-muted-foreground'
                     }`}
                   />
                 </div>
@@ -848,16 +848,16 @@ export function SettingsPage() {
 
         {/* ── Equipe ─────────────────────────────────────────────────── */}
         {activeTab === 'equipe' && (
-          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm max-w-lg">
+          <div className="bg-card rounded-md border border-border p-5 shadow-sm max-w-lg">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <User size={16} weight="duotone" className="text-blue-600" />
-                <h2 className="text-sm font-semibold text-slate-800">Equipe</h2>
-                <span className="text-xs text-slate-400">({members.length})</span>
+                <User size={16} weight="duotone" className="text-primary" />
+                <h2 className="text-sm font-semibold text-foreground">Equipe</h2>
+                <span className="text-xs text-muted-foreground">({members.length})</span>
               </div>
               <button
                 onClick={() => setShowInviteDialog(true)}
-                className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-1.5 px-2.5 py-1 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
               >
                 <UserPlus size={13} />
                 Convidar
@@ -869,20 +869,20 @@ export function SettingsPage() {
                 <button
                   key={member.id}
                   onClick={() => setSelectedMember(member)}
-                  className="w-full flex items-center gap-2.5 p-2 rounded-md hover:bg-slate-50 transition-colors text-left group"
+                  className="w-full flex items-center gap-2.5 p-2 rounded-md hover:bg-accent transition-colors text-left group"
                   title="Ver permissões"
                 >
-                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600 shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground shrink-0">
                     {member.avatarInitials}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <p className="text-xs font-medium text-slate-800 truncate">{member.name}</p>
+                      <p className="text-xs font-medium text-foreground truncate">{member.name}</p>
                       {!member.active && (
-                        <span className="text-xs text-amber-500 shrink-0">(pendente)</span>
+                        <span className="text-xs text-warning shrink-0">(pendente)</span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-400 truncate">{member.email}</p>
+                    <p className="text-xs text-muted-foreground truncate">{member.email}</p>
                   </div>
                   <span
                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full shrink-0 ${roleColor[member.role]}`}
@@ -894,7 +894,7 @@ export function SettingsPage() {
               ))}
             </div>
 
-            <p className="mt-3 text-xs text-slate-400 flex items-center gap-1">
+            <p className="mt-3 text-xs text-muted-foreground flex items-center gap-1">
               <ShieldCheck size={12} />
               Clique em um membro para ver permissões
             </p>
@@ -905,31 +905,31 @@ export function SettingsPage() {
         {activeTab === 'notificacoes' && (
           <div className="max-w-lg space-y-4">
             <div className="flex items-center gap-2 mb-1">
-              <Bell size={16} weight="duotone" className="text-blue-600" />
-              <h2 className="text-sm font-semibold text-slate-800">Notificações</h2>
+              <Bell size={16} weight="duotone" className="text-primary" />
+              <h2 className="text-sm font-semibold text-foreground">Notificações</h2>
             </div>
-            <p className="text-xs text-slate-500 -mt-2">As preferências abaixo são salvas na sessão.</p>
+            <p className="text-xs text-muted-foreground -mt-2">As preferências abaixo são salvas na sessão.</p>
 
             {NOTIF_CATEGORIES.map((cat) => (
-              <div key={cat.id} className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
+              <div key={cat.id} className="bg-card rounded-md border border-border p-4 shadow-sm">
                 <div className="flex items-center gap-2 mb-3">
                   {cat.icon}
-                  <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wide">{cat.label}</h3>
+                  <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">{cat.label}</h3>
                 </div>
                 <div className="space-y-2.5">
                   {cat.toggles.map((toggle) => (
                     <div key={toggle.key} className="flex items-center justify-between gap-4">
-                      <span className="text-sm text-slate-700 leading-snug">{toggle.label}</span>
+                      <span className="text-sm text-foreground leading-snug">{toggle.label}</span>
                       <button
                         onClick={() => toggleNotification(toggle.key)}
                         className={`w-9 h-5 rounded-full flex items-center px-0.5 transition-colors shrink-0 ${
-                          notifications[toggle.key] ? 'bg-blue-600' : 'bg-slate-200'
+                          notifications[toggle.key] ? 'bg-primary' : 'bg-muted'
                         }`}
                         role="switch"
                         aria-checked={notifications[toggle.key]}
                       >
                         <div
-                          className={`w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                          className={`w-4 h-4 rounded-full bg-card shadow transition-transform ${
                             notifications[toggle.key] ? 'translate-x-4' : ''
                           }`}
                         />
@@ -946,23 +946,23 @@ export function SettingsPage() {
         {activeTab === 'plano' && (
           <div className="max-w-sm">
             <div className="flex items-center gap-2 mb-4">
-              <Lightning size={16} weight="duotone" className="text-blue-600" />
-              <h2 className="text-sm font-semibold text-slate-800">Seu Plano</h2>
+              <Lightning size={16} weight="duotone" className="text-primary" />
+              <h2 className="text-sm font-semibold text-foreground">Seu Plano</h2>
             </div>
 
             {/* Current plan card */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-md p-5 text-white mb-4 shadow-lg">
+            <div className="bg-gradient-to-br from-primary to-primary/90 rounded-md p-5 text-primary-foreground mb-4 shadow-lg">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-xs text-blue-200 font-medium uppercase tracking-wider mb-0.5">Plano atual</p>
+                  <p className="text-xs text-info/40 font-medium uppercase tracking-wider mb-0.5">Plano atual</p>
                   <h3 className="text-xl font-bold">Business</h3>
                 </div>
-                <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-medium">Ativo</span>
+                <span className="bg-card/20 text-primary-foreground text-xs px-2 py-0.5 rounded-full font-medium">Ativo</span>
               </div>
 
-              <div className="text-3xl font-bold mb-1">R$ 799<span className="text-lg text-blue-200 font-normal">/mês</span></div>
+              <div className="text-3xl font-bold mb-1">R$ 799<span className="text-lg text-info/40 font-normal">/mês</span></div>
 
-              <div className="mt-3 pt-3 border-t border-blue-500 space-y-1">
+              <div className="mt-3 pt-3 border-t border-primary/70 space-y-1">
                 {[
                   '5 agentes ativos',
                   '10 conectores',
@@ -970,34 +970,34 @@ export function SettingsPage() {
                   'Audit log 90 dias',
                   'Suporte prioritário',
                 ].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-xs text-blue-100">
-                    <CheckCircle size={13} weight="fill" className="text-blue-300 shrink-0" />
+                  <div key={f} className="flex items-center gap-2 text-xs text-info/30">
+                    <CheckCircle size={13} weight="fill" className="text-info/60 shrink-0" />
                     {f}
                   </div>
                 ))}
               </div>
 
-              <p className="mt-3 text-xs text-blue-200">Renovação em 01/05/2026</p>
+              <p className="mt-3 text-xs text-info/40">Renovação em 01/05/2026</p>
             </div>
 
             <button
               onClick={() => setShowUpgradeDialog(true)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-blue-300 text-blue-700 text-sm font-medium rounded-md hover:bg-blue-50 transition-colors shadow-sm"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-card border border-info/30 text-info text-sm font-medium rounded-md hover:bg-info/10 transition-colors shadow-sm"
             >
               <ArrowUp size={16} weight="bold" />
               Fazer upgrade
             </button>
-            <p className="mt-2 text-xs text-slate-400 text-center">Compare todos os planos disponíveis</p>
+            <p className="mt-2 text-xs text-muted-foreground text-center">Compare todos os planos disponíveis</p>
           </div>
         )}
 
         {/* ── Audit Log ──────────────────────────────────────────────── */}
         {activeTab === 'audit' && (
-          <div className="bg-white rounded-md border border-slate-200 p-5 shadow-sm">
+          <div className="bg-card rounded-md border border-border p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
-              <ClipboardText size={16} weight="duotone" className="text-blue-600" />
-              <h2 className="text-sm font-semibold text-slate-800">Audit Log</h2>
-              <span className="text-xs text-slate-400">({auditLog.length} entradas)</span>
+              <ClipboardText size={16} weight="duotone" className="text-primary" />
+              <h2 className="text-sm font-semibold text-foreground">Audit Log</h2>
+              <span className="text-xs text-muted-foreground">({auditLog.length} entradas)</span>
             </div>
             <AuditTable entries={auditLog} />
           </div>

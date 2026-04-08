@@ -58,8 +58,8 @@ interface Particle {
 }
 
 const CONFETTI_COLORS = [
-  '#10b981', '#3b82f6', '#f59e0b', '#ef4444',
-  '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16',
+  'var(--success)', 'var(--info)', 'var(--warning)', 'var(--destructive)',
+  'var(--violet)', 'var(--rose)', 'var(--cyan)', 'var(--success)',
 ]
 
 function generateParticles(count: number): Particle[] {
@@ -173,14 +173,14 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
   const heartbeatActive = workflow.status === 'agente_ativo'
 
   return (
-    <div className="flex flex-col h-full bg-white border-l border-slate-200 relative overflow-hidden">
+    <div className="flex flex-col h-full bg-card border-l border-border relative overflow-hidden">
       {/* Heartbeat activation overlay */}
       {activating && (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm">
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-card/95 backdrop-blur-sm">
           {/* 3 concentric rings expanding */}
           <div className="relative flex items-center justify-center mb-6">
             <span
-              className="absolute rounded-full bg-emerald-400"
+              className="absolute rounded-full bg-success"
               style={{
                 width: 120, height: 120,
                 opacity: 0,
@@ -188,7 +188,7 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
               }}
             />
             <span
-              className="absolute rounded-full bg-emerald-400"
+              className="absolute rounded-full bg-success"
               style={{
                 width: 120, height: 120,
                 opacity: 0,
@@ -196,7 +196,7 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
               }}
             />
             <span
-              className="absolute rounded-full bg-emerald-400"
+              className="absolute rounded-full bg-success"
               style={{
                 width: 120, height: 120,
                 opacity: 0,
@@ -205,15 +205,15 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
             />
             {/* Flash circle */}
             <div
-              className="relative w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center shadow-2xl shadow-emerald-300"
+              className="relative w-20 h-20 bg-success rounded-full flex items-center justify-center shadow-2xl shadow-success/30"
               style={{ animation: 'heartbeat-flash 0.4s ease-out 0.3s forwards' }}
             >
-              <Robot size={36} weight="duotone" className="text-white" />
+              <Robot size={36} weight="duotone" className="text-success-foreground" />
             </div>
           </div>
 
-          <p className="text-base font-semibold text-emerald-700 animate-pulse">Ativando heartbeat…</p>
-          <p className="text-sm text-slate-400 mt-1">Agente assumindo operação autônoma</p>
+          <p className="text-base font-semibold text-success animate-pulse">Ativando heartbeat…</p>
+          <p className="text-sm text-muted-foreground mt-1">Agente assumindo operação autônoma</p>
 
           {/* Confetti particles */}
           {showConfetti && (
@@ -248,8 +248,8 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
           100% { transform: scale(2.5); opacity: 0; }
         }
         @keyframes heartbeat-flash {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16,185,129,0.8); }
-          50% { transform: scale(1.25); box-shadow: 0 0 0 30px rgba(16,185,129,0); }
+          0% { transform: scale(1); box-shadow: 0 0 0 0 oklch(from var(--success) l c h / 0.8); }
+          50% { transform: scale(1.25); box-shadow: 0 0 0 30px oklch(from var(--success) l c h / 0); }
           100% { transform: scale(1); }
         }
         @keyframes confetti-fly {
@@ -259,14 +259,14 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
       `}</style>
 
       {/* Header */}
-      <div className="flex items-start justify-between px-5 pt-5 pb-4 border-b border-slate-100">
+      <div className="flex items-start justify-between px-5 pt-5 pb-4 border-b border-border">
         <div>
-          <h2 className="text-base font-semibold text-slate-900 leading-tight">{workflow.name}</h2>
-          <p className="text-xs text-slate-500 mt-0.5">{workflow.description}</p>
+          <h2 className="text-base font-semibold text-foreground leading-tight">{workflow.name}</h2>
+          <p className="text-xs text-muted-foreground mt-0.5">{workflow.description}</p>
         </div>
         <button
           onClick={onClose}
-          className="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors ml-3 shrink-0"
+          className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors ml-3 shrink-0"
         >
           <X size={16} />
         </button>
@@ -274,14 +274,14 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
 
       {/* Stepper */}
       <div className="px-5 pt-5 pb-4">
-        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Pipeline de deploy</p>
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Pipeline de deploy</p>
 
         {/* Horizontal stepper */}
         <div className="relative">
           {/* connector line */}
-          <div className="absolute top-4 left-4 right-4 h-0.5 bg-slate-200" />
+          <div className="absolute top-4 left-4 right-4 h-0.5 bg-border" />
           <div
-            className="absolute top-4 left-4 h-0.5 bg-blue-500 transition-all duration-700"
+            className="absolute top-4 left-4 h-0.5 bg-info transition-all duration-700"
             style={{ width: currentIndex === 0 ? 0 : `calc(${(currentIndex / 6) * 100}% - 8px)` }}
           />
 
@@ -300,26 +300,26 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
                   <div
                     className={`
                       w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300
-                      ${done ? 'bg-blue-600 border-blue-600' : ''}
-                      ${active && isHeartbeatStep ? 'bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-200' : ''}
-                      ${active && !isHeartbeatStep ? 'bg-white border-blue-600 shadow-sm shadow-blue-100' : ''}
-                      ${future ? 'bg-white border-slate-200' : ''}
+                      ${done ? 'bg-primary border-primary' : ''}
+                      ${active && isHeartbeatStep ? 'bg-success border-success shadow-sm shadow-success/20' : ''}
+                      ${active && !isHeartbeatStep ? 'bg-card border-primary shadow-sm shadow-info/10' : ''}
+                      ${future ? 'bg-card border-border' : ''}
                     `}
                   >
                     {done ? (
-                      <Check size={14} weight="bold" className="text-white" />
+                      <Check size={14} weight="bold" className="text-primary-foreground" />
                     ) : active && isHeartbeatStep ? (
                       <div className="relative flex items-center justify-center">
                         {/* Continuous heartbeat rings when active */}
-                        <span className="absolute w-8 h-8 rounded-full bg-emerald-400 opacity-40 animate-ping" style={{ animationDuration: '1.5s' }} />
-                        <span className="absolute w-6 h-6 rounded-full bg-emerald-400 opacity-50 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.3s' }} />
-                        <Icon size={15} weight="duotone" className="text-white relative z-10" />
+                        <span className="absolute w-8 h-8 rounded-full bg-success opacity-40 animate-ping" style={{ animationDuration: '1.5s' }} />
+                        <span className="absolute w-6 h-6 rounded-full bg-success opacity-50 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.3s' }} />
+                        <Icon size={15} weight="duotone" className="text-success-foreground relative z-10" />
                       </div>
                     ) : (
                       <Icon
                         size={15}
                         weight="duotone"
-                        className={active ? 'text-blue-600' : 'text-slate-300'}
+                        className={active ? 'text-primary' : 'text-muted-foreground'}
                       />
                     )}
                   </div>
@@ -327,10 +327,10 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
                   {/* Label */}
                   <span
                     className={`text-center leading-tight text-[10px] font-medium
-                      ${active && isHeartbeatStep ? 'text-emerald-700' : ''}
-                      ${active && !isHeartbeatStep ? 'text-blue-700' : ''}
-                      ${done ? 'text-slate-600' : ''}
-                      ${future ? 'text-slate-300' : ''}
+                      ${active && isHeartbeatStep ? 'text-success' : ''}
+                      ${active && !isHeartbeatStep ? 'text-info' : ''}
+                      ${done ? 'text-muted-foreground' : ''}
+                      ${future ? 'text-muted-foreground' : ''}
                     `}
                     style={{ maxWidth: '44px' }}
                   >
@@ -347,7 +347,7 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
       <div className="px-5 flex-1 overflow-y-auto">
         {/* Loading state */}
         {loading && (
-          <div className="flex items-center gap-2 py-3 text-sm text-blue-600">
+          <div className="flex items-center gap-2 py-3 text-sm text-primary">
             <CircleNotch size={16} className="animate-spin" />
             <span>{loadingLabel}</span>
           </div>
@@ -357,16 +357,16 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
         {workflow.status === 'agente_treinando' && !loading && (
           <div className="mt-2 mb-4">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-sm font-medium text-amber-700">Treinamento em andamento</span>
-              <span className="text-xs text-amber-600 font-mono">{progress}%</span>
+              <span className="text-sm font-medium text-warning">Treinamento em andamento</span>
+              <span className="text-xs text-warning font-mono">{progress}%</span>
             </div>
-            <div className="w-full h-2 bg-amber-100 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-warning/10 rounded-full overflow-hidden">
               <div
-                className="h-full bg-amber-500 rounded-full transition-all duration-100"
+                className="h-full bg-warning rounded-full transition-all duration-100"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="text-xs text-slate-400 mt-1.5">
+            <p className="text-xs text-muted-foreground mt-1.5">
               O agente está aprendendo os padrões do workflow…
             </p>
           </div>
@@ -378,13 +378,13 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
             {/* Training complete indicator */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-medium text-emerald-700">Treinamento completo</span>
-                <span className="text-xs text-emerald-600 font-mono">100%</span>
+                <span className="text-sm font-medium text-success">Treinamento completo</span>
+                <span className="text-xs text-success font-mono">100%</span>
               </div>
-              <div className="w-full h-2 bg-emerald-100 rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-500 rounded-full w-full" />
+              <div className="w-full h-2 bg-success/10 rounded-full overflow-hidden">
+                <div className="h-full bg-success rounded-full w-full" />
               </div>
-              <p className="text-xs text-slate-400 mt-1.5">
+              <p className="text-xs text-muted-foreground mt-1.5">
                 Agente treinado e pronto para operar autonomamente.
               </p>
             </div>
@@ -392,11 +392,11 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
             {/* Ativar Heartbeat button */}
             <button
               onClick={handleAtivarHeartbeat}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-emerald-500 rounded-md hover:bg-emerald-600 active:bg-emerald-700 transition-colors shadow-sm shadow-emerald-200"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-success-foreground bg-success rounded-md hover:bg-success/90 active:bg-success/80 transition-colors shadow-sm shadow-success/20"
             >
               <Heartbeat size={18} weight="duotone" />
               Ativar Heartbeat
-              <Lightning size={15} weight="fill" className="text-emerald-200" />
+              <Lightning size={15} weight="fill" className="text-success/50" />
             </button>
           </div>
         )}
@@ -406,16 +406,16 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
           <div className="flex flex-col items-center py-8 gap-4">
             {/* Continuous heartbeat animation */}
             <div className="relative flex items-center justify-center">
-              <span className="absolute w-20 h-20 rounded-full bg-emerald-400 opacity-20 animate-ping" style={{ animationDuration: '1.8s' }} />
-              <span className="absolute w-14 h-14 rounded-full bg-emerald-400 opacity-30 animate-ping" style={{ animationDuration: '1.8s', animationDelay: '0.4s' }} />
-              <span className="absolute w-10 h-10 rounded-full bg-emerald-400 opacity-40 animate-ping" style={{ animationDuration: '1.8s', animationDelay: '0.8s' }} />
-              <div className="relative w-14 h-14 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg shadow-emerald-200 z-10">
-                <Robot size={28} weight="duotone" className="text-white" />
+              <span className="absolute w-20 h-20 rounded-full bg-success opacity-20 animate-ping" style={{ animationDuration: '1.8s' }} />
+              <span className="absolute w-14 h-14 rounded-full bg-success opacity-30 animate-ping" style={{ animationDuration: '1.8s', animationDelay: '0.4s' }} />
+              <span className="absolute w-10 h-10 rounded-full bg-success opacity-40 animate-ping" style={{ animationDuration: '1.8s', animationDelay: '0.8s' }} />
+              <div className="relative w-14 h-14 bg-success rounded-full flex items-center justify-center shadow-lg shadow-success/20 z-10">
+                <Robot size={28} weight="duotone" className="text-success-foreground" />
               </div>
             </div>
             <div className="text-center">
-              <p className="text-base font-semibold text-emerald-700">Agente ativo</p>
-              <p className="text-sm text-slate-500 mt-0.5">Heartbeat pulsando — operando autonomamente</p>
+              <p className="text-base font-semibold text-success">Agente ativo</p>
+              <p className="text-sm text-muted-foreground mt-0.5">Heartbeat pulsando — operando autonomamente</p>
             </div>
           </div>
         )}
@@ -437,8 +437,8 @@ export function WorkflowDetailPanel({ workflow, onClose }: Props) {
       </div>
 
       {/* Footer meta */}
-      <div className="px-5 py-3 border-t border-slate-100 flex items-center gap-4 text-xs text-slate-400">
-        <span>Dept: <span className="font-medium text-slate-500">{workflow.department}</span></span>
+      <div className="px-5 py-3 border-t border-border flex items-center gap-4 text-xs text-muted-foreground">
+        <span>Dept: <span className="font-medium text-muted-foreground">{workflow.department}</span></span>
         <ArrowRight size={12} />
         <span>
           Criado em{' '}
@@ -457,7 +457,7 @@ function ActionButton({ onClick, label }: { onClick: () => void; label: string }
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-sm"
+      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-primary-foreground bg-primary rounded-md hover:bg-primary/90 active:bg-primary/80 transition-colors shadow-sm"
     >
       {label}
       <ArrowRight size={15} weight="bold" />

@@ -30,11 +30,11 @@ const STATUS_LABEL: Record<ContentStatus, string> = {
 }
 
 const STATUS_CLASSES: Record<ContentStatus, string> = {
-  rascunho: 'bg-slate-100 text-slate-600 border-slate-200',
-  em_revisao: 'bg-amber-100 text-amber-700 border-amber-200',
-  aprovado: 'bg-blue-100 text-blue-700 border-blue-200',
-  agendado: 'bg-purple-100 text-purple-700 border-purple-200',
-  publicado: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  rascunho: 'bg-muted text-muted-foreground border-border',
+  em_revisao: 'bg-warning/10 text-warning border-warning/20',
+  aprovado: 'bg-info/10 text-info border-info/20',
+  agendado: 'bg-violet/10 text-violet border-violet/20',
+  publicado: 'bg-success/10 text-success border-success/20',
 }
 
 const TYPE_LABEL: Record<ContentType, string> = {
@@ -53,9 +53,9 @@ const SWARM_PHASES: { phase: 'research' | 'draft' | 'schedule'; label: string; a
 ]
 
 const PHASE_CLASSES: Record<string, string> = {
-  research: 'bg-violet-100 text-violet-700 border-violet-200',
-  draft: 'bg-blue-100 text-blue-700 border-blue-200',
-  schedule: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  research: 'bg-violet/10 text-violet border-violet/20',
+  draft: 'bg-info/10 text-info border-info/20',
+  schedule: 'bg-success/10 text-success border-success/20',
 }
 
 // ── Status badge ───────────────────────────────────────────────────────────────
@@ -104,10 +104,10 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white rounded-md shadow-xl w-full max-w-md p-6">
+      <div className="relative bg-card rounded-md shadow-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-base font-semibold text-slate-900">Nova Campanha</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+          <h2 className="text-base font-semibold text-foreground">Nova Campanha</h2>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X size={18} />
           </button>
         </div>
@@ -115,13 +115,13 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Title */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Título</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Título</label>
             <input
               type="text"
               value={title}
               onChange={e => setTitle(e.target.value)}
               placeholder="Ex: Post lançamento de produto"
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               required
             />
           </div>
@@ -129,11 +129,11 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
           {/* Type + Platform */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Tipo</label>
+              <label className="block text-xs font-medium text-foreground mb-1">Tipo</label>
               <select
                 value={type}
                 onChange={e => setType(e.target.value as ContentType)}
-                className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card"
               >
                 <option value="post">Post</option>
                 <option value="short">Short</option>
@@ -142,11 +142,11 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Plataforma</label>
+              <label className="block text-xs font-medium text-foreground mb-1">Plataforma</label>
               <select
                 value={platform}
                 onChange={e => setPlatform(e.target.value as ContentPlatform)}
-                className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card"
               >
                 <option value="Instagram">Instagram</option>
                 <option value="TikTok">TikTok</option>
@@ -159,11 +159,11 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
 
           {/* Author */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Autor</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Autor</label>
             <select
               value={author}
               onChange={e => setAuthor(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card"
             >
               {teamMembers.filter(m => m.active).map(m => (
                 <option key={m.id} value={m.name}>{m.name}</option>
@@ -173,24 +173,24 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
 
           {/* Briefing */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Briefing</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Briefing</label>
             <textarea
               value={briefing}
               onChange={e => setBriefing(e.target.value)}
               placeholder="Descreva o objetivo, tom e contexto do conteúdo..."
               rows={3}
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring resize-none"
             />
           </div>
 
           {/* Target date */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Data Alvo</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Data Alvo</label>
             <input
               type="date"
               value={targetDate}
               onChange={e => setTargetDate(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
 
@@ -199,13 +199,13 @@ function NewContentDialog({ onClose, onSubmit }: NewContentDialogProps) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-sm text-muted-foreground border border-border rounded-md hover:bg-accent transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-md hover:bg-primary/90 transition-colors"
             >
               Criar
             </button>
@@ -228,22 +228,22 @@ function SchedulePicker({ onConfirm, onCancel }: SchedulePickerProps) {
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onCancel} />
-      <div className="relative bg-white rounded-md shadow-xl p-5 w-72">
-        <h3 className="text-sm font-semibold text-slate-900 mb-3">Agendar publicação</h3>
+      <div className="relative bg-card rounded-md shadow-xl p-5 w-72">
+        <h3 className="text-sm font-semibold text-foreground mb-3">Agendar publicação</h3>
         <input
           type="date"
           value={date}
           onChange={e => setDate(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
+          className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring mb-4"
         />
         <div className="flex justify-end gap-2">
-          <button onClick={onCancel} className="px-3 py-1.5 text-sm text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50">
+          <button onClick={onCancel} className="px-3 py-1.5 text-sm text-muted-foreground border border-border rounded-md hover:bg-accent">
             Cancelar
           </button>
           <button
             onClick={() => date && onConfirm(date)}
             disabled={!date}
-            className="px-3 py-1.5 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 disabled:opacity-40"
+            className="px-3 py-1.5 text-sm font-medium text-primary-foreground bg-violet rounded-md hover:bg-violet/90 disabled:opacity-40"
           >
             Confirmar
           </button>
@@ -261,17 +261,17 @@ function StatusTimeline({ history }: { history: StatusHistoryEntry[] }) {
       {history.map((entry, i) => (
         <div key={i} className="flex items-start gap-3">
           <div className="flex flex-col items-center">
-            <div className={`w-2.5 h-2.5 rounded-full mt-0.5 shrink-0 ${i === history.length - 1 ? 'bg-blue-600' : 'bg-slate-300'}`} />
-            {i < history.length - 1 && <div className="w-px h-6 bg-slate-200 mt-1" />}
+            <div className={`w-2.5 h-2.5 rounded-full mt-0.5 shrink-0 ${i === history.length - 1 ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
+            {i < history.length - 1 && <div className="w-px h-6 bg-border mt-1" />}
           </div>
           <div className="flex-1 min-w-0 pb-1">
             <div className="flex items-center gap-2">
               <StatusBadge status={entry.status} />
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-muted-foreground">
                 {new Date(entry.timestamp).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">por {entry.by}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">por {entry.by}</p>
           </div>
         </div>
       ))}
@@ -327,15 +327,15 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
       {/* Mobile overlay backdrop */}
       <div className="fixed inset-0 z-30 bg-black/20 lg:hidden" onClick={onClose} />
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 rounded-t-xl shadow-xl max-h-[85vh] overflow-y-auto
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border rounded-t-xl shadow-xl max-h-[85vh] overflow-y-auto
                       lg:static lg:border lg:rounded-md lg:shadow-sm lg:max-h-none lg:overflow-visible lg:z-auto">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white rounded-t-xl lg:rounded-t-md">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border sticky top-0 bg-card rounded-t-xl lg:rounded-t-md">
           <div className="flex items-center gap-2">
             <StatusBadge status={item.status} />
-            <span className="text-xs text-slate-400">{TYPE_LABEL[item.type]}</span>
+            <span className="text-xs text-muted-foreground">{TYPE_LABEL[item.type]}</span>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1">
             <X size={16} />
           </button>
         </div>
@@ -343,9 +343,9 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
         <div className="px-5 py-4 flex flex-col gap-5">
           {/* Title + meta */}
           <div>
-            <h2 className="text-sm font-semibold text-slate-900 mb-1">{item.title}</h2>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <span className="px-1.5 py-0.5 bg-slate-100 rounded">{item.platform}</span>
+            <h2 className="text-sm font-semibold text-foreground mb-1">{item.title}</h2>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="px-1.5 py-0.5 bg-muted rounded">{item.platform}</span>
               <span>{item.author}</span>
               <span>·</span>
               <span>Meta: {new Date(item.targetDate).toLocaleDateString('pt-BR')}</span>
@@ -354,15 +354,15 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
 
           {/* Briefing */}
           <div>
-            <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">Briefing</p>
-            <p className="text-sm text-slate-700 leading-relaxed">{item.briefing}</p>
+            <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Briefing</p>
+            <p className="text-sm text-foreground leading-relaxed">{item.briefing}</p>
           </div>
 
           {/* Swarm indicator */}
           {swarmPhase && (
-            <div className="rounded-md border border-slate-100 bg-slate-50 p-3">
-              <p className="text-xs font-medium text-slate-500 mb-2 flex items-center gap-1.5">
-                <Robot size={14} className="text-blue-600" weight="duotone" />
+            <div className="rounded-md border border-border bg-muted p-3">
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                <Robot size={14} className="text-primary" weight="duotone" />
                 Swarm em andamento
               </p>
               <div className="flex items-center gap-2 flex-wrap">
@@ -370,7 +370,7 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
                   <div
                     key={phase.phase}
                     className={`flex items-center gap-1.5 px-2 py-1 rounded-full border text-xs font-medium
-                      ${phase.phase === swarmPhase.phase ? PHASE_CLASSES[phase.phase] : 'bg-slate-100 text-slate-400 border-slate-200'}`}
+                      ${phase.phase === swarmPhase.phase ? PHASE_CLASSES[phase.phase] : 'bg-muted text-muted-foreground border-border'}`}
                   >
                     {phase.phase === swarmPhase.phase && (
                       <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
@@ -390,7 +390,7 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
             {item.status !== 'aprovado' && item.status !== 'publicado' && (
               <button
                 onClick={handleApprove}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary-foreground bg-primary rounded-md hover:bg-primary/90 transition-colors"
               >
                 <Check size={13} weight="bold" />
                 Aprovar
@@ -399,7 +399,7 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
             {item.status !== 'em_revisao' && item.status !== 'publicado' && (
               <button
                 onClick={handleRequestReview}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-100 rounded-md hover:bg-amber-200 border border-amber-200 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-warning bg-warning/10 rounded-md hover:bg-warning/20 border border-warning/20 transition-colors"
               >
                 <ArrowCounterClockwise size={13} />
                 Solicitar revisão
@@ -408,7 +408,7 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
             {item.status !== 'agendado' && item.status !== 'publicado' && (
               <button
                 onClick={() => setShowSchedulePicker(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-purple-700 bg-purple-100 rounded-md hover:bg-purple-200 border border-purple-200 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-violet bg-violet/10 rounded-md hover:bg-violet/20 border border-violet/20 transition-colors"
               >
                 <Clock size={13} />
                 Agendar
@@ -418,7 +418,7 @@ function PreviewPanel({ item, onClose, onUpdateStatus }: PreviewPanelProps) {
 
           {/* Status timeline */}
           <div>
-            <p className="text-xs font-medium text-slate-500 mb-3 uppercase tracking-wide">Timeline</p>
+            <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">Timeline</p>
             <StatusTimeline history={item.statusHistory} />
           </div>
         </div>
@@ -433,7 +433,7 @@ function ContentCard({ item, onClick }: { item: ContentItem; onClick: () => void
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-md border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
+      className="bg-card rounded-md border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
     >
       {/* Thumbnail */}
       <div className="h-32 overflow-hidden">
@@ -441,16 +441,16 @@ function ContentCard({ item, onClick }: { item: ContentItem; onClick: () => void
       </div>
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="text-sm font-medium text-slate-800 leading-snug line-clamp-2 flex-1">{item.title}</h3>
+          <h3 className="text-sm font-medium text-foreground leading-snug line-clamp-2 flex-1">{item.title}</h3>
           <StatusBadge status={item.status} />
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-500 mt-2 flex-wrap">
-          <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{TYPE_LABEL[item.type]}</span>
-          <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-600">{item.platform}</span>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2 flex-wrap">
+          <span className="px-1.5 py-0.5 bg-muted rounded text-muted-foreground">{TYPE_LABEL[item.type]}</span>
+          <span className="px-1.5 py-0.5 bg-muted rounded text-muted-foreground">{item.platform}</span>
           <span>{item.author}</span>
         </div>
-        <p className="text-xs text-slate-400 mt-2 line-clamp-2">{item.briefing}</p>
-        <div className="flex items-center gap-1 mt-3 text-xs text-slate-400">
+        <p className="text-xs text-muted-foreground mt-2 line-clamp-2">{item.briefing}</p>
+        <div className="flex items-center gap-1 mt-3 text-xs text-muted-foreground">
           <CalendarBlank size={12} />
           {new Date(item.targetDate).toLocaleDateString('pt-BR')}
         </div>
@@ -465,18 +465,18 @@ function ContentRow({ item, onClick }: { item: ContentItem; onClick: () => void 
   return (
     <tr
       onClick={onClick}
-      className="hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-100"
+      className="hover:bg-accent cursor-pointer transition-colors border-b border-border"
     >
       <td className="px-4 py-3">
-        <p className="text-sm font-medium text-slate-800 line-clamp-1">{item.title}</p>
+        <p className="text-sm font-medium text-foreground line-clamp-1">{item.title}</p>
       </td>
-      <td className="px-4 py-3 text-xs text-slate-600">{TYPE_LABEL[item.type]}</td>
-      <td className="px-4 py-3 text-xs text-slate-600">{item.platform}</td>
-      <td className="px-4 py-3 text-xs text-slate-600">{item.author}</td>
+      <td className="px-4 py-3 text-xs text-muted-foreground">{TYPE_LABEL[item.type]}</td>
+      <td className="px-4 py-3 text-xs text-muted-foreground">{item.platform}</td>
+      <td className="px-4 py-3 text-xs text-muted-foreground">{item.author}</td>
       <td className="px-4 py-3">
         <StatusBadge status={item.status} />
       </td>
-      <td className="px-4 py-3 text-xs text-slate-400">
+      <td className="px-4 py-3 text-xs text-muted-foreground">
         {new Date(item.targetDate).toLocaleDateString('pt-BR')}
       </td>
     </tr>
@@ -531,22 +531,22 @@ export function ContentPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-xl font-semibold text-slate-900">Content Forge</h1>
-              <p className="text-sm text-slate-500 mt-0.5">Pipeline de criação e publicação de conteúdo</p>
+              <h1 className="text-xl font-semibold text-foreground">Content Forge</h1>
+              <p className="text-sm text-muted-foreground mt-0.5">Pipeline de criação e publicação de conteúdo</p>
             </div>
             <div className="flex items-center gap-2">
               {/* View toggle */}
-              <div className="hidden sm:flex items-center border border-slate-200 rounded-md overflow-hidden">
+              <div className="hidden sm:flex items-center border border-border rounded-md overflow-hidden">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-1.5 transition-colors ${viewMode === 'grid' ? 'bg-slate-100 text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+                  className={`p-1.5 transition-colors ${viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                   title="Vista em grid"
                 >
                   <GridFour size={16} />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-1.5 transition-colors ${viewMode === 'list' ? 'bg-slate-100 text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+                  className={`p-1.5 transition-colors ${viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                   title="Vista em lista"
                 >
                   <List size={16} />
@@ -554,7 +554,7 @@ export function ContentPage() {
               </div>
               <button
                 onClick={() => setShowNewDialog(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
               >
                 <Plus size={14} weight="bold" />
                 Nova Campanha
@@ -563,10 +563,10 @@ export function ContentPage() {
           </div>
 
           {/* Swarm indicator bar */}
-          <div className="mb-4 bg-slate-50 border border-slate-200 rounded-md px-4 py-2.5 flex items-center gap-3 overflow-x-auto">
+          <div className="mb-4 bg-muted border border-border rounded-md px-4 py-2.5 flex items-center gap-3 overflow-x-auto">
             <div className="flex items-center gap-1.5 shrink-0">
-              <Robot size={15} className="text-blue-600" weight="duotone" />
-              <span className="text-xs font-medium text-slate-600">Swarm ativo:</span>
+              <Robot size={15} className="text-primary" weight="duotone" />
+              <span className="text-xs font-medium text-muted-foreground">Swarm ativo:</span>
             </div>
             {SWARM_PHASES.map(p => (
               <div key={p.phase} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium shrink-0 ${PHASE_CLASSES[p.phase]}`}>
@@ -587,8 +587,8 @@ export function ContentPage() {
                   onClick={() => setFilterStatus(opt.value)}
                   className={`flex items-center gap-1 px-3 py-1 text-xs rounded-full border transition-colors ${
                     filterStatus === opt.value
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'border-border text-muted-foreground hover:bg-accent'
                   }`}
                 >
                   {opt.label}
@@ -618,16 +618,16 @@ export function ContentPage() {
               ))}
             </div>
           ) : (
-            <div className="bg-white border border-slate-200 rounded-md overflow-hidden">
+            <div className="bg-card border border-border rounded-md overflow-hidden">
               <table className="w-full text-left">
-                <thead className="bg-slate-50 border-b border-slate-200">
+                <thead className="bg-muted border-b border-border">
                   <tr>
-                    <th className="px-4 py-2.5 text-xs font-medium text-slate-500 uppercase tracking-wide">Título</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-slate-500 uppercase tracking-wide">Tipo</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-slate-500 uppercase tracking-wide">Plataforma</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-slate-500 uppercase tracking-wide">Autor</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-slate-500 uppercase tracking-wide">Status</th>
-                    <th className="px-4 py-2.5 text-xs font-medium text-slate-500 uppercase tracking-wide">Data Alvo</th>
+                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Título</th>
+                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Tipo</th>
+                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Plataforma</th>
+                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Autor</th>
+                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</th>
+                    <th className="px-4 py-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wide">Data Alvo</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -643,7 +643,7 @@ export function ContentPage() {
 
       {/* Preview panel — desktop side panel */}
       {currentSelected && (
-        <div className="hidden lg:block w-96 border-l border-slate-200 overflow-y-auto">
+        <div className="hidden lg:block w-96 border-l border-border overflow-y-auto">
           <PreviewPanel
             item={currentSelected}
             onClose={() => setSelectedItemId(null)}

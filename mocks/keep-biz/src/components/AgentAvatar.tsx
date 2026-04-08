@@ -4,15 +4,15 @@ import type { Agent } from '@/data/types'
 
 // Color palette for fallback avatars (one per agent name initial)
 const AVATAR_COLORS: Record<string, string> = {
-  I: 'bg-blue-100 text-blue-700',
-  L: 'bg-emerald-100 text-emerald-700',
-  S: 'bg-purple-100 text-purple-700',
-  C: 'bg-orange-100 text-orange-700',
+  I: 'bg-info/10 text-info',
+  L: 'bg-success/10 text-success',
+  S: 'bg-violet/10 text-violet',
+  C: 'bg-orange/10 text-orange',
 }
 
 function getColor(name: string): string {
   const initial = name.charAt(0).toUpperCase()
-  return AVATAR_COLORS[initial] ?? 'bg-slate-100 text-slate-600'
+  return AVATAR_COLORS[initial] ?? 'bg-muted text-muted-foreground'
 }
 
 interface AgentAvatarProps {

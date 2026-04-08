@@ -10,7 +10,7 @@ const navItems = [
 
 export function BottomNav() {
   return (
-    <nav className="flex items-center justify-around bg-slate-900 border-t border-slate-800 px-2 py-1 safe-area-pb">
+    <nav className="flex items-center justify-around bg-sidebar border-t border-sidebar-border px-2 py-1 safe-area-pb">
       {navItems.map((item) => {
         const Icon = item.icon
         return (
@@ -21,8 +21,8 @@ export function BottomNav() {
               [
                 'flex flex-col items-center gap-0.5 px-4 py-3 rounded-md text-xs font-medium transition-colors min-w-[56px] min-h-[48px] justify-center',
                 isActive
-                  ? 'text-blue-400'
-                  : 'text-slate-500 hover:text-slate-200',
+                  ? 'text-sidebar-primary'
+                  : 'text-muted-foreground hover:text-sidebar-foreground',
               ].join(' ')
             }
           >

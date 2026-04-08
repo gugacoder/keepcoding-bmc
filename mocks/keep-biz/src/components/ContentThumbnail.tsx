@@ -10,10 +10,10 @@ const TYPE_ICON: Record<ContentType, React.ReactNode> = {
 }
 
 const TYPE_COLOR: Record<ContentType, string> = {
-  post: 'bg-blue-50 text-blue-500',
-  short: 'bg-purple-50 text-purple-500',
-  campanha: 'bg-orange-50 text-orange-500',
-  criativo: 'bg-emerald-50 text-emerald-500',
+  post: 'bg-info/10 text-info',
+  short: 'bg-violet/10 text-violet',
+  campanha: 'bg-orange/10 text-orange',
+  criativo: 'bg-success/10 text-success',
 }
 
 interface ContentThumbnailProps {

@@ -95,13 +95,13 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-md shadow-xl overflow-hidden">
+      <div className="relative z-10 w-full max-w-lg mx-4 bg-card rounded-md shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-          <h2 className="text-base font-semibold text-slate-900">Novo Workflow</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <h2 className="text-base font-semibold text-foreground">Novo Workflow</h2>
           <button
             onClick={handleClose}
-            className="flex items-center justify-center w-7 h-7 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            className="flex items-center justify-center w-7 h-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
           >
             <X size={16} weight="bold" />
           </button>
@@ -116,10 +116,10 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                   className={[
                     'flex items-center justify-center w-7 h-7 rounded-full text-xs font-semibold transition-colors',
                     i < step
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-primary text-primary-foreground'
                       : i === step
-                      ? 'bg-blue-600 text-white ring-4 ring-blue-100'
-                      : 'bg-slate-100 text-slate-400',
+                      ? 'bg-primary text-primary-foreground ring-4 ring-primary/20'
+                      : 'bg-muted text-muted-foreground',
                   ].join(' ')}
                 >
                   {i < step ? <Check size={12} weight="bold" /> : i + 1}
@@ -127,7 +127,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                 <span
                   className={[
                     'mt-1 text-[10px] font-medium whitespace-nowrap',
-                    i <= step ? 'text-blue-600' : 'text-slate-400',
+                    i <= step ? 'text-primary' : 'text-muted-foreground',
                   ].join(' ')}
                 >
                   {label}
@@ -137,7 +137,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                 <div
                   className={[
                     'flex-1 h-px mx-1 mb-4 transition-colors',
-                    i < step ? 'bg-blue-600' : 'bg-slate-200',
+                    i < step ? 'bg-primary' : 'bg-border',
                   ].join(' ')}
                 />
               )}
@@ -150,23 +150,23 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {/* Step 0 — Descrever */}
           {step === 0 && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Descreva o workflow
               </label>
               <div className="relative">
                 <textarea
-                  className="w-full h-32 px-3 py-3 pr-10 text-sm bg-slate-50 border border-slate-200 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder:text-slate-400"
+                  className="w-full h-32 px-3 py-3 pr-10 text-sm bg-muted border border-border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent text-foreground placeholder:text-muted-foreground"
                   placeholder="Descreva o que o pessoal faz repetidamente… ex: 'Toda segunda-feira o time financeiro reconcilia os extratos bancários com o ERP e gera um relatório de divergências.'"
                   value={form.description}
                   onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
                   autoFocus
                 />
                 {/* Mic icon decorative */}
-                <div className="absolute bottom-3 right-3 text-slate-300 pointer-events-none">
+                <div className="absolute bottom-3 right-3 text-muted-foreground pointer-events-none">
                   <Microphone size={20} weight="duotone" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-slate-400">
+              <p className="mt-2 text-xs text-muted-foreground">
                 <Microphone size={12} weight="duotone" className="inline mr-1" />
                 Em breve: descreva por voz
               </p>
@@ -176,8 +176,8 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {/* Step 1 — Departamento */}
           {step === 1 && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                <Buildings size={16} weight="duotone" className="inline mr-1.5 text-blue-500" />
+              <label className="block text-sm font-medium text-foreground mb-2">
+                <Buildings size={16} weight="duotone" className="inline mr-1.5 text-info" />
                 Departamento responsável
               </label>
               <div className="grid grid-cols-1 gap-2">
@@ -188,14 +188,14 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                     className={[
                       'flex items-center gap-3 px-4 py-3 rounded-md border text-sm font-medium transition-colors text-left',
                       form.department === dept
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                        : 'border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50',
+                        ? 'border-primary bg-info/10 text-info'
+                        : 'border-border bg-card text-foreground hover:border-primary hover:bg-info/10',
                     ].join(' ')}
                   >
                     <span
                       className={[
                         'w-3 h-3 rounded-full border-2 transition-colors',
-                        form.department === dept ? 'border-blue-500 bg-blue-500' : 'border-slate-300',
+                        form.department === dept ? 'border-primary bg-primary' : 'border-muted-foreground/30',
                       ].join(' ')}
                     />
                     {dept}
@@ -208,11 +208,11 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {/* Step 2 — Ferramentas */}
           {step === 2 && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
-                <Wrench size={16} weight="duotone" className="inline mr-1.5 text-blue-500" />
+              <label className="block text-sm font-medium text-foreground mb-1">
+                <Wrench size={16} weight="duotone" className="inline mr-1.5 text-info" />
                 Ferramentas utilizadas
               </label>
-              <p className="text-xs text-slate-400 mb-3">Selecione os conectores que este workflow usa</p>
+              <p className="text-xs text-muted-foreground mb-3">Selecione os conectores que este workflow usa</p>
               <div className="space-y-2">
                 {connectedConnectors.map((conn) => {
                   const selected = form.connectorIds.includes(conn.id)
@@ -223,28 +223,28 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                       className={[
                         'w-full flex items-center gap-3 px-3 py-2.5 rounded-md border text-sm transition-colors text-left',
                         selected
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-slate-200 bg-white hover:border-blue-300',
+                          ? 'border-primary bg-info/10'
+                          : 'border-border bg-card hover:border-primary',
                       ].join(' ')}
                     >
                       <span
                         className={[
                           'flex items-center justify-center w-4 h-4 rounded border-2 shrink-0 transition-colors',
-                          selected ? 'border-blue-600 bg-blue-600' : 'border-slate-300',
+                          selected ? 'border-primary bg-primary' : 'border-muted-foreground/30',
                         ].join(' ')}
                       >
-                        {selected && <Check size={10} weight="bold" className="text-white" />}
+                        {selected && <Check size={10} weight="bold" className="text-primary-foreground" />}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <span className="font-medium text-slate-800">{conn.name}</span>
-                        <span className="ml-2 text-xs text-slate-400">{conn.category}</span>
+                        <span className="font-medium text-foreground">{conn.name}</span>
+                        <span className="ml-2 text-xs text-muted-foreground">{conn.category}</span>
                       </div>
                     </button>
                   )
                 })}
               </div>
               {connectedConnectors.length === 0 && (
-                <p className="text-sm text-slate-400 text-center py-4">
+                <p className="text-sm text-muted-foreground text-center py-4">
                   Nenhum conector conectado. Adicione conectores nas configurações.
                 </p>
               )}
@@ -255,25 +255,25 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           {step === 3 && (
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-1">
-                <ClipboardText size={18} weight="duotone" className="text-blue-500" />
-                <span className="text-sm font-semibold text-slate-800">Resumo do workflow</span>
+                <ClipboardText size={18} weight="duotone" className="text-info" />
+                <span className="text-sm font-semibold text-foreground">Resumo do workflow</span>
               </div>
 
-              <div className="bg-slate-50 rounded-md border border-slate-200 p-4 space-y-3 text-sm">
+              <div className="bg-muted rounded-md border border-border p-4 space-y-3 text-sm">
                 <div>
-                  <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Descrição</span>
-                  <p className="mt-1 text-slate-800 leading-relaxed">{form.description}</p>
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Descrição</span>
+                  <p className="mt-1 text-foreground leading-relaxed">{form.description}</p>
                 </div>
 
                 <div className="flex gap-6">
                   <div>
-                    <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Departamento</span>
-                    <p className="mt-1 text-slate-800 font-medium">{form.department}</p>
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Departamento</span>
+                    <p className="mt-1 text-foreground font-medium">{form.department}</p>
                   </div>
                   <div>
-                    <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Status inicial</span>
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Status inicial</span>
                     <p className="mt-1">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-muted text-muted-foreground border border-border">
                         mapeado
                       </span>
                     </p>
@@ -281,17 +281,17 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
                 </div>
 
                 <div>
-                  <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Ferramentas</span>
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Ferramentas</span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     {form.connectorIds.length === 0 ? (
-                      <span className="text-slate-400 text-xs">Nenhuma selecionada</span>
+                      <span className="text-muted-foreground text-xs">Nenhuma selecionada</span>
                     ) : (
                       form.connectorIds.map((id) => {
                         const c = connectedConnectors.find((x) => x.id === id)
                         return c ? (
                           <span
                             key={id}
-                            className="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-700 rounded-full border border-blue-200"
+                            className="px-2 py-0.5 text-xs font-medium bg-info/10 text-info rounded-full border border-info/20"
                           >
                             {c.name}
                           </span>
@@ -306,11 +306,11 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-slate-50">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-muted">
           <button
             onClick={handleBack}
             disabled={step === 0}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             <ArrowLeft size={15} weight="bold" />
             Voltar
@@ -320,7 +320,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
             <button
               onClick={handleNext}
               disabled={!canNext()}
-              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-md hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               Próximo
               <ArrowRight size={15} weight="bold" />
@@ -328,7 +328,7 @@ export function WorkflowWizard({ open, onClose }: WorkflowWizardProps) {
           ) : (
             <button
               onClick={handleConfirm}
-              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-emerald-600 rounded-md hover:bg-emerald-700 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-success-foreground bg-success rounded-md hover:bg-success/90 transition-colors"
             >
               <Check size={15} weight="bold" />
               Criar Workflow

@@ -75,17 +75,17 @@ interface Message {
 function TypingIndicator() {
   return (
     <div className="flex justify-start">
-      <div className="bg-slate-100 text-slate-500 px-4 py-3 rounded-2xl rounded-tl-sm text-sm flex items-center gap-1">
+      <div className="bg-muted text-muted-foreground px-4 py-3 rounded-2xl rounded-tl-sm text-sm flex items-center gap-1">
         <span
-          className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"
+          className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-bounce"
           style={{ animationDelay: '0ms' }}
         />
         <span
-          className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"
+          className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-bounce"
           style={{ animationDelay: '150ms' }}
         />
         <span
-          className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"
+          className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-bounce"
           style={{ animationDelay: '300ms' }}
         />
       </div>
@@ -95,9 +95,9 @@ function TypingIndicator() {
 
 function StatusBadge({ status }: { status: Agent['status'] }) {
   const map: Record<Agent['status'], { label: string; cls: string }> = {
-    Working: { label: 'Working', cls: 'bg-emerald-100 text-emerald-700' },
-    Idle: { label: 'Idle', cls: 'bg-slate-100 text-slate-600' },
-    'Waiting on data': { label: 'Waiting', cls: 'bg-amber-100 text-amber-700' },
+    Working: { label: 'Working', cls: 'bg-success/10 text-success' },
+    Idle: { label: 'Idle', cls: 'bg-muted text-muted-foreground' },
+    'Waiting on data': { label: 'Waiting', cls: 'bg-warning/10 text-warning' },
   }
   const { label, cls } = map[status]
   return (
@@ -119,77 +119,77 @@ function ContextPanel({ agent }: { agent: Agent }) {
   return (
     <div className="flex flex-col gap-4 h-full overflow-y-auto">
       {/* Status */}
-      <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
+      <div className="bg-card rounded-md border border-border p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
-          <Robot size={16} weight="duotone" className="text-blue-500" />
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+          <Robot size={16} weight="duotone" className="text-info" />
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
             Status
           </span>
         </div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-slate-700">{agent.name}</span>
+          <span className="text-sm text-foreground">{agent.name}</span>
           <StatusBadge status={agent.status} />
         </div>
-        <p className="text-xs text-slate-400">{agent.role}</p>
-        <p className="text-xs text-slate-400">{agent.department}</p>
+        <p className="text-xs text-muted-foreground">{agent.role}</p>
+        <p className="text-xs text-muted-foreground">{agent.department}</p>
         {agent.heartbeat && (
           <div className="flex items-center gap-1.5 mt-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
             </span>
-            <span className="text-xs text-emerald-600 font-medium">Heartbeat ativo</span>
+            <span className="text-xs text-success font-medium">Heartbeat ativo</span>
           </div>
         )}
       </div>
 
       {/* Training */}
-      <div className="bg-white rounded-md border border-slate-200 p-4 shadow-sm">
+      <div className="bg-card rounded-md border border-border p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
-          <ChartBar size={16} weight="duotone" className="text-indigo-500" />
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+          <ChartBar size={16} weight="duotone" className="text-violet" />
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
             Treinamento
           </span>
         </div>
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs text-slate-500">Progresso</span>
-          <span className="text-xs font-semibold text-slate-700">
+          <span className="text-xs text-muted-foreground">Progresso</span>
+          <span className="text-xs font-semibold text-foreground">
             {agent.trainingProgress}%
           </span>
         </div>
-        <div className="w-full bg-slate-100 rounded-full h-1.5">
+        <div className="w-full bg-muted rounded-full h-1.5">
           <div
-            className="bg-blue-500 h-1.5 rounded-full transition-all"
+            className="bg-info h-1.5 rounded-full transition-all"
             style={{ width: `${agent.trainingProgress}%` }}
           />
         </div>
         <div className="flex items-center gap-1.5 mt-2">
-          <Clock size={11} className="text-slate-400" />
-          <span className="text-xs text-slate-400">Último treino: {lastTraining}</span>
+          <Clock size={11} className="text-muted-foreground" />
+          <span className="text-xs text-muted-foreground">Último treino: {lastTraining}</span>
         </div>
       </div>
 
       {/* Memory */}
-      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-sm flex-1">
+      <div className="bg-card rounded-lg border border-border p-4 shadow-sm flex-1">
         <div className="flex items-center gap-2 mb-3">
-          <Brain size={16} weight="duotone" className="text-purple-500" />
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+          <Brain size={16} weight="duotone" className="text-violet" />
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
             Memória
           </span>
         </div>
         {memorySample.length === 0 ? (
-          <p className="text-xs text-slate-400">Sem itens de memória</p>
+          <p className="text-xs text-muted-foreground">Sem itens de memória</p>
         ) : (
           <ul className="space-y-2">
             {memorySample.map((item) => (
-              <li key={item.id} className="text-xs text-slate-600 leading-relaxed">
+              <li key={item.id} className="text-xs text-muted-foreground leading-relaxed">
                 <span
                   className={`inline-block text-[10px] font-medium px-1.5 py-0.5 rounded mr-1.5 ${
                     item.category === 'operações'
-                      ? 'bg-blue-50 text-blue-600'
+                      ? 'bg-info/10 text-primary'
                       : item.category === 'regras'
-                      ? 'bg-red-50 text-red-600'
-                      : 'bg-purple-50 text-purple-600'
+                      ? 'bg-destructive/10 text-destructive'
+                      : 'bg-violet/10 text-violet'
                   }`}
                 >
                   {item.category}
@@ -200,7 +200,7 @@ function ContextPanel({ agent }: { agent: Agent }) {
           </ul>
         )}
         {agent.memory.length > 4 && (
-          <p className="text-xs text-slate-400 mt-2">
+          <p className="text-xs text-muted-foreground mt-2">
             +{agent.memory.length - 4} itens adicionais
           </p>
         )}
@@ -283,7 +283,7 @@ export function AgentsChatPage() {
 
   if (!selectedAgent) {
     return (
-      <div className="p-6 text-slate-500 text-sm">Nenhum agente disponível.</div>
+      <div className="p-6 text-muted-foreground text-sm">Nenhum agente disponível.</div>
     )
   }
 
@@ -291,8 +291,8 @@ export function AgentsChatPage() {
     <div className="flex flex-col h-full">
       {/* Page header */}
       <div className="px-6 pt-6 pb-4">
-        <h1 className="text-xl font-semibold text-slate-900">Chat com Agentes</h1>
-        <p className="text-sm text-slate-500 mt-0.5">
+        <h1 className="text-xl font-semibold text-foreground">Chat com Agentes</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
           Converse, dê feedback e refine o treinamento
         </p>
       </div>
@@ -302,7 +302,7 @@ export function AgentsChatPage() {
         <select
           value={selectedAgentId}
           onChange={(e) => handleSelectAgent(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-700"
+          className="w-full px-3 py-2 text-sm border border-border rounded-md bg-card focus:outline-none focus:ring-2 focus:ring-ring text-foreground"
         >
           {agents.map((agent) => (
             <option key={agent.id} value={agent.id}>
@@ -315,13 +315,13 @@ export function AgentsChatPage() {
       {/* Main 3-column layout (desktop) / single column (mobile) */}
       <div className="flex flex-1 overflow-hidden px-6 pb-6 gap-4">
         {/* Column 1: Agent list (desktop only) */}
-        <div className="hidden lg:flex flex-col w-56 shrink-0 bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-3 py-2.5 border-b border-slate-100">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+        <div className="hidden lg:flex flex-col w-56 shrink-0 bg-card rounded-md border border-border shadow-sm overflow-hidden">
+          <div className="px-3 py-2.5 border-b border-border">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
               Agentes
             </p>
           </div>
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-50">
+          <div className="flex-1 overflow-y-auto divide-y divide-border">
             {agents.map((agent) => {
               const isSelected = agent.id === selectedAgentId
               return (
@@ -329,28 +329,28 @@ export function AgentsChatPage() {
                   key={agent.id}
                   onClick={() => handleSelectAgent(agent.id)}
                   className={`w-full flex items-center gap-3 px-3 py-3 text-left transition-colors ${
-                    isSelected ? 'bg-blue-50' : 'hover:bg-slate-50'
+                    isSelected ? 'bg-info/10' : 'hover:bg-accent'
                   }`}
                 >
                   <div className="relative shrink-0">
                     <div
                       className={`w-2 h-2 rounded-full ${
-                        agent.heartbeat ? 'bg-emerald-400' : 'bg-slate-300'
+                        agent.heartbeat ? 'bg-success' : 'bg-muted-foreground/30'
                       }`}
                     />
                     {agent.heartbeat && (
-                      <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75" />
+                      <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-75" />
                     )}
                   </div>
                   <div className="min-w-0">
                     <p
                       className={`text-xs font-semibold truncate ${
-                        isSelected ? 'text-blue-700' : 'text-slate-700'
+                        isSelected ? 'text-info' : 'text-foreground'
                       }`}
                     >
                       {agent.name}
                     </p>
-                    <p className="text-[11px] text-slate-400 truncate">{agent.department}</p>
+                    <p className="text-[11px] text-muted-foreground truncate">{agent.department}</p>
                   </div>
                 </button>
               )
@@ -359,24 +359,24 @@ export function AgentsChatPage() {
         </div>
 
         {/* Column 2: Chat area */}
-        <div className="flex flex-col flex-1 min-w-0 bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+        <div className="flex flex-col flex-1 min-w-0 bg-card rounded-md border border-border shadow-sm overflow-hidden">
           {/* Chat header */}
-          <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 shrink-0">
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-border shrink-0">
             <div className="relative shrink-0">
               <div
                 className={`w-2.5 h-2.5 rounded-full ${
-                  selectedAgent.heartbeat ? 'bg-emerald-400' : 'bg-slate-300'
+                  selectedAgent.heartbeat ? 'bg-success' : 'bg-muted-foreground/30'
                 }`}
               />
               {selectedAgent.heartbeat && (
-                <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75" />
+                <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-75" />
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-slate-800 truncate">
+              <p className="text-sm font-semibold text-foreground truncate">
                 {selectedAgent.name}
               </p>
-              <p className="text-xs text-slate-400 truncate">
+              <p className="text-xs text-muted-foreground truncate">
                 {selectedAgent.role} · {selectedAgent.department}
               </p>
             </div>
@@ -392,11 +392,11 @@ export function AgentsChatPage() {
           >
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center py-12">
-                <Robot size={40} weight="duotone" className="text-slate-300 mb-3" />
-                <p className="text-sm text-slate-400">
+                <Robot size={40} weight="duotone" className="text-muted-foreground mb-3" />
+                <p className="text-sm text-muted-foreground">
                   Inicie a conversa com {selectedAgent.name}
                 </p>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   Tire dúvidas, dê feedback ou refine o treinamento
                 </p>
               </div>
@@ -410,8 +410,8 @@ export function AgentsChatPage() {
                 <div
                   className={`max-w-xs md:max-w-sm lg:max-w-md px-3.5 py-2.5 text-sm leading-relaxed ${
                     msg.from === 'user'
-                      ? 'bg-blue-600 text-white rounded-2xl rounded-tr-sm'
-                      : 'bg-slate-100 text-slate-800 rounded-2xl rounded-tl-sm'
+                      ? 'bg-primary text-primary-foreground rounded-2xl rounded-tr-sm'
+                      : 'bg-muted text-foreground rounded-2xl rounded-tl-sm'
                   }`}
                 >
                   {msg.text}
@@ -423,7 +423,7 @@ export function AgentsChatPage() {
           </div>
 
           {/* Input area */}
-          <div className="px-4 py-3 border-t border-slate-100 flex gap-2 shrink-0">
+          <div className="px-4 py-3 border-t border-border flex gap-2 shrink-0">
             <input
               type="text"
               value={input}
@@ -431,12 +431,12 @@ export function AgentsChatPage() {
               onKeyDown={handleKeyDown}
               placeholder={`Mensagem para ${selectedAgent.name}...`}
               disabled={isTyping}
-              className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               onClick={sendMessage}
               disabled={!input.trim() || isTyping}
-              className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+              className="px-3 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
             >
               <PaperPlaneRight size={16} weight="fill" />
               <span className="text-sm hidden sm:inline">Enviar</span>

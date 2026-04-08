@@ -24,27 +24,27 @@ const STATUS_LABEL: Record<ContentStatus, string> = {
 }
 
 const STATUS_BG: Record<ContentStatus, string> = {
-  rascunho: 'bg-slate-400',
-  em_revisao: 'bg-amber-400',
-  aprovado: 'bg-blue-500',
-  agendado: 'bg-purple-500',
-  publicado: 'bg-emerald-500',
+  rascunho: 'bg-muted-foreground',
+  em_revisao: 'bg-warning',
+  aprovado: 'bg-info',
+  agendado: 'bg-violet',
+  publicado: 'bg-success',
 }
 
 const STATUS_CLASSES: Record<ContentStatus, string> = {
-  rascunho: 'bg-slate-100 text-slate-600 border-slate-200',
-  em_revisao: 'bg-amber-100 text-amber-700 border-amber-200',
-  aprovado: 'bg-blue-100 text-blue-700 border-blue-200',
-  agendado: 'bg-purple-100 text-purple-700 border-purple-200',
-  publicado: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  rascunho: 'bg-muted text-muted-foreground border-border',
+  em_revisao: 'bg-warning/10 text-warning border-warning/20',
+  aprovado: 'bg-info/10 text-info border-info/20',
+  agendado: 'bg-violet/10 text-violet border-violet/20',
+  publicado: 'bg-success/10 text-success border-success/20',
 }
 
 const STATUS_DOT: Record<ContentStatus, string> = {
-  rascunho: 'bg-slate-400',
-  em_revisao: 'bg-amber-400',
-  aprovado: 'bg-blue-500',
-  agendado: 'bg-purple-500',
-  publicado: 'bg-emerald-500',
+  rascunho: 'bg-muted-foreground',
+  em_revisao: 'bg-warning',
+  aprovado: 'bg-info',
+  agendado: 'bg-violet',
+  publicado: 'bg-success',
 }
 
 const SWARM_PHASES: { phase: 'research' | 'draft' | 'schedule'; label: string; agent: string; contentId: string }[] = [
@@ -54,9 +54,9 @@ const SWARM_PHASES: { phase: 'research' | 'draft' | 'schedule'; label: string; a
 ]
 
 const PHASE_CLASSES: Record<string, string> = {
-  research: 'bg-violet-100 text-violet-700 border-violet-200',
-  draft: 'bg-blue-100 text-blue-700 border-blue-200',
-  schedule: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  research: 'bg-violet/10 text-violet border-violet/20',
+  draft: 'bg-info/10 text-info border-info/20',
+  schedule: 'bg-success/10 text-success border-success/20',
 }
 
 const MONTH_NAMES = [
@@ -113,20 +113,20 @@ function SchedulePicker({ onConfirm, onCancel }: { onConfirm: (d: string) => voi
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onCancel} />
-      <div className="relative bg-white rounded-md shadow-xl p-5 w-72">
-        <h3 className="text-sm font-semibold text-slate-900 mb-3">Agendar publicação</h3>
+      <div className="relative bg-card rounded-md shadow-xl p-5 w-72">
+        <h3 className="text-sm font-semibold text-foreground mb-3">Agendar publicação</h3>
         <input
           type="date"
           value={date}
           onChange={e => setDate(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 mb-4"
+          className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring mb-4"
         />
         <div className="flex justify-end gap-2">
-          <button onClick={onCancel} className="px-3 py-1.5 text-sm text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50">Cancelar</button>
+          <button onClick={onCancel} className="px-3 py-1.5 text-sm text-muted-foreground border border-border rounded-md hover:bg-accent">Cancelar</button>
           <button
             onClick={() => date && onConfirm(date)}
             disabled={!date}
-            className="px-3 py-1.5 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 disabled:opacity-40"
+            className="px-3 py-1.5 text-sm font-medium text-primary-foreground bg-violet rounded-md hover:bg-violet/90 disabled:opacity-40"
           >
             Confirmar
           </button>
@@ -144,17 +144,17 @@ function StatusTimeline({ history }: { history: StatusHistoryEntry[] }) {
       {history.map((entry, i) => (
         <div key={i} className="flex items-start gap-3">
           <div className="flex flex-col items-center">
-            <div className={`w-2.5 h-2.5 rounded-full mt-0.5 shrink-0 ${i === history.length - 1 ? 'bg-blue-600' : 'bg-slate-300'}`} />
-            {i < history.length - 1 && <div className="w-px h-6 bg-slate-200 mt-1" />}
+            <div className={`w-2.5 h-2.5 rounded-full mt-0.5 shrink-0 ${i === history.length - 1 ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
+            {i < history.length - 1 && <div className="w-px h-6 bg-border mt-1" />}
           </div>
           <div className="flex-1 min-w-0 pb-1">
             <div className="flex items-center gap-2">
               <StatusBadge status={entry.status} />
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-muted-foreground">
                 {new Date(entry.timestamp).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">por {entry.by}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">por {entry.by}</p>
           </div>
         </div>
       ))}
@@ -200,20 +200,20 @@ function DetailPanel({ item, onClose, onUpdateStatus }: DetailPanelProps) {
       {/* Mobile backdrop */}
       <div className="fixed inset-0 z-30 bg-black/20 lg:hidden" onClick={onClose} />
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 rounded-t-xl shadow-xl max-h-[85vh] overflow-y-auto
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border rounded-t-xl shadow-xl max-h-[85vh] overflow-y-auto
                       lg:static lg:border lg:rounded-md lg:shadow-sm lg:max-h-none lg:overflow-visible lg:z-auto">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white rounded-t-xl lg:rounded-t-md">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border sticky top-0 bg-card rounded-t-xl lg:rounded-t-md">
           <div className="flex items-center gap-2">
             <StatusBadge status={item.status} />
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1"><X size={16} /></button>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground p-1"><X size={16} /></button>
         </div>
 
         <div className="px-5 py-4 flex flex-col gap-5">
           <div>
-            <h2 className="text-sm font-semibold text-slate-900 mb-1">{item.title}</h2>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <span className="px-1.5 py-0.5 bg-slate-100 rounded">{item.platform}</span>
+            <h2 className="text-sm font-semibold text-foreground mb-1">{item.title}</h2>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="px-1.5 py-0.5 bg-muted rounded">{item.platform}</span>
               <span>{item.author}</span>
               <span>·</span>
               <span>Meta: {new Date(item.targetDate).toLocaleDateString('pt-BR')}</span>
@@ -221,14 +221,14 @@ function DetailPanel({ item, onClose, onUpdateStatus }: DetailPanelProps) {
           </div>
 
           <div>
-            <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wide">Briefing</p>
-            <p className="text-sm text-slate-700 leading-relaxed">{item.briefing}</p>
+            <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Briefing</p>
+            <p className="text-sm text-foreground leading-relaxed">{item.briefing}</p>
           </div>
 
           {swarmPhase && (
-            <div className="rounded-md border border-slate-100 bg-slate-50 p-3">
-              <p className="text-xs font-medium text-slate-500 mb-2 flex items-center gap-1.5">
-                <Robot size={14} className="text-blue-600" weight="duotone" />
+            <div className="rounded-md border border-border bg-muted p-3">
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
+                <Robot size={14} className="text-primary" weight="duotone" />
                 Swarm em andamento
               </p>
               <div className="flex items-center gap-2 flex-wrap">
@@ -236,7 +236,7 @@ function DetailPanel({ item, onClose, onUpdateStatus }: DetailPanelProps) {
                   <div
                     key={phase.phase}
                     className={`flex items-center gap-1.5 px-2 py-1 rounded-full border text-xs font-medium
-                      ${phase.phase === swarmPhase.phase ? PHASE_CLASSES[phase.phase] : 'bg-slate-100 text-slate-400 border-slate-200'}`}
+                      ${phase.phase === swarmPhase.phase ? PHASE_CLASSES[phase.phase] : 'bg-muted text-muted-foreground border-border'}`}
                   >
                     {phase.phase === swarmPhase.phase && <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />}
                     {phase.label}
@@ -250,26 +250,26 @@ function DetailPanel({ item, onClose, onUpdateStatus }: DetailPanelProps) {
           <div className="flex gap-2 flex-wrap">
             {item.status !== 'aprovado' && item.status !== 'publicado' && (
               <button onClick={handleApprove}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary-foreground bg-primary rounded-md hover:bg-primary/90 transition-colors">
                 <Check size={13} weight="bold" /> Aprovar
               </button>
             )}
             {item.status !== 'em_revisao' && item.status !== 'publicado' && (
               <button onClick={handleRequestReview}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-100 rounded-md hover:bg-amber-200 border border-amber-200 transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-warning bg-warning/10 rounded-md hover:bg-warning/20 border border-warning/20 transition-colors">
                 <ArrowCounterClockwise size={13} /> Solicitar revisão
               </button>
             )}
             {item.status !== 'agendado' && item.status !== 'publicado' && (
               <button onClick={() => setShowSchedulePicker(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-purple-700 bg-purple-100 rounded-md hover:bg-purple-200 border border-purple-200 transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-violet bg-violet/10 rounded-md hover:bg-violet/20 border border-violet/20 transition-colors">
                 <Clock size={13} /> Agendar
               </button>
             )}
           </div>
 
           <div>
-            <p className="text-xs font-medium text-slate-500 mb-3 uppercase tracking-wide">Timeline</p>
+            <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">Timeline</p>
             <StatusTimeline history={item.statusHistory} />
           </div>
         </div>
@@ -315,28 +315,28 @@ function NewContentDialog({ prefillDate, onClose, onSubmit }: NewContentDialogPr
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white rounded-md shadow-xl w-full max-w-md p-6">
+      <div className="relative bg-card rounded-md shadow-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-base font-semibold text-slate-900">Nova Campanha</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X size={18} /></button>
+          <h2 className="text-base font-semibold text-foreground">Nova Campanha</h2>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X size={18} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Título</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Título</label>
             <input
               type="text" value={title} onChange={e => setTitle(e.target.value)}
               placeholder="Ex: Post lançamento de produto"
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               required
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Tipo</label>
+              <label className="block text-xs font-medium text-foreground mb-1">Tipo</label>
               <select value={type} onChange={e => setType(e.target.value as ContentType)}
-                className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card">
                 <option value="post">Post</option>
                 <option value="short">Short</option>
                 <option value="campanha">Campanha</option>
@@ -344,9 +344,9 @@ function NewContentDialog({ prefillDate, onClose, onSubmit }: NewContentDialogPr
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Plataforma</label>
+              <label className="block text-xs font-medium text-foreground mb-1">Plataforma</label>
               <select value={platform} onChange={e => setPlatform(e.target.value as ContentPlatform)}
-                className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card">
                 <option value="Instagram">Instagram</option>
                 <option value="TikTok">TikTok</option>
                 <option value="LinkedIn">LinkedIn</option>
@@ -357,9 +357,9 @@ function NewContentDialog({ prefillDate, onClose, onSubmit }: NewContentDialogPr
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Autor</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Autor</label>
             <select value={author} onChange={e => setAuthor(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring bg-card">
               {teamMembers.filter(m => m.active).map(m => (
                 <option key={m.id} value={m.name}>{m.name}</option>
               ))}
@@ -367,28 +367,28 @@ function NewContentDialog({ prefillDate, onClose, onSubmit }: NewContentDialogPr
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Briefing</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Briefing</label>
             <textarea value={briefing} onChange={e => setBriefing(e.target.value)}
               placeholder="Descreva o objetivo, tom e contexto..."
               rows={3}
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Data Alvo</label>
+            <label className="block text-xs font-medium text-foreground mb-1">Data Alvo</label>
             <input type="date" value={targetDate} onChange={e => setTargetDate(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
 
           <div className="flex justify-end gap-2 pt-1">
             <button type="button" onClick={onClose}
-              className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors">
+              className="px-4 py-2 text-sm text-muted-foreground border border-border rounded-md hover:bg-accent transition-colors">
               Cancelar
             </button>
             <button type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
+              className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-md hover:bg-primary/90 transition-colors">
               Criar
             </button>
           </div>
@@ -424,11 +424,11 @@ function MonthlyView({ year, month, items, onItemClick, onDayClick }: MonthlyVie
   while (cells.length % 7 !== 0) cells.push(null)
 
   return (
-    <div className="bg-white rounded-md border border-slate-200 overflow-hidden shadow-sm">
+    <div className="bg-card rounded-md border border-border overflow-hidden shadow-sm">
       {/* Day headers */}
-      <div className="grid grid-cols-7 border-b border-slate-100">
+      <div className="grid grid-cols-7 border-b border-border">
         {DAY_LABELS.map(d => (
-          <div key={d} className="py-2 text-center text-xs font-medium text-slate-500 border-r last:border-r-0 border-slate-100">
+          <div key={d} className="py-2 text-center text-xs font-medium text-muted-foreground border-r last:border-r-0 border-border">
             {d}
           </div>
         ))}
@@ -448,15 +448,15 @@ function MonthlyView({ year, month, items, onItemClick, onDayClick }: MonthlyVie
             <div
               key={idx}
               onClick={() => day && cellItems.length === 0 && onDayClick(dateStr)}
-              className={`min-h-[90px] p-1.5 border-b border-r border-slate-100 transition-colors relative
-                ${day ? (cellItems.length === 0 ? 'cursor-pointer hover:bg-blue-50' : 'hover:bg-slate-50') : 'bg-slate-50/40'}
+              className={`min-h-[90px] p-1.5 border-b border-r border-border transition-colors relative
+                ${day ? (cellItems.length === 0 ? 'cursor-pointer hover:bg-info/10' : 'hover:bg-accent') : 'bg-muted/40'}
                 ${(idx + 1) % 7 === 0 ? 'border-r-0' : ''}`}
             >
               {day && (
                 <>
                   {/* Day number */}
                   <div className={`text-xs font-semibold mb-1 w-6 h-6 flex items-center justify-center rounded-full
-                    ${isToday ? 'bg-blue-600 text-white' : 'text-slate-600'}`}>
+                    ${isToday ? 'bg-primary text-primary-foreground' : 'text-muted-foreground'}`}>
                     {day}
                   </div>
 
@@ -475,14 +475,14 @@ function MonthlyView({ year, month, items, onItemClick, onDayClick }: MonthlyVie
                       </button>
                     ))}
                     {cellItems.length > 3 && (
-                      <span className="text-xs text-slate-400 pl-1">+{cellItems.length - 3} mais</span>
+                      <span className="text-xs text-muted-foreground pl-1">+{cellItems.length - 3} mais</span>
                     )}
                   </div>
 
                   {/* Empty day hint */}
                   {cellItems.length === 0 && (
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
-                      <Plus size={14} className="text-blue-400" />
+                      <Plus size={14} className="text-info" />
                     </div>
                   )}
                 </>
@@ -515,19 +515,19 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
   })
 
   return (
-    <div className="bg-white rounded-md border border-slate-200 overflow-hidden shadow-sm">
+    <div className="bg-card rounded-md border border-border overflow-hidden shadow-sm">
       {/* Day headers */}
-      <div className="grid grid-cols-7 border-b border-slate-200">
+      <div className="grid grid-cols-7 border-b border-border">
         {days.map((d, i) => {
           const isToday = isSameDay(d, today)
           return (
-            <div key={i} className={`py-3 text-center border-r last:border-r-0 border-slate-100 ${isToday ? 'bg-blue-50' : ''}`}>
-              <p className="text-xs font-medium text-slate-500">{DAY_LABELS_FULL[i]}</p>
+            <div key={i} className={`py-3 text-center border-r last:border-r-0 border-border ${isToday ? 'bg-info/10' : ''}`}>
+              <p className="text-xs font-medium text-muted-foreground">{DAY_LABELS_FULL[i]}</p>
               <p className={`text-lg font-semibold mt-0.5 mx-auto w-8 h-8 flex items-center justify-center rounded-full
-                ${isToday ? 'bg-blue-600 text-white' : 'text-slate-800'}`}>
+                ${isToday ? 'bg-primary text-primary-foreground' : 'text-foreground'}`}>
                 {d.getDate()}
               </p>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 {d.toLocaleDateString('pt-BR', { month: 'short' })}
               </p>
             </div>
@@ -546,9 +546,9 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
             <div
               key={i}
               onClick={() => dayItems.length === 0 && onDayClick(dateStr)}
-              className={`p-2 border-r last:border-r-0 border-slate-100 flex flex-col gap-1.5 transition-colors min-h-[300px]
-                ${isToday ? 'bg-blue-50/40' : ''}
-                ${dayItems.length === 0 ? 'cursor-pointer hover:bg-blue-50' : 'hover:bg-slate-50'}`}
+              className={`p-2 border-r last:border-r-0 border-border flex flex-col gap-1.5 transition-colors min-h-[300px]
+                ${isToday ? 'bg-info/10' : ''}
+                ${dayItems.length === 0 ? 'cursor-pointer hover:bg-info/10' : 'hover:bg-accent'}`}
             >
               {dayItems.map(item => (
                 <button
@@ -560,15 +560,15 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
                     <span className={`w-1.5 h-1.5 rounded-full ${STATUS_BG[item.status]} shrink-0`} />
                     <span className="text-xs font-medium truncate">{STATUS_LABEL[item.status]}</span>
                   </div>
-                  <p className="text-xs font-semibold text-slate-800 leading-tight line-clamp-2">{item.title}</p>
-                  <p className="text-xs text-slate-500 mt-0.5 truncate">{item.platform}</p>
-                  <p className="text-xs text-slate-400 mt-0.5 truncate">{item.author}</p>
+                  <p className="text-xs font-semibold text-foreground leading-tight line-clamp-2">{item.title}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.platform}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.author}</p>
                 </button>
               ))}
 
               {dayItems.length === 0 && (
                 <div className="flex-1 flex items-center justify-center">
-                  <Plus size={16} className="text-slate-300" />
+                  <Plus size={16} className="text-muted-foreground" />
                 </div>
               )}
             </div>
@@ -661,21 +661,21 @@ export function ContentCalendarPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h1 className="text-xl font-semibold text-slate-900">Calendário de Conteúdo</h1>
-              <p className="text-sm text-slate-500 mt-0.5">Visão de agendamento e publicação</p>
+              <h1 className="text-xl font-semibold text-foreground">Calendário de Conteúdo</h1>
+              <p className="text-sm text-muted-foreground mt-0.5">Visão de agendamento e publicação</p>
             </div>
             <div className="flex items-center gap-2">
               {/* View toggle — desktop only */}
-              <div className="hidden sm:flex items-center border border-slate-200 rounded-md overflow-hidden">
+              <div className="hidden sm:flex items-center border border-border rounded-md overflow-hidden">
                 <button
                   onClick={() => setViewMode('monthly')}
-                  className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === 'monthly' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:bg-slate-50'}`}
+                  className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === 'monthly' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-accent'}`}
                 >
                   Mensal
                 </button>
                 <button
                   onClick={() => setViewMode('weekly')}
-                  className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === 'weekly' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:bg-slate-50'}`}
+                  className={`px-3 py-1.5 text-xs font-medium transition-colors ${viewMode === 'weekly' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-accent'}`}
                 >
                   Semanal
                 </button>
@@ -684,7 +684,7 @@ export function ContentCalendarPage() {
               {/* New content */}
               <button
                 onClick={() => { setPrefillDate(undefined); setShowNewDialog(true) }}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors"
               >
                 <Plus size={14} weight="bold" />
                 <span className="hidden sm:inline">Nova Campanha</span>
@@ -697,12 +697,12 @@ export function ContentCalendarPage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <button onClick={prevPeriod}
-                className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition-colors">
+                className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors">
                 <CaretLeft size={16} />
               </button>
-              <h2 className="text-sm font-semibold text-slate-800 min-w-[160px] text-center">{periodLabel}</h2>
+              <h2 className="text-sm font-semibold text-foreground min-w-[160px] text-center">{periodLabel}</h2>
               <button onClick={nextPeriod}
-                className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition-colors">
+                className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors">
                 <CaretRight size={16} />
               </button>
             </div>
@@ -710,7 +710,7 @@ export function ContentCalendarPage() {
             {/* Today button */}
             <button
               onClick={() => { setCurrentYear(now.getFullYear()); setCurrentMonth(now.getMonth()); setCurrentWeekStart(getMonday(now)) }}
-              className="px-3 py-1.5 text-xs text-slate-600 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors"
+              className="px-3 py-1.5 text-xs text-muted-foreground border border-border rounded-md hover:bg-accent transition-colors"
             >
               Hoje
             </button>
@@ -739,17 +739,17 @@ export function ContentCalendarPage() {
             {(Object.entries(STATUS_BG) as [ContentStatus, string][]).map(([status, bgClass]) => (
               <div key={status} className="flex items-center gap-1.5">
                 <div className={`w-2.5 h-2.5 rounded-full ${bgClass}`} />
-                <span className="text-xs text-slate-500">{STATUS_LABEL[status]}</span>
+                <span className="text-xs text-muted-foreground">{STATUS_LABEL[status]}</span>
               </div>
             ))}
-            <span className="text-xs text-slate-400 ml-auto italic">Click em dia vazio para criar conteúdo</span>
+            <span className="text-xs text-muted-foreground ml-auto italic">Click em dia vazio para criar conteúdo</span>
           </div>
         </div>
       </div>
 
       {/* Detail panel — desktop side */}
       {selectedItem && (
-        <div className="hidden lg:block w-96 border-l border-slate-200 overflow-y-auto">
+        <div className="hidden lg:block w-96 border-l border-border overflow-y-auto">
           <DetailPanel
             item={selectedItem}
             onClose={() => setSelectedItemId(null)}

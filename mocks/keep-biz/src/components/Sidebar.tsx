@@ -60,19 +60,19 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
   return (
     <aside
-      className="flex flex-col h-full bg-slate-900 text-slate-100 transition-all duration-200 ease-in-out border-r border-slate-800"
+      className="flex flex-col h-full bg-sidebar text-sidebar-foreground transition-all duration-200 ease-in-out border-r border-sidebar-border"
       style={{ width: collapsed ? 64 : 240 }}
     >
       {/* Logo area */}
-      <div className="flex items-center justify-between px-4 py-4 border-b border-slate-800 min-h-[56px]">
+      <div className="flex items-center justify-between px-4 py-4 border-b border-sidebar-border min-h-[56px]">
         {!collapsed && (
-          <span className="text-sm font-semibold text-slate-100 tracking-wide truncate">
+          <span className="text-sm font-semibold text-sidebar-foreground tracking-wide truncate">
             KeepBiz
           </span>
         )}
         <button
           onClick={onToggle}
-          className="flex items-center justify-center w-7 h-7 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors ml-auto"
+          className="flex items-center justify-center w-7 h-7 rounded-md text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent transition-colors ml-auto"
           aria-label={collapsed ? 'Expandir sidebar' : 'Colapsar sidebar'}
         >
           {collapsed ? (
@@ -101,8 +101,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                     'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors',
                     collapsed ? 'justify-center' : '',
                     active || hasActiveChild
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800',
+                      ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+                      : 'text-sidebar-accent-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent',
                   ].join(' ')
                 }
                 title={collapsed ? item.label : undefined}
@@ -113,7 +113,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
               {/* Sub-items */}
               {!collapsed && expanded && item.children && (
-                <div className="ml-3 mt-1 space-y-0.5 border-l border-slate-700 pl-3">
+                <div className="ml-3 mt-1 space-y-0.5 border-l border-sidebar-border pl-3">
                   {item.children.map((child) => {
                     const ChildIcon = child.icon
                     const childActive = isActive(child.href)
@@ -125,8 +125,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                           [
                             'flex items-center gap-2 px-2 py-2 rounded-md text-xs font-medium transition-colors',
                             childActive
-                              ? 'text-blue-400 bg-slate-800'
-                              : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800',
+                              ? 'text-sidebar-primary bg-sidebar-accent'
+                              : 'text-sidebar-accent-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent',
                           ].join(' ')
                         }
                       >
@@ -143,7 +143,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       </nav>
 
       {/* Settings at bottom */}
-      <div className="border-t border-slate-800 p-2">
+      <div className="border-t border-sidebar-border p-2">
         <NavLink
           to="/settings"
           className={({ isActive: active }) =>
@@ -151,8 +151,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors',
               collapsed ? 'justify-center' : '',
               active
-                ? 'bg-blue-600 text-white'
-                : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800',
+                ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+                : 'text-sidebar-accent-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent',
             ].join(' ')
           }
           title={collapsed ? 'Configurações' : undefined}
