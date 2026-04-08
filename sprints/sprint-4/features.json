@@ -405,7 +405,7 @@
     "id": "F-020",
     "name": "Integração ProfileGate nas rotas KeepBiz",
     "description": "Aplicar o componente ProfileGate como wrapper em MonitorPage, ContentPage e ContentCalendarPage do KeepBiz. NÃO afetar rotas de Agent Core (/agents/*) nem Settings (/settings). O gate deve wrapping o conteúdo da página, de forma que se não houver perfis, o gate substitui todo o conteúdo.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -420,7 +420,8 @@
       "SettingsPage NÃO é envolvida por ProfileGate",
       "Ao remover todos os perfis, as páginas protegidas mostram o gate"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md",
+    "completed_at": "2026-04-08T16:00:00Z"
   },
   {
     "id": "F-021",

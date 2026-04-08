@@ -22,6 +22,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ProfileProvider } from '@/contexts/ProfileContext'
 import { RouteGuard } from '@/components/RouteGuard'
+import { ProfileGate } from '@/components/ProfileGate'
 
 function App() {
   return (
@@ -42,9 +43,9 @@ function App() {
 
             {/* Protected routes */}
             <Route element={<RouteGuard><ProfileProvider><AppLayout /></ProfileProvider></RouteGuard>}>
-              <Route path="/monitor" element={<MonitorPage />} />
-              <Route path="/content" element={<ContentPage />} />
-              <Route path="/content/calendar" element={<ContentCalendarPage />} />
+              <Route path="/monitor" element={<ProfileGate><MonitorPage /></ProfileGate>} />
+              <Route path="/content" element={<ProfileGate><ContentPage /></ProfileGate>} />
+              <Route path="/content/calendar" element={<ProfileGate><ContentCalendarPage /></ProfileGate>} />
               <Route path="/agents" element={<AgentsPage />} />
               <Route path="/agents/workflows" element={<AgentsWorkflowsPage />} />
               <Route path="/agents/chat" element={<AgentsChatPage />} />
