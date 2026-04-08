@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Check } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowRight, Check, CheckCircle, X } from '@phosphor-icons/react'
 import {
   WizardStepIdentity,
   type IdentityData,
@@ -11,6 +11,12 @@ import {
   WizardStepNiche,
   type NicheData,
 } from '../components/wizard/WizardStepNiche'
+import {
+  WizardStepSummary,
+  type SummaryData,
+} from '../components/wizard/WizardStepSummary'
+import { useProfiles } from '../contexts/ProfileContext'
+import type { Profile } from '../data/types'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -73,17 +79,16 @@ function WizardStepper({ currentStep }: { currentStep: number }) {
   )
 }
 
-// ─── Step placeholders ─────────────────────────────────────────────────────
+// ─── Toast ─────────────────────────────────────────────────────────────────
 
-function StepPlaceholder({ step }: { step: number }) {
+function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-16 text-muted-foreground">
-      <div className="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground/40">
-        {step + 1}
-      </div>
-      <p className="text-sm">
-        Etapa <span className="font-semibold">{STEPS[step]}</span> — conteúdo em breve
-      </p>
+    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-primary text-primary-foreground px-4 py-3 rounded-md shadow-xl">
+      <CheckCircle size={18} weight="fill" className="shrink-0" />
+      <span className="text-sm">{message}</span>
+      <button onClick={onClose} className="ml-1 opacity-70 hover:opacity-100">
+        <X size={14} />
+      </button>
     </div>
   )
 }
@@ -93,6 +98,7 @@ function StepPlaceholder({ step }: { step: number }) {
 interface WizardData {
   identity: IdentityData
   niche: NicheData
+  summary: SummaryData
 }
 
 const INITIAL_WIZARD_DATA: WizardData = {
@@ -106,6 +112,10 @@ const INITIAL_WIZARD_DATA: WizardData = {
     targetAudience: [],
     positioningStatement: '',
   },
+  summary: {
+    toneOfVoice: 'casual',
+    platforms: [],
+  },
 }
 
 function isStepValid(step: number, data: WizardData): boolean {
@@ -116,18 +126,26 @@ function isStepValid(step: number, data: WizardData): boolean {
 // ─── Main page ─────────────────────────────────────────────────────────────
 
 // Steps with internal navigation (no Voltar/Avançar footer nav)
-// Step 1 (Pesquisando) auto-advances; step 2 (Validação) has its own CTA
-const AUTO_ADVANCE_STEPS = new Set([1, 2])
+// Step 1 (Pesquisando) auto-advances; step 2 (Validação) has its own CTA;
+// step 4 (Resumo) has its own Criar Perfil button
+const AUTO_ADVANCE_STEPS = new Set([1, 2, 4])
 
 export function ProfileWizardPage() {
   const navigate = useNavigate()
+  const { addProfile } = useProfiles()
   const [currentStep, setCurrentStep] = useState(0)
   const [wizardData, setWizardData] = useState<WizardData>(INITIAL_WIZARD_DATA)
+  const [toast, setToast] = useState<string | null>(null)
 
   const isFirst = currentStep === 0
-  const isLast = currentStep === STEPS.length - 1
   const isAutoStep = AUTO_ADVANCE_STEPS.has(currentStep)
+  const isLast = currentStep === STEPS.length - 1
   const canAdvance = isStepValid(currentStep, wizardData)
+
+  function showToast(msg: string) {
+    setToast(msg)
+    setTimeout(() => setToast(null), 3500)
+  }
 
   function handleBack() {
     if (!isFirst) setCurrentStep((s) => s - 1)
@@ -136,7 +154,6 @@ export function ProfileWizardPage() {
   function handleNext() {
     if (!canAdvance) return
     if (!isLast) setCurrentStep((s) => s + 1)
-    else navigate('/profiles')
   }
 
   const handleResearchComplete = useCallback(() => {
@@ -146,6 +163,44 @@ export function ProfileWizardPage() {
   const handleValidationContinue = useCallback(() => {
     setCurrentStep(3)
   }, [])
+
+  function handleGoToStep(step: number) {
+    setCurrentStep(step)
+  }
+
+  function handleCreateProfile() {
+    const now = new Date().toISOString()
+    const newProfile: Profile = {
+      id: `PRF-${Date.now()}`,
+      identity: {
+        businessName: wizardData.identity.businessName,
+        url: wizardData.identity.websiteUrl,
+        socialLinks: wizardData.identity.socialLinks.map((sl) => `${sl.platform}: ${sl.handle}`),
+      },
+      niche: {
+        segment: wizardData.niche.selectedSegment,
+        targetAudience: wizardData.niche.targetAudience.join(', '),
+        competitors: [],
+      },
+      positioning: {
+        differentials: [],
+        statement: wizardData.niche.positioningStatement,
+        agentSuggestion: '',
+      },
+      tone: {
+        primary: wizardData.summary.toneOfVoice,
+        examples: [],
+      },
+      platforms: wizardData.summary.platforms,
+      status: 'rascunho',
+      completeness: 80,
+      createdAt: now,
+      updatedAt: now,
+    }
+    addProfile(newProfile)
+    showToast('Perfil criado com sucesso!')
+    setTimeout(() => navigate('/profiles'), 500)
+  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center py-10 px-4">
@@ -183,7 +238,14 @@ export function ProfileWizardPage() {
               onChange={(niche) => setWizardData((d) => ({ ...d, niche }))}
             />
           ) : (
-            <StepPlaceholder step={currentStep} />
+            <WizardStepSummary
+              identity={wizardData.identity}
+              niche={wizardData.niche}
+              data={wizardData.summary}
+              onChange={(summary) => setWizardData((d) => ({ ...d, summary }))}
+              onGoToStep={handleGoToStep}
+              onCreateProfile={handleCreateProfile}
+            />
           )}
         </div>
 
@@ -208,12 +270,15 @@ export function ProfileWizardPage() {
               disabled={!canAdvance}
               className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {isLast ? 'Criar Perfil' : 'Avançar'}
-              {!isLast && <ArrowRight size={16} />}
+              Avançar
+              <ArrowRight size={16} />
             </button>
           </div>
         )}
       </div>
+
+      {/* Toast */}
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   )
 }

@@ -321,7 +321,7 @@
     "id": "F-016",
     "name": "Wizard Etapa 5 — Resumo KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepSummary.tsx` — card com resumo: Identidade (nome, URL, redes), Segmento, Posicionamento, Tom de voz (select com 5 opções: formal/casual/técnico/inspiracional/amigável), Plataformas (checkboxes). Links 'Editar' em cada seção voltam para a etapa correspondente. Botão 'Criar Perfil' → adiciona perfil via addProfile do ProfileContext → toast sucesso → navega para `/profiles`. Integrar no ProfileWizardPage como step 4.",
-    "status": "pending",
+    "status": "passing",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
@@ -337,7 +337,8 @@
       "Botão 'Criar Perfil' adiciona perfil ao context e navega para /profiles",
       "Toast de sucesso é exibido ao criar perfil"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T00:00:00Z"
   },
   {
     "id": "F-017",
