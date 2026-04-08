@@ -17,6 +17,7 @@ export const contentItems: ContentItem[] = [
       { status: 'em_revisao', timestamp: '2026-04-03T14:00:00Z', by: 'Ana Souza' },
       { status: 'aprovado', timestamp: '2026-04-05T11:30:00Z', by: 'Carlos Mendes' },
     ],
+    profileId: 'PRF-001',
   },
   {
     id: 'content-002',
@@ -33,6 +34,7 @@ export const contentItems: ContentItem[] = [
       { status: 'rascunho', timestamp: '2026-04-02T11:00:00Z', by: 'Content Drafter' },
       { status: 'em_revisao', timestamp: '2026-04-04T16:00:00Z', by: 'Pedro Lima' },
     ],
+    profileId: 'PRF-002',
   },
   {
     id: 'content-003',
@@ -48,6 +50,7 @@ export const contentItems: ContentItem[] = [
     statusHistory: [
       { status: 'rascunho', timestamp: '2026-04-06T10:00:00Z', by: 'Ana Souza' },
     ],
+    profileId: 'PRF-001',
   },
   {
     id: 'content-004',
@@ -65,6 +68,7 @@ export const contentItems: ContentItem[] = [
       { status: 'aprovado', timestamp: '2026-04-01T15:00:00Z', by: 'Carlos Mendes' },
       { status: 'agendado', timestamp: '2026-04-02T09:00:00Z', by: 'Mariana Costa' },
     ],
+    profileId: 'PRF-002',
   },
   {
     id: 'content-005',
@@ -84,5 +88,6 @@ export const contentItems: ContentItem[] = [
       { status: 'agendado', timestamp: '2026-03-30T10:00:00Z', by: 'Pedro Lima' },
       { status: 'publicado', timestamp: '2026-04-01T18:00:00Z', by: 'Schedule Keeper' },
     ],
+    profileId: 'PRF-001',
   },
 ];

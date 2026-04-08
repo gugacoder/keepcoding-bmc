@@ -344,7 +344,7 @@
     "id": "F-017",
     "name": "Wizard modo edição KeepBiz",
     "description": "Adicionar suporte a modo edição no ProfileWizardPage. Detectar query param `?edit=PRF-XXX` via URL. Quando presente: carregar perfil existente do ProfileContext, pré-preencher campos das etapas 1, 4 e 5, pular etapas 2 (loading) e 3 (validação), mudar botão final para 'Salvar Alterações' em vez de 'Criar Perfil'. Ao salvar: atualizar perfil no context e navegar de volta para `/profiles`.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 7,
     "agent": "coder",
     "task": "vibe-code",
@@ -449,7 +449,7 @@
     "id": "F-022",
     "name": "Filtragem mock por perfil KeepBiz",
     "description": "Adicionar campo `profileId?: string` nos types Mention e ContentItem em `mocks/keep-biz/src/data/types.ts`. Distribuir 'PRF-001' e 'PRF-002' nos mock data de `mentions.ts` e `content.ts` (metade para cada). Em MonitorPage e ContentPage: quando um perfil específico está selecionado (activeProfileId !== null), filtrar dados por profileId. 'Todos os perfis' (null): sem filtro (comportamento atual).",
-    "status": "pending",
+    "status": "passing",
     "priority": 6,
     "agent": "coder",
     "task": "vibe-code",
@@ -463,7 +463,8 @@
       "Selecionar perfil PRF-001 filtra dados para apenas PRF-001",
       "Selecionar 'Todos os perfis' mostra todos os dados"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-025-keepbiz-profile-gate-selector.md",
+    "completed_at": "2026-04-08T14:00:00Z"
   },
   {
     "id": "F-023",

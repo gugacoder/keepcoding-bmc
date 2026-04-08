@@ -10,6 +10,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-04-07T09:30:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
   {
     id: 'mention-002',
@@ -19,6 +20,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-04-06T16:45:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-003',
@@ -28,6 +30,7 @@ export const mentions: Mention[] = [
     sentiment: 'negativo',
     date: '2026-04-05T10:20:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
   {
     id: 'mention-004',
@@ -37,6 +40,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-04-04T14:00:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-005',
@@ -46,6 +50,7 @@ export const mentions: Mention[] = [
     sentiment: 'neutro',
     date: '2026-04-03T18:30:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
   {
     id: 'mention-006',
@@ -55,6 +60,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-04-02T11:00:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-007',
@@ -64,6 +70,7 @@ export const mentions: Mention[] = [
     sentiment: 'neutro',
     date: '2026-04-01T20:00:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
 
   // ── 8–30 days ago (Mar 8–31) ──────────────────────────────────────────────
@@ -75,6 +82,7 @@ export const mentions: Mention[] = [
     sentiment: 'neutro',
     date: '2026-03-28T10:00:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-009',
@@ -84,6 +92,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-03-25T14:30:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
   {
     id: 'mention-010',
@@ -93,6 +102,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-03-22T09:15:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-011',
@@ -102,6 +112,7 @@ export const mentions: Mention[] = [
     sentiment: 'neutro',
     date: '2026-03-18T11:00:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
   {
     id: 'mention-012',
@@ -111,6 +122,7 @@ export const mentions: Mention[] = [
     sentiment: 'negativo',
     date: '2026-03-15T08:45:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-013',
@@ -120,6 +132,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-03-10T19:00:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
 
   // ── 31–90 days ago (Jan 7–Mar 7) ──────────────────────────────────────────
@@ -131,6 +144,7 @@ export const mentions: Mention[] = [
     sentiment: 'neutro',
     date: '2026-02-20T16:00:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
   {
     id: 'mention-015',
@@ -140,6 +154,7 @@ export const mentions: Mention[] = [
     sentiment: 'positivo',
     date: '2026-02-10T13:30:00Z',
     url: null,
+    profileId: 'PRF-001',
   },
   {
     id: 'mention-016',
@@ -149,5 +164,6 @@ export const mentions: Mention[] = [
     sentiment: 'negativo',
     date: '2026-01-28T10:00:00Z',
     url: null,
+    profileId: 'PRF-002',
   },
 ];

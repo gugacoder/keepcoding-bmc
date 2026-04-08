@@ -99,6 +99,7 @@ export interface ContentItem {
   createdAt: string;
   statusHistory: StatusHistoryEntry[];
   thumbnail?: string;
+  profileId?: string;
 }
 
 export interface StatusHistoryEntry {
@@ -118,6 +119,7 @@ export interface Mention {
   sentiment: MentionSentiment;
   date: string;
   url: string | null;
+  profileId?: string;
 }
 
 export type AlertSeverity = 'info' | 'warning' | 'critical';
