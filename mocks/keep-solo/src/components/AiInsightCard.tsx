@@ -16,10 +16,10 @@ export function AiInsightCard() {
   if (dismissed) return null
 
   return (
-    <div className="relative bg-violet-50 dark:bg-violet-950/20 rounded-2xl border border-violet-200 dark:border-violet-800 border-l-4 border-l-violet-500 p-4 shadow-sm">
+    <div className="relative bg-violet-500/5 dark:bg-violet-500/10 rounded-2xl border border-violet-200/50 dark:border-violet-800/40 border-l-4 border-l-violet-500 p-4 shadow-sm">
       <button
         onClick={() => setDismissed(true)}
-        className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-violet-400 hover:text-violet-600 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition-colors"
+        className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
         aria-label={t('autocreation.campaign.dismiss')}
       >
         <X size={14} />
@@ -27,14 +27,14 @@ export function AiInsightCard() {
 
       <div className="flex items-center gap-2 mb-3 pr-6">
         <Lightbulb size={18} weight="duotone" className="text-violet-500 shrink-0" />
-        <h3 className="text-sm font-semibold text-violet-900 dark:text-violet-200">
+        <h3 className="text-sm font-semibold text-foreground">
           {t('autocreation.monitor.insightTitle')}
         </h3>
       </div>
 
       <ul className="space-y-2 mb-4">
         {INSIGHTS.map((insight, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm text-violet-800 dark:text-violet-300">
+          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
             <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-violet-400 shrink-0" />
             {insight}
           </li>
@@ -43,7 +43,7 @@ export function AiInsightCard() {
 
       <button
         onClick={() => navigate('/create')}
-        className="flex items-center gap-1.5 text-sm font-medium text-violet-600 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-200 transition-colors"
+        className="flex items-center gap-1.5 text-sm font-semibold text-violet-600 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-200 transition-colors"
       >
         {t('autocreation.monitor.viewSuggestions')}
         <ArrowRight size={14} />

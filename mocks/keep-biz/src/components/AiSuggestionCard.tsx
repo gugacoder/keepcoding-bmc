@@ -1,6 +1,8 @@
-import { Robot, Check, PencilSimple, X } from '@phosphor-icons/react'
+import { Check, PencilSimple, X } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import type { ContentItem } from '@/data/types'
+import { Badge } from '@/components/ui/badge'
+import { SourceBadge } from '@/components/SourceBadge'
 
 const PLATFORM_LABEL: Record<string, string> = {
   Instagram: 'Instagram',
@@ -44,27 +46,22 @@ export function AiSuggestionCard({
   const { t } = useTranslation()
   return (
     <div
-      className={`relative bg-blue-50 dark:bg-blue-950/20 rounded-2xl border-l-4 border-blue-500 dark:border-blue-400 border border-blue-200 dark:border-blue-800 shadow-sm transition-all duration-500 ${fading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+      className={`relative bg-blue-50/50 dark:bg-blue-950/10 rounded-2xl border border-blue-200/40 dark:border-blue-800/30 shadow-sm transition-all duration-500 ${fading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
     >
       {/* AI Badge */}
-      <div className="absolute top-3 right-3 flex items-center gap-1 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-semibold px-2 py-0.5 rounded-full">
-        <Robot size={12} weight="duotone" />
-        <span>{t('autocreation.suggestions.badge')}</span>
+      <div className="absolute top-3 right-3">
+        <SourceBadge source="ai" />
       </div>
 
-      <div className="p-4 space-y-3 pr-16">
+      <div className="p-3 space-y-2 pr-14">
         {/* Profile badge */}
         {profileName && (
-          <div className="inline-flex items-center gap-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded-full">
-            {profileName}
-          </div>
+          <Badge color="blue">{profileName}</Badge>
         )}
 
         {/* Meta row */}
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span className="font-medium text-blue-700 dark:text-blue-400">
-            {TYPE_LABEL[item.type] ?? item.type}
-          </span>
+          <Badge color="blue">{TYPE_LABEL[item.type] ?? item.type}</Badge>
           <span>·</span>
           <span>{PLATFORM_LABEL[item.platform] ?? item.platform}</span>
           <span>·</span>
@@ -84,26 +81,26 @@ export function AiSuggestionCard({
         )}
 
         {/* Actions */}
-        <div className="flex gap-2 pt-1">
+        <div className="flex items-center gap-1.5 pt-1">
           <button
             onClick={onApprove}
-            className="flex items-center gap-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 rounded-xl px-3 py-1.5 transition-colors"
+            className="flex items-center gap-1 text-[11px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 rounded-lg px-2.5 py-1 transition-colors shadow-sm"
           >
-            <Check size={13} weight="bold" />
+            <Check size={12} weight="bold" />
             {t('autocreation.actions.approve')}
           </button>
           <button
             onClick={onEdit}
-            className="flex items-center gap-1.5 text-xs font-medium text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-xl px-3 py-1.5 transition-colors"
+            className="flex items-center gap-1 text-[11px] font-semibold text-secondary-foreground border border-border hover:bg-secondary rounded-lg px-2.5 py-1 transition-colors"
           >
-            <PencilSimple size={13} weight="duotone" />
-            {t('autocreation.actions.edit')}
+            <PencilSimple size={12} weight="duotone" />
+            {t('autocreation.actions.editShort')}
           </button>
           <button
             onClick={onReject}
-            className="flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-xl px-3 py-1.5 transition-colors"
+            className="flex items-center gap-1 text-[11px] font-semibold text-white bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 rounded-lg px-2.5 py-1 transition-colors shadow-sm"
           >
-            <X size={13} weight="bold" />
+            <X size={12} weight="bold" />
             {t('autocreation.actions.reject')}
           </button>
         </div>

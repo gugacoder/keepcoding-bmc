@@ -164,6 +164,7 @@
     "actions": {
       "approve": "Aprobar",
       "edit": "Editar sugerencia",
+      "editShort": "Editar",
       "reject": "Rechazar",
       "undo": "Deshacer",
       "saveAndApprove": "Guardar y aprobar"

@@ -26,6 +26,7 @@ import { useTranslation } from 'react-i18next'
 import { useContentActions } from '@/hooks/useContentActions'
 import { AiSuggestionCard } from '@/components/AiSuggestionCard'
 import { SourceBadge } from '@/components/SourceBadge'
+import { Badge } from '@/components/ui/badge'
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
@@ -1108,9 +1109,9 @@ export function ContentPage() {
               <div className="flex items-center gap-2">
                 <Robot size={18} weight="duotone" className="text-blue-500" />
                 <h2 className="text-sm font-semibold text-foreground">{t('autocreation.suggestions.titleBiz')}</h2>
-                <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-2 py-0.5 rounded-full">
+                <Badge color="blue" pulse>
                   {t('autocreation.suggestions.pending', { count: aiSuggestions.length })}
-                </span>
+                </Badge>
               </div>
 
               {activeProfileId === null ? (
@@ -1119,23 +1120,23 @@ export function ContentPage() {
                   {suggestionsByProfile.map(({ profileId, profileName, items: groupItems }) => {
                     const expanded = isGroupExpanded(profileId)
                     return (
-                      <div key={profileId} className="rounded-xl border border-blue-100 dark:border-blue-900/40 overflow-hidden">
+                      <div key={profileId} className="rounded-xl border border-border overflow-hidden">
                         {/* Profile group header */}
                         <button
                           onClick={() => toggleGroup(profileId)}
-                          className="w-full flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-950/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                          className="w-full flex items-center justify-between px-4 py-3 bg-secondary hover:bg-secondary/80 transition-colors"
                         >
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-blue-800 dark:text-blue-200">{profileName}</span>
-                            <span className="text-xs text-blue-600 dark:text-blue-400">—</span>
-                            <span className="text-xs text-blue-600 dark:text-blue-400">
+                            <span className="text-sm font-semibold text-foreground">{profileName}</span>
+                            <span className="text-xs text-muted-foreground">—</span>
+                            <span className="text-xs text-muted-foreground">
                               {t('autocreation.suggestions.pending', { count: groupItems.length })}
                             </span>
                           </div>
                           <CaretDown
                             size={14}
                             weight="bold"
-                            className={`text-blue-500 transition-transform duration-200 ${expanded ? '' : '-rotate-90'}`}
+                            className={`text-muted-foreground transition-transform duration-200 ${expanded ? '' : '-rotate-90'}`}
                           />
                         </button>
 

@@ -558,8 +558,7 @@ function MonthlyView({ year, month, items, onItemClick, onDayClick }: MonthlyVie
                           <button
                             key={item.id}
                             onClick={e => { e.stopPropagation(); onItemClick(item) }}
-                            className="w-full text-left text-xs px-1.5 py-0.5 rounded truncate font-medium opacity-80 hover:opacity-100 transition-opacity text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-950/20"
-                            style={{ border: '1px dashed rgb(167,139,250)' }}
+                            className="w-full text-left text-xs px-1.5 py-0.5 rounded-full truncate font-semibold hover:opacity-80 transition-opacity bg-purple-700/10 text-purple-700 dark:bg-purple-400/15 dark:text-purple-400 border border-purple-700/20 dark:border-purple-400/20"
                             title={item.title}
                           >
                             <Robot size={10} weight="duotone" className="inline mr-0.5 align-middle" />
@@ -663,15 +662,14 @@ function WeeklyView({ weekStart, items, onItemClick, onDayClick }: WeeklyViewPro
                     <button
                       key={item.id}
                       onClick={e => { e.stopPropagation(); onItemClick(item) }}
-                      className="w-full text-left rounded-md p-2 opacity-80 hover:opacity-100 transition-opacity bg-violet-50 dark:bg-violet-950/20"
-                      style={{ border: '1px dashed rgb(167,139,250)' }}
+                      className="w-full text-left rounded-xl p-2 hover:opacity-80 transition-opacity bg-purple-700/10 dark:bg-purple-400/15 border border-purple-700/20 dark:border-purple-400/20"
                     >
                       <div className="flex items-center gap-1 mb-1">
-                        <Robot size={10} weight="duotone" className="text-violet-500 shrink-0" />
-                        <span className="text-xs font-medium text-violet-700 dark:text-violet-300 truncate">{t('autocreation.calendar.aiBadge')}</span>
+                        <Robot size={10} weight="duotone" className="text-purple-700 dark:text-purple-400 shrink-0" />
+                        <span className="text-xs font-semibold text-purple-700 dark:text-purple-400 truncate">{t('autocreation.calendar.aiBadge')}</span>
                       </div>
-                      <p className="text-xs font-semibold text-violet-800 dark:text-violet-200 leading-tight line-clamp-2">{item.title}</p>
-                      <p className="text-xs text-violet-500 mt-0.5 truncate">{item.platform}</p>
+                      <p className="text-xs font-semibold text-foreground leading-tight line-clamp-2">{item.title}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 truncate">{item.platform}</p>
                     </button>
                   )
                 }

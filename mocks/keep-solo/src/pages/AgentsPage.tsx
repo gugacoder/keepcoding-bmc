@@ -403,7 +403,7 @@ export function AgentsPage() {
             {activeHints.map((hint) => (
               <div
                 key={hint.id}
-                className="bg-secondary rounded-3xl p-5 border border-border shadow-sm"
+                className="bg-card rounded-3xl p-5 border border-border shadow-sm"
               >
                 <p className="text-sm text-foreground leading-relaxed">{hint.suggestion}</p>
                 <div className="flex gap-2 mt-4">

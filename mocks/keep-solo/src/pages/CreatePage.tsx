@@ -313,21 +313,19 @@ function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) 
   const { t } = useTranslation()
 
   return (
-    <div className="rounded-2xl border border-violet-200 dark:border-violet-800/50 bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/20 overflow-hidden">
+    <div className="rounded-2xl border border-violet-200/50 dark:border-violet-800/40 bg-violet-500/5 dark:bg-violet-500/10 overflow-hidden">
       {/* Compact header */}
       <div className="p-4 flex items-start gap-3">
-        <div className="shrink-0 w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-900/50 flex items-center justify-center">
+        <div className="shrink-0 w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
           <Megaphone size={16} weight="duotone" className="text-violet-600 dark:text-violet-400" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5 flex-wrap">
             <h3 className="text-sm font-semibold text-foreground leading-snug">{campaign.title}</h3>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/60 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 shrink-0">
-              {t('autocreation.campaign.title')}
-            </span>
+            <Badge color="purple" border>{t('autocreation.campaign.title')}</Badge>
           </div>
           <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{campaign.description}</p>
-          <p className="text-xs font-medium text-violet-600 dark:text-violet-400 mt-1">
+          <p className="text-xs font-medium text-primary mt-1">
             {t('autocreation.campaign.postsPlanned', { count: campaign.posts.length })}
           </p>
         </div>
@@ -336,10 +334,10 @@ function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) 
       {/* Expanded post list */}
       {expanded && (
         <div className="px-4 pb-3 space-y-2">
-          <div className="h-px bg-violet-100 dark:bg-violet-800/40 mb-3" />
+          <div className="h-px bg-border mb-3" />
           {campaign.posts.map((post, i) => (
             <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-              <span className="shrink-0 w-5 h-5 rounded-full bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center text-[10px]">
+              <span className="shrink-0 w-5 h-5 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center text-[10px]">
                 {i + 1}
               </span>
               <div className="flex-1 min-w-0">
@@ -364,7 +362,7 @@ function CampaignBanner({ campaign, onAccept, onDismiss }: CampaignBannerProps) 
         </button>
         <button
           onClick={() => setExpanded((v) => !v)}
-          className="flex items-center gap-1.5 text-xs font-medium text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700 px-3 py-1.5 rounded-xl hover:bg-violet-50 dark:hover:bg-violet-900/30 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-medium text-secondary-foreground border border-border px-3 py-1.5 rounded-xl hover:bg-secondary transition-colors"
         >
           {expanded ? <CaretUp size={12} weight="bold" /> : <CaretDown size={12} weight="bold" />}
           {expanded ? t('autocreation.campaign.hideDetails') : t('autocreation.campaign.showDetails')}
@@ -546,9 +544,7 @@ export function CreatePage() {
               <div className="flex items-center gap-2">
                 <Sparkle size={18} weight="duotone" className="text-amber-500" />
                 <h2 className="text-sm font-semibold text-foreground">{t('autocreation.suggestions.title')}</h2>
-                <span className="bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold px-2 py-0.5 rounded-full">
-                  {t('autocreation.suggestions.new', { count: aiSuggestions.length })}
-                </span>
+                <Badge color="amber" pulse>{t('autocreation.suggestions.new', { count: aiSuggestions.length })}</Badge>
               </div>
 
               {/* Mobile: horizontal scroll; Desktop: 2-col grid */}
