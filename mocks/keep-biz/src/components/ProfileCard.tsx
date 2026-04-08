@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   LinkedinLogo,
   InstagramLogo,
@@ -55,84 +57,157 @@ function relativeTime(updatedAt: string): string {
   return `Atualizado há ${days} dias`
 }
 
+// ─── Delete confirmation dialog ───────────────────────────────────────────
+
+interface DeleteDialogProps {
+  name: string
+  onConfirm: () => void
+  onCancel: () => void
+}
+
+function DeleteDialog({ name, onConfirm, onCancel }: DeleteDialogProps) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={onCancel}
+    >
+      <div
+        className="bg-card border border-border rounded-lg shadow-lg p-6 max-w-sm w-full mx-4 flex flex-col gap-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div>
+          <h2 className="text-base font-semibold text-foreground">Excluir perfil</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Tem certeza que deseja excluir <span className="font-medium text-foreground">{name}</span>?
+            Esta ação não pode ser desfeita.
+          </p>
+        </div>
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={onCancel}
+            className="px-4 py-2 text-sm font-medium rounded-md border border-border bg-transparent hover:bg-accent text-foreground transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={onConfirm}
+            className="px-4 py-2 text-sm font-medium rounded-md bg-destructive text-destructive-foreground hover:opacity-90 transition-opacity"
+          >
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── ProfileCard ──────────────────────────────────────────────────────────
 
 export interface ProfileCardProps {
   profile: Profile
-  onEdit?: (id: string) => void
+  onDelete?: (id: string) => void
 }
 
-export function ProfileCard({ profile, onEdit }: ProfileCardProps) {
+export function ProfileCard({ profile, onDelete }: ProfileCardProps) {
+  const navigate = useNavigate()
   const isActive = profile.status === 'ativo'
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+
+  const handleEdit = () => {
+    navigate(`/profiles/new?edit=${profile.id}`)
+  }
+
+  const handleDeleteConfirm = () => {
+    setShowDeleteDialog(false)
+    onDelete?.(profile.id)
+  }
 
   return (
-    <div
-      className={`bg-card rounded-md border shadow-sm p-5 flex flex-col gap-4 ${
-        isActive ? 'border-blue-500' : 'border-border'
-      }`}
-    >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-foreground truncate">
-            {profile.identity.businessName}
-          </h3>
-          <p className="text-xs text-muted-foreground mt-0.5 truncate">
-            {profile.niche.segment}
-          </p>
-        </div>
-        <span
-          className={`shrink-0 px-2.5 py-0.5 text-xs rounded-full font-medium ${
-            STATUS_BADGE[profile.status] ?? 'bg-muted text-muted-foreground'
-          }`}
-        >
-          {STATUS_LABEL[profile.status] ?? profile.status}
-        </span>
-      </div>
-
-      {/* Completeness */}
-      <div>
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-xs text-muted-foreground">Completude</span>
-          <span className="text-xs font-medium text-foreground">{profile.completeness}%</span>
-        </div>
-        <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all ${completenessColor(profile.completeness)}`}
-            style={{ width: `${profile.completeness}%` }}
-          />
-        </div>
-      </div>
-
-      {/* Platform icons */}
-      {profile.platforms.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {profile.platforms.map((platform) => (
-            <span
-              key={platform}
-              title={platform}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {PLATFORM_ICON[platform] ?? <Globe size={16} />}
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* Footer */}
-      <div className="flex items-center justify-between pt-1 border-t border-border mt-auto">
-        <span className="text-xs text-muted-foreground">
-          {relativeTime(profile.updatedAt)}
-        </span>
-        {onEdit && (
-          <button
-            onClick={() => onEdit(profile.id)}
-            className="px-3 py-1 text-xs font-medium rounded bg-muted hover:bg-accent text-foreground transition-colors"
+    <>
+      <div
+        className={`bg-card rounded-md border shadow-sm p-5 flex flex-col gap-4 ${
+          isActive ? 'border-blue-500' : 'border-border'
+        }`}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-semibold text-foreground truncate">
+              {profile.identity.businessName}
+            </h3>
+            <p className="text-xs text-muted-foreground mt-0.5 truncate">
+              {profile.niche.segment}
+            </p>
+          </div>
+          <span
+            className={`shrink-0 px-2.5 py-0.5 text-xs rounded-full font-medium ${
+              STATUS_BADGE[profile.status] ?? 'bg-muted text-muted-foreground'
+            }`}
           >
-            Editar
-          </button>
+            {STATUS_LABEL[profile.status] ?? profile.status}
+          </span>
+        </div>
+
+        {/* Completeness */}
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs text-muted-foreground">Completude</span>
+            <span className="text-xs font-medium text-foreground">{profile.completeness}%</span>
+          </div>
+          <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all ${completenessColor(profile.completeness)}`}
+              style={{ width: `${profile.completeness}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Platform icons */}
+        {profile.platforms.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {profile.platforms.map((platform) => (
+              <span
+                key={platform}
+                title={platform}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {PLATFORM_ICON[platform] ?? <Globe size={16} />}
+              </span>
+            ))}
+          </div>
         )}
+
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-1 border-t border-border mt-auto">
+          <span className="text-xs text-muted-foreground">
+            {relativeTime(profile.updatedAt)}
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleEdit}
+              className="px-3 py-1 text-xs font-medium rounded bg-muted hover:bg-accent text-foreground transition-colors"
+            >
+              Editar
+            </button>
+            {onDelete && (
+              <button
+                onClick={() => setShowDeleteDialog(true)}
+                className="px-3 py-1 text-xs font-medium rounded bg-destructive/10 hover:bg-destructive/20 text-destructive transition-colors"
+              >
+                Excluir
+              </button>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {showDeleteDialog && (
+        <DeleteDialog
+          name={profile.identity.businessName}
+          onConfirm={handleDeleteConfirm}
+          onCancel={() => setShowDeleteDialog(false)}
+        />
+      )}
+    </>
   )
 }

@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import { UserCircle } from '@phosphor-icons/react'
-import { profiles } from '@/data'
+import { useProfiles } from '@/contexts/ProfileContext'
 import { ProfileCard } from '@/components/ProfileCard'
 
 // ─── Main Component ───────────────────────────────────────────────────────
 
 export function ProfilesPage() {
   const navigate = useNavigate()
+  const { profiles, removeProfile } = useProfiles()
 
   return (
     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
@@ -29,7 +30,7 @@ export function ProfilesPage() {
         <ProfileCard
           key={profile.id}
           profile={profile}
-          onEdit={(id) => navigate(`/profiles/new?edit=${id}`)}
+          onDelete={removeProfile}
         />
       ))}
     </div>
