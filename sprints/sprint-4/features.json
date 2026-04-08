@@ -399,7 +399,7 @@
     "id": "F-020",
     "name": "Integração ProfileGate nas rotas KeepBiz",
     "description": "Aplicar o componente ProfileGate como wrapper em MonitorPage, ContentPage e ContentCalendarPage do KeepBiz. NÃO afetar rotas de Agent Core (/agents/*) nem Settings (/settings). O gate deve wrapping o conteúdo da página, de forma que se não houver perfis, o gate substitui todo o conteúdo.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -521,7 +521,7 @@
     "id": "F-026",
     "name": "Detecção first-run KeepSolo",
     "description": "Adicionar lógica no RouteGuard do KeepSolo (`mocks/keep-solo/src/components/RouteGuard.tsx`): quando `isConfigured === false` (do SoloProfileContext) e rota atual NÃO é `/onboarding` → redirecionar para `/onboarding`. Quando `isConfigured === true` e rota é `/onboarding` → redirecionar para `/monitor`. Flag persiste via localStorage.",
-    "status": "pending",
+    "status": "passing",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
@@ -534,7 +534,9 @@
       "Rotas públicas (/login, /register, /landing) não são afetadas",
       "Flag é lida do localStorage ao iniciar"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md",
+    "retries": 1,
+    "completed_at": "2026-04-08T14:45:00Z"
   },
   {
     "id": "F-027",
