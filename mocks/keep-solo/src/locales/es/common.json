@@ -8,5 +8,87 @@
     "pt": "Português",
     "en": "English",
     "es": "Español"
+  },
+  "onboarding": {
+    "steps": {
+      "0": { "label": "Tu Negocio", "subtitle": "Cuéntame un poco sobre ti" },
+      "1": { "label": "Buscando...", "subtitle": "Déjame echar un vistazo" },
+      "2": { "label": "Validación", "subtitle": "¿Está bien esto?" },
+      "3": { "label": "¡Listo!", "subtitle": "Todo listo para empezar" }
+    },
+    "stepOf": "{{step}} de {{total}}",
+    "nav": {
+      "back": "Atrás",
+      "next": "Siguiente",
+      "start": "Empezar a usar"
+    },
+    "business": {
+      "title": "Cuéntame sobre tu negocio",
+      "subtitle": "Voy a usar esto para entender cómo puedo ayudarte.",
+      "nameLabel": "¿Cómo se llama tu negocio?",
+      "namePlaceholder": "Ej: Cia Cuidadores, Studio Mel, TechRaptor...",
+      "urlLabel": "¿Tienes sitio web?",
+      "optional": "(opcional)",
+      "urlPlaceholder": "https://tunegocio.com",
+      "socialLabel": "¿Instagram o red social principal?",
+      "socialPlaceholder": "@tunegocio o enlace de la página"
+    },
+    "loading": {
+      "mainText": "Déjame echar un vistazo a tu mercado...",
+      "subtitle": "Esto solo tomará unos segundos.",
+      "items": {
+        "0": "Buscando en internet...",
+        "1": "Analizando tus redes...",
+        "2": "Entendiendo tu mercado...",
+        "3": "¡Casi listo!"
+      }
+    },
+    "validation": {
+      "title": "Encontré esto — ¿está bien?",
+      "subtitle": "Confirma, corrige o ignora cada elemento que encontré.",
+      "reviewedCount": "{{count}} de {{total}} revisados",
+      "confirm": "Confirmar",
+      "correct": "Corregir",
+      "ignore": "Ignorar",
+      "undo": "Deshacer",
+      "ok": "OK",
+      "allReviewed": "¡Todo revisado!",
+      "remaining": "Faltan {{count}} elemento(s)",
+      "cta": "¡Todo bien!",
+      "categories": {
+        "segmento": "Segmento",
+        "servico": "Servicio",
+        "rede_social": "Red Social",
+        "localizacao": "Ubicación",
+        "site": "Sitio web",
+        "publico": "Público"
+      },
+      "findings": {
+        "f1": "Segmento detectado",
+        "f2": "Servicio principal",
+        "f3": "Instagram",
+        "f4": "Ciudad",
+        "f5": "Sitio web",
+        "f6": "Público objetivo"
+      }
+    },
+    "ready": {
+      "title": "¡Listo! Conozco tu negocio.",
+      "subtitle": "Aquí está lo que aprendí sobre ti.",
+      "businessLabel": "Negocio",
+      "segmentLabel": "Segmento",
+      "socialLabel": "Red social principal",
+      "toneLabel": "¿Cómo quieres comunicarte?",
+      "noName": "Sin nombre",
+      "defaultSocial": "Instagram",
+      "cta": "Empezar a usar",
+      "tones": {
+        "amigavel": { "label": "Amigable", "description": "Cercano, cálido y accesible" },
+        "formal": { "label": "Formal", "description": "Profesional y respetuoso" },
+        "casual": { "label": "Casual", "description": "Desenfadado y natural" },
+        "tecnico": { "label": "Técnico", "description": "Preciso y detallado" },
+        "inspiracional": { "label": "Inspiracional", "description": "Motivador y emocionante" }
+      }
+    }
   }
 }

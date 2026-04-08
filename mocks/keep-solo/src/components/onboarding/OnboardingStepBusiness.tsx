@@ -1,4 +1,5 @@
 import { Globe, InstagramLogo } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -16,6 +17,8 @@ interface Props {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export function OnboardingStepBusiness({ data, onChange }: Props) {
+  const { t } = useTranslation()
+
   function set(field: keyof BusinessData, value: string) {
     onChange({ ...data, [field]: value })
   }
@@ -25,10 +28,10 @@ export function OnboardingStepBusiness({ data, onChange }: Props) {
       {/* Header */}
       <div>
         <h2 className="text-xl font-semibold text-foreground">
-          Me conta sobre o seu negócio
+          {t('onboarding.business.title')}
         </h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Vou usar isso pra entender como posso te ajudar.
+          {t('onboarding.business.subtitle')}
         </p>
       </div>
 
@@ -40,13 +43,13 @@ export function OnboardingStepBusiness({ data, onChange }: Props) {
             htmlFor="onboarding-business-name"
             className="text-sm font-medium text-foreground"
           >
-            Como se chama o seu negócio?
+            {t('onboarding.business.nameLabel')}
             <span className="text-amber-500 ml-1">*</span>
           </label>
           <input
             id="onboarding-business-name"
             type="text"
-            placeholder="Ex: Cia Cuidadores, Studio Mel, TechRaptor..."
+            placeholder={t('onboarding.business.namePlaceholder')}
             value={data.businessName}
             onChange={(e) => set('businessName', e.target.value)}
             className="w-full px-3.5 py-2.5 rounded-xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-amber-400/60 dark:focus:ring-amber-600/60 transition-shadow text-sm"
@@ -60,8 +63,8 @@ export function OnboardingStepBusiness({ data, onChange }: Props) {
             htmlFor="onboarding-url"
             className="text-sm font-medium text-foreground"
           >
-            Tem site?
-            <span className="text-muted-foreground/60 text-xs font-normal ml-1.5">(opcional)</span>
+            {t('onboarding.business.urlLabel')}
+            <span className="text-muted-foreground/60 text-xs font-normal ml-1.5">{t('onboarding.business.optional')}</span>
           </label>
           <div className="relative">
             <Globe
@@ -71,7 +74,7 @@ export function OnboardingStepBusiness({ data, onChange }: Props) {
             <input
               id="onboarding-url"
               type="url"
-              placeholder="https://seunegocio.com.br"
+              placeholder={t('onboarding.business.urlPlaceholder')}
               value={data.url}
               onChange={(e) => set('url', e.target.value)}
               className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-amber-400/60 dark:focus:ring-amber-600/60 transition-shadow text-sm"
@@ -85,8 +88,8 @@ export function OnboardingStepBusiness({ data, onChange }: Props) {
             htmlFor="onboarding-social"
             className="text-sm font-medium text-foreground"
           >
-            Instagram ou principal rede social?
-            <span className="text-muted-foreground/60 text-xs font-normal ml-1.5">(opcional)</span>
+            {t('onboarding.business.socialLabel')}
+            <span className="text-muted-foreground/60 text-xs font-normal ml-1.5">{t('onboarding.business.optional')}</span>
           </label>
           <div className="relative">
             <InstagramLogo
@@ -96,7 +99,7 @@ export function OnboardingStepBusiness({ data, onChange }: Props) {
             <input
               id="onboarding-social"
               type="text"
-              placeholder="@seunegocio ou link da página"
+              placeholder={t('onboarding.business.socialPlaceholder')}
               value={data.socialHandle}
               onChange={(e) => set('socialHandle', e.target.value)}
               className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-amber-400/60 dark:focus:ring-amber-600/60 transition-shadow text-sm"

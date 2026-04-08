@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CheckCircle, Buildings, Tag, InstagramLogo, ArrowRight } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 import { useSoloProfile } from '@/contexts/ProfileContext'
 import type { ToneOfVoice } from '@/data/types'
 
@@ -13,28 +14,35 @@ interface Props {
   segment?: string
 }
 
-// ─── Tone of voice options ────────────────────────────────────────────────────
+// ─── Tone key mapping ─────────────────────────────────────────────────────────
+// ToneOfVoice values use accented chars; map them to i18n-safe keys
 
-const TONE_OPTIONS: { value: ToneOfVoice; label: string; description: string }[] = [
-  { value: 'amigável',      label: 'Amigável',      description: 'Próximo, caloroso e acessível' },
-  { value: 'formal',        label: 'Formal',         description: 'Profissional e respeitoso' },
-  { value: 'casual',        label: 'Casual',         description: 'Descontraído e natural' },
-  { value: 'técnico',       label: 'Técnico',        description: 'Preciso e detalhado' },
-  { value: 'inspiracional', label: 'Inspiracional',  description: 'Motivador e empolgante' },
-]
+const TONE_VALUES: ToneOfVoice[] = ['amigável', 'formal', 'casual', 'técnico', 'inspiracional']
+
+function toneKey(value: ToneOfVoice): string {
+  const map: Record<ToneOfVoice, string> = {
+    'amigável': 'amigavel',
+    'formal': 'formal',
+    'casual': 'casual',
+    'técnico': 'tecnico',
+    'inspiracional': 'inspiracional',
+  }
+  return map[value]
+}
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function OnboardingStepReady({ businessName, socialHandle, segment = 'Saúde & Bem-estar' }: Props) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { completeOnboarding } = useSoloProfile()
   const [tone, setTone] = useState<ToneOfVoice>('amigável')
   const [visible, setVisible] = useState(false)
 
   // Entrance animation
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 50)
-    return () => clearTimeout(t)
+    const timer = setTimeout(() => setVisible(true), 50)
+    return () => clearTimeout(timer)
   }, [])
 
   function handleStart() {
@@ -66,10 +74,10 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
         </div>
         <div className="text-center">
           <h2 className="text-xl font-bold text-foreground">
-            Pronto! Conheço seu negócio.
+            {t('onboarding.ready.title')}
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
-            Aqui está o que aprendi sobre você.
+            {t('onboarding.ready.subtitle')}
           </p>
         </div>
       </div>
@@ -80,8 +88,8 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
         <div className="flex items-center gap-3 px-4 py-3">
           <Buildings size={18} className="text-amber-500 flex-shrink-0" />
           <div>
-            <p className="text-xs text-muted-foreground">Negócio</p>
-            <p className="text-sm font-semibold text-foreground">{businessName || 'Sem nome'}</p>
+            <p className="text-xs text-muted-foreground">{t('onboarding.ready.businessLabel')}</p>
+            <p className="text-sm font-semibold text-foreground">{businessName || t('onboarding.ready.noName')}</p>
           </div>
         </div>
 
@@ -89,7 +97,7 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
         <div className="flex items-center gap-3 px-4 py-3">
           <Tag size={18} className="text-amber-500 flex-shrink-0" />
           <div>
-            <p className="text-xs text-muted-foreground">Segmento</p>
+            <p className="text-xs text-muted-foreground">{t('onboarding.ready.segmentLabel')}</p>
             <p className="text-sm font-semibold text-foreground">{segment}</p>
           </div>
         </div>
@@ -98,9 +106,9 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
         <div className="flex items-center gap-3 px-4 py-3">
           <InstagramLogo size={18} className="text-amber-500 flex-shrink-0" />
           <div>
-            <p className="text-xs text-muted-foreground">Rede social principal</p>
+            <p className="text-xs text-muted-foreground">{t('onboarding.ready.socialLabel')}</p>
             <p className="text-sm font-semibold text-foreground">
-              {displayHandle ?? 'Instagram'}
+              {displayHandle ?? t('onboarding.ready.defaultSocial')}
             </p>
           </div>
         </div>
@@ -112,7 +120,7 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
           htmlFor="tone-select"
           className="text-sm font-medium text-foreground"
         >
-          Como você quer se comunicar?
+          {t('onboarding.ready.toneLabel')}
         </label>
         <select
           id="tone-select"
@@ -120,9 +128,9 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
           onChange={(e) => setTone(e.target.value as ToneOfVoice)}
           className="w-full rounded-lg border border-amber-300 dark:border-amber-700 bg-white dark:bg-card px-3 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-colors"
         >
-          {TONE_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label} — {opt.description}
+          {TONE_VALUES.map((value) => (
+            <option key={value} value={value}>
+              {t(`onboarding.ready.tones.${toneKey(value)}.label`)} — {t(`onboarding.ready.tones.${toneKey(value)}.description`)}
             </option>
           ))}
         </select>
@@ -133,7 +141,7 @@ export function OnboardingStepReady({ businessName, socialHandle, segment = 'Sa�
         onClick={handleStart}
         className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-xl bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-sm shadow-amber-200 dark:shadow-amber-900/40"
       >
-        Começar a usar
+        {t('onboarding.ready.cta')}
         <ArrowRight size={16} weight="bold" />
       </button>
     </div>

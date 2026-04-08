@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Check, PencilSimple, X } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -9,7 +10,6 @@ type Decision = 'pending' | 'confirmed' | 'corrected' | 'ignored'
 interface Finding {
   id: string
   categoria: Category
-  label: string
   valor: string
 }
 
@@ -22,24 +22,15 @@ interface FindingState {
 // ─── Mock data — Cia Cuidadores ─────────────────────────────────────────────
 
 const MOCK_FINDINGS: Finding[] = [
-  { id: 'f1', categoria: 'segmento',    label: 'Segmento detectado',  valor: 'Saúde & Bem-estar' },
-  { id: 'f2', categoria: 'servico',     label: 'Serviço principal',   valor: 'Atendimento domiciliar de idosos' },
-  { id: 'f3', categoria: 'rede_social', label: 'Instagram',           valor: '@ciacuidadores' },
-  { id: 'f4', categoria: 'localizacao', label: 'Cidade',              valor: 'São Paulo, SP' },
-  { id: 'f5', categoria: 'site',        label: 'Site',                valor: 'ciacuidadores.com.br' },
-  { id: 'f6', categoria: 'publico',     label: 'Público-alvo',        valor: 'Famílias com idosos dependentes' },
+  { id: 'f1', categoria: 'segmento',    valor: 'Saúde & Bem-estar' },
+  { id: 'f2', categoria: 'servico',     valor: 'Atendimento domiciliar de idosos' },
+  { id: 'f3', categoria: 'rede_social', valor: '@ciacuidadores' },
+  { id: 'f4', categoria: 'localizacao', valor: 'São Paulo, SP' },
+  { id: 'f5', categoria: 'site',        valor: 'ciacuidadores.com.br' },
+  { id: 'f6', categoria: 'publico',     valor: 'Famílias com idosos dependentes' },
 ]
 
-// ─── Category badge ─────────────────────────────────────────────────────────
-
-const CATEGORY_LABELS: Record<Category, string> = {
-  segmento:    'Segmento',
-  servico:     'Serviço',
-  rede_social: 'Rede Social',
-  localizacao: 'Localização',
-  site:        'Site',
-  publico:     'Público',
-}
+// ─── Category badge colors ───────────────────────────────────────────────────
 
 const CATEGORY_COLORS: Record<Category, string> = {
   segmento:    'bg-purple-100 text-purple-700',
@@ -57,6 +48,8 @@ interface Props {
 }
 
 export function OnboardingStepValidation({ onContinue }: Props) {
+  const { t } = useTranslation()
+
   const [states, setStates] = useState<Record<string, FindingState>>(() =>
     Object.fromEntries(
       MOCK_FINDINGS.map((f) => [
@@ -110,13 +103,13 @@ export function OnboardingStepValidation({ onContinue }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-semibold text-foreground">Encontrei isso — está certo?</h2>
+          <h2 className="text-base font-semibold text-foreground">{t('onboarding.validation.title')}</h2>
           <p className="text-sm text-muted-foreground mt-0.5">
-            Confirme, corrija ou ignore cada item que encontrei.
+            {t('onboarding.validation.subtitle')}
           </p>
         </div>
         <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-          {reviewedCount} de {total} revisados
+          {t('onboarding.validation.reviewedCount', { count: reviewedCount, total })}
         </span>
       </div>
 
@@ -154,7 +147,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                       CATEGORY_COLORS[finding.categoria],
                     ].join(' ')}
                   >
-                    {CATEGORY_LABELS[finding.categoria]}
+                    {t(`onboarding.validation.categories.${finding.categoria}`)}
                   </span>
                   <span
                     className={[
@@ -162,7 +155,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                       isIgnored ? 'text-muted-foreground' : 'text-foreground',
                     ].join(' ')}
                   >
-                    {finding.label}
+                    {t(`onboarding.validation.findings.${finding.id}`)}
                   </span>
                 </div>
 
@@ -171,7 +164,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                   <button
                     onClick={() => resetDecision(finding.id, finding.valor)}
                     className="flex-shrink-0 p-1 rounded hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-colors"
-                    title="Desfazer"
+                    title={t('onboarding.validation.undo')}
                   >
                     <X size={14} />
                   </button>
@@ -200,7 +193,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                           onClick={() => stopEditing(finding.id)}
                           className="flex-shrink-0 px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
                         >
-                          OK
+                          {t('onboarding.validation.ok')}
                         </button>
                       </div>
                     ) : (
@@ -241,7 +234,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                   ].join(' ')}
                 >
                   <Check size={12} weight="bold" />
-                  Confirmar
+                  {t('onboarding.validation.confirm')}
                 </button>
 
                 {/* Corrigir */}
@@ -261,7 +254,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                   ].join(' ')}
                 >
                   <PencilSimple size={12} />
-                  Corrigir
+                  {t('onboarding.validation.correct')}
                 </button>
 
                 {/* Ignorar */}
@@ -275,7 +268,7 @@ export function OnboardingStepValidation({ onContinue }: Props) {
                   ].join(' ')}
                 >
                   <X size={12} />
-                  Ignorar
+                  {t('onboarding.validation.ignore')}
                 </button>
               </div>
             </div>
@@ -286,14 +279,16 @@ export function OnboardingStepValidation({ onContinue }: Props) {
       {/* CTA */}
       <div className="flex items-center justify-between pt-2 border-t border-border">
         <span className="text-sm text-muted-foreground">
-          {allReviewed ? 'Tudo revisado!' : `Faltam ${total - reviewedCount} item(ns)`}
+          {allReviewed
+            ? t('onboarding.validation.allReviewed')
+            : t('onboarding.validation.remaining', { count: total - reviewedCount })}
         </span>
         <button
           onClick={onContinue}
           disabled={!allReviewed}
           className="px-4 py-2 text-sm font-semibold rounded-xl bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          Tudo certo!
+          {t('onboarding.validation.cta')}
         </button>
       </div>
     </div>

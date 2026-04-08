@@ -664,7 +664,7 @@
     "id": "F-032",
     "name": "i18n onboarding KeepSolo",
     "description": "Adicionar todas as strings do onboarding (OnboardingPage, etapas 1-4) ao sistema i18n em pt/en/es. Substituir strings hardcoded por t(). Incluir: títulos, subtítulos, labels de campos, textos de loading, labels de achados, textos de sucesso, labels de tom de voz. NENHUMA tradução deve conter a palavra 'perfil'.",
-    "status": "pending",
+    "status": "passing",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -677,7 +677,8 @@
       "Nenhuma tradução contém a palavra 'perfil' (em nenhum idioma)",
       "Trocar idioma reflete em todas as etapas do onboarding"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md",
+    "completed_at": "2026-04-08T14:30:00Z"
   },
   {
     "id": "F-033",

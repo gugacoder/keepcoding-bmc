@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 // ─── Config ────────────────────────────────────────────────────────────────
 
-const LOADING_ITEMS = [
-  'Procurando na internet...',
-  'Analisando suas redes...',
-  'Entendendo seu mercado...',
-  'Quase lá...',
-]
-
+const ITEM_COUNT = 4
 const ITEM_INTERVAL_MS = 1500
 const AUTO_ADVANCE_DELAY_MS = 1000
 
@@ -19,14 +14,19 @@ interface Props {
 }
 
 export function OnboardingStepLoading({ onComplete }: Props) {
+  const { t } = useTranslation()
   const [visibleCount, setVisibleCount] = useState(0)
+
+  const loadingItems = Array.from({ length: ITEM_COUNT }, (_, i) =>
+    t(`onboarding.loading.items.${i}`),
+  )
 
   useEffect(() => {
     setVisibleCount(0)
 
     const timers: ReturnType<typeof setTimeout>[] = []
 
-    LOADING_ITEMS.forEach((_, index) => {
+    loadingItems.forEach((_, index) => {
       timers.push(
         setTimeout(() => {
           setVisibleCount(index + 1)
@@ -40,16 +40,17 @@ export function OnboardingStepLoading({ onComplete }: Props) {
         () => {
           onComplete()
         },
-        ITEM_INTERVAL_MS * LOADING_ITEMS.length + AUTO_ADVANCE_DELAY_MS,
+        ITEM_INTERVAL_MS * loadingItems.length + AUTO_ADVANCE_DELAY_MS,
       ),
     )
 
     return () => {
       timers.forEach(clearTimeout)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onComplete])
 
-  const isDone = visibleCount >= LOADING_ITEMS.length
+  const isDone = visibleCount >= loadingItems.length
 
   return (
     <div className="flex flex-col items-center gap-8 py-8">
@@ -70,18 +71,18 @@ export function OnboardingStepLoading({ onComplete }: Props) {
       {/* Main text */}
       <div className="text-center">
         <p className="text-base font-medium text-foreground">
-          Deixa eu dar uma olhada no seu mercado...
+          {t('onboarding.loading.mainText')}
         </p>
         <p className="text-sm text-amber-600/70 dark:text-amber-400/60 mt-1">
-          Isso leva só alguns segundos.
+          {t('onboarding.loading.subtitle')}
         </p>
       </div>
 
       {/* Sequential items */}
       <div className="w-full max-w-sm flex flex-col gap-2">
-        {LOADING_ITEMS.map((item, index) => {
+        {loadingItems.map((item, index) => {
           const isVisible = index < visibleCount
-          const isLast = index === LOADING_ITEMS.length - 1
+          const isLast = index === loadingItems.length - 1
 
           return (
             <div
