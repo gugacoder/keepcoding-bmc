@@ -1,13 +1,13 @@
 {
   "home": {
-    "tagline": "Full suite for SMEs — automate your processes with intelligent agents.",
+    "tagline": "Full suite for SMEs â€” automate your processes with intelligent agents.",
     "cta": "Get started"
   },
   "language": {
     "label": "Language",
-    "pt": "Português",
+    "pt": "PortuguÃªs",
     "en": "English",
-    "es": "Español"
+    "es": "EspaÃ±ol"
   },
   "wizard": {
     "steps": {
@@ -106,14 +106,54 @@
         "industria": "Industry"
       },
       "audiences": {
-        "saude": ["Patients", "Health professionals", "Athletes", "Elderly"],
-        "tecnologia": ["Mid-sized companies", "Startups", "Developers", "IT managers"],
-        "varejo": ["End consumers", "Families", "Young adults", "Recurring buyers"],
-        "servicos-b2b": ["Mid-sized companies", "Large corporations", "Managers", "Directors"],
-        "educacao": ["Students", "Career changers", "Parents", "Companies (training)"],
-        "alimentacao": ["Families", "Young professionals", "Vegans/vegetarians", "Athletes"],
-        "financas": ["Investors", "Small businesses", "Freelancers", "Families"],
-        "industria": ["Engineers", "Production managers", "Suppliers", "Industrial buyers"]
+        "saude": [
+          "Patients",
+          "Health professionals",
+          "Athletes",
+          "Elderly"
+        ],
+        "tecnologia": [
+          "Mid-sized companies",
+          "Startups",
+          "Developers",
+          "IT managers"
+        ],
+        "varejo": [
+          "End consumers",
+          "Families",
+          "Young adults",
+          "Recurring buyers"
+        ],
+        "servicos-b2b": [
+          "Mid-sized companies",
+          "Large corporations",
+          "Managers",
+          "Directors"
+        ],
+        "educacao": [
+          "Students",
+          "Career changers",
+          "Parents",
+          "Companies (training)"
+        ],
+        "alimentacao": [
+          "Families",
+          "Young professionals",
+          "Vegans/vegetarians",
+          "Athletes"
+        ],
+        "financas": [
+          "Investors",
+          "Small businesses",
+          "Freelancers",
+          "Families"
+        ],
+        "industria": [
+          "Engineers",
+          "Production managers",
+          "Suppliers",
+          "Industrial buyers"
+        ]
       },
       "agentSuggestions": {
         "saude": "We are a reference in integrated healthcare, combining technology and humanization to promote lasting well-being for our clients.",
@@ -148,9 +188,9 @@
       "tones": {
         "formal": "Formal",
         "casual": "Casual",
-        "técnico": "Technical",
+        "tÃ©cnico": "Technical",
         "inspiracional": "Inspirational",
-        "amigável": "Friendly"
+        "amigÃ¡vel": "Friendly"
       },
       "submitCreate": "Create Profile",
       "submitEdit": "Save Changes"
@@ -175,5 +215,34 @@
     "agentsActive_other": "{{count}} active agents",
     "lightMode": "Light mode",
     "darkMode": "Dark mode"
+  },
+  "profilesPage": {
+    "title": "Profiles",
+    "createButton": "Create New Profile",
+    "emptyTitle": "No profiles created",
+    "emptyDescription": "Create your first profile to start managing your digital presence and producing content with the agent.",
+    "emptyCta": "Create First Profile"
+  },
+  "profileCard": {
+    "completeness": "Completeness",
+    "edit": "Edit",
+    "delete": "Delete",
+    "statusLabels": {
+      "ativo": "Active",
+      "completo": "Complete",
+      "rascunho": "Draft",
+      "inativo": "Inactive"
+    },
+    "relativeTime": {
+      "today": "Updated today",
+      "oneDay": "Updated 1 day ago",
+      "manyDays": "Updated {{count}} days ago"
+    },
+    "deleteDialog": {
+      "title": "Delete profile",
+      "message": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
   }
 }

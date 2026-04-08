@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   LinkedinLogo,
   InstagramLogo,
@@ -20,12 +21,6 @@ const STATUS_BADGE: Record<string, string> = {
   inativo:  'bg-muted text-muted-foreground border border-border',
 }
 
-const STATUS_LABEL: Record<string, string> = {
-  ativo:    'Ativo',
-  completo: 'Completo',
-  rascunho: 'Rascunho',
-  inativo:  'Inativo',
-}
 
 // ─── Platform icons ───────────────────────────────────────────────────────
 
@@ -48,13 +43,14 @@ function completenessColor(pct: number): string {
 
 // ─── Relative time ────────────────────────────────────────────────────────
 
-function relativeTime(updatedAt: string): string {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function relativeTime(updatedAt: string, t: (key: string, opts?: any) => string): string {
   const days = Math.floor(
     (Date.now() - new Date(updatedAt).getTime()) / (1000 * 60 * 60 * 24)
   )
-  if (days === 0) return 'Atualizado hoje'
-  if (days === 1) return 'Atualizado há 1 dia'
-  return `Atualizado há ${days} dias`
+  if (days === 0) return t('profileCard.relativeTime.today')
+  if (days === 1) return t('profileCard.relativeTime.oneDay')
+  return t('profileCard.relativeTime.manyDays', { count: days })
 }
 
 // ─── Delete confirmation dialog ───────────────────────────────────────────
@@ -66,6 +62,7 @@ interface DeleteDialogProps {
 }
 
 function DeleteDialog({ name, onConfirm, onCancel }: DeleteDialogProps) {
+  const { t } = useTranslation()
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
@@ -76,10 +73,9 @@ function DeleteDialog({ name, onConfirm, onCancel }: DeleteDialogProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div>
-          <h2 className="text-base font-semibold text-foreground">Excluir perfil</h2>
+          <h2 className="text-base font-semibold text-foreground">{t('profileCard.deleteDialog.title')}</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            Tem certeza que deseja excluir <span className="font-medium text-foreground">{name}</span>?
-            Esta ação não pode ser desfeita.
+            {t('profileCard.deleteDialog.message', { name })}
           </p>
         </div>
         <div className="flex justify-end gap-2">
@@ -87,13 +83,13 @@ function DeleteDialog({ name, onConfirm, onCancel }: DeleteDialogProps) {
             onClick={onCancel}
             className="px-4 py-2 text-sm font-medium rounded-md border border-border bg-transparent hover:bg-accent text-foreground transition-colors"
           >
-            Cancelar
+            {t('profileCard.deleteDialog.cancel')}
           </button>
           <button
             onClick={onConfirm}
             className="px-4 py-2 text-sm font-medium rounded-md bg-destructive text-destructive-foreground hover:opacity-90 transition-opacity"
           >
-            Excluir
+            {t('profileCard.deleteDialog.confirm')}
           </button>
         </div>
       </div>
@@ -110,6 +106,7 @@ export interface ProfileCardProps {
 
 export function ProfileCard({ profile, onDelete }: ProfileCardProps) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const isActive = profile.status === 'ativo'
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
@@ -144,14 +141,14 @@ export function ProfileCard({ profile, onDelete }: ProfileCardProps) {
               STATUS_BADGE[profile.status] ?? 'bg-muted text-muted-foreground'
             }`}
           >
-            {STATUS_LABEL[profile.status] ?? profile.status}
+            {t(`profileCard.statusLabels.${profile.status}`, { defaultValue: profile.status })}
           </span>
         </div>
 
         {/* Completeness */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs text-muted-foreground">Completude</span>
+            <span className="text-xs text-muted-foreground">{t('profileCard.completeness')}</span>
             <span className="text-xs font-medium text-foreground">{profile.completeness}%</span>
           </div>
           <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
@@ -180,21 +177,21 @@ export function ProfileCard({ profile, onDelete }: ProfileCardProps) {
         {/* Footer */}
         <div className="flex items-center justify-between pt-1 border-t border-border mt-auto">
           <span className="text-xs text-muted-foreground">
-            {relativeTime(profile.updatedAt)}
+            {relativeTime(profile.updatedAt, t)}
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={handleEdit}
               className="px-3 py-1 text-xs font-medium rounded bg-muted hover:bg-accent text-foreground transition-colors"
             >
-              Editar
+              {t('profileCard.edit')}
             </button>
             {onDelete && (
               <button
                 onClick={() => setShowDeleteDialog(true)}
                 className="px-3 py-1 text-xs font-medium rounded bg-destructive/10 hover:bg-destructive/20 text-destructive transition-colors"
               >
-                Excluir
+                {t('profileCard.delete')}
               </button>
             )}
           </div>

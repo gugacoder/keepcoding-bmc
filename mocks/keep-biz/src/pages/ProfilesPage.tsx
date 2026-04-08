@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { UserCircle, UserCirclePlus } from '@phosphor-icons/react'
 import { useProfiles } from '@/contexts/ProfileContext'
 import { ProfileCard } from '@/components/ProfileCard'
@@ -8,6 +9,7 @@ import { EmptyState } from '@/components/EmptyState'
 
 export function ProfilesPage() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { profiles, removeProfile } = useProfiles()
 
   return (
@@ -16,13 +18,13 @@ export function ProfilesPage() {
       <div className="col-span-full flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2">
           <UserCircle size={22} weight="duotone" className="text-primary" />
-          <h1 className="text-xl font-semibold text-foreground">Perfis</h1>
+          <h1 className="text-xl font-semibold text-foreground">{t('profilesPage.title')}</h1>
         </div>
         <button
           onClick={() => navigate('/profiles/new')}
           className="px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
         >
-          Criar Novo Perfil
+          {t('profilesPage.createButton')}
         </button>
       </div>
 
@@ -31,9 +33,9 @@ export function ProfilesPage() {
         <div className="col-span-full">
           <EmptyState
             icon={UserCirclePlus}
-            title="Nenhum perfil criado"
-            description="Crie seu primeiro perfil para começar a gerenciar sua presença digital e produzir conteúdo com o agente."
-            ctaLabel="Criar Primeiro Perfil"
+            title={t('profilesPage.emptyTitle')}
+            description={t('profilesPage.emptyDescription')}
+            ctaLabel={t('profilesPage.emptyCta')}
             onCta={() => navigate('/profiles/new')}
           />
         </div>

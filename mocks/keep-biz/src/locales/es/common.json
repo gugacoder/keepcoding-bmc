@@ -163,6 +163,35 @@
   "profileSelector": {
     "allProfiles": "Todos los perfiles"
   },
+  "profilesPage": {
+    "title": "Perfiles",
+    "createButton": "Crear Nuevo Perfil",
+    "emptyTitle": "No hay perfiles creados",
+    "emptyDescription": "Crea tu primer perfil para empezar a gestionar tu presencia digital y producir contenido con el agente.",
+    "emptyCta": "Crear Primer Perfil"
+  },
+  "profileCard": {
+    "completeness": "Completitud",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "statusLabels": {
+      "ativo": "Activo",
+      "completo": "Completo",
+      "rascunho": "Borrador",
+      "inativo": "Inactivo"
+    },
+    "relativeTime": {
+      "today": "Actualizado hoy",
+      "oneDay": "Actualizado hace 1 día",
+      "manyDays": "Actualizado hace {{count}} días"
+    },
+    "deleteDialog": {
+      "title": "Eliminar perfil",
+      "message": "¿Estás seguro de que deseas eliminar \"{{name}}\"? Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    }
+  },
   "orchestratorBar": {
     "allProfiles": "Todos los perfiles",
     "teamStatus": "Estado del equipo",
