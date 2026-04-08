@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { agents } from '@/data'
 import { LanguageSelector } from '@/components/LanguageSelector'
-import { Buildings, IdentificationBadge, Moon, Sun } from '@phosphor-icons/react'
+import { Buildings, IdentificationBadge, Moon, Sun, Sparkle } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useProfiles } from '@/contexts/ProfileContext'
+import { useContentActions } from '@/hooks/useContentActions'
+import { useNavigate } from 'react-router-dom'
 
 function getTeamStatus(agentList: typeof agents): 'green' | 'yellow' | 'red' {
   const active = agentList.filter((a) => a.heartbeat)
@@ -26,6 +28,9 @@ export function OrchestratorBar() {
   const { theme, toggleTheme } = useTheme()
   const { profiles, activeProfileId } = useProfiles()
   const { t } = useTranslation()
+  const { aiSuggestions } = useContentActions(null)
+  const navigate = useNavigate()
+  const pendingCount = aiSuggestions.length
 
   const activeProfile = activeProfileId !== null
     ? profiles.find((p) => p.id === activeProfileId) ?? null
@@ -79,6 +84,18 @@ export function OrchestratorBar() {
             {displayLabel}
           </span>
         </div>
+
+        {pendingCount > 0 && (
+          <button
+            onClick={() => navigate('/content')}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 transition-colors"
+          >
+            <Sparkle size={13} weight="duotone" className="text-violet-400 animate-pulse shrink-0" />
+            <span className="text-xs font-medium text-violet-400">
+              Agente criou {pendingCount} {pendingCount === 1 ? 'sugestão' : 'sugestões'}
+            </span>
+          </button>
+        )}
       </div>
 
       {/* Right: Dark mode + Language selector */}

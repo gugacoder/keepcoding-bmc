@@ -24,6 +24,7 @@ import { ProfileSelector } from '@/components/ProfileSelector'
 import { useProfiles } from '@/contexts/ProfileContext'
 import { useContentActions } from '@/hooks/useContentActions'
 import { AiSuggestionCard } from '@/components/AiSuggestionCard'
+import { SourceBadge } from '@/components/SourceBadge'
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
@@ -781,7 +782,10 @@ function ContentCard({ item, onClick }: { item: ContentItem; onClick: () => void
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-2">
           <h3 className="text-sm font-medium text-foreground leading-snug line-clamp-2 flex-1">{item.title}</h3>
-          <StatusBadge status={item.status} />
+          <div className="flex items-center gap-1.5 shrink-0">
+            <SourceBadge source={item.source} />
+            <StatusBadge status={item.status} />
+          </div>
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2 flex-wrap">
           <span className="px-1.5 py-0.5 bg-muted rounded text-muted-foreground">{TYPE_LABEL[item.type]}</span>
@@ -813,7 +817,10 @@ function ContentRow({ item, onClick }: { item: ContentItem; onClick: () => void 
       <td className="px-4 py-3 text-xs text-muted-foreground">{item.platform}</td>
       <td className="px-4 py-3 text-xs text-muted-foreground">{item.author}</td>
       <td className="px-4 py-3">
-        <StatusBadge status={item.status} />
+        <div className="flex items-center gap-1.5">
+          <SourceBadge source={item.source} />
+          <StatusBadge status={item.status} />
+        </div>
       </td>
       <td className="px-4 py-3 text-xs text-muted-foreground">
         {new Date(item.targetDate).toLocaleDateString('pt-BR')}

@@ -25,6 +25,7 @@ import { Badge, IconBubble, type BadgeColor } from '@/components/ui/badge'
 import { useEffect } from 'react'
 import type { ContentItem, ContentType, ContentChannel, AiCampaign } from '@/data/types'
 import { campaigns as initialCampaigns } from '@/data'
+import { SourceBadge } from '@/components/SourceBadge'
 
 // ─── Status config ────────────────────────────────────────────────────────────
 const STATUS_CONFIG: Record<string, { label: string; color: BadgeColor }> = {
@@ -88,7 +89,10 @@ function ContentCard({ item, onApprove, onPublish }: {
       <div className="p-4 pt-0 space-y-3">
         {/* Status + channel row */}
         <div className="flex items-center justify-between">
-          <Badge color={cfg.color}>{cfg.label}</Badge>
+          <div className="flex items-center gap-1.5">
+            <Badge color={cfg.color}>{cfg.label}</Badge>
+            <SourceBadge source={item.source} />
+          </div>
           <span className="text-xs text-muted-foreground">{item.channel}</span>
         </div>
 
