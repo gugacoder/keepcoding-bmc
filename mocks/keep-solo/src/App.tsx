@@ -10,6 +10,7 @@ import { AgentsChatPage } from '@/pages/AgentsChatPage'
 import { AgentsToolsPage } from '@/pages/AgentsToolsPage'
 import { AgentsWorkflowsPage } from '@/pages/AgentsWorkflowsPage'
 import { ConfigPage } from '@/pages/ConfigPage'
+import { OnboardingPage } from '@/pages/OnboardingPage'
 import { LandingPage } from '@/pages/LandingPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
@@ -38,16 +39,22 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/pricing" element={<Navigate to="/landing#pricing" replace />} />
 
-            {/* Protected routes */}
-            <Route element={<SoloProfileProvider><RouteGuard><AppLayout /></RouteGuard></SoloProfileProvider>}>
-              <Route path="/monitor" element={<MonitorPage />} />
-              <Route path="/create" element={<CreatePage />} />
-              <Route path="/create/calendar" element={<CreateCalendarPage />} />
-              <Route path="/agents" element={<AgentsPage />} />
-              <Route path="/agents/workflows" element={<AgentsWorkflowsPage />} />
-              <Route path="/agents/chat" element={<AgentsChatPage />} />
-              <Route path="/agents/tools" element={<AgentsToolsPage />} />
-              <Route path="/config" element={<ConfigPage />} />
+            {/* Protected routes — single SoloProfileProvider + RouteGuard wrapper */}
+            <Route element={<SoloProfileProvider><RouteGuard /></SoloProfileProvider>}>
+              {/* Standard app routes — with AppLayout (BottomNav + header) */}
+              <Route element={<AppLayout />}>
+                <Route path="/monitor" element={<MonitorPage />} />
+                <Route path="/create" element={<CreatePage />} />
+                <Route path="/create/calendar" element={<CreateCalendarPage />} />
+                <Route path="/agents" element={<AgentsPage />} />
+                <Route path="/agents/workflows" element={<AgentsWorkflowsPage />} />
+                <Route path="/agents/chat" element={<AgentsChatPage />} />
+                <Route path="/agents/tools" element={<AgentsToolsPage />} />
+                <Route path="/config" element={<ConfigPage />} />
+              </Route>
+
+              {/* Fullscreen routes — no AppLayout, no BottomNav/header */}
+              <Route path="/onboarding" element={<OnboardingPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

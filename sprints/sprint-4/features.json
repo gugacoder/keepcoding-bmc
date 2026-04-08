@@ -542,7 +542,7 @@
     "id": "F-027",
     "name": "OnboardingPage layout KeepSolo",
     "description": "Criar `mocks/keep-solo/src/pages/OnboardingPage.tsx` — página fullscreen SEM BottomNav/header (fora do AppLayout), stepper de 4 dots (labels: 'Seu Negócio', 'Pesquisando...', 'Validação', 'Pronto!'), botões Voltar/Avançar. Identidade visual amber/orange do KeepSolo. Registrar rota `/onboarding` como auth-protected mas fora do layout padrão. Gerencia currentStep (0-3) e renderiza placeholders para cada etapa.",
-    "status": "pending",
+    "status": "passing",
     "priority": 4,
     "agent": "coder",
     "task": "vibe-code",
@@ -557,7 +557,8 @@
       "Botões Voltar/Avançar navegam entre etapas",
       "Visual usa cores amber/orange"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md",
+    "completed_at": "2026-04-08T14:10:00Z"
   },
   {
     "id": "F-028",
