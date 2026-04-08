@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check } from '@phosphor-icons/react'
 import {
   WizardStepIdentity,
   type IdentityData,
 } from '../components/wizard/WizardStepIdentity'
+import { WizardStepResearch } from '../components/wizard/WizardStepResearch'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -103,6 +104,9 @@ function isStepValid(step: number, data: WizardData): boolean {
 
 // ─── Main page ─────────────────────────────────────────────────────────────
 
+// Step 1 (Pesquisando) has no manual nav — it auto-advances
+const AUTO_ADVANCE_STEPS = new Set([1])
+
 export function ProfileWizardPage() {
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0)
@@ -110,6 +114,7 @@ export function ProfileWizardPage() {
 
   const isFirst = currentStep === 0
   const isLast = currentStep === STEPS.length - 1
+  const isAutoStep = AUTO_ADVANCE_STEPS.has(currentStep)
   const canAdvance = isStepValid(currentStep, wizardData)
 
   function handleBack() {
@@ -121,6 +126,10 @@ export function ProfileWizardPage() {
     if (!isLast) setCurrentStep((s) => s + 1)
     else navigate('/profiles')
   }
+
+  const handleResearchComplete = useCallback(() => {
+    setCurrentStep(2)
+  }, [])
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center py-10 px-4">
@@ -145,35 +154,42 @@ export function ProfileWizardPage() {
               data={wizardData.identity}
               onChange={(identity) => setWizardData((d) => ({ ...d, identity }))}
             />
+          ) : currentStep === 1 ? (
+            <WizardStepResearch
+              businessName={wizardData.identity.businessName}
+              onComplete={handleResearchComplete}
+            />
           ) : (
             <StepPlaceholder step={currentStep} />
           )}
         </div>
 
-        {/* Navigation */}
-        <div className="flex items-center justify-between">
-          <button
-            onClick={handleBack}
-            disabled={isFirst}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <ArrowLeft size={16} />
-            Voltar
-          </button>
+        {/* Navigation — hidden for auto-advance steps */}
+        {!isAutoStep && (
+          <div className="flex items-center justify-between">
+            <button
+              onClick={handleBack}
+              disabled={isFirst}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ArrowLeft size={16} />
+              Voltar
+            </button>
 
-          <span className="text-xs text-muted-foreground">
-            {currentStep + 1} / {STEPS.length}
-          </span>
+            <span className="text-xs text-muted-foreground">
+              {currentStep + 1} / {STEPS.length}
+            </span>
 
-          <button
-            onClick={handleNext}
-            disabled={!canAdvance}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {isLast ? 'Criar Perfil' : 'Avançar'}
-            {!isLast && <ArrowRight size={16} />}
-          </button>
-        </div>
+            <button
+              onClick={handleNext}
+              disabled={!canAdvance}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {isLast ? 'Criar Perfil' : 'Avançar'}
+              {!isLast && <ArrowRight size={16} />}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -255,7 +255,7 @@
     "id": "F-013",
     "name": "Wizard Etapa 2 — Loading pesquisa KeepBiz",
     "description": "Criar `mocks/keep-biz/src/components/wizard/WizardStepResearch.tsx` — tela de loading simulado com ícone MagnifyingGlass (pulse + spinner), texto 'Pesquisando na internet sobre {businessName}...'. Items sequenciais aparecem a cada 1.5s: 'Buscando informações...', 'Analisando redes sociais...', 'Identificando concorrentes...', 'Mapeando segmento...', 'Concluído!'. Auto-avanço para próxima etapa 1s após último item. Integrar no ProfileWizardPage como step 1.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -269,7 +269,8 @@
       "Auto-avanço para step 2 ocorre após conclusão",
       "Não há botões Voltar/Avançar nesta etapa"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-024-keepbiz-profile-wizard.md",
+    "completed_at": "2026-04-08T17:00:00Z"
   },
   {
     "id": "F-014",
