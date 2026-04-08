@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { UserCircle } from '@phosphor-icons/react'
+import { UserCircle, UserCirclePlus } from '@phosphor-icons/react'
 import { useProfiles } from '@/contexts/ProfileContext'
 import { ProfileCard } from '@/components/ProfileCard'
+import { EmptyState } from '@/components/EmptyState'
 
 // ─── Main Component ───────────────────────────────────────────────────────
 
@@ -25,14 +26,26 @@ export function ProfilesPage() {
         </button>
       </div>
 
-      {/* Cards */}
-      {profiles.map((profile) => (
-        <ProfileCard
-          key={profile.id}
-          profile={profile}
-          onDelete={removeProfile}
-        />
-      ))}
+      {/* Empty State / Cards */}
+      {profiles.length === 0 ? (
+        <div className="col-span-full">
+          <EmptyState
+            icon={UserCirclePlus}
+            title="Nenhum perfil criado"
+            description="Crie seu primeiro perfil para começar a gerenciar sua presença digital e produzir conteúdo com o agente."
+            ctaLabel="Criar Primeiro Perfil"
+            onCta={() => navigate('/profiles/new')}
+          />
+        </div>
+      ) : (
+        profiles.map((profile) => (
+          <ProfileCard
+            key={profile.id}
+            profile={profile}
+            onDelete={removeProfile}
+          />
+        ))
+      )}
     </div>
   )
 }
