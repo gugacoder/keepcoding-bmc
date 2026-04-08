@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
+import {
+  OnboardingStepBusiness,
+  type BusinessData,
+} from '@/components/onboarding/OnboardingStepBusiness'
 
 // ─── Stepper config ────────────────────────────────────────────────────────
 
@@ -60,33 +64,19 @@ function DotStepper({ currentStep }: { currentStep: number }) {
   )
 }
 
-// ─── Step placeholders ─────────────────────────────────────────────────────
+// ─── Step placeholder (steps 1-3 not yet implemented) ──────────────────────
 
-function StepContent({ step }: { step: number }) {
-  const content = [
-    {
-      icon: '🏪',
-      title: 'Me conta sobre o seu negócio',
-      description: 'Vou usar isso pra entender como posso te ajudar.',
-    },
-    {
-      icon: '🔍',
-      title: 'Deixa eu pesquisar um pouco...',
-      description: 'Estou reunindo informações sobre o seu mercado.',
-    },
-    {
-      icon: '✅',
-      title: 'Encontrei isso — está certo?',
-      description: 'Confirme o que encontrei para eu te ajudar melhor.',
-    },
-    {
-      icon: '🎉',
-      title: 'Pronto! Já sei quem você é.',
-      description: 'Tudo configurado. Vamos começar a trabalhar juntos.',
-    },
-  ]
+const PLACEHOLDER_CONTENT = [
+  null, // step 0 handled by OnboardingStepBusiness
+  { icon: '🔍', title: 'Deixa eu pesquisar um pouco...', description: 'Estou reunindo informações sobre o seu mercado.' },
+  { icon: '✅', title: 'Encontrei isso — está certo?', description: 'Confirme o que encontrei para eu te ajudar melhor.' },
+  { icon: '🎉', title: 'Pronto! Já sei quem você é.', description: 'Tudo configurado. Vamos começar a trabalhar juntos.' },
+]
 
-  const { icon, title, description } = content[step]
+function StepPlaceholder({ step }: { step: number }) {
+  const content = PLACEHOLDER_CONTENT[step]
+  if (!content) return null
+  const { icon, title, description } = content
 
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-16">
@@ -111,17 +101,35 @@ function StepContent({ step }: { step: number }) {
 export function OnboardingPage() {
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0)
+  const [businessData, setBusinessData] = useState<BusinessData>({
+    businessName: '',
+    url: '',
+    socialHandle: '',
+  })
 
   const isFirst = currentStep === 0
   const isLast = currentStep === STEPS.length - 1
+
+  // Disable "Avançar" on step 0 when business name is empty
+  const canAdvance = currentStep === 0 ? businessData.businessName.trim().length > 0 : true
 
   function handleBack() {
     if (!isFirst) setCurrentStep((s) => s - 1)
   }
 
   function handleNext() {
+    if (!canAdvance) return
     if (!isLast) setCurrentStep((s) => s + 1)
     else navigate('/monitor')
+  }
+
+  function renderStep() {
+    if (currentStep === 0) {
+      return (
+        <OnboardingStepBusiness data={businessData} onChange={setBusinessData} />
+      )
+    }
+    return <StepPlaceholder step={currentStep} />
   }
 
   return (
@@ -135,7 +143,7 @@ export function OnboardingPage() {
       <main className="flex-1 flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-lg">
           <div className="rounded-2xl border border-amber-200/70 dark:border-amber-800/30 bg-white/80 dark:bg-card/80 backdrop-blur-sm shadow-sm shadow-amber-100 dark:shadow-none p-6 sm:p-8">
-            <StepContent step={currentStep} />
+            {renderStep()}
           </div>
         </div>
       </main>
@@ -153,7 +161,8 @@ export function OnboardingPage() {
 
         <button
           onClick={handleNext}
-          className="flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-sm shadow-amber-200 dark:shadow-amber-900/40"
+          disabled={!canAdvance}
+          className="flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-sm shadow-amber-200 dark:shadow-amber-900/40 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {isLast ? 'Começar a usar' : 'Avançar'}
           {!isLast && <ArrowRight size={16} />}

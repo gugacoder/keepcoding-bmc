@@ -488,7 +488,7 @@
     "id": "F-024",
     "name": "i18n gate, seletor e Orchestrator Bar KeepBiz",
     "description": "Adicionar strings de ProfileGate, ProfileSelector e indicação de perfil na OrchestratorBar ao sistema i18n em pt/en/es. Substituir hardcoded strings por t(). Incluir: textos do gate (mensagem, CTA), labels do seletor ('Todos os perfis', status labels), texto da Orchestrator Bar.",
-    "status": "blocked",
+    "status": "pending",
     "priority": 8,
     "agent": "coder",
     "task": "vibe-code",
@@ -572,7 +572,7 @@
     "id": "F-028",
     "name": "Onboarding Etapa 1 — Coleta KeepSolo",
     "description": "Criar componente para a etapa 1 do onboarding KeepSolo. Título conversacional: 'Me conta sobre o seu negócio', subtítulo: 'Vou usar isso pra entender como posso te ajudar.' Campos: Nome do negócio (obrigatório), URL (opcional), Instagram ou principal rede social (opcional — campo único, não repeater). Tom pessoal, sem jargão. Validação: nome não vazio para avançar. Integrar no OnboardingPage como step 0.",
-    "status": "pending",
+    "status": "passing",
     "priority": 5,
     "agent": "coder",
     "task": "vibe-code",
@@ -586,7 +586,8 @@
       "Tom pessoal — NÃO menciona a palavra 'perfil'",
       "Dados preservados ao navegar entre etapas"
     ],
-    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md"
+    "prp_path": "D:/aw/context/workspaces/keepcoding-bmc/wave-5/worktree/sprints/sprint-4/3-prps/PRP-026-keepsolo-onboarding.md",
+    "completed_at": "2026-04-08T14:15:00Z"
   },
   {
     "id": "F-029",
